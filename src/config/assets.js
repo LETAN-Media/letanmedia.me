@@ -22,7 +22,7 @@ export const ASSETS = {
     mobileApp: `${CDN}/images/services/mobile-app.avif`,
   },
   showcase: {
-    reportTiktok: `${CDN}/images/showcase/report-tiktok.webp`,
+    reportTiktok: `${CDN}/images/services/report-tiktok.webp`,
     tichXanh: `${CDN}/images/showcase/tich-xanh.webp`,
     chatbotAi: `${CDN}/images/showcase/chatbot-ai.webp`,
     website: `${CDN}/images/showcase/website.webp`,

@@ -38,9 +38,7 @@ const Services = () => {
               <p className="service-desc">{svc.desc}</p>
               <a href="#" className="service-link">Xem chi tiết &rarr;</a>
             </div>
-            <div className="service-visual">
-              <ImageWithFallback src={svc.img} alt={svc.title} className="service-image" />
-            </div>
+
           </motion.div>
         ))}
       </div>
