@@ -1,0 +1,222 @@
+.showcase-section {
+  padding: 6rem 0;
+  background: radial-gradient(circle at top, #110d14 0%, #050505 100%);
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+.showcase-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.showcase-title-wrapper {
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.showcase-title {
+  font-size: 2.5rem;
+  line-height: 1.3;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fff 0%, #ffd085 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 40px rgba(255, 166, 0, 0.2);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .showcase-title {
+    font-size: 1.8rem;
+  }
+  .showcase-section {
+    padding: 4rem 0;
+  }
+}
+
+.showcase-carousel-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.showcase-carousel {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  cursor: grab;
+  /* Ensure space for shadows and hover effects */
+  margin: -2rem;
+  padding: 2rem;
+}
+
+.showcase-carousel:active {
+  cursor: grabbing;
+}
+
+.showcase-carousel::-webkit-scrollbar { 
+  display: none; /* WebKit */
+}
+
+.showcase-card {
+  flex: 0 0 auto;
+  width: 280px;
+  height: 420px;
+  border-radius: 24px;
+  position: relative;
+  background: #111;
+  scroll-snap-align: center;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* Subdued gradient border illusion */
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 10px 30px rgba(0,0,0,0.5);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.showcase-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, rgba(66, 135, 245, 0.5), rgba(153, 50, 204, 0.5), rgba(255, 140, 0, 0.5));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.showcase-card:hover {
+  transform: translateY(-15px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(153, 50, 204, 0.3), 0 0 0 1px rgba(255,255,255,0.2);
+}
+
+.showcase-card:hover::before {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .showcase-card {
+    width: 220px;
+    height: 330px;
+    border-radius: 20px;
+  }
+}
+
+.showcase-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: linear-gradient(135deg, #1f1b2e 0%, #0d0c12 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.showcase-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+  pointer-events: none;
+}
+
+.showcase-card:hover .showcase-image {
+  transform: scale(1.08);
+}
+
+.showcase-placeholder-icon {
+  width: 48px;
+  height: 48px;
+  color: rgba(255,255,255,0.2);
+}
+
+.showcase-content {
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .showcase-content {
+    padding: 1rem;
+    height: 70%;
+  }
+}
+
+.showcase-tag {
+  align-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(4px);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  color: #ffd085;
+  border: 1px solid rgba(255,208,133,0.3);
+}
+
+.showcase-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .showcase-card-title {
+    font-size: 1.1rem;
+  }
+}
+
+.showcase-card-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.showcase-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  backdrop-filter: blur(4px);
+  pointer-events: auto; /* ensure it's clickable despite card pointer-events */
+}
+
+.showcase-btn:hover {
+  background: #fff;
+  color: #000;
+}
