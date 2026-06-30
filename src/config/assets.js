@@ -22,7 +22,7 @@ export const ASSETS = {
   },
   showcase: {
     reportTiktok: `${CDN}/images/services/report-tiktok.webp`,
-    tichXanh: `${CDN}/images/showcase/tich-xanh.webp`,
+    tichXanh: `${CDN}/images/services/tich-xanh-tiktok.webp`,
     chatbotAi: `${CDN}/images/showcase/chatbot-ai.webp`,
     website: `${CDN}/images/showcase/website.webp`,
     software: `${CDN}/images/showcase/software.webp`,
