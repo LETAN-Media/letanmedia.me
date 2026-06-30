@@ -1,26 +1,31 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ASSETS } from '../config/assets';
+import React, { useState } from 'react';
 
-const ImageWithFallback = ({ srcAvif, srcWebp, alt, className }) => {
-  return (
-    <picture className={className}>
-      <source srcSet={srcAvif} type="image/avif" />
-      <source srcSet={srcWebp} type="image/webp" />
-      <img 
-        src={srcWebp} 
-        alt={alt} 
-        className={className} 
-        loading="lazy"
-        onError={(e) => {
-          e.target.style.display = 'none';
-          e.target.nextSibling.style.display = 'block';
-        }}
-      />
-      {/* Fallback skeleton if image fails to load */}
-      <div className={`skeleton-placeholder ${className} fallback-skeleton`} style={{ display: 'none' }}>
+const ImageWithFallback = ({ src, srcAvif, srcWebp, alt, className = '' }) => {
+  const [failed, setFailed] = useState(false);
+
+  const webp = srcWebp || src;
+  const avif = srcAvif;
+
+  if (!webp || failed) {
+    return (
+      <div className={`skeleton-placeholder ${className} fallback-skeleton`}>
         <div className="skeleton-glow"></div>
       </div>
+    );
+  }
+
+  return (
+    <picture>
+      {avif && <source srcSet={avif} type="image/avif" />}
+      <source srcSet={webp} type="image/webp" />
+      <img
+        src={webp}
+        alt={alt}
+        className={className}
+        loading="lazy"
+        decoding="async"
+        onError={() => setFailed(true)}
+      />
     </picture>
   );
 };
