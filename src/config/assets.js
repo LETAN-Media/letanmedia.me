@@ -11,7 +11,7 @@ export const ASSETS = {
     poster: `${CDN}/images/hero/hero-poster.webp`,
   },
   services: {
-    reportTiktok: `${CDN}/images/services/report-tiktok.avif`,
+    reportTiktok: `${CDN}/images/services/report-tiktok.webp`,
     tichXanh: `${CDN}/images/services/tich-xanh.avif`,
     chatbotAi: `${CDN}/images/services/chatbot-ai.avif`,
     website: `${CDN}/images/services/website.avif`,
