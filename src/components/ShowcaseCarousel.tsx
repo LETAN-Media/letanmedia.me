@@ -134,7 +134,7 @@ const ShowcaseCarousel = () => {
           style={{ cursor: isDown ? 'grabbing' : 'grab' }}
         >
           {SHOWCASE_DATA.map((item) => (
-            <div key={item.id} className="showcase-card">
+            <a key={item.id} href={item.link} className="showcase-card">
               <div className="showcase-image-container">
                 <img 
                   src={item.image} 
@@ -153,18 +153,7 @@ const ShowcaseCarousel = () => {
                   <PlaceholderIcon />
                 </div>
               </div>
-              <div className="showcase-content">
-                <span className="showcase-tag">{item.tag}</span>
-                <h3 className="showcase-card-title">{item.title}</h3>
-                <p className="showcase-card-desc">{item.desc}</p>
-                <button className="showcase-btn" onClick={(e) => {
-                  e.stopPropagation();
-                  // Handle click later
-                }}>
-                  Xem chi tiết
-                </button>
-              </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
