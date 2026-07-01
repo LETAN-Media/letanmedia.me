@@ -90,8 +90,12 @@
     padding-bottom: 1rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: -2rem;
+    margin-right: -2rem;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 2rem, black calc(100% - 2rem), transparent);
+    mask-image: linear-gradient(to right, transparent, black 2rem, black calc(100% - 2rem), transparent);
   }
   .showcase-tabs::-webkit-scrollbar {
     display: none;
@@ -99,6 +103,7 @@
   .showcase-tab {
     font-size: 0.9rem;
     padding: 0.6rem 1.2rem;
+    flex-shrink: 0;
   }
 }
 

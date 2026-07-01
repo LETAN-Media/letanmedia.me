@@ -6,14 +6,20 @@ const CATEGORIES = [
   "Social Growth",
   "Trust & Report",
   "AI Automation",
-  "Web & Software"
+  "Web & Software",
+  "PR & Media",
+  "Channels",
+  "ADS"
 ];
 
 const CATEGORY_HEADLINES: Record<string, string> = {
-  "Social Growth": "Hỗ trợ tất cả dịch vụ nền tảng mạng xã hội chuyên nghiệp",
+  "Social Growth": "Tăng trưởng mạng xã hội chuyên nghiệp",
   "Trust & Report": "Bảo vệ thương hiệu & xử lý vi phạm",
   "AI Automation": "Tự động hóa vận hành bằng AI",
-  "Web & Software": "Website, App & phần mềm theo yêu cầu"
+  "Web & Software": "Website, App & phần mềm theo yêu cầu",
+  "PR & Media": "PR báo chí & xây dựng uy tín thương hiệu",
+  "Channels": "Xây dựng & vận hành kênh số",
+  "ADS": "Quảng cáo đa nền tảng tối ưu chuyển đổi"
 };
 
 const SHOWCASE_DATA = {
@@ -40,6 +46,18 @@ const SHOWCASE_DATA = {
     { id: 'app-mobile', title: 'App Mobile', image: ASSETS.showcase.mobileApp, link: '#app-mobile' },
     { id: 'phan-mem', title: 'Phần Mềm Theo Yêu Cầu', image: ASSETS.showcase.software, link: '#phan-mem' },
     { id: 'dev-tool', title: 'Dev Tool', image: ASSETS.showcase.software, link: '#dev-tool' },
+  ],
+  "PR & Media": [
+    { id: 'pr-bao-chi', title: 'PR Báo Chí', image: ASSETS.showcase.branding || ASSETS.services.branding, link: '#pr-bao-chi' },
+    { id: 'xay-dung-uy-tin', title: 'Xây dựng uy tín', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#xay-dung-uy-tin' },
+  ],
+  "Channels": [
+    { id: 'xay-dung-kenh', title: 'Xây dựng kênh số', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#xay-dung-kenh' },
+    { id: 'van-hanh-kenh', title: 'Vận hành kênh', image: ASSETS.showcase.branding || ASSETS.services.branding, link: '#van-hanh-kenh' },
+  ],
+  "ADS": [
+    { id: 'quang-cao-da-nen-tang', title: 'Quảng cáo đa nền tảng', image: ASSETS.showcase.reportTiktok || ASSETS.services.reportTiktok, link: '#quang-cao-da-nen-tang' },
+    { id: 'toi-uu-chuyen-doi', title: 'Tối ưu chuyển đổi', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#toi-uu-chuyen-doi' },
   ]
 };
 
