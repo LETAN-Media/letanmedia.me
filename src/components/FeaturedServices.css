@@ -123,3 +123,20 @@
   }
 }
 
+.featured-card::before,
+.featured-card::after,
+.featured-media::before,
+.featured-media::after,
+.featured-video-wrap::before,
+.featured-video-wrap::after {
+  display: none !important;
+  content: none !important;
+}
+.featured-card {
+  background: transparent !important;
+}
+.featured-card img,
+.featured-card video {
+  opacity: 1 !important;
+  filter: none !important;
+}
