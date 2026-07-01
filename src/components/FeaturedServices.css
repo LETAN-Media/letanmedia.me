@@ -131,3 +131,22 @@
     border-radius: 16px;
   }
 }
+.featured-card,
+.featured-video-wrap,
+.featured-media {
+  overflow: hidden;
+  border-radius: 28px;
+}
+.featured-card img,
+.featured-card video,
+.featured-media img,
+.featured-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  transform: none !important;
+}
+.featured-card:hover img,
+.featured-card:hover video {
+  transform: none !important;
+}
