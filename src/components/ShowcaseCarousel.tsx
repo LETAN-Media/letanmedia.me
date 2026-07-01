@@ -2,71 +2,39 @@ import React, { useRef, useState } from 'react';
 import { ASSETS } from '../config/assets';
 import './ShowcaseCarousel.css';
 
-const SHOWCASE_DATA = [
-  {
-    id: 'report-tiktok',
-    title: 'Report TikTok',
-    desc: 'Báo cáo chi tiết hiệu suất kênh TikTok, tối ưu chuyển đổi.',
-    tag: 'TikTok',
-    image: ASSETS.showcase.reportTiktok,
-  },
-  {
-    id: 'tich-xanh',
-    title: 'Tích Xanh TikTok',
-    desc: 'Hỗ trợ lên tích xanh nhanh chóng, bảo vệ thương hiệu.',
-    tag: 'TikTok',
-    image: ASSETS.showcase.tichXanh,
-  },
-  {
-    id: 'chatbot-ai',
-    title: 'Chatbot AI',
-    desc: 'Tự động hóa CSKH 24/7 với AI thông minh.',
-    tag: 'AI',
-    image: ASSETS.showcase.chatbotAi,
-  },
-  {
-    id: 'website',
-    title: 'Thiết Kế Website',
-    desc: 'Website chuyên nghiệp, chuẩn SEO, UI/UX hiện đại.',
-    tag: 'Dev',
-    image: ASSETS.showcase.website,
-  },
-  {
-    id: 'software',
-    title: 'Phần Mềm Theo Yêu Cầu',
-    desc: 'Giải pháp phần mềm tối ưu riêng cho doanh nghiệp.',
-    tag: 'Dev',
-    image: ASSETS.showcase.software,
-  },
-  {
-    id: 'automation',
-    title: 'Automation Workflow',
-    desc: 'Tối ưu vận hành với quy trình tự động hóa.',
-    tag: 'AI/Tech',
-    image: ASSETS.showcase.automation,
-  },
-  {
-    id: 'social-media',
-    title: 'Social Media Marketing',
-    desc: 'Xây dựng và phát triển kênh Social toàn diện.',
-    tag: 'Marketing',
-    image: ASSETS.showcase.socialMedia,
-  },
-  {
-    id: 'branding',
-    title: 'Quản Trị Thương Hiệu',
-    desc: 'Định vị và gia tăng giá trị thương hiệu số.',
-    tag: 'Marketing',
-    image: ASSETS.showcase.branding,
-  },
-  {
-    id: 'mobile-app',
-    title: 'Mobile App',
-    desc: 'Phát triển ứng dụng iOS & Android đa nền tảng.',
-    tag: 'Dev',
-    image: ASSETS.showcase.mobileApp,
-  }
+const CATEGORIES = [
+  "Social Growth",
+  "Trust & Report",
+  "AI Automation",
+  "Web & Software"
 ];
+
+const SHOWCASE_DATA = {
+  "Social Growth": [
+    { id: 'tich-xanh-tiktok', title: 'Tích Xanh TikTok', image: ASSETS.showcase.tichXanh, link: '#tich-xanh-tiktok' },
+    { id: 'tich-xanh-facebook', title: 'Tích Xanh Facebook', image: ASSETS.services.tichXanhFacebook || ASSETS.showcase.tichXanh, link: '#tich-xanh-facebook' },
+    { id: 'social-media', title: 'Social Media Marketing', image: ASSETS.showcase.socialMedia, link: '#social-media' },
+    { id: 'fanpage', title: 'Chăm sóc Fanpage', image: ASSETS.showcase.branding, link: '#fanpage' },
+  ],
+  "Trust & Report": [
+    { id: 'report-tiktok', title: 'Report TikTok', image: ASSETS.showcase.reportTiktok, link: '#report-tiktok' },
+    { id: 'report-facebook', title: 'Report Facebook', image: ASSETS.showcase.reportTiktok, link: '#report-facebook' },
+    { id: 'report-youtube', title: 'Report YouTube', image: ASSETS.showcase.reportTiktok, link: '#report-youtube' },
+    { id: 'xu-ly-mao-danh', title: 'Xử lý mạo danh', image: ASSETS.showcase.reportTiktok, link: '#xu-ly-mao-danh' },
+  ],
+  "AI Automation": [
+    { id: 'chatbot-ai', title: 'Chatbot AI', image: ASSETS.showcase.chatbotAi, link: '#chatbot-ai' },
+    { id: 'mini-app', title: 'Mini App', image: ASSETS.services.miniApp || ASSETS.showcase.chatbotAi, link: '#mini-app' },
+    { id: 'automation', title: 'Automation Workflow', image: ASSETS.showcase.automation, link: '#automation' },
+    { id: 'tool-yeu-cau', title: 'Tool Theo Yêu Cầu', image: ASSETS.showcase.software, link: '#tool-yeu-cau' },
+  ],
+  "Web & Software": [
+    { id: 'website', title: 'Thiết Kế Website', image: ASSETS.showcase.website, link: '#website' },
+    { id: 'app-mobile', title: 'App Mobile', image: ASSETS.showcase.mobileApp, link: '#app-mobile' },
+    { id: 'phan-mem', title: 'Phần Mềm Theo Yêu Cầu', image: ASSETS.showcase.software, link: '#phan-mem' },
+    { id: 'dev-tool', title: 'Dev Tool', image: ASSETS.showcase.software, link: '#dev-tool' },
+  ]
+};
 
 const PlaceholderIcon = () => (
   <svg 
@@ -86,6 +54,7 @@ const PlaceholderIcon = () => (
 );
 
 const ShowcaseCarousel = () => {
+  const [activeCategory, setActiveCategory] = useState("Social Growth");
   const carouselRef = useRef(null);
   const [isDown, setIsDown] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -113,6 +82,8 @@ const ShowcaseCarousel = () => {
     carouselRef.current.scrollLeft = scrollLeft - walk;
   };
 
+  const currentItems = SHOWCASE_DATA[activeCategory] || [];
+
   return (
     <section className="showcase-section" aria-label="Portfolio and Services Showcase">
       <div className="showcase-container">
@@ -120,6 +91,23 @@ const ShowcaseCarousel = () => {
           <h2 className="showcase-title">
             LETAN Media là Digital Growth Studio chuyên AI, Marketing, TikTok Services &amp; phần mềm theo yêu cầu
           </h2>
+        </div>
+
+        <div className="showcase-tabs">
+          {CATEGORIES.map(category => (
+            <button
+              key={category}
+              className={`showcase-tab ${activeCategory === category ? 'active' : ''}`}
+              onClick={() => {
+                setActiveCategory(category);
+                if (carouselRef.current) {
+                  carouselRef.current.scrollLeft = 0;
+                }
+              }}
+            >
+              {category}
+            </button>
+          ))}
         </div>
       </div>
       
@@ -133,8 +121,8 @@ const ShowcaseCarousel = () => {
           onPointerMove={handlePointerMove}
           style={{ cursor: isDown ? 'grabbing' : 'grab' }}
         >
-          {SHOWCASE_DATA.map((item) => (
-            <a key={item.id} href={item.link} className="showcase-card">
+          {currentItems.map((item) => (
+            <a key={item.id} href={item.link} className="showcase-card image-only-card">
               <div className="showcase-image-container">
                 <img 
                   src={item.image} 
