@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ShowcaseCarousel from './components/ShowcaseCarousel';
+import FeaturedServices from './components/FeaturedServices';
 import About from './components/About';
 import Services from './components/Services';
 import WhyChoose from './components/WhyChoose';
@@ -20,6 +21,7 @@ function App() {
       <main>
         <Hero />
         <ShowcaseCarousel />
+        <FeaturedServices />
         <About />
         <Services />
         <Portfolio />
