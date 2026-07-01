@@ -9,6 +9,13 @@ const CATEGORIES = [
   "Web & Software"
 ];
 
+const CATEGORY_HEADLINES: Record<string, string> = {
+  "Social Growth": "Hỗ trợ tất cả dịch vụ nền tảng mạng xã hội chuyên nghiệp",
+  "Trust & Report": "Bảo vệ thương hiệu & xử lý vi phạm",
+  "AI Automation": "Tự động hóa vận hành bằng AI",
+  "Web & Software": "Website, App & phần mềm theo yêu cầu"
+};
+
 const SHOWCASE_DATA = {
   "Social Growth": [
     { id: 'tich-xanh-tiktok', title: 'Tích Xanh TikTok', image: ASSETS.showcase.tichXanh, link: '#tich-xanh-tiktok' },
@@ -88,8 +95,8 @@ const ShowcaseCarousel = () => {
     <section className="showcase-section" aria-label="Portfolio and Services Showcase">
       <div className="showcase-container">
         <div className="showcase-title-wrapper">
-          <h2 className="showcase-title">
-            LETAN Media là Digital Growth Studio chuyên AI, Marketing, TikTok Services &amp; phần mềm theo yêu cầu
+          <h2 className="showcase-title" key={activeCategory}>
+            {CATEGORY_HEADLINES[activeCategory]}
           </h2>
         </div>
 
