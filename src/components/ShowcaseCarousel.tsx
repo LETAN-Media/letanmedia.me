@@ -8,9 +8,7 @@ const CATEGORIES = [
   "AI Automation",
   "Web & Software",
   "PR & Media",
-  "Channels",
-  "ADS",
-  "SEO & Seeding"
+  "Growth"
 ];
 
 const CATEGORY_HEADLINES: Record<string, string> = {
@@ -19,9 +17,7 @@ const CATEGORY_HEADLINES: Record<string, string> = {
   "AI Automation": "Tự động hóa vận hành bằng AI",
   "Web & Software": "Website, App & phần mềm theo yêu cầu",
   "PR & Media": "PR báo chí & xây dựng uy tín thương hiệu",
-  "Channels": "Xây dựng & vận hành kênh số",
-  "ADS": "Quảng cáo đa nền tảng tối ưu chuyển đổi",
-  "SEO & Seeding": "Tăng tương tác, SEO & GEO đa nền tản"
+  "Growth": "SEO, GEO, ADS & tăng trưởng đa nền tảng"
 };
 
 const SHOWCASE_DATA = {
@@ -53,17 +49,10 @@ const SHOWCASE_DATA = {
     { id: 'pr-bao-chi', title: 'PR Báo Chí', image: ASSETS.showcase.branding || ASSETS.services.branding, link: '#pr-bao-chi' },
     { id: 'xay-dung-uy-tin', title: 'Xây dựng uy tín', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#xay-dung-uy-tin' },
   ],
-  "Channels": [
-    { id: 'xay-dung-kenh', title: 'Xây dựng kênh số', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#xay-dung-kenh' },
-    { id: 'van-hanh-kenh', title: 'Vận hành kênh', image: ASSETS.showcase.branding || ASSETS.services.branding, link: '#van-hanh-kenh' },
-  ],
-  "ADS": [
-    { id: 'quang-cao-da-nen-tang', title: 'Quảng cáo đa nền tảng', image: ASSETS.showcase.reportTiktok || ASSETS.services.reportTiktok, link: '#quang-cao-da-nen-tang' },
-    { id: 'toi-uu-chuyen-doi', title: 'Tối ưu chuyển đổi', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#toi-uu-chuyen-doi' },
-  ],
-  "SEO & Seeding": [
-    { id: 'seo', title: 'SEO & GEO', image: ASSETS.showcase.website || ASSETS.services.website, link: '#seo' },
-    { id: 'seeding', title: 'Tăng tương tác', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#seeding' },
+  "Growth": [
+    { id: 'seo-geo', title: 'SEO & GEO', image: ASSETS.showcase.website || ASSETS.services.website, link: '#seo-geo' },
+    { id: 'ads', title: 'Quảng Cáo Đa Nền Tảng', image: ASSETS.showcase.reportTiktok || ASSETS.services.reportTiktok, link: '#ads' },
+    { id: 'tang-truong', title: 'Tăng Trưởng Đa Nền Tảng', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#tang-truong' },
   ]
 };
 
