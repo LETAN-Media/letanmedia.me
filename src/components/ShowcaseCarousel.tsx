@@ -9,7 +9,8 @@ const CATEGORIES = [
   "Web & Software",
   "PR & Media",
   "Channels",
-  "ADS"
+  "ADS",
+  "SEO & Seeding"
 ];
 
 const CATEGORY_HEADLINES: Record<string, string> = {
@@ -19,7 +20,8 @@ const CATEGORY_HEADLINES: Record<string, string> = {
   "Web & Software": "Website, App & phần mềm theo yêu cầu",
   "PR & Media": "PR báo chí & xây dựng uy tín thương hiệu",
   "Channels": "Xây dựng & vận hành kênh số",
-  "ADS": "Quảng cáo đa nền tảng tối ưu chuyển đổi"
+  "ADS": "Quảng cáo đa nền tảng tối ưu chuyển đổi",
+  "SEO & Seeding": "Tăng tương tác, SEO & GEO đa nền tản"
 };
 
 const SHOWCASE_DATA = {
@@ -58,6 +60,10 @@ const SHOWCASE_DATA = {
   "ADS": [
     { id: 'quang-cao-da-nen-tang', title: 'Quảng cáo đa nền tảng', image: ASSETS.showcase.reportTiktok || ASSETS.services.reportTiktok, link: '#quang-cao-da-nen-tang' },
     { id: 'toi-uu-chuyen-doi', title: 'Tối ưu chuyển đổi', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#toi-uu-chuyen-doi' },
+  ],
+  "SEO & Seeding": [
+    { id: 'seo', title: 'SEO & GEO', image: ASSETS.showcase.website || ASSETS.services.website, link: '#seo' },
+    { id: 'seeding', title: 'Tăng tương tác', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#seeding' },
   ]
 };
 
