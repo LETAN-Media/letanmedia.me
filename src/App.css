@@ -282,10 +282,160 @@
   grid-auto-rows: 320px;
   gap: 24px;
 }
+/* OHI-style Project Slider */
+.ohi-slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
 
-.bento-large { grid-column: span 2; grid-row: span 2; }
-.bento-tall { grid-column: span 1; grid-row: span 2; }
-.bento-small { grid-column: span 1; grid-row: span 1; }
+.ohi-slider-track {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  padding: 20px 0;
+  scroll-behavior: smooth;
+}
+
+.ohi-slider-track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.ohi-project-item {
+  flex: 0 0 400px;
+  scroll-snap-align: start;
+  background: var(--color-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.ohi-project-item:hover {
+  border-color: rgba(37, 99, 235, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.ohi-wrap {
+  display: block;
+}
+
+.ohi-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.ohi-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.ohi-project-item:hover .ohi-main-img {
+  transform: scale(1.05);
+}
+
+.ohi-overlay-wrap {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ohi-project-item:hover .ohi-overlay-wrap {
+  opacity: 1;
+}
+
+.ohi-play-btn {
+  width: 60px;
+  height: 60px;
+  background: var(--color-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transform: scale(0.8);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ohi-project-item:hover .ohi-play-btn {
+  transform: scale(1);
+}
+
+.ohi-logo-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 12px;
+  padding: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.ohi-mini-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ohi-content {
+  padding: 25px 20px;
+}
+
+.ohi-title {
+  font-size: 1.25rem;
+  color: white;
+  margin-bottom: 5px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ohi-category {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.ohi-slider-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.ohi-arrow {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ohi-arrow:hover {
+  background: var(--color-blue);
+  border-color: var(--color-blue);
+}
 
 .portfolio-card {
   position: relative;
