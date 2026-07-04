@@ -6,10 +6,10 @@ export async function onRequestPost(context) {
     const emailPayload = {
       SecureToken: null,
       Host: "smtp.gmail.com",
-      Username: "tcmedia.copyright@gmail.com",
-      Password: "ufjt xwub knjo qmmj",
-      To: "tcmedia.copyright@gmail.com",
-      From: "tcmedia.copyright@gmail.com",
+      Username: context.env.GMAIL_USER || "tcmedia.copyright@gmail.com",
+      Password: context.env.GMAIL_PASSWORD,
+      To: context.env.GMAIL_USER || "tcmedia.copyright@gmail.com",
+      From: context.env.GMAIL_USER || "tcmedia.copyright@gmail.com",
       Subject: "Liên hệ mới từ " + (data.fullname || 'Khách hàng'),
       Body: `<h3>Có một liên hệ mới từ Website LETAN Media</h3>
              <p><strong>Họ tên:</strong> ${data.fullname || 'Không có'}</p>
