@@ -2033,9 +2033,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     });
 
     function fanpageRegister(form, param) {
-      var uri = "https://chamsocfanpage.ohi.vn/lien-he-ngay";
-      var email_regex = /^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-
       if (param.fullname == "") {
         $(form + ' #register__fullname').addClass("error");
         $(form + ' #register__fullname').focus();
@@ -2055,29 +2052,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         $(form + ' #register__phone').removeClass("error");
       }
 
-      // if (param.service == "") {
-      //   $(form + ' #register__pack--value').addClass("error");
-      //   $(form + ' #register__pack--value').focus();
-      //   return false;
-      // } else {
-      //   $(form + ' #register__pack--value').removeClass("error");
-      // }
       $loading.addClass('active');
-      $.post(uri, param,
-        function (data) {
-          if (data.status && data.status == true) {
-            $loading.removeClass('active');
+
+      var bodyMessage = "<h3>Có một liên hệ mới từ Website LETAN Media</h3>" +
+                        "<p><strong>Họ tên:</strong> " + param.fullname + "</p>" +
+                        "<p><strong>SĐT:</strong> " + param.phone + "</p>" +
+                        "<p><strong>Gói dịch vụ:</strong> " + (param.service || 'Không chọn') + "</p>" +
+                        "<p><strong>Ghi chú:</strong> " + (param.content || 'Không có') + "</p>";
+
+      Email.send({
+          Host : "smtp.gmail.com",
+          Username : "tcmedia.copyright@gmail.com",
+          Password : "ufjt xwub knjo qmmj",
+          To : "tcmedia.copyright@gmail.com",
+          From : "tcmedia.copyright@gmail.com",
+          Subject : "Liên hệ mới từ " + param.fullname,
+          Body : bodyMessage
+      }).then(
+        function (message) {
+          $loading.removeClass('active');
+          if (message === "OK") {
             $('.popup.popup__thank').addClass('active');
-            if ($("#tracking").html() == "") {
-              $("#tracking").html(data.result);
-            }
             clearForm(form);
           } else {
-            $loading.removeClass('active');
-            alert("Lỗi rồi bạn ơi !");
+            alert("Đã xảy ra lỗi khi gửi email: " + message);
           }
-        },
-        'json'
+        }
       );
     }
     
@@ -2184,6 +2184,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MFSL58" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<script src="https://smtpjs.com/v3/smtp.js"></script>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
