@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ASSETS } from '../config/assets';
+import ImageWithFallback from './ImageWithFallback';
 
 const Hero = () => {
   return (
@@ -20,10 +21,13 @@ const Hero = () => {
           <source src={ASSETS.hero.videoMp4} type="video/mp4" />
         </video>
         {/* Fallback image for mobile or if video fails */}
-        <picture className="hero-image mobile-only">
-          <source srcSet={ASSETS.hero.mainAvif} type="image/avif" />
-          <img src={ASSETS.hero.mainWebp} alt="Hero Background" loading="lazy" />
-        </picture>
+        <div className="hero-image mobile-only">
+          <ImageWithFallback 
+            srcWebp={ASSETS.hero.mainWebp} 
+            srcAvif={ASSETS.hero.mainAvif} 
+            alt="Hero Background" 
+          />
+        </div>
         {/* 3D Visual Placeholder when assets are missing */}
         <div className="skeleton-placeholder hero-skeleton">
           <div className="skeleton-glow"></div>

@@ -81,6 +81,7 @@ const FeaturedVideo = ({ item, prefersReducedMotion }) => {
         alt={item.title} 
         loading="lazy" 
         className="featured-media"
+        onError={(e) => { e.currentTarget.style.display = 'none'; }}
       />
     );
   }
