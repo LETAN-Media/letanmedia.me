@@ -165,85 +165,114 @@
   font-family: var(--font-space);
 }
 
-/* 4. Services Section */
+/* 4. Services Section (Tabbed Premium) */
 .services-section {
   background: var(--color-surface);
 }
 
-.services-list {
+.services-tabs-container {
+  display: flex;
+  gap: 60px;
+  margin-top: 60px;
+}
+
+.services-sidebar {
+  flex: 0 0 320px;
   display: flex;
   flex-direction: column;
-}
-
-.service-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 80px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  gap: 60px;
-}
-
-.service-item:first-child {
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
-
-.service-info {
-  flex: 1;
-  max-width: 600px;
-}
-
-.service-title {
-  font-size: 3.5rem;
-  margin-bottom: 24px;
-  transition: color 0.3s ease;
-}
-
-.service-item:hover .service-title {
-  color: var(--color-blue);
-}
-
-.service-desc {
-  font-size: 1.2rem;
-  color: var(--color-text-muted);
-  margin-bottom: 40px;
-}
-
-.service-link {
-  font-family: var(--font-space);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.85rem;
-  display: inline-flex;
-  align-items: center;
   gap: 10px;
+}
+
+.services-tab-btn {
+  text-align: left;
+  padding: 20px 24px;
+  background: transparent;
+  border-left: 3px solid transparent;
+  color: var(--color-text-muted);
+  font-size: 1.15rem;
+  font-weight: 500;
+  font-family: var(--font-space);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-radius: 0 8px 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.services-tab-btn:hover {
   color: white;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
-  padding-bottom: 5px;
+  background: rgba(255, 255, 255, 0.02);
 }
 
-.service-link:hover {
-  border-color: white;
+.services-tab-btn.active {
+  background: rgba(37, 99, 235, 0.08);
+  border-left-color: var(--color-blue);
+  color: white;
+  font-weight: 700;
 }
 
-.service-visual {
+.services-content {
   flex: 1;
-  height: 450px;
-  overflow: hidden;
-  border-radius: 4px;
-  max-width: 700px;
+  position: relative;
+  min-height: 450px;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(17, 24, 39, 0.4));
+  border-radius: 16px;
+  padding: 60px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
 }
 
-.service-image {
+.service-tab-pane {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  height: 100%;
+}
+
+.service-tab-info {
+  flex: 1;
+  max-width: 500px;
+}
+
+.service-tab-title {
+  font-size: 3rem;
+  margin-bottom: 24px;
+  color: white;
+}
+
+.service-tab-desc {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+.service-tab-visual {
+  flex: 0 0 400px;
+  height: 300px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.service-tab-visual img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.7s ease;
 }
 
-.service-item:hover .service-image {
+.service-tab-pane:hover .service-tab-visual img {
   transform: scale(1.05);
+}
+
+.service-tab-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,23,42,0.8) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 /* 5. Masonry Portfolio */
@@ -598,8 +627,14 @@
   .header-nav { gap: 20px; }
   .hero-title { font-size: 4.5rem; }
   .about-content-text p { font-size: 2rem; }
-  .service-item { flex-direction: column; text-align: left; align-items: flex-start; gap: 40px; }
-  .service-visual { width: 100%; height: 400px; max-width: 100%; }
+  .services-tabs-container { flex-direction: column; gap: 30px; }
+  .services-sidebar { flex-direction: row; flex: none; overflow-x: auto; padding-bottom: 10px; gap: 5px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .services-sidebar::-webkit-scrollbar { display: none; }
+  .services-tab-btn { padding: 15px 20px; border-left: none; border-bottom: 3px solid transparent; border-radius: 8px 8px 0 0; white-space: nowrap; font-size: 1rem; }
+  .services-tab-btn.active { border-bottom-color: var(--color-blue); }
+  .service-tab-pane { flex-direction: column; text-align: left; align-items: flex-start; gap: 30px; }
+  .service-tab-visual { width: 100%; height: 350px; flex: none; }
+  .services-content { padding: 40px 30px; min-height: auto; }
   .masonry-grid { grid-template-columns: 1fr; grid-auto-rows: 350px; }
   .masonry-large, .masonry-medium, .masonry-small { grid-row: span 1; }
   .timeline-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -618,7 +653,7 @@
   .header-nav { display: none; }
   .cta-section .section-title { font-size: 3rem; }
   .about-content-text p { font-size: 1.5rem; }
-  .service-title { font-size: 2.5rem; }
+  .service-tab-title { font-size: 2.5rem; }
   .stat-number { font-size: 3.5rem; }
   .service-item { padding: 60px 0; }
   .hero { padding: 120px 5% 80px; }

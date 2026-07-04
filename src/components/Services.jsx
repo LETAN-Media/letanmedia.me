@@ -1,46 +1,70 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ASSETS } from '../config/assets';
 import ImageWithFallback from './ImageWithFallback';
 
 const services = [
-  { id: 1, title: "Report TikTok", desc: "Hỗ trợ xử lý tài khoản mạo danh, nội dung vi phạm, tài khoản dưới 13 tuổi, bản quyền và các vấn đề ảnh hưởng đến thương hiệu.", img: ASSETS.services.reportTiktok },
-  { id: 2, title: "Tích Xanh TikTok", desc: "Tư vấn xây dựng hồ sơ xác minh, định vị thương hiệu cá nhân/doanh nghiệp và chuẩn hóa hình ảnh truyền thông.", img: ASSETS.services.tichXanh },
-  { id: 3, title: "Chatbot AI", desc: "Xây dựng chatbot AI cho website, Facebook, Telegram, Zalo, hỗ trợ CSKH tự động 24/7.", img: ASSETS.services.chatbotAi },
-  { id: 4, title: "Thiết Kế Website", desc: "Thiết kế website doanh nghiệp, landing page, website bán hàng, trang dịch vụ, tối ưu tốc độ và SEO.", img: ASSETS.services.website },
-  { id: 5, title: "Phần Mềm Theo Yêu Cầu", desc: "Xây dựng CRM, dashboard, hệ thống quản lý, SaaS platform và API nội bộ.", img: ASSETS.services.software },
-  { id: 6, title: "Tự Động Hóa Doanh Nghiệp", desc: "Tự động hóa workflow, chăm sóc khách hàng, xử lý dữ liệu, gửi thông báo và kết nối API.", img: ASSETS.services.automation },
-  { id: 7, title: "Social Media Marketing", desc: "Xây dựng nội dung, chiến lược tăng trưởng và vận hành kênh Facebook, TikTok, YouTube, Instagram.", img: ASSETS.services.marketing },
-  { id: 8, title: "Quản Trị Thương Hiệu", desc: "Xây dựng hình ảnh thương hiệu, xử lý khủng hoảng, bảo vệ uy tín và phát triển nhận diện số.", img: ASSETS.services.branding },
-  { id: 9, title: "Mobile App Development", desc: "Phát triển ứng dụng Android/iOS, app nội bộ, app bán hàng và app dịch vụ.", img: ASSETS.services.mobileApp },
+  { id: 1, title: "Social Growth", desc: "Dịch vụ tăng tương tác, seeding, SEO, GEO, social marketing.", img: ASSETS.services.marketing },
+  { id: 2, title: "Trust & Report", desc: "Tích xanh TikTok/Facebook, report, bảo vệ thương hiệu.", img: ASSETS.services.reportTiktok },
+  { id: 3, title: "AI Automation", desc: "Chatbot AI, tự động hóa, AI workflow, CRM.", img: ASSETS.services.chatbotAi },
+  { id: 4, title: "Web & Software", desc: "Website, app, phần mềm theo yêu cầu, mini app.", img: ASSETS.services.website },
+  { id: 5, title: "PR & Media", desc: "Báo chí, truyền thông, xây dựng hình ảnh thương hiệu.", img: ASSETS.services.branding },
+  { id: 6, title: "Growth", desc: "Xây dựng và vận hành kênh, phát triển thương hiệu cá nhân/doanh nghiệp.", img: ASSETS.services.tichXanh },
 ];
 
 const Services = () => {
+  const [activeTab, setActiveTab] = useState(services[0]);
+
   return (
     <section id="services" className="section services-section">
       <div className="section-header">
-        <h2 className="section-title">Dịch vụ</h2>
-        <p className="section-subtitle">Giải pháp chuyên sâu cho sự tăng trưởng bền vững.</p>
+        <h2 className="section-title">Hệ Sinh Thái Dịch Vụ</h2>
+        <p className="section-subtitle">Giải pháp toàn diện thúc đẩy sự tăng trưởng bền vững cho cá nhân & doanh nghiệp.</p>
       </div>
       
-      <div className="services-list">
-        {services.map((svc, index) => (
-          <motion.div 
-            key={svc.id} 
-            className="service-item"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <div className="service-info">
-              <h3 className="service-title">{svc.title}</h3>
-              <p className="service-desc">{svc.desc}</p>
-              <a href="#" className="service-link">Xem chi tiết &rarr;</a>
-            </div>
+      <div className="services-tabs-container">
+        {/* Sidebar Tabs */}
+        <div className="services-sidebar">
+          {services.map((svc) => (
+            <button 
+              key={svc.id}
+              onClick={() => setActiveTab(svc)}
+              className={`services-tab-btn ${activeTab.id === svc.id ? 'active' : ''}`}
+            >
+              {svc.title}
+            </button>
+          ))}
+        </div>
 
-          </motion.div>
-        ))}
+        {/* Content Area */}
+        <div className="services-content">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="service-tab-pane"
+            >
+              <div className="service-tab-info">
+                <h3 className="service-tab-title">{activeTab.title}</h3>
+                <p className="service-tab-desc">{activeTab.desc}</p>
+                <div style={{ marginTop: '40px' }}>
+                  <button className="btn-primary">Nhận tư vấn ngay</button>
+                </div>
+              </div>
+              
+              <div className="service-tab-visual">
+                <ImageWithFallback 
+                  srcWebp={activeTab.img} 
+                  alt={activeTab.title} 
+                />
+                <div className="service-tab-glow"></div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
