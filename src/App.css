@@ -571,8 +571,31 @@
   transform: scale(1.15);
 }
 
-/* Responsive */
+/* Responsive - Thiết kế thích ứng đa thiết bị */
+
+/* 1920px - Màn lớn (Large Screen) */
+@media (min-width: 1920px) {
+  .hero-title { font-size: 7vw; }
+  .about-content-text p { font-size: 3rem; }
+  .service-title { font-size: 4.5rem; }
+}
+
+/* 1440px - Desktop phổ biến */
+@media (max-width: 1440px) {
+  .hero-title { font-size: 5.5vw; }
+}
+
+/* 1366px - Laptop phổ biến */
+@media (max-width: 1366px) {
+  .header-nav { gap: 30px; }
+  .hero-title { font-size: 6vw; }
+  .service-title { font-size: 3rem; }
+  .about-content-text p { font-size: 2.2rem; }
+}
+
+/* 1024px - iPad ngang / Laptop nhỏ */
 @media (max-width: 1024px) {
+  .header-nav { gap: 20px; }
   .hero-title { font-size: 4.5rem; }
   .about-content-text p { font-size: 2rem; }
   .service-item { flex-direction: column; text-align: left; align-items: flex-start; gap: 40px; }
@@ -580,19 +603,69 @@
   .masonry-grid { grid-template-columns: 1fr; grid-auto-rows: 350px; }
   .masonry-large, .masonry-medium, .masonry-small { grid-row: span 1; }
   .timeline-grid { grid-template-columns: 1fr; gap: 40px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
   .footer-grid { grid-template-columns: 1fr; gap: 60px; }
+  .cta-section .section-title { font-size: 4rem; }
 }
 
+/* 768px - iPad dọc / Tablet */
 @media (max-width: 768px) {
   .desktop-only { display: none; }
   .mobile-only { display: block; }
   .hero-gradient-overlay { background: linear-gradient(to top, #050505 20%, transparent 100%); }
   .hero-title { font-size: 3.5rem; }
-  .hero-subtitle { font-size: 1.1rem; }
+  .hero-subtitle { font-size: 1.1rem; margin-bottom: 30px; }
   .header-nav { display: none; }
   .cta-section .section-title { font-size: 3rem; }
   .about-content-text p { font-size: 1.5rem; }
   .service-title { font-size: 2.5rem; }
   .stat-number { font-size: 3.5rem; }
+  .service-item { padding: 60px 0; }
+  .hero { padding: 120px 5% 80px; }
+  .floating-ai { width: 60px; height: 60px; font-size: 1.5rem; top: -30px; }
+}
+
+/* 430px - iPhone Pro Max */
+@media (max-width: 430px) {
+  .hero-title { font-size: 2.8rem; }
+  .hero-subtitle { font-size: 1rem; }
+  .btn-primary, .btn-outline { padding: 12px 24px; font-size: 0.9rem; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .hero-actions button, .hero-actions .btn-primary, .hero-actions .btn-outline { width: 100%; }
+  .service-title { font-size: 2.2rem; }
+  .about-content-text p { font-size: 1.3rem; }
+  .stat-number { font-size: 2.8rem; }
+  .stats-grid { grid-template-columns: 1fr; gap: 40px; }
+  .cta-section .section-title { font-size: 2.5rem; }
+  .cta-buttons { flex-direction: column; width: 100%; }
+  .cta-buttons button { width: 100%; }
+  .footer-brand { font-size: 1.6rem; }
+  .service-visual { height: 300px; }
+}
+
+/* 390px - iPhone 12/13/14/15 */
+@media (max-width: 390px) {
+  .hero-title { font-size: 2.5rem; }
+  .about-content-text p { font-size: 1.2rem; }
+  .service-title { font-size: 2rem; }
+  .stat-number { font-size: 2.5rem; }
+  .service-desc { font-size: 1rem; }
+  .timeline-number { font-size: 1.2rem; width: 30px; }
+  .timeline-content h3 { font-size: 1.5rem; }
+  .cta-section .section-title { font-size: 2.2rem; }
+  .service-visual { height: 260px; }
+}
+
+/* 360px - Android nhỏ */
+@media (max-width: 360px) {
+  .header { padding: 20px 5%; }
+  .header-logo { font-size: 1.3rem; }
+  .hero-title { font-size: 2.2rem; }
+  .about-content-text p { font-size: 1.1rem; }
+  .service-title { font-size: 1.8rem; }
+  .stat-number { font-size: 2.2rem; }
+  .cta-section .section-title { font-size: 2rem; }
+  .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+  .footer-bottom div { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .footer-bottom a { margin-right: 0 !important; }
 }
