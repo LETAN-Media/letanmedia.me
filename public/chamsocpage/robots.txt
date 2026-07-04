@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /admin/
+Allow: /
+
+Sitemap: https://letanmedia.me/sitemap.xml
