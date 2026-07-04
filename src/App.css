@@ -275,56 +275,110 @@
   pointer-events: none;
 }
 
-/* 5. Masonry Portfolio */
-.masonry-grid {
+/* 5. Bento Portfolio */
+.bento-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 250px;
-  gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 320px;
+  gap: 24px;
 }
+
+.bento-large { grid-column: span 2; grid-row: span 2; }
+.bento-tall { grid-column: span 1; grid-row: span 2; }
+.bento-small { grid-column: span 1; grid-row: span 1; }
 
 .portfolio-card {
   position: relative;
-  border-radius: 4px;
+  border-radius: 16px;
   overflow: hidden;
+  cursor: pointer;
+  background: var(--color-surface);
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
-.masonry-large {
-  grid-row: span 2;
+.portfolio-image-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.masonry-medium {
-  grid-row: span 1;
-}
-
-.masonry-small {
-  grid-row: span 1;
-}
-
-.portfolio-image {
+.portfolio-image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  filter: brightness(0.85);
 }
 
 .portfolio-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.4) 50%, transparent 100%);
   display: flex;
+  justify-content: space-between;
   align-items: flex-end;
-  padding: 30px;
+  padding: 40px 30px;
+  transition: all 0.4s ease;
+}
+
+.portfolio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform: translateY(10px);
+  transition: transform 0.4s ease;
+}
+
+.portfolio-category {
+  font-family: var(--font-space);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-blue);
+  font-weight: 600;
+}
+
+.portfolio-title {
+  font-size: 1.8rem;
+  color: white;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.bento-large .portfolio-title {
+  font-size: 2.8rem;
+}
+
+.portfolio-arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transform: translateX(-10px) rotate(-45deg);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.portfolio-card:hover .portfolio-overlay {
-  opacity: 1;
-}
-
-.portfolio-card:hover .portfolio-image {
+/* Hover Effects */
+.portfolio-card:hover .portfolio-image-wrapper img {
   transform: scale(1.05);
+  filter: brightness(0.6);
+}
+
+.portfolio-card:hover .portfolio-content {
+  transform: translateY(0);
+}
+
+.portfolio-card:hover .portfolio-arrow {
+  opacity: 1;
+  transform: translateX(0) rotate(0deg);
+  background: var(--color-blue);
 }
 
 /* 6. Why Choose (Timeline) */
@@ -635,8 +689,11 @@
   .service-tab-pane { flex-direction: column; text-align: left; align-items: flex-start; gap: 30px; }
   .service-tab-visual { width: 100%; height: 350px; flex: none; }
   .services-content { padding: 40px 30px; min-height: auto; }
-  .masonry-grid { grid-template-columns: 1fr; grid-auto-rows: 350px; }
-  .masonry-large, .masonry-medium, .masonry-small { grid-row: span 1; }
+  .bento-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 280px; }
+  .bento-large { grid-column: span 2; grid-row: span 2; }
+  .bento-tall { grid-column: span 1; grid-row: span 1; }
+  .bento-small { grid-column: span 1; grid-row: span 1; }
+  .bento-large .portfolio-title { font-size: 2.2rem; }
   .timeline-grid { grid-template-columns: 1fr; gap: 40px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
   .footer-grid { grid-template-columns: 1fr; gap: 60px; }
@@ -658,6 +715,14 @@
   .service-item { padding: 60px 0; }
   .hero { padding: 120px 5% 80px; }
   .floating-ai { width: 60px; height: 60px; font-size: 1.5rem; top: -30px; }
+  .hero-video { display: none; }
+  .stats-grid { grid-template-columns: 1fr; }
+  
+  .bento-grid { grid-template-columns: 1fr; grid-auto-rows: 300px; }
+  .bento-large, .bento-tall, .bento-small { grid-column: span 1; grid-row: span 1; }
+  .portfolio-overlay { padding: 30px 20px; }
+  .portfolio-arrow { opacity: 1; transform: translateX(0) rotate(0deg); background: rgba(255,255,255,0.1); }
+  .bento-large .portfolio-title { font-size: 1.8rem; }
 }
 
 /* 430px - iPhone Pro Max */
