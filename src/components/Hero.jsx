@@ -16,28 +16,26 @@ const Hero = () => {
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
+  const fallbackContent = (
+    <div className="hero-image">
+      <ImageWithFallback 
+        srcWebp={ASSETS.hero.mainWebp} 
+        srcAvif={ASSETS.hero.mainAvif} 
+        alt="Hero Background" 
+      />
+    </div>
+  );
+
   return (
     <section className="hero">
       <div className="hero-visual-bg">
         <div className="hero-gradient-overlay"></div>
         
-        {!reduceMotion && (
-          <Suspense fallback={
-            <div className="skeleton-placeholder hero-skeleton">
-              <div className="skeleton-glow"></div>
-            </div>
-          }>
+        {!reduceMotion ? (
+          <Suspense fallback={fallbackContent}>
             <Hero3D />
           </Suspense>
-        )}
-
-        <div className={`hero-image ${!reduceMotion ? 'mobile-only' : ''}`}>
-          <ImageWithFallback 
-            srcWebp={ASSETS.hero.mainWebp} 
-            srcAvif={ASSETS.hero.mainAvif} 
-            alt="Hero Background" 
-          />
-        </div>
+        ) : fallbackContent}
       </div>
 
       <motion.div 
