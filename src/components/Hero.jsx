@@ -1,36 +1,42 @@
-import React from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ASSETS } from '../config/assets';
 import ImageWithFallback from './ImageWithFallback';
 
+const Hero3D = lazy(() => import('./Hero3D'));
+
 const Hero = () => {
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduceMotion(mediaQuery.matches);
+    const handler = (e) => setReduceMotion(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
   return (
     <section className="hero">
       <div className="hero-visual-bg">
         <div className="hero-gradient-overlay"></div>
-        {/* Support future hero video. Disabled on mobile via CSS. */}
-        <video 
-          className="hero-video desktop-only"
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          poster={ASSETS.hero.poster}
-        >
-          <source src={ASSETS.hero.videoWebm} type="video/webm" />
-          <source src={ASSETS.hero.videoMp4} type="video/mp4" />
-        </video>
-        {/* Fallback image for mobile or if video fails */}
-        <div className="hero-image mobile-only">
+        
+        {!reduceMotion && (
+          <Suspense fallback={
+            <div className="skeleton-placeholder hero-skeleton">
+              <div className="skeleton-glow"></div>
+            </div>
+          }>
+            <Hero3D />
+          </Suspense>
+        )}
+
+        <div className={`hero-image ${!reduceMotion ? 'mobile-only' : ''}`}>
           <ImageWithFallback 
             srcWebp={ASSETS.hero.mainWebp} 
             srcAvif={ASSETS.hero.mainAvif} 
             alt="Hero Background" 
           />
-        </div>
-        {/* 3D Visual Placeholder when assets are missing */}
-        <div className="skeleton-placeholder hero-skeleton">
-          <div className="skeleton-glow"></div>
         </div>
       </div>
 
