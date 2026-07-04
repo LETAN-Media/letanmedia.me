@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ShowcaseCarousel from './components/ShowcaseCarousel';
@@ -15,42 +16,39 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 
 import './App.css';
 
-function App() {
-  const [page, setPage] = useState('home');
-
-  const handleNavigate = (target) => {
-    setPage(target);
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
     window.scrollTo(0, 0);
-  };
+  }, [pathname]);
+  return null;
+};
 
-  if (page === 'privacy-policy') {
-    return (
-      <div className="app-container">
-        <Header />
-        <main>
-          <PrivacyPolicy onBack={() => handleNavigate('home')} />
-        </main>
-        <Footer onNavigate={handleNavigate} />
-      </div>
-    );
-  }
-
+function App() {
   return (
     <div className="app-container">
+      <ScrollToTop />
       <Header />
       <main>
-        <Hero />
-        <ShowcaseCarousel />
-        <FeaturedServices />
-        <About />
-        <Services />
-        <Portfolio />
-        <WhyChoose />
-        <Stats />
-        <AIAssistant />
-        <CTA />
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Hero />
+              <ShowcaseCarousel />
+              <FeaturedServices />
+              <About />
+              <Services />
+              <Portfolio />
+              <WhyChoose />
+              <Stats />
+              <AIAssistant />
+              <CTA />
+            </>
+          } />
+          <Route path="/policy" element={<PrivacyPolicy />} />
+        </Routes>
       </main>
-      <Footer onNavigate={handleNavigate} />
+      <Footer />
     </div>
   );
 }

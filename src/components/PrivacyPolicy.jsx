@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
-const PrivacyPolicy = ({ onBack }) => {
+const PrivacyPolicy = () => {
   const sections = [
     {
       title: '1. Thông tin chúng tôi thu thập',
@@ -85,9 +86,9 @@ const PrivacyPolicy = ({ onBack }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <button className="privacy-back-btn" onClick={onBack}>
+          <Link to="/" className="privacy-back-btn" style={{ display: 'inline-block', textDecoration: 'none' }}>
             &larr; Quay lại trang chủ
-          </button>
+          </Link>
 
           <h1 className="privacy-title">Chính sách quyền riêng tư</h1>
           <p className="privacy-update">

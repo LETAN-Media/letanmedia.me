@@ -1,6 +1,8 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
-const Footer = ({ onNavigate }) => {
+const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-grid">
@@ -33,7 +35,7 @@ const Footer = ({ onNavigate }) => {
       <div className="footer-bottom">
         <div>&copy; {new Date().getFullYear()} LETAN Media. All rights reserved.</div>
         <div>
-          <a href="#" style={{ marginRight: '20px' }} onClick={(e) => { e.preventDefault(); onNavigate('privacy-policy'); }}>Chính sách bảo mật</a>
+          <Link to="/policy" style={{ marginRight: '20px' }}>Chính sách bảo mật</Link>
           <a href="#">Điều khoản dịch vụ</a>
         </div>
       </div>
