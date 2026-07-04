@@ -61,8 +61,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .rd-panel .logo { padding: 0 !important; display: flex; align-items: center; justify-content: center; height: 100%; }
 .rd-panel .logo a img { height: 50px !important; width: auto !important; }
 
-/* Footer logo */
-.company__logo img { height: 60px !important; width: auto !important; margin-bottom: 10px; }
+/* Footer logo and flexbox layout */
+.company {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 15px !important;
+}
+.company__logo img {
+  height: 60px !important;
+  width: auto !important;
+  margin: 0 !important;
+  display: block !important;
+}
+.company__desc {
+  margin: 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .company {
+    flex-direction: column !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+}
 </style>
 
 </head>
