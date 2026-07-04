@@ -16,6 +16,8 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 
 import './App.css';
 
+import ChamSocPage from './components/ChamSocPage';
+
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -46,6 +48,7 @@ function App() {
             </>
           } />
           <Route path="/policy" element={<PrivacyPolicy />} />
+          <Route path="/chamsocpage" element={<ChamSocPage />} />
         </Routes>
       </main>
       <Footer />
