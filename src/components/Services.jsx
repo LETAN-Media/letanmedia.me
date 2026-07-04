@@ -4,12 +4,24 @@ import { ASSETS } from '../config/assets';
 import ImageWithFallback from './ImageWithFallback';
 
 const services = [
-  { id: 1, title: "Social Growth", desc: "Dịch vụ tăng tương tác, seeding, SEO, GEO, social marketing.", img: ASSETS.services.marketing },
-  { id: 2, title: "Trust & Report", desc: "Tích xanh TikTok/Facebook, report, bảo vệ thương hiệu.", img: ASSETS.services.reportTiktok },
-  { id: 3, title: "AI Automation", desc: "Chatbot AI, tự động hóa, AI workflow, CRM.", img: ASSETS.services.chatbotAi },
-  { id: 4, title: "Web & Software", desc: "Website, app, phần mềm theo yêu cầu, mini app.", img: ASSETS.services.website },
-  { id: 5, title: "PR & Media", desc: "Báo chí, truyền thông, xây dựng hình ảnh thương hiệu.", img: ASSETS.services.branding },
-  { id: 6, title: "Growth", desc: "Xây dựng và vận hành kênh, phát triển thương hiệu cá nhân/doanh nghiệp.", img: ASSETS.services.tichXanh },
+  { 
+    id: 1, 
+    title: "Digital & Social Growth", 
+    desc: "Dịch vụ tăng tương tác, seeding, SEO, GEO. Xây dựng, vận hành kênh và phát triển nhận diện số cho cá nhân/doanh nghiệp.", 
+    img: ASSETS.services.marketing 
+  },
+  { 
+    id: 2, 
+    title: "AI & Software Solutions", 
+    desc: "Thiết kế Website, App, CRM. Tích hợp Chatbot AI, tự động hóa quy trình (AI workflow) và phần mềm theo yêu cầu.", 
+    img: ASSETS.services.software 
+  },
+  { 
+    id: 3, 
+    title: "PR, Trust & Branding", 
+    desc: "Booking báo chí, truyền thông. Xác minh Tích xanh (TikTok/FB), xử lý vi phạm (report) và bảo vệ/quản trị thương hiệu.", 
+    img: ASSETS.services.branding 
+  }
 ];
 
 const Services = () => {
