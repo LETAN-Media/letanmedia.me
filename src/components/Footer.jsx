@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Footer = () => {
+const Footer = ({ onNavigate }) => {
   return (
     <footer className="footer">
       <div className="footer-grid">
@@ -33,7 +33,7 @@ const Footer = () => {
       <div className="footer-bottom">
         <div>&copy; {new Date().getFullYear()} LETAN Media. All rights reserved.</div>
         <div>
-          <a href="#" style={{ marginRight: '20px' }}>Chính sách bảo mật</a>
+          <a href="#" style={{ marginRight: '20px' }} onClick={(e) => { e.preventDefault(); onNavigate('privacy-policy'); }}>Chính sách bảo mật</a>
           <a href="#">Điều khoản dịch vụ</a>
         </div>
       </div>
