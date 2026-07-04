@@ -62,7 +62,7 @@ const PlaceholderIcon = () => (
 );
 
 const ShowcaseCarousel = () => {
-  const [activeCategory, setActiveCategory] = useState("Social Growth");
+  const [activeCategory, setActiveCategory] = useState("Digital & Social Growth");
   const carouselRef = useRef(null);
   const [isDown, setIsDown] = useState(false);
   const [startX, setStartX] = useState(0);
