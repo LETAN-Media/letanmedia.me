@@ -2054,31 +2054,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       $loading.addClass('active');
 
-      var bodyMessage = "<h3>Có một liên hệ mới từ Website LETAN Media</h3>" +
-                        "<p><strong>Họ tên:</strong> " + param.fullname + "</p>" +
-                        "<p><strong>SĐT:</strong> " + param.phone + "</p>" +
-                        "<p><strong>Gói dịch vụ:</strong> " + (param.service || 'Không chọn') + "</p>" +
-                        "<p><strong>Ghi chú:</strong> " + (param.content || 'Không có') + "</p>";
+      $loading.addClass('active');
 
-      Email.send({
-          Host : "smtp.gmail.com",
-          Username : "tcmedia.copyright@gmail.com",
-          Password : "ufjt xwub knjo qmmj",
-          To : "tcmedia.copyright@gmail.com",
-          From : "tcmedia.copyright@gmail.com",
-          Subject : "Liên hệ mới từ " + param.fullname,
-          Body : bodyMessage
-      }).then(
-        function (message) {
-          $loading.removeClass('active');
-          if (message === "OK") {
-            $('.popup.popup__thank').addClass('active');
-            clearForm(form);
-          } else {
-            alert("Đã xảy ra lỗi khi gửi email: " + message);
-          }
+      const payload = {
+        fullname: param.fullname,
+        phone: param.phone,
+        service: param.service,
+        content: param.content
+      };
+
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(response => response.json())
+      .then(data => {
+        $loading.removeClass('active');
+        if (data.status) {
+          $('.popup.popup__thank').addClass('active');
+          clearForm(form);
+        } else {
+          alert("Đã xảy ra lỗi khi gửi email: " + data.message);
         }
-      );
+      })
+      .catch(err => {
+        $loading.removeClass('active');
+        alert("Không thể kết nối đến máy chủ gửi email.");
+      });
     }
     
     function pauseIframe() {
@@ -2184,7 +2187,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MFSL58" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<script src="https://smtpjs.com/v3/smtp.js"></script>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
