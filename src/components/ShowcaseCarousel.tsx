@@ -3,56 +3,44 @@ import { ASSETS } from '../config/assets';
 import './ShowcaseCarousel.css';
 
 const CATEGORIES = [
-  "Social Growth",
-  "Trust & Report",
-  "AI Automation",
-  "Web & Software",
-  "PR & Media",
-  "Growth"
+  "Digital & Social Growth",
+  "AI & Software Solutions",
+  "PR, Trust & Branding"
 ];
 
 const CATEGORY_HEADLINES: Record<string, string> = {
-  "Social Growth": "Tăng trưởng mạng xã hội chuyên nghiệp",
-  "Trust & Report": "Bảo vệ thương hiệu & xử lý vi phạm",
-  "AI Automation": "Tự động hóa vận hành bằng AI",
-  "Web & Software": "Website, App & phần mềm theo yêu cầu",
-  "PR & Media": "PR báo chí & xây dựng uy tín thương hiệu",
-  "Growth": "SEO, GEO, ADS & tăng trưởng đa nền tảng"
+  "Digital & Social Growth": "Giải pháp tăng trưởng & vận hành số đa nền tảng",
+  "AI & Software Solutions": "Tự động hóa bằng AI & phần mềm chuyên biệt",
+  "PR, Trust & Branding": "Bảo vệ thương hiệu & phủ sóng truyền thông"
 };
 
-const SHOWCASE_DATA = {
-  "Social Growth": [
+const SHOWCASE_DATA: Record<string, Array<{id: string, title: string, image: string, link: string}>> = {
+  "Digital & Social Growth": [
     { id: 'tich-xanh-tiktok', title: 'Tích Xanh TikTok', image: ASSETS.showcase.tichXanh, link: '#tich-xanh-tiktok' },
     { id: 'tich-xanh-facebook', title: 'Tích Xanh Facebook', image: ASSETS.services.tichXanhFacebook || ASSETS.showcase.tichXanh, link: '#tich-xanh-facebook' },
     { id: 'social-media', title: 'Social Media Marketing', image: ASSETS.showcase.socialMedia, link: '#social-media' },
     { id: 'fanpage', title: 'Chăm sóc Fanpage', image: ASSETS.showcase.branding, link: '#fanpage' },
+    { id: 'seo-geo', title: 'SEO & GEO', image: ASSETS.showcase.website || ASSETS.services.website, link: '#seo-geo' },
+    { id: 'ads', title: 'Quảng Cáo Đa Nền Tảng', image: ASSETS.showcase.reportTiktok || ASSETS.services.reportTiktok, link: '#ads' },
+    { id: 'tang-truong', title: 'Tăng Trưởng Đa Nền Tảng', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#tang-truong' },
   ],
-  "Trust & Report": [
-    { id: 'report-tiktok', title: 'Report TikTok', image: ASSETS.showcase.reportTiktok, link: '#report-tiktok' },
-    { id: 'report-facebook', title: 'Report Facebook', image: ASSETS.showcase.reportTiktok, link: '#report-facebook' },
-    { id: 'report-youtube', title: 'Report YouTube', image: ASSETS.showcase.reportTiktok, link: '#report-youtube' },
-    { id: 'xu-ly-mao-danh', title: 'Xử lý mạo danh', image: ASSETS.showcase.reportTiktok, link: '#xu-ly-mao-danh' },
-  ],
-  "AI Automation": [
+  "AI & Software Solutions": [
     { id: 'chatbot-ai', title: 'Chatbot AI', image: ASSETS.showcase.chatbotAi, link: '#chatbot-ai' },
     { id: 'mini-app', title: 'Mini App', image: ASSETS.services.miniApp || ASSETS.showcase.chatbotAi, link: '#mini-app' },
     { id: 'automation', title: 'Automation Workflow', image: ASSETS.showcase.automation, link: '#automation' },
     { id: 'tool-yeu-cau', title: 'Tool Theo Yêu Cầu', image: ASSETS.showcase.software, link: '#tool-yeu-cau' },
-  ],
-  "Web & Software": [
     { id: 'website', title: 'Thiết Kế Website', image: ASSETS.showcase.website, link: '#website' },
     { id: 'app-mobile', title: 'App Mobile', image: ASSETS.showcase.mobileApp, link: '#app-mobile' },
     { id: 'phan-mem', title: 'Phần Mềm Theo Yêu Cầu', image: ASSETS.showcase.software, link: '#phan-mem' },
     { id: 'dev-tool', title: 'Dev Tool', image: ASSETS.showcase.software, link: '#dev-tool' },
   ],
-  "PR & Media": [
+  "PR, Trust & Branding": [
+    { id: 'report-tiktok', title: 'Report TikTok', image: ASSETS.showcase.reportTiktok, link: '#report-tiktok' },
+    { id: 'report-facebook', title: 'Report Facebook', image: ASSETS.showcase.reportTiktok, link: '#report-facebook' },
+    { id: 'report-youtube', title: 'Report YouTube', image: ASSETS.showcase.reportTiktok, link: '#report-youtube' },
+    { id: 'xu-ly-mao-danh', title: 'Xử lý mạo danh', image: ASSETS.showcase.reportTiktok, link: '#xu-ly-mao-danh' },
     { id: 'pr-bao-chi', title: 'PR Báo Chí', image: ASSETS.showcase.branding || ASSETS.services.branding, link: '#pr-bao-chi' },
     { id: 'xay-dung-uy-tin', title: 'Xây dựng uy tín', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#xay-dung-uy-tin' },
-  ],
-  "Growth": [
-    { id: 'seo-geo', title: 'SEO & GEO', image: ASSETS.showcase.website || ASSETS.services.website, link: '#seo-geo' },
-    { id: 'ads', title: 'Quảng Cáo Đa Nền Tảng', image: ASSETS.showcase.reportTiktok || ASSETS.services.reportTiktok, link: '#ads' },
-    { id: 'tang-truong', title: 'Tăng Trưởng Đa Nền Tảng', image: ASSETS.showcase.socialMedia || ASSETS.services.marketing, link: '#tang-truong' },
   ]
 };
 
