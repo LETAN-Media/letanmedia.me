@@ -60,17 +60,16 @@ export default function TikTokReportPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative z-10 p-8 sm:p-12 rounded-[28px] bg-gradient-to-b from-[rgba(0,0,0,0.6)] to-[rgba(0,0,0,0.3)] backdrop-blur-sm border border-white/10"
           >
-            <div className="flex justify-center mb-6">
-              <span className="px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[#ff4f9a] text-sm font-semibold tracking-wider uppercase flex items-center gap-2 backdrop-blur-md">
-                <ShieldAlert size={18} /> Dịch Vụ Takedown 24/7
+            <div className="flex justify-center">
+              <span className="tiktok-badge">
+                <ShieldAlert size={14} /> DỊCH VỤ TAKEDOWN 24/7
               </span>
             </div>
             
             <h1 className="tiktok-title">
               Xử Lý Khủng Hoảng & <br />
-              <span className="tiktok-accent-red">Bảo Vệ Tài Khoản TikTok</span>
+              Bảo Vệ Tài Khoản TikTok
             </h1>
             
             <p className="tiktok-subtitle">

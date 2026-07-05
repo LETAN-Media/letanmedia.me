@@ -22,19 +22,21 @@ const CyberCore = () => {
     <group>
       {/* Outer shield wireframe */}
       <Icosahedron args={[2.5, 2]} ref={meshRef}>
-        <meshBasicMaterial color="#00F2FE" wireframe transparent opacity={0.15} />
+        <meshBasicMaterial color="#00F2FE" wireframe transparent opacity={0.45} />
       </Icosahedron>
       
       {/* Inner distorting core */}
-      <Icosahedron args={[1.2, 4]} ref={innerRef}>
+      <Icosahedron args={[1.02, 4]} ref={innerRef}>
         <MeshDistortMaterial 
           color="#ff0a6c" 
           emissive="#ff0a6c"
-          emissiveIntensity={1.2}
+          emissiveIntensity={0.8}
           distort={0.4} 
           speed={3} 
           roughness={0.2}
           metalness={0.8}
+          transparent
+          opacity={0.38}
         />
       </Icosahedron>
     </group>
@@ -43,7 +45,7 @@ const CyberCore = () => {
 
 export default function TikTokHero3D() {
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none opacity-60 blur-[1px]" aria-hidden="true">
+    <div className="absolute inset-0 z-0 pointer-events-none opacity-40 blur-[8px] scale-[0.85]" aria-hidden="true">
       <Canvas camera={{ position: [0, 0, 6], fov: 60 }} dpr={[1, 2]}>
         <color attach="background" args={['#050505']} />
         <ambientLight intensity={0.2} />
