@@ -5,6 +5,23 @@ import './TikTokReport.css';
 
 const TikTokHero3D = lazy(() => import('./components/TikTokHero3D'));
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  render() {
+    if (this.state.hasError) {
+      return <div className="p-10 text-red-500 bg-black min-h-screen"><h1>Error in TikTokReportPage: {this.state.error?.toString()}</h1><pre>{this.state.error?.stack}</pre></div>;
+    }
+    return this.props.children;
+  }
+}
+
+
 const services = [
   {
     title: "Report Bản Quyền (DMCA)",
@@ -30,6 +47,7 @@ const services = [
 
 export default function TikTokReportPage() {
   return (
+    <ErrorBoundary>
     <div className="tiktok-page">
       {/* Hero Section */}
       <section className="tiktok-hero-section">
@@ -42,16 +60,17 @@ export default function TikTokReportPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative z-10 p-8 sm:p-12 rounded-[28px] bg-gradient-to-b from-[rgba(0,0,0,0.6)] to-[rgba(0,0,0,0.3)] backdrop-blur-sm border border-white/10"
           >
             <div className="flex justify-center mb-6">
-              <span className="px-5 py-2 rounded-full border border-[rgba(255,0,80,0.3)] bg-[rgba(255,0,80,0.1)] text-[#FF0050] text-sm font-semibold tracking-wider uppercase flex items-center gap-2 backdrop-blur-sm shadow-[0_0_15px_rgba(255,0,80,0.2)]">
+              <span className="px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[#ff4f9a] text-sm font-semibold tracking-wider uppercase flex items-center gap-2 backdrop-blur-md">
                 <ShieldAlert size={18} /> Dịch Vụ Takedown 24/7
               </span>
             </div>
             
             <h1 className="tiktok-title">
               Xử Lý Khủng Hoảng & <br />
-              <span className="tiktok-accent-red">Bảo Vệ Tài Khoản</span> TikTok
+              <span className="tiktok-accent-red">Bảo Vệ Tài Khoản TikTok</span>
             </h1>
             
             <p className="tiktok-subtitle">
@@ -134,5 +153,6 @@ export default function TikTokReportPage() {
         </div>
       </section>
     </div>
+    </ErrorBoundary>
   );
 }

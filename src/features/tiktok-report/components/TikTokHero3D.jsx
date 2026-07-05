@@ -28,9 +28,9 @@ const CyberCore = () => {
       {/* Inner distorting core */}
       <Icosahedron args={[1.2, 4]} ref={innerRef}>
         <MeshDistortMaterial 
-          color="#FF0050" 
-          emissive="#FF0050"
-          emissiveIntensity={2}
+          color="#ff0a6c" 
+          emissive="#ff0a6c"
+          emissiveIntensity={1.2}
           distort={0.4} 
           speed={3} 
           roughness={0.2}
@@ -43,7 +43,7 @@ const CyberCore = () => {
 
 export default function TikTokHero3D() {
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+    <div className="absolute inset-0 z-0 pointer-events-none opacity-60 blur-[1px]" aria-hidden="true">
       <Canvas camera={{ position: [0, 0, 6], fov: 60 }} dpr={[1, 2]}>
         <color attach="background" args={['#050505']} />
         <ambientLight intensity={0.2} />
