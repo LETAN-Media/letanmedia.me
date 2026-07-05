@@ -13,6 +13,8 @@ import AIAssistant from './components/AIAssistant';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import ReportTikTokPage from './features/report-tiktok/ReportTikTokPage';
+import ChatbotAIPage from "./features/chatbot-ai/ChatbotAIPage";
 
 import './App.css';
 
@@ -46,6 +48,8 @@ function App() {
             </>
           } />
           <Route path="/policy" element={<PrivacyPolicy />} />
+          <Route path="/report-tiktok" element={<ReportTikTokPage />} />
+          <Route path="/chatbot-ai" element={<ChatbotAIPage />} />
         </Routes>
       </main>
       <Footer />
