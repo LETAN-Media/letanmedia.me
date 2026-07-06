@@ -206,7 +206,7 @@ export default function TikTokReportPage() {
             </p>
             
             <motion.a 
-              href="/#contact" 
+              href="tel:0765178999" 
               className="tiktok-cta-btn"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
