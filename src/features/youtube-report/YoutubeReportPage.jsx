@@ -278,40 +278,49 @@ export default function YoutubeReportPage() {
           </div>
         </section>
         
-        {/* Workflow Section */}
-        <section className="youtube-workflow-section section-block bg-[#090505] relative z-10">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="section-header">
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="section-title"
-              >
-                Quy Trình <span className="gradient-text">Làm Việc</span>
-              </motion.h2>
-            </div>
-
-            <div className="youtube-workflow-list flex flex-col gap-4 max-w-4xl mx-auto">
-              {workflowSteps.map((step, index) => (
-                <motion.div 
-                  key={step.step}
-                  className="youtube-workflow-card"
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08 }}
-                >
-                  <div className="youtube-workflow-step-num">{step.step}</div>
-                  <div className="youtube-workflow-content">
-                    <h3 className="youtube-workflow-step-title">{step.title}</h3>
-                    <p className="youtube-workflow-step-desc">{step.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+      {/* Workflow Section */}
+      <section className="youtube-workflow-section section-block bg-[#090505] relative z-10">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="section-header">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="section-title"
+            >
+              Quy Trình <span className="gradient-text">Làm Việc</span>
+            </motion.h2>
           </div>
-        </section>
+
+          <div className="youtube-workflow-list flex flex-col gap-4 max-w-4xl mx-auto">
+            {workflowSteps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative p-6 md:p-8 rounded-2xl bg-[#1a0b0b] border border-white/5 backdrop-blur-sm overflow-hidden group hover:border-[#ff0000]/30 transition-all duration-300 flex items-center gap-5 md:gap-8"
+              >
+                <div className="absolute top-1/2 right-0 w-32 h-32 bg-gradient-to-br from-[#ff0000] to-[#ff4f4f] opacity-0 blur-3xl group-hover:opacity-10 transition-opacity duration-500 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+                
+                <div className="text-5xl md:text-6xl font-black text-transparent -webkit-text-stroke text-stroke-white/10 group-hover:text-white/10 transition-colors flex-shrink-0 min-w-[70px] md:min-w-[100px] text-left md:text-center" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>
+                  0{index + 1}
+                </div>
+                
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-[#ff0000] mb-2 group-hover:text-white transition-colors">
+                    {step.title}
+                  </h3>
+                  <p className="text-[#a1a1aa] leading-relaxed text-sm md:text-base m-0">
+                    {step.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
         {/* Commitment Section */}
         <section className="youtube-commit-section section-block relative z-10">
