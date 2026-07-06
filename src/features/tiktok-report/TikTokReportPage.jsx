@@ -197,13 +197,12 @@ export default function TikTokReportPage() {
             </div>
             
             <h1 className="tiktok-title">
-              Xử Lý Khủng Hoảng & <br />
-              Bảo Vệ Tài Khoản TikTok
+              Dịch Vụ Report Tiktok
             </h1>
             
             <p className="tiktok-subtitle">
               Giải pháp can thiệp chuyên sâu: Đánh gậy bản quyền, gỡ video bôi nhọ, 
-              và khôi phục tài khoản nhanh chóng với công nghệ độc quyền từ LETAN Media.
+              report tài khoản tiktok nhanh chóng với công nghệ độc quyền từ LETAN Media.
             </p>
             
             <motion.a 
