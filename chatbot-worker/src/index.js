@@ -42,7 +42,7 @@ function normalizeMessages(messages) {
     .slice(-16);
 }
 
-async function callGemini(messages, env) {
+async function callGemini(messages, env, requestedModel) {
   const keys = [
     env.GEMINI_API_KEY_1,
     env.GEMINI_API_KEY_2
@@ -50,7 +50,7 @@ async function callGemini(messages, env) {
   if (!keys.length) {
     throw new Error("Missing Gemini API key");
   }
-  const model = env.GEMINI_MODEL || "gemini-2.5-flash";
+  const model = requestedModel || env.GEMINI_MODEL || "gemini-2.5-flash";
   const systemMessages = messages.filter((m) => m.role === "system");
   const chatMessages = messages.filter((m) => m.role !== "system");
   const systemText = systemMessages.map((m) => m.content).join("\n\n");
@@ -101,7 +101,7 @@ async function callGemini(messages, env) {
   throw new Error("All Gemini keys failed");
 }
 
-async function callHuggingFace(messages, env) {
+async function callHuggingFace(messages, env, requestedModel) {
   const keys = [
     env.HF_API_KEY,
     env.HF_API_KEY_1,
@@ -110,7 +110,7 @@ async function callHuggingFace(messages, env) {
   if (!keys.length) {
     throw new Error("Missing Hugging Face API key");
   }
-  const model = env.HF_MODEL || "mistralai/Mistral-7B-Instruct-v0.3";
+  const model = requestedModel || env.HF_MODEL || "mistralai/Mistral-7B-Instruct-v0.3";
   
   for (const key of keys) {
     try {
@@ -141,7 +141,7 @@ async function callHuggingFace(messages, env) {
   }
   throw new Error("All Hugging Face keys failed");
 }
-async function callNvidia(messages, env) {
+async function callNvidia(messages, env, requestedModel) {
   const keys = [
     env.NVIDIA_API_KEY_1,
     env.NVIDIA_API_KEY_2,
@@ -151,7 +151,7 @@ async function callNvidia(messages, env) {
   if (!keys.length) {
     throw new Error("Missing Nvidia API key");
   }
-  const model = env.NVIDIA_MODEL || "meta/llama-3.1-70b-instruct";
+  const model = requestedModel || env.NVIDIA_MODEL || "meta/llama-3.1-70b-instruct";
   
   for (const key of keys) {
     try {
@@ -183,11 +183,11 @@ async function callNvidia(messages, env) {
   throw new Error("All Nvidia keys failed");
 }
 
-async function callCloudflareAI(messages, env) {
+async function callCloudflareAI(messages, env, requestedModel) {
   if (!env.AI) {
     throw new Error("Missing Cloudflare AI binding");
   }
-  const model = env.CF_MODEL || "@cf/meta/llama-3-8b-instruct";
+  const model = requestedModel || env.CF_MODEL || "@cf/meta/llama-3-8b-instruct";
   
   try {
     const response = await env.AI.run(model, {
@@ -204,16 +204,17 @@ async function callCloudflareAI(messages, env) {
   throw new Error("Cloudflare AI failed");
 }
 
-async function callAI(messages, env) {
+async function callAI(messages, env, requestedProvider, requestedModel) {
   const providers = {
-    cloudflare: () => callCloudflareAI(messages, env),
-    huggingface: () => callHuggingFace(messages, env),
-    gemini: () => callGemini(messages, env),
-    nvidia: () => callNvidia(messages, env)
+    cloudflare: () => callCloudflareAI(messages, env, requestedModel),
+    huggingface: () => callHuggingFace(messages, env, requestedModel),
+    gemini: () => callGemini(messages, env, requestedModel),
+    nvidia: () => callNvidia(messages, env, requestedModel)
   };
   
   const desiredOrder = ["cloudflare", "huggingface", "gemini", "nvidia"];
-  const provider = (env.AI_PROVIDER || "cloudflare").toLowerCase();
+  let provider = (requestedProvider || env.AI_PROVIDER || "cloudflare").toLowerCase();
+  if (!providers[provider]) provider = "cloudflare";
   
   // Put the selected provider first, then the rest in desiredOrder
   const order = [provider, ...desiredOrder.filter(p => p !== provider)];
@@ -263,7 +264,7 @@ export default {
           corsHeaders
         );
       }
-      const reply = await callAI(messages, env);
+      const reply = await callAI(messages, env, body.provider, body.model);
       return jsonResponse(
         {
           success: true,
