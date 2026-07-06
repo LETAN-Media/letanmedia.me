@@ -282,16 +282,26 @@ export default function TikTokReportPage() {
                           </li>
                         ))}
                       </ul>
-                      <div className="tiktok-accordion-cta-wrapper">
+                      <div className="flex flex-col sm:flex-row gap-4 mt-6">
                         <motion.a 
                           href="https://zalo.me/0765178999"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="tiktok-accordion-cta-btn"
+                          className="flex-1 text-center bg-gradient-to-r from-[#0068ff] to-[#0055d4] text-white font-bold py-3.5 px-4 rounded-xl shadow-[0_0_20px_rgba(0,104,255,0.3)] hover:shadow-[0_0_30px_rgba(0,104,255,0.5)] transition-shadow border border-white/10"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          {service.ctaText}
+                          {service.ctaText} (Zalo)
+                        </motion.a>
+                        <motion.a 
+                          href="https://t.me/Tanlemedia"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 text-center bg-gradient-to-r from-[#229ED9] to-[#1c88ba] text-white font-bold py-3.5 px-4 rounded-xl shadow-[0_0_20px_rgba(34,158,217,0.3)] hover:shadow-[0_0_30px_rgba(34,158,217,0.5)] transition-shadow border border-white/10"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {service.ctaText} (Telegram)
                         </motion.a>
                       </div>
                     </div>
