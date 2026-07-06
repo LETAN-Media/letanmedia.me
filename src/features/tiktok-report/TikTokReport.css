@@ -530,3 +530,335 @@
     text-align: center;
   }
 }
+
+/* Chat Widget Floating Button */
+.tiktok-chat-widget {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  font-family: 'Inter', sans-serif;
+}
+
+.tiktok-chat-trigger {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00f2ea, #ff0050);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(255, 0, 80, 0.4);
+  position: relative;
+  outline: none;
+  z-index: 99999;
+}
+
+.tiktok-chat-trigger:hover {
+  box-shadow: 0 12px 40px rgba(255, 0, 80, 0.6), 0 0 15px rgba(0, 242, 234, 0.4);
+}
+
+.pulse-glow {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #00f2ea;
+  animation: chatPulse 2s infinite;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+@keyframes chatPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* Chat Window Box */
+.tiktok-chat-window {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 380px;
+  height: 520px;
+  background: #0b0f1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(0, 242, 234, 0.05),
+    0 0 40px rgba(255, 0, 80, 0.05);
+  z-index: 99998;
+}
+
+.tiktok-chat-window::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0, 242, 234, 0.3), rgba(255, 0, 80, 0.3), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Chat Header */
+.tiktok-chat-header {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.tiktok-chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bot-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 242, 234, 0.1), rgba(255, 0, 80, 0.1));
+  border: 1px solid rgba(0, 242, 234, 0.3);
+  color: #00f2ea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bot-name {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.bot-status {
+  font-size: 0.75rem;
+  color: #00f2ea;
+  display: block;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #ff0050;
+}
+
+/* Chat Messages Area */
+.tiktok-chat-body {
+  flex: 1;
+  padding: 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: rgba(5, 5, 9, 0.2);
+}
+
+/* Custom Scrollbar for chat body */
+.tiktok-chat-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.tiktok-chat-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tiktok-chat-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+
+.chat-message {
+  display: flex;
+  max-width: 85%;
+}
+
+.chat-message.assistant {
+  align-self: flex-start;
+}
+
+.chat-message.user {
+  align-self: flex-end;
+}
+
+.message-bubble {
+  padding: 0.85rem 1.1rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.chat-message.assistant .message-bubble {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom-left-radius: 4px;
+  text-align: left;
+}
+
+.chat-message.user .message-bubble {
+  background: linear-gradient(135deg, rgba(0, 242, 234, 0.1), rgba(0, 242, 234, 0.03));
+  border: 1px solid rgba(0, 242, 234, 0.2);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+  text-align: left;
+}
+
+/* Suggested Prompt Chips */
+.chat-suggestions {
+  padding: 0.5rem 1.25rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: rgba(5, 5, 9, 0.2);
+}
+
+.suggestion-chip {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 6px 12px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.suggestion-chip:hover {
+  background: rgba(0, 242, 234, 0.08);
+  border-color: rgba(0, 242, 234, 0.3);
+  color: #00f2ea;
+}
+
+/* Chat Footer Input Area */
+.tiktok-chat-footer {
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.01);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tiktok-chat-footer input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  padding: 10px 16px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.tiktok-chat-footer input:focus {
+  border-color: rgba(0, 242, 234, 0.4);
+  box-shadow: 0 0 10px rgba(0, 242, 234, 0.1);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.send-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00f2ea, #ff0050);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 0, 80, 0.3);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.send-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 0, 80, 0.5);
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Loading Flashing Dots */
+.dot-flashing {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  animation: dotFlashing 1s infinite alternate;
+  margin-inline: 2px;
+}
+
+.dot-flashing:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot-flashing:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dotFlashing {
+  0 {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    background-color: #00f2ea;
+  }
+}
+
+/* Responsive adjustment for Mobile */
+@media (max-width: 480px) {
+  .tiktok-chat-widget {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  .tiktok-chat-window {
+    width: calc(100vw - 2rem);
+    height: 480px;
+    right: 0;
+    bottom: 70px;
+  }
+}
