@@ -2,6 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, ShieldCheck, Phone, Send as TelegramIcon } from 'lucide-react';
 
+const YoutubeIcon = () => (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style={{ display: 'block' }}>
+    <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.53 3.545 12 3.545 12 3.545s-7.53 0-9.388.51a3.003 3.003 0 0 0-2.11 2.108C0 8.024 0 12 0 12s0 3.976.502 5.837a3.003 3.003 0 0 0 2.11 2.108c1.858.51 9.388.51 9.388.51s7.53 0 9.388-.51a3.003 3.003 0 0 0 2.11-2.108C24 15.976 24 12 24 12s0-3.976-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+  </svg>
+);
+
 const suggestions = [
   "Làm sao gỡ video bản quyền?",
   "Báo cáo kênh mạo danh?",
@@ -123,7 +129,7 @@ QUY TẮC CHỐNG LẠM DỤNG (BẮT BUỘC TUÂN THỦ):
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
       >
-        {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
+        {isOpen ? <X size={24} /> : <YoutubeIcon />}
         {!isOpen && (
           <span className="pulse-glow" />
         )}
