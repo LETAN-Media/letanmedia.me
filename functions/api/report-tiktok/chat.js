@@ -3,7 +3,10 @@ export async function onRequestPost(context) {
     const { messages } = await context.request.json();
     
     if (!messages || !Array.isArray(messages)) {
-      return new Response(JSON.stringify({ error: "Invalid messages format" }), {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        message: "🤖 LETAN Shield AI hiện đang bận hoặc đang được nâng cấp.\n\n📞 Hotline/Zalo: 0765 178 999\n💬 Telegram: @Tanlemedia"
+      }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
       });
@@ -38,25 +41,28 @@ Hướng dẫn trả lời:
 
     // Verify AI binding is present
     if (!context.env.AI) {
-      return new Response(JSON.stringify({ 
-        error: "Cloudflare Workers AI binding is missing in this environment. Please bind Workers AI under Pages settings in Cloudflare Dashboard." 
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      throw new Error("Workers AI binding missing");
     }
 
     const aiResponse = await context.env.AI.run('@cf/meta/llama-3-8b-instruct', {
       messages: fullMessages
     });
 
-    return new Response(JSON.stringify({ response: aiResponse.response }), {
+    return new Response(JSON.stringify({ 
+      success: true, 
+      message: aiResponse.response 
+    }), {
       headers: { 'Content-Type': 'application/json' }
     });
 
-  } catch (err) {
-    return new Response(JSON.stringify({ error: err.message }), {
-      status: 500,
+  } catch (error) {
+    console.error("Workers AI error:", error);
+    
+    return new Response(JSON.stringify({ 
+      success: false, 
+      message: "🤖 LETAN Shield AI hiện đang bận hoặc đang được nâng cấp.\n\n📞 Hotline/Zalo: 0765 178 999\n💬 Telegram: @Tanlemedia"
+    }), {
+      status: 200, // Return 200 so the client can read the formatted fallback message cleanly
       headers: { 'Content-Type': 'application/json' }
     });
   }

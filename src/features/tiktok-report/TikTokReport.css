@@ -862,3 +862,46 @@
     bottom: 70px;
   }
 }
+
+/* Manual consulting fallback buttons */
+.manual-consult-banner {
+  padding: 0.5rem 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: rgba(5, 5, 9, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.consult-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.consult-btn.call {
+  background: linear-gradient(135deg, #00f2ea, #00b0ff);
+  color: #050509;
+}
+
+.consult-btn.call:hover {
+  box-shadow: 0 0 15px rgba(0, 242, 234, 0.4);
+  transform: translateY(-1px);
+}
+
+.consult-btn.telegram {
+  background: #229ED9;
+  color: #ffffff;
+}
+
+.consult-btn.telegram:hover {
+  box-shadow: 0 0 15px rgba(34, 158, 217, 0.4);
+  transform: translateY(-1px);
+}
