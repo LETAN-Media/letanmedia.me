@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense } from 'react';
-import { motion } from 'framer-motion';
-import { ShieldAlert, Scale, AlertTriangle, UserX, Radio, Ban, ShoppingBag, ChevronDown, Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShieldAlert, Scale, AlertTriangle, UserX, Radio, Ban, ShoppingBag, ChevronDown, Check, X } from 'lucide-react';
 import './TikTokReport.css';
 import TikTokChatWidget from './components/TikTokChatWidget';
 import FeedbackCarousel from './components/FeedbackCarousel';
