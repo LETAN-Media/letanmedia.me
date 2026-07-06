@@ -235,7 +235,7 @@ export default function TikTokReportPage() {
               viewport={{ once: true, margin: "-100px" }}
               className="section-title"
             >
-              Giải Pháp <span className="gradient-text">Bảo Vệ Toàn Diện</span>
+              Dịch Vụ <span className="gradient-text">Report TikTok Toàn Diện</span>
             </motion.h2>
           </div>
 
