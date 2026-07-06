@@ -61,7 +61,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
-      {showHomeChatbot && <HomeChatWidget />}
+      {/* {showHomeChatbot && <HomeChatWidget />} */}
     </div>
   );
 }
