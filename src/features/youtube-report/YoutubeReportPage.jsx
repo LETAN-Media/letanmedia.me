@@ -53,46 +53,43 @@ class ErrorBoundary extends React.Component {
 
 const services = [
   {
-    id: 'copyright',
-    title: 'Gỡ Video Vi Phạm Bản Quyền',
-    shortDesc: 'Bảo vệ quyền sở hữu trí tuệ đối với các nội dung video, âm thanh bị reup trái phép.',
-    fullDesc: 'Dành cho các nhà sáng tạo nội dung, ca sĩ, doanh nghiệp sở hữu video/âm nhạc độc quyền nhưng bị các kênh khác tải về và phát lại trái phép. Chúng tôi đại diện pháp lý và kỹ thuật để yêu cầu gỡ bỏ video vi phạm nhanh chóng thông qua hệ thống CMS đối tác và cổng bản quyền của YouTube.',
+    id: 'channel-copyright',
+    title: 'Report Bản Quyền Kênh',
+    description: 'Hỗ trợ xử lý các kênh YouTube sử dụng trái phép nội dung, hình ảnh, thương hiệu hoặc có dấu hiệu sao chép hệ thống nội dung của bạn.',
+    details: [
+      'Report kênh reup nhiều video.',
+      'Xử lý kênh giả mạo cá nhân, nghệ sĩ, doanh nghiệp hoặc thương hiệu.',
+      'Hỗ trợ chuẩn bị bằng chứng sở hữu nội dung.',
+      'Tư vấn hướng khiếu nại bản quyền phù hợp.'
+    ],
+    ctaText: 'Tư vấn Report Kênh',
     icon: <ShieldAlert size={32} />
   },
   {
-    id: 'defamation',
-    title: 'Xử Lý Video Bôi Nhọ & Thông Tin Sai Sự Thật',
-    shortDesc: 'Can thiệp gỡ bỏ các video nói xấu, vu khống cá nhân, làm ảnh hưởng nghiêm trọng đến doanh nghiệp.',
-    fullDesc: 'Khi doanh nghiệp hoặc cá nhân bạn bị tấn công bởi các kênh YouTube đăng tải video cắt ghép bôi nhọ, tin giả (fake news) làm suy giảm danh dự và doanh số. Đội ngũ chuyên gia của chúng tôi sử dụng công cụ can thiệp và pháp lý của YouTube để gỡ bỏ triệt để nguồn phát tán.',
+    id: 'video-copyright',
+    title: 'Report Bản Quyền Video',
+    description: 'Hỗ trợ xử lý từng video YouTube sử dụng trái phép hình ảnh, âm thanh, footage, nội dung sáng tạo hoặc tài sản thương hiệu.',
+    details: [
+      'Gỡ video reup, cắt ghép, sử dụng lại nội dung không được phép.',
+      'Xử lý video vi phạm bản quyền âm thanh, hình ảnh, nội dung thương hiệu.',
+      'Hỗ trợ kiểm tra bằng chứng gốc.',
+      'Tư vấn quy trình gửi báo cáo DMCA.'
+    ],
+    ctaText: 'Tư vấn Report Video',
     icon: <Scale size={32} />
   },
   {
-    id: 'impersonation',
-    title: 'Report Kênh Giả Mạo Thương Hiệu',
-    shortDesc: 'Báo cáo và khóa ngay lập tức các kênh cố ý giả danh người nổi tiếng hoặc doanh nghiệp để lừa đảo.',
-    fullDesc: 'Kẻ xấu lập các kênh YouTube trùng tên, sử dụng hình ảnh, logo của bạn để lừa đảo khách hàng hoặc đăng tải nội dung gây tranh cãi. Chúng tôi sẽ nhanh chóng chứng minh quyền sở hữu chính chủ với YouTube để vô hiệu hóa hoàn toàn kênh mạo danh đó.',
-    icon: <UserX size={32} />
-  },
-  {
-    id: 'strike-removal',
-    title: 'Hỗ Trợ Gỡ Gậy Bản Quyền & Kháng Cáo',
-    shortDesc: 'Giải cứu các kênh bị dính gậy cảnh cáo do đối thủ chơi xấu hoặc YouTube quét nhầm.',
-    fullDesc: 'Kênh của bạn bất ngờ nhận cảnh cáo gậy bản quyền hoặc gậy nguyên tắc cộng đồng từ đối thủ cạnh tranh không lành mạnh, gây nguy cơ bị tắt kiếm tiền hoặc xóa kênh. Chúng tôi hỗ trợ phân tích pháp lý, gửi đơn kháng cáo chứng minh tính hợp lệ của nội dung để khôi phục trạng thái xanh cho kênh.',
-    icon: <Radio size={32} />
-  },
-  {
-    id: 'channel-recovery',
-    title: 'Khôi Phục Kênh YouTube Bị Khóa',
-    shortDesc: 'Can thiệp kháng nghị chuyên sâu đối với các kênh bị tạm ngưng hoạt động đột ngột.',
-    fullDesc: 'Kênh YouTube tích lũy hàng triệu subscribe bị khóa không rõ lý do. Bằng quy trình kháng nghị trực tiếp với quản lý khu vực của YouTube và chứng minh sự tuân thủ chính sách, chúng tôi tối đa hóa cơ hội khôi phục kênh bị tạm ngưng trong thời gian sớm nhất.',
-    icon: <Ban size={32} />
-  },
-  {
-    id: 'brand-protection',
-    title: 'Lá Chắn Bảo Vệ Kênh YouTube Lớn',
-    shortDesc: 'Bảo mật, tối ưu hóa lá chắn bảo vệ kênh khỏi spam, report ảo và tấn công bản quyền.',
-    fullDesc: 'Gói giải pháp phòng ngừa rủi ro cho các kênh YouTube doanh nghiệp lớn. Chúng tôi cấu hình bảo vệ nội dung qua CMS, thiết lập hệ thống cảnh báo sớm và hỗ trợ xử lý sự cố khẩn cấp trong vòng 2 giờ khi có bất kỳ cuộc tấn công phá hoại nào xảy ra.',
-    icon: <ShoppingBag size={32} />
+    id: 'community-guidelines',
+    title: 'Report Kênh Nguyên Tắc Cộng Đồng',
+    description: 'Hỗ trợ báo cáo các kênh có dấu hiệu vi phạm nguyên tắc cộng đồng YouTube, bôi nhọ, giả mạo, lừa đảo hoặc đăng nội dung gây ảnh hưởng uy tín.',
+    details: [
+      'Xử lý kênh đăng nội dung sai sự thật, xúc phạm, bôi nhọ cá nhân/thương hiệu.',
+      'Report kênh giả mạo, spam, lừa đảo hoặc gây hiểu lầm.',
+      'Phân tích nội dung vi phạm để chọn hướng báo cáo phù hợp.',
+      'Tư vấn phương án bảo vệ hình ảnh và uy tín trên YouTube.'
+    ],
+    ctaText: 'Tư vấn Report Nguyên Tắc',
+    icon: <AlertTriangle size={32} />
   }
 ];
 
@@ -239,7 +236,12 @@ export default function YoutubeReportPage() {
                           transition={{ duration: 0.3 }}
                         >
                           <div className="youtube-accordion-body">
-                            <p className="text-gray-400 leading-relaxed mb-6">{service.fullDesc}</p>
+                            <p className="text-gray-400 leading-relaxed mb-4">{service.description}</p>
+                            <ul className="list-disc pl-5 mb-6 text-gray-400 space-y-2">
+                              {service.details.map((detail, idx) => (
+                                <li key={idx}>{detail}</li>
+                              ))}
+                            </ul>
                             <motion.button 
                               onClick={(e) => {
                                 e.preventDefault();
@@ -249,7 +251,7 @@ export default function YoutubeReportPage() {
                               whileHover={{ scale: 1.02 }}
                               whileTap={{ scale: 0.98 }}
                             >
-                              Nhận Tư Vấn Case Này
+                              {service.ctaText}
                             </motion.button>
                           </div>
                         </motion.div>
