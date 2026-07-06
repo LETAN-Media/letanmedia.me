@@ -8,30 +8,30 @@ import './Services.css';
 const services = [
   {
     id: 1,
-    title: "Digital & Social Growth",
+    title: "DIGITAL & SOCIAL GROWTH",
     subServices: [
       {
-        title: "Tích xanh Fanpage",
+        title: "Tích Xanh Fanpage",
         shortDesc: "Tư vấn và thực hiện quy trình xác minh tích xanh Fanpage Facebook chính chủ nhanh chóng.",
         img: ASSETS.services.tichXanhFacebook
       },
       {
-        title: "Tích xanh Tiktok",
+        title: "Tích Xanh TikTok",
         shortDesc: "Tư vấn hồ sơ, điều kiện và hỗ trợ đăng ký xác minh tích xanh TikTok uy tín.",
         img: ASSETS.services.tichXanh
       },
       {
-        title: "Mở khoá Facebook",
+        title: "Mở Khóa Facebook",
         shortDesc: "Hỗ trợ khôi phục các tài khoản Facebook bị khóa, checkpoint hoặc vô hiệu hóa.",
         img: ASSETS.services.branding
       },
       {
-        title: "Mở khoá Tiktok",
+        title: "Mở Khóa TikTok",
         shortDesc: "Hỗ trợ mở khóa tài khoản TikTok bị đình chỉ, vi phạm hướng dẫn cộng đồng.",
         img: ASSETS.services.reportTiktok
       },
       {
-        title: "Dịch vụ Xây Kênh",
+        title: "Dịch Vụ Xây Kênh",
         shortDesc: "Tư vấn, lên kịch bản, sản xuất video ngắn và vận hành kênh đa nền tảng.",
         img: ASSETS.services.miniApp
       },
@@ -44,30 +44,30 @@ const services = [
   },
   {
     id: 2,
-    title: "AI & Software Solutions",
+    title: "AI & SOFTWARE SOLUTIONS",
     subServices: [
       {
-        title: "Thiết kế Website",
+        title: "Thiết Kế Website",
         shortDesc: "Xây dựng website doanh nghiệp, landing page tối giản, tốc độ cao và chuẩn SEO.",
         img: ASSETS.services.website
       },
       {
-        title: "Thiết kế App Mobile",
+        title: "Thiết Kế App Mobile",
         shortDesc: "Phát triển ứng dụng di động native/hybrid trên iOS và Android theo yêu cầu.",
         img: ASSETS.services.mobileApp
       },
       {
-        title: "Thiết kế App Mini",
+        title: "Thiết Kế Mini App",
         shortDesc: "Thiết kế Zalo Mini App, Telegram Mini App đón đầu xu hướng tiện ích nội bộ.",
         img: ASSETS.services.miniApp
       },
       {
-        title: "Tạo Tool Theo Yêu cầu",
+        title: "Tạo Tool Theo Yêu Cầu",
         shortDesc: "Lập trình phần mềm, tool tự động hóa quy trình (RPA) tối ưu năng suất lao động.",
         img: ASSETS.services.software
       },
       {
-        title: "Dịch Vụ Chat Bot",
+        title: "Dịch Vụ Chatbot AI",
         shortDesc: "Tích hợp chatbot AI thông minh tư vấn và chăm sóc khách hàng 24/7 tự động.",
         img: ASSETS.services.chatbotAi
       }
@@ -75,7 +75,7 @@ const services = [
   },
   {
     id: 3,
-    title: "PR, Trust & Branding",
+    title: "PR, TRUST & BRANDING",
     subServices: [
       {
         title: "Xây Dựng Thương Hiệu",
@@ -96,20 +96,25 @@ const services = [
         title: "Dịch Vụ SEO",
         shortDesc: "Tối ưu hóa thứ hạng website trên công cụ tìm kiếm Google bền vững.",
         img: ASSETS.services.website
+      },
+      {
+        title: "Dịch vụ Seeding",
+        shortDesc: "Tăng tương tác, seeding bài viết, tạo hiệu ứng đám đông truyền thông xã hội tự nhiên.",
+        img: ASSETS.services.marketing
       }
     ]
   },
   {
     id: 4,
-    title: "Report",
+    title: "REPORT & PROTECTION",
     subServices: [
       {
-        title: "Report Tiktok",
+        title: "Report TikTok",
         shortDesc: "Xử lý, gỡ bỏ các video, kênh TikTok giả mạo, bôi nhọ hoặc vi phạm bản quyền.",
         img: ASSETS.services.reportTiktok
       },
       {
-        title: "Report Youtube",
+        title: "Report YouTube",
         shortDesc: "Giải quyết video vi phạm bản quyền, reup trái phép và kênh mạo danh thương hiệu.",
         img: ASSETS.services.reportTiktok
       },
@@ -124,7 +129,7 @@ const services = [
         img: ASSETS.services.website
       },
       {
-        title: "Report Twitter X",
+        title: "Report Twitter/X",
         shortDesc: "Báo cáo xử lý các bài đăng, tài khoản bôi nhọ danh dự trên mạng xã hội X.",
         img: ASSETS.services.marketing
       },
