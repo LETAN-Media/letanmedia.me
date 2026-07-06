@@ -34,43 +34,51 @@ Hướng dẫn trả lời:
 - Khuyến khích khách hàng để lại thông tin liên hệ (Họ tên + Số điện thoại) hoặc nhắn tin trực tiếp để được chuyên viên kỹ thuật gọi điện hỗ trợ trực tiếp nhanh nhất đối với các trường hợp khẩn cấp.
 - Trả lời bằng tiếng Việt.`;
 
-    const fullMessages = [
-      { role: 'system', content: systemPrompt },
-      ...messages
-    ];
+    // Retrieve Gemini API settings from environment or default variables
+    const apiKey = context.env.GEMINI_API_KEY || "AQ.Ab8RN6L6VUfUAHvqAOcQhH-lxhfr6LLQ09PgCUZxyixuOcd5ow";
+    const modelName = context.env.GEMINI_MODEL || "gemini-1.5-flash";
 
-    const hfApiKey = context.env.HF_API_KEY || "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";
-    const modelName = context.env.HF_MODEL || "HauhauCS/Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-MTP";
-
-    if (!hfApiKey) {
-      throw new Error("Hugging Face API key is missing");
+    if (!apiKey) {
+      throw new Error("Gemini API key is missing");
     }
 
-    // Call Hugging Face API
-    const hfResponse = await fetch("https://api-inference.huggingface.co/v1/chat/completions", {
+    // Format chat messages correctly for Gemini's contents structure
+    const geminiContents = messages
+      .filter(m => m.role !== 'system') // system instructions are sent separately
+      .map(m => ({
+        role: m.role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: m.content }]
+      }));
+
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+
+    const response = await fetch(geminiUrl, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${hfApiKey}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: modelName,
-        messages: fullMessages,
-        max_tokens: 1024,
-        temperature: 0.7
+        contents: geminiContents,
+        systemInstruction: {
+          parts: [{ text: systemPrompt }]
+        },
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 1024
+        }
       })
     });
 
-    if (!hfResponse.ok) {
-      const errText = await hfResponse.text();
-      throw new Error(`Hugging Face API returned status ${hfResponse.status}: ${errText}`);
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error(`Gemini API returned status ${response.status}: ${errText}`);
     }
 
-    const data = await hfResponse.json();
-    const botReply = data.choices?.[0]?.message?.content;
+    const data = await response.json();
+    const botReply = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!botReply) {
-      throw new Error("Invalid response structure from Hugging Face API");
+      throw new Error("Invalid response structure from Gemini API");
     }
 
     return new Response(JSON.stringify({ 
@@ -82,7 +90,7 @@ Hướng dẫn trả lời:
 
   } catch (error) {
     // Log the error securely on the server side only
-    console.error("Hugging Face API error details:", error);
+    console.error("Gemini API integration error:", error);
     
     // Return a polished fallback message to the customer
     return new Response(JSON.stringify({ 
