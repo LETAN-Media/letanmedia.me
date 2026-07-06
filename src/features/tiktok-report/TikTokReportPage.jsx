@@ -14,13 +14,43 @@ class ErrorBoundary extends React.Component {
   static getDerivedStateFromError(error) {
     return { hasError: true, error };
   }
+  componentDidCatch(error, errorInfo) {
+    console.error("TikTokReportPage caught an error:", error, errorInfo);
+  }
   render() {
     if (this.state.hasError) {
-      return <div className="p-10 text-red-500 bg-black min-h-screen"><h1>Error in TikTokReportPage: {this.state.error?.toString()}</h1><pre>{this.state.error?.stack}</pre></div>;
+      return (
+        <div className="tiktok-page flex items-center justify-center min-h-screen bg-[#050509] text-center px-4">
+          <div className="max-w-md p-8 rounded-3xl bg-[#0b0f1a] border border-red-500/20 backdrop-blur-md relative overflow-hidden shadow-[0_0_50px_rgba(255,0,80,0.05)]">
+            {/* Decorative glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 bg-[#FF0050] opacity-10 blur-[100px] pointer-events-none"></div>
+            
+            <h2 className="text-2xl font-bold text-white mb-4">Hệ thống đang được cập nhật</h2>
+            <p className="text-gray-400 mb-6 leading-relaxed">
+              Chúng tôi đang tối ưu hóa trải nghiệm bảo vệ TikTok. Vui lòng tải lại trang hoặc liên hệ trực tiếp để được hỗ trợ nhanh nhất.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button 
+                onClick={() => window.location.reload()} 
+                className="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+                Tải Lại Trang
+              </button>
+              <a 
+                href="tel:0765178999" 
+                className="bg-gradient-to-r from-[#00f2ea] to-[#ff0050] text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+                Hỗ Trợ Khẩn Cấp
+              </a>
+            </div>
+          </div>
+        </div>
+      );
     }
     return this.props.children;
   }
 }
+
 
 
 const services = [
