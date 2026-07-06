@@ -23,7 +23,7 @@ Hãy dựa trên các dịch vụ chính của LETAN Media sau để tư vấn:
 5. Report Cấm Livestream: Khóa quyền livestream của tài khoản vi phạm nhiều lần hoặc lạm dụng live.
 6. Report TikTok Shop: Xử lý shop giả mạo nhãn hiệu, sản phẩm vi phạm bản quyền, cạnh tranh bẩn.
 
-Cam kết của LETAN Media:
+Cam ước của LETAN Media:
 - Bảo mật thông tin khách hàng 100%.
 - Tốc độ xử lý nhanh chóng trong vòng 24 - 48 giờ.
 - Hoàn tiền 100% nếu không đạt kết quả như cam kết.
@@ -34,15 +34,15 @@ Hướng dẫn trả lời:
 - Khuyến khích khách hàng để lại thông tin liên hệ (Họ tên + Số điện thoại) hoặc nhắn tin trực tiếp để được chuyên viên kỹ thuật gọi điện hỗ trợ trực tiếp nhanh nhất đối với các trường hợp khẩn cấp.
 - Trả lời bằng tiếng Việt.`;
 
-    // Retrieve Gemini API settings from environment or use the verified defaults
-    const apiKey = context.env.GEMINI_API_KEY || "AIzaSyBM3GrQUWe3hElV4rKLe6qekshmzXXJfiQ";
+    // Supported Keys list
+    const apiKeys = [
+      context.env.GEMINI_API_KEY_1 || "AIzaSyBM3GrQUWe3hElV4rKLe6qekshmzXXJfiQ",
+      context.env.GEMINI_API_KEY_2 || "AIzaSyBvC0k0bw2wxlkyhKMAoypxs4bJ2d_Ba-s"
+    ];
+
     const modelName = context.env.GEMINI_MODEL || "gemini-2.5-flash";
 
-    if (!apiKey) {
-      throw new Error("Gemini API key is missing");
-    }
-
-    // Format messages for Google Gemini's structure
+    // Format chat history for Gemini's structured contents format
     const geminiContents = messages
       .filter(m => m.role !== 'system')
       .map(m => ({
@@ -50,35 +50,62 @@ Hướng dẫn trả lời:
         parts: [{ text: m.content }]
       }));
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+    let botReply = null;
+    let success = false;
+    let attempts = 0;
+    
+    // Select a random index to start to distribute load evenly across keys
+    let selectedIndex = Math.floor(Math.random() * apiKeys.length);
+    let apiKey = apiKeys[selectedIndex];
 
-    const response = await fetch(geminiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        contents: geminiContents,
-        systemInstruction: {
-          parts: [{ text: systemPrompt }]
-        },
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 1024
+    // Attempt request, with auto failover loop to alternate keys if one is exhausted/throttled
+    while (attempts < apiKeys.length && !success) {
+      try {
+        if (!apiKey) {
+          throw new Error(`API key at index ${selectedIndex} is empty`);
         }
-      })
-    });
 
-    if (!response.ok) {
-      const errText = await response.text();
-      throw new Error(`Gemini API returned status ${response.status}: ${errText}`);
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+
+        const response = await fetch(geminiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            contents: geminiContents,
+            systemInstruction: {
+              parts: [{ text: systemPrompt }]
+            },
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 1024
+            }
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          botReply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (botReply) {
+            success = true;
+            break;
+          }
+        }
+        
+        console.warn(`Gemini API key at index ${selectedIndex} failed with status ${response.status}. Retrying with another key...`);
+      } catch (innerErr) {
+        console.error(`Error using Gemini key index ${selectedIndex}:`, innerErr);
+      }
+
+      // Alternate to the next key
+      attempts++;
+      selectedIndex = (selectedIndex + 1) % apiKeys.length;
+      apiKey = apiKeys[selectedIndex];
     }
 
-    const data = await response.json();
-    const botReply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!botReply) {
-      throw new Error("Invalid response structure from Gemini API");
+    if (!success || !botReply) {
+      throw new Error("All configured Gemini API keys failed to return a valid response.");
     }
 
     return new Response(JSON.stringify({ 
@@ -89,10 +116,9 @@ Hướng dẫn trả lời:
     });
 
   } catch (error) {
-    // Log the error securely on the server side only
-    console.error("Gemini API integration error:", error);
+    // Securely log detailed failure on the server side only
+    console.error("Gemini API rotation/execution failure:", error);
     
-    // Return a polished fallback message to the customer
     return new Response(JSON.stringify({ 
       success: false, 
       message: "🤖 LETAN Shield AI hiện đang bận hoặc đang được nâng cấp.\n\nĐể được hỗ trợ ngay, vui lòng liên hệ:\n\n📞 Hotline/Zalo: 0765 178 999\n💬 Telegram: @Tanlemedia"
