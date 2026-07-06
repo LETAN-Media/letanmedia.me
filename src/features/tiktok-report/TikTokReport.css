@@ -38,7 +38,7 @@
 .tiktok-content-overlay {
   position: relative;
   z-index: 3;
-  max-width: 680px;
+  max-width: 540px;
   margin: 0 auto;
   padding: 0 24px;
   text-align: center;
@@ -46,8 +46,8 @@
 
 .tiktok-title {
   color: #fff;
-  font-size: clamp(38px, 10vw, 74px);
-  line-height: 0.98;
+  font-size: clamp(34px, 8vw, 64px);
+  line-height: 1.05;
   letter-spacing: -0.04em;
   font-weight: 900;
   text-shadow: 0 8px 40px rgba(0,0,0,0.75);
@@ -55,9 +55,9 @@
 }
 
 .tiktok-subtitle {
-  color: rgba(255, 255, 255, 0.78);
-  font-size: clamp(17px, 4.4vw, 22px);
-  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(16px, 4vw, 20px);
+  line-height: 1.6;
   text-shadow: 0 4px 24px rgba(0,0,0,0.75);
   margin-bottom: 34px;
 }
@@ -185,5 +185,8 @@
   }
   .tiktok-section-title {
     font-size: 2rem;
+  }
+  .tiktok-content-overlay {
+    padding-bottom: 100px;
   }
 }
