@@ -54,6 +54,16 @@ class ErrorBoundary extends React.Component {
 
 
 
+const workflowSteps = [
+  "Tiếp nhận yêu cầu",
+  "Nhận link cần xử lý để kiểm tra",
+  "Tư vấn phương án phù hợp",
+  "Chốt thời gian thực hiện",
+  "Thanh toán dịch vụ",
+  "Báo cáo kết quả đúng thời gian đã cam kết",
+  "Bảo mật 100% thông tin khách hàng"
+];
+
 const services = [
   {
     title: "Report Kênh Vi Phạm / Cạnh Tranh Không Lành Mạnh",
@@ -270,6 +280,41 @@ export default function TikTokReportPage() {
         </div>
       </section>
       
+      {/* Workflow Section */}
+      <section className="tiktok-workflow-section py-20 bg-[#050509] relative z-10">
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center text-3xl md:text-5xl font-bold mb-16 text-white tracking-tight"
+          >
+            Quy Trình <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ea] to-[#ff0050]">Làm Việc</span>
+          </motion.h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {workflowSteps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`relative p-8 rounded-2xl bg-[#0b0f1a] border border-white/5 backdrop-blur-sm overflow-hidden group hover:border-[#ff0050]/30 transition-all duration-300 ${index === 6 ? 'md:col-span-2 lg:col-span-2' : ''}`}
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#00f2ea] to-[#ff0050] opacity-0 blur-3xl group-hover:opacity-10 transition-opacity duration-500 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+                <div className="text-5xl font-black text-transparent -webkit-text-stroke text-stroke-white/10 mb-4 group-hover:text-white/10 transition-colors" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>
+                  0{index + 1}
+                </div>
+                <h3 className="text-xl font-semibold text-white/90 leading-snug group-hover:text-white transition-colors">
+                  {step}
+                </h3>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Commitment Section */}
       <section className="tiktok-process-section">
         <div className="max-w-4xl mx-auto text-center px-4">
