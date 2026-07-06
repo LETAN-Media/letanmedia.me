@@ -102,32 +102,44 @@ async function callGemini(messages, env) {
 }
 
 async function callHuggingFace(messages, env) {
-  if (!env.HF_API_KEY) {
+  const keys = [
+    env.HF_API_KEY,
+    env.HF_API_KEY_1,
+    env.HF_API_KEY_2
+  ].filter(Boolean);
+  if (!keys.length) {
     throw new Error("Missing Hugging Face API key");
   }
   const model = env.HF_MODEL || "mistralai/Mistral-7B-Instruct-v0.3";
-  const res = await fetch("https://api-inference.huggingface.co/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${env.HF_API_KEY}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model,
-      messages,
-      temperature: 0.6,
-      max_tokens: 900
-    })
-  });
-  if (!res.ok) {
-    throw new Error("Hugging Face API failed");
+  
+  for (const key of keys) {
+    try {
+      const res = await fetch("https://api-inference.huggingface.co/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${key}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model,
+          messages,
+          temperature: 0.6,
+          max_tokens: 900
+        })
+      });
+      if (!res.ok) {
+        continue;
+      }
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content;
+      if (reply) {
+        return reply.trim();
+      }
+    } catch (err) {
+      console.error("Hugging Face provider failed");
+    }
   }
-  const data = await res.json();
-  const reply = data.choices?.[0]?.message?.content;
-  if (!reply) {
-    throw new Error("Invalid Hugging Face response");
-  }
-  return reply.trim();
+  throw new Error("All Hugging Face keys failed");
 }
 
 async function callAI(messages, env) {
