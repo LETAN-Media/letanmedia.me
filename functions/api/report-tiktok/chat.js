@@ -42,8 +42,15 @@ Hướng dẫn trả lời:
 
     const modelName = context.env.GEMINI_MODEL || "gemini-2.5-flash";
 
+    // Filter out the initial welcome message if it starts with the assistant/model role
+    // Google Gemini API demands that conversation content MUST start with a 'user' turn.
+    let filteredMessages = [...messages];
+    if (filteredMessages.length > 0 && filteredMessages[0].role === 'assistant') {
+      filteredMessages.shift(); // Remove the initial greeting from history sent to API
+    }
+
     // Format chat history for Gemini's structured contents format
-    const geminiContents = messages
+    const geminiContents = filteredMessages
       .filter(m => m.role !== 'system')
       .map(m => ({
         role: m.role === 'assistant' ? 'model' : 'user',
@@ -55,7 +62,7 @@ Hướng dẫn trả lời:
     let attempts = 0;
     
     // Deterministic Alternating Selection: Choose index based on the message history length
-    // As history grows (2 -> 4 -> 6 -> 8), this alternates keys (1 -> 0 -> 1 -> 0) sequentially
+    // As history grows, this alternates keys (1 -> 0 -> 1 -> 0) sequentially
     let selectedIndex = Math.floor(messages.length / 2) % apiKeys.length;
     let apiKey = apiKeys[selectedIndex];
 
@@ -92,9 +99,10 @@ Hướng dẫn trả lời:
             success = true;
             break;
           }
+        } else {
+          const responseErr = await response.text();
+          console.warn(`Gemini API key at index ${selectedIndex} failed with status ${response.status}: ${responseErr}`);
         }
-        
-        console.warn(`Gemini API key at index ${selectedIndex} failed with status ${response.status}. Retrying with another key...`);
       } catch (innerErr) {
         console.error(`Error using Gemini key index ${selectedIndex}:`, innerErr);
       }
