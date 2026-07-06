@@ -328,53 +328,54 @@ export default function YoutubeReportPage() {
       </section>
 
         {/* Commitment Section */}
-        <section className="youtube-commit-section section-block relative z-10">
+        <section className="youtube-commit-section relative z-10">
           <div className="max-w-5xl mx-auto px-4">
             <motion.div 
-              className="youtube-commit-card"
+              className="youtube-commit-card relative overflow-hidden"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <div className="youtube-commit-glow" />
-              <div className="youtube-commit-grid">
-                <div className="youtube-commit-text">
-                  <h2 className="youtube-commit-title">Cam Kết Từ LETAN Media</h2>
-                  <p className="youtube-commit-subtitle">Bảo mật tuyệt đối. Hỗ trợ nhanh chóng.</p>
-                  <p className="youtube-commit-desc">
-                    Chúng tôi tiếp nhận và xử lý từng trường hợp theo quy trình riêng, 
-                    đảm bảo thông tin khách hàng được bảo mật 100% trong suốt quá trình làm việc.
-                  </p>
+              {/* Inner ambient glow */}
+              <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#ff0000]/5 blur-[80px] rounded-full pointer-events-none"></div>
+              <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-[#ff4f4f]/5 blur-[80px] rounded-full pointer-events-none"></div>
+
+              <div className="relative z-10">
+                <h2 className="youtube-commit-title">Cam Kết Từ LETAN Media</h2>
+                <p className="youtube-commit-subtitle">Bảo mật tuyệt đối. Hỗ trợ nhanh chóng.</p>
+                <p className="youtube-commit-desc">
+                  Chúng tôi tiếp nhận và xử lý từng trường hợp theo quy trình riêng, 
+                  đảm bảo thông tin khách hàng được bảo mật 100% trong suốt quá trình làm việc.
+                </p>
+                
+                <div className="youtube-commit-list">
+                  {[
+                    { icon: <ShieldAlert size={18} />, text: "Bảo mật 100%" },
+                    { icon: <Radio size={18} />, text: "Cập nhật tiến độ" },
+                    { icon: <Check size={18} />, text: "Báo cáo kết quả" }
+                  ].map((highlight, idx) => (
+                    <div key={idx} className="youtube-commit-item">
+                      <div className="youtube-commit-icon">
+                        {highlight.icon}
+                      </div>
+                      <span>{highlight.text}</span>
+                    </div>
+                  ))}
                 </div>
                 
-                <div className="youtube-commit-info-block">
-                  <div className="youtube-commit-list">
-                    {[
-                      { icon: <ShieldAlert size={18} />, text: "Bảo mật 100%" },
-                      { icon: <Radio size={18} />, text: "Cập nhật tiến độ" },
-                      { icon: <Check size={18} />, text: "Báo cáo kết quả" }
-                    ].map((highlight, idx) => (
-                      <div key={idx} className="youtube-commit-item">
-                        <div className="youtube-commit-icon">
-                          {highlight.icon}
-                        </div>
-                        <span>{highlight.text}</span>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <motion.a 
+                <div className="text-center md:text-left">
+                  <motion.button 
                     onClick={(e) => {
                       e.preventDefault();
                       setShowPopover(true);
                     }}
-                    className="youtube-commit-cta cursor-pointer"
+                    className="youtube-commit-cta"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                   >
                     Nhận Báo Giá Chi Tiết
-                  </motion.a>
+                  </motion.button>
                 </div>
               </div>
             </motion.div>
