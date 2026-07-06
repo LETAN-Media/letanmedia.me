@@ -170,7 +170,7 @@ export default function YoutubeReportPage() {
             <YoutubeHero3D />
           </Suspense>
           
-          <div className="max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center pt-24 pb-16 md:pt-32 md:pb-24">
+          <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 h-full flex items-center pt-24 pb-16 md:pt-32 md:pb-24">
             <motion.div 
               className="max-w-3xl text-left"
               initial={{ opacity: 0, y: 30 }}
