@@ -17,6 +17,7 @@ import TermsOfService from './components/TermsOfService';
 import ChatbotAIPage from "./features/chatbot-ai/ChatbotAIPage";
 import TikTokReportPage from "./features/tiktok-report/TikTokReportPage";
 import YoutubeReportPage from "./features/youtube-report/YoutubeReportPage";
+import HomeChatWidget from "./components/HomeChatWidget";
 
 import './App.css';
 
@@ -29,6 +30,9 @@ const ScrollToTop = () => {
 };
 
 function App() {
+  const location = useLocation();
+  const showHomeChatbot = !['/tiktok-report', '/youtube-report'].includes(location.pathname);
+
   return (
     <div className="app-container">
       <ScrollToTop />
@@ -57,6 +61,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
+      {showHomeChatbot && <HomeChatWidget />}
     </div>
   );
 }
