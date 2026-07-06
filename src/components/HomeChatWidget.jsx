@@ -16,7 +16,7 @@ export default function HomeChatWidget() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Chào bạn! Tôi là trợ lý AI của LETAN Media. Tôi có thể hỗ trợ điều hướng và tư vấn gì cho bạn hôm nay? (Ví dụ: Report TikTok, Report YouTube, Tích Xanh, SEO, thiết kế web...)'
+      content: 'Chào bạn, Tôi là trợ lý AI của LETAN Media. Tôi có thể giúp gì cho bạn. ?'
     }
   ]);
   const [input, setInput] = useState('');
