@@ -5,7 +5,7 @@ export async function onRequestPost(context) {
     if (!messages || !Array.isArray(messages)) {
       return new Response(JSON.stringify({ 
         success: false, 
-        message: "🤖 LETAN Shield AI hiện đang bận hoặc đang được nâng cấp.\n\n📞 Hotline/Zalo: 0765 178 999\n💬 Telegram: @Tanlemedia"
+        message: "🤖 LETAN Shield AI hiện đang bận hoặc đang được nâng cấp.\n\nĐể được hỗ trợ ngay, vui lòng liên hệ:\n\n📞 Hotline/Zalo: 0765 178 999\n💬 Telegram: @Tanlemedia"
       }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
@@ -39,30 +39,56 @@ Hướng dẫn trả lời:
       ...messages
     ];
 
-    // Verify AI binding is present
-    if (!context.env.AI) {
-      throw new Error("Workers AI binding missing");
+    // Read Hugging Face configuration from environment or fall back to default values
+    const hfApiKey = context.env.HF_API_KEY || "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";
+    const modelName = context.env.HF_MODEL || "HauhauCS/Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-MTP";
+
+    if (!hfApiKey) {
+      throw new Error("Hugging Face API key is missing");
     }
 
-    const aiResponse = await context.env.AI.run('@cf/meta/llama-3-8b-instruct', {
-      messages: fullMessages
+    // Call Hugging Face Serverless Inference API via OpenAI-compatible route
+    const hfResponse = await fetch("https://api-inference.huggingface.co/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${hfApiKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: modelName,
+        messages: fullMessages,
+        max_tokens: 1024,
+        temperature: 0.7
+      })
     });
+
+    if (!hfResponse.ok) {
+      const errText = await hfResponse.text();
+      throw new Error(`Hugging Face API returned status ${hfResponse.status}: ${errText}`);
+    }
+
+    const data = await hfResponse.json();
+    const botReply = data.choices?.[0]?.message?.content;
+
+    if (!botReply) {
+      throw new Error("Invalid response structure from Hugging Face API");
+    }
 
     return new Response(JSON.stringify({ 
       success: true, 
-      message: aiResponse.response 
+      message: botReply 
     }), {
       headers: { 'Content-Type': 'application/json' }
     });
 
   } catch (error) {
-    console.error("Workers AI error:", error);
+    console.error("Hugging Face API error:", error);
     
     return new Response(JSON.stringify({ 
       success: false, 
-      message: "🤖 LETAN Shield AI hiện đang bận hoặc đang được nâng cấp.\n\n📞 Hotline/Zalo: 0765 178 999\n💬 Telegram: @Tanlemedia"
+      message: "🤖 LETAN Shield AI hiện đang bận hoặc đang được nâng cấp.\n\nĐể được hỗ trợ ngay, vui lòng liên hệ:\n\n📞 Hotline/Zalo: 0765 178 999\n💬 Telegram: @Tanlemedia"
     }), {
-      status: 200, // Return 200 so the client can read the formatted fallback message cleanly
+      status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
   }
