@@ -65,6 +65,14 @@ const feedbacks = [
 export default function FeedbackCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (isHovered) return;
@@ -124,10 +132,10 @@ export default function FeedbackCarousel() {
                   <motion.div
                     key={item.id}
                     className={`carousel-card ${isActive ? 'active' : 'inactive'}`}
-                    initial={{ opacity: 0, x: `${position * 105}%`, scale: 0.8 }}
+                    initial={{ opacity: 0, x: `${position * (isMobile ? 85 : 105)}%`, scale: 0.8 }}
                     animate={{ 
-                      opacity: isActive ? 1 : 0.5,
-                      x: `${position * 110}%`,
+                      opacity: isActive ? 1 : (isMobile ? 0.7 : 0.5),
+                      x: `${position * (isMobile ? 90 : 110)}%`,
                       scale: isActive ? 1 : 0.92,
                       filter: isActive ? 'blur(0px)' : 'blur(4px)',
                       zIndex: isActive ? 10 : 0

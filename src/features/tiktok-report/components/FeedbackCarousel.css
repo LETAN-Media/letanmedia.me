@@ -228,15 +228,16 @@
 
 @media (max-width: 768px) {
   .feedback-section { padding: 4rem 0rem; overflow-x: hidden; }
-  .carousel-wrapper { height: 420px; }
-  .carousel-track { max-width: 210px; }
+  .carousel-wrapper { height: 450px; }
+  .carousel-track { max-width: 250px; }
   .carousel-nav { 
     width: 36px; 
     height: 36px; 
-    background: rgba(255, 255, 255, 0.1); 
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(5px);
   }
-  .carousel-nav.prev { left: 5px; }
-  .carousel-nav.next { right: 5px; }
+  .carousel-nav.prev { left: 10px; z-index: 30; }
+  .carousel-nav.next { right: 10px; z-index: 30; }
   .feedback-title { font-size: 2rem; padding: 0 1rem; }
   .feedback-subtitle { padding: 0 1rem; }
 }
