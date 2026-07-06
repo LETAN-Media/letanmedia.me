@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import LegalLayout from './LegalLayout';
 
 const PrivacyPolicy = () => {
   const sections = [
@@ -38,7 +37,7 @@ const PrivacyPolicy = () => {
         '• Không mua bán dữ liệu khách hàng dưới mọi hình thức.',
         '• Không chia sẻ cho bên thứ ba khi chưa có sự đồng ý, trừ khi pháp luật yêu cầu hoặc cần thiết để triển khai dịch vụ (đơn vị thanh toán, hạ tầng kỹ thuật).',
         '• Chỉ nhân sự được phân quyền mới được truy cập dữ liệu cần thiết cho công việc.',
-        '• Áp dụng biện pháp kỹ thuật và quản lý phù hợp để giảm thiểu rùi ro rò rỉ, mất mát hoặc truy cập trái phép.'
+        '• Áp dụng biện pháp kỹ thuật và quản lý phù hợp để giảm thiểu rủi ro rò rỉ, mất mát hoặc truy cập trái phép.'
       ]
     },
     {
@@ -70,42 +69,13 @@ const PrivacyPolicy = () => {
   ];
 
   return (
-    <div className="privacy-policy-page">
-      <div className="privacy-policy-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Link to="/" className="privacy-back-btn" style={{ display: 'inline-block', textDecoration: 'none' }}>
-            &larr; Quay lại trang chủ
-          </Link>
-
-          <h1 className="privacy-title">CHÍNH SÁCH QUYỀN RIÊNG TƯ</h1>
-          <p className="privacy-update">
-            Cập nhật lần cuối: Tháng 07/2026
-          </p>
-          <p className="privacy-intro">
-            LETAN Media ("chúng tôi") cam kết tôn trọng và bảo vệ quyền riêng tư của khách hàng, đối tác và người dùng ("bạn"). Chính sách này quy định cách chúng tôi thu thập, sử dụng, lưu trữ, bảo vệ và xử lý thông tin cá nhân khi bạn truy cập website, liên hệ tư vấn hoặc sử dụng dịch vụ của LETAN Media. Việc bạn tiếp tục sử dụng website hoặc dịch vụ đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý với chính sách này.
-          </p>
-
-          {sections.map((section, index) => (
-            <motion.div
-              key={index}
-              className="privacy-section"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-            >
-              <h2 className="privacy-section-title">{section.title}</h2>
-              {section.items.map((item, i) => (
-                <p key={i} className="privacy-text">{item}</p>
-              ))}
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </div>
+    <LegalLayout
+      titlePrefix="Chính Sách"
+      titleHighlight="Quyền Riêng Tư"
+      updateDate="Cập nhật lần cuối: Tháng 07/2026"
+      intro="LETAN Media (&quot;chúng tôi&quot;) cam kết tôn trọng và bảo vệ quyền riêng tư của khách hàng, đối tác và người dùng (&quot;bạn&quot;). Chính sách này quy định cách chúng tôi thu thập, sử dụng, lưu trữ, bảo vệ và xử lý thông tin cá nhân khi bạn truy cập website, liên hệ tư vấn hoặc sử dụng dịch vụ của LETAN Media. Việc bạn tiếp tục sử dụng website hoặc dịch vụ đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý với chính sách này."
+      sections={sections}
+    />
   );
 };
 
