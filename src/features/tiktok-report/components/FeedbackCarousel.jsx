@@ -72,7 +72,7 @@ export default function FeedbackCarousel() {
       setCurrentIndex((prev) => (prev + 1) % feedbacks.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, [isHovered, selectedImage]);
+  }, [isHovered]);
 
   const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % feedbacks.length);
   const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + feedbacks.length) % feedbacks.length);
