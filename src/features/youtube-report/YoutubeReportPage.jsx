@@ -90,6 +90,20 @@ const services = [
     ],
     ctaText: 'Tư vấn Report Nguyên Tắc',
     icon: <AlertTriangle size={32} />
+  },
+  {
+    id: 'trademark-violation',
+    title: 'Report Vi Phạm Nhãn Hiệu',
+    description: 'Hỗ trợ xử lý các kênh hoặc video sử dụng trái phép tên thương hiệu, logo, hình ảnh nhận diện hoặc gây nhầm lẫn với nhãn hiệu của doanh nghiệp.',
+    details: [
+      'Xử lý kênh giả mạo thương hiệu.',
+      'Report hành vi sử dụng trái phép logo, tên thương hiệu.',
+      'Hỗ trợ các trường hợp mạo danh doanh nghiệp.',
+      'Tư vấn phương án bảo vệ quyền sở hữu trí tuệ trên YouTube.',
+      'Hỗ trợ chuẩn bị hồ sơ và bằng chứng liên quan đến nhãn hiệu.'
+    ],
+    ctaText: 'Tư vấn Report Nhãn Hiệu',
+    icon: <ShoppingBag size={32} />
   }
 ];
 
