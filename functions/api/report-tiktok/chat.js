@@ -30,17 +30,19 @@ Cam kết của LETAN Media:
 
 Hướng dẫn trả lời:
 - Luôn giữ thái độ lịch sự, chuyên nghiệp, đáng tin cậy. Trả lời ngắn gọn, đi vào trọng tâm, dễ hiểu.
-- Trình bày dạng danh sách (bullet points) when cần thiết để thông tin rõ ràng.
+- Trình bày dạng danh sách (bullet points) khi cần thiết để thông tin rõ ràng.
 - Khuyến khích khách hàng để lại thông tin liên hệ (Họ tên + Số điện thoại) hoặc nhắn tin trực tiếp để được chuyên viên kỹ thuật gọi điện hỗ trợ trực tiếp nhanh nhất đối với các trường hợp khẩn cấp.
 - Trả lời bằng tiếng Việt.`;
 
-    const apiKey = context.env.GEMINI_API_KEY || "AQ.Ab8RN6L6VUfUAHvqAOcQhH-lxhfr6LLQ09PgCUZxyixuOcd5ow";
-    const modelName = context.env.GEMINI_MODEL || "gemini-1.5-flash";
+    // Retrieve Gemini API settings from environment or use the verified defaults
+    const apiKey = context.env.GEMINI_API_KEY || "AIzaSyBM3GrQUWe3hElV4rKLe6qekshmzXXJfiQ";
+    const modelName = context.env.GEMINI_MODEL || "gemini-2.5-flash";
 
     if (!apiKey) {
       throw new Error("Gemini API key is missing");
     }
 
+    // Format messages for Google Gemini's structure
     const geminiContents = messages
       .filter(m => m.role !== 'system')
       .map(m => ({
@@ -87,12 +89,13 @@ Hướng dẫn trả lời:
     });
 
   } catch (error) {
+    // Log the error securely on the server side only
     console.error("Gemini API integration error:", error);
     
-    // TEMPORARY: Return raw Gemini error details to UI for debugging
+    // Return a polished fallback message to the customer
     return new Response(JSON.stringify({ 
       success: false, 
-      message: `❌ DEBUG ERROR (Gemini):\n${error.message}`
+      message: "🤖 LETAN Shield AI hiện đang bận hoặc đang được nâng cấp.\n\nĐể được hỗ trợ ngay, vui lòng liên hệ:\n\n📞 Hotline/Zalo: 0765 178 999\n💬 Telegram: @Tanlemedia"
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
