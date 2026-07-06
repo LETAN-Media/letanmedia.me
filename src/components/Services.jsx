@@ -6,51 +6,134 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import './Services.css';
 
 const services = [
-  { 
-    id: 1, 
-    title: "Digital & Social Growth", 
-    desc: "Dịch vụ tăng tương tác, seeding, SEO, GEO. Xây dựng, vận hành kênh và phát triển nhận diện số cho cá nhân/doanh nghiệp.", 
-    img: ASSETS.services.marketing 
-  },
-  { 
-    id: 2, 
-    title: "AI & Software Solutions", 
-    desc: "Thiết kế Website, App, CRM. Tích hợp Chatbot AI, tự động hóa quy trình (AI workflow) và phần mềm theo yêu cầu.", 
-    img: ASSETS.services.software 
-  },
-  { 
-    id: 3, 
-    title: "PR, Trust & Branding", 
-    desc: "Booking báo chí, truyền thông. Xác minh Tích xanh (TikTok/FB), xử lý vi phạm (report) và bảo vệ/quản trị thương hiệu.", 
-    img: ASSETS.services.branding 
-  }
-];
-
-const subServices = [
   {
-    title: "Dịch Vụ Report TikTok",
-    shortDesc: "Hỗ trợ report kênh, video TikTok vi phạm, giả mạo, bôi nhọ hoặc cạnh tranh không lành mạnh.",
-    img: ASSETS.services.reportTiktok
-  },
-  {
-    title: "Dịch Vụ Report YouTube",
-    shortDesc: "Hỗ trợ xử lý video reup, vi phạm bản quyền, kênh giả mạo và nội dung vi phạm nguyên tắc cộng đồng.",
-    img: ASSETS.services.reportTiktok
-  },
-  {
-    title: "Dịch Vụ Tích Xanh",
-    shortDesc: "Tư vấn xác minh tài khoản, nghệ sĩ, thương hiệu và doanh nghiệp trên các nền tảng số.",
-    img: ASSETS.services.tichXanh
-  },
-  {
-    title: "Dịch Vụ SEO / GEO",
-    shortDesc: "Tối ưu hiện diện thương hiệu trên Google, công cụ tìm kiếm và các nền tảng AI Search.",
-    img: ASSETS.services.marketing
+    id: 1,
+    title: "Digital & Social Growth",
+    subServices: [
+      {
+        title: "Tích xanh Fanpage",
+        shortDesc: "Tư vấn và thực hiện quy trình xác minh tích xanh Fanpage Facebook chính chủ nhanh chóng.",
+        img: ASSETS.services.tichXanhFacebook
+      },
+      {
+        title: "Tích xanh Tiktok",
+        shortDesc: "Tư vấn hồ sơ, điều kiện và hỗ trợ đăng ký xác minh tích xanh TikTok uy tín.",
+        img: ASSETS.services.tichXanh
+      },
+      {
+        title: "Mở khoá Facebook",
+        shortDesc: "Hỗ trợ khôi phục các tài khoản Facebook bị khóa, checkpoint hoặc vô hiệu hóa.",
+        img: ASSETS.services.branding
+      },
+      {
+        title: "Mở khoá Tiktok",
+        shortDesc: "Hỗ trợ mở khóa tài khoản TikTok bị đình chỉ, vi phạm hướng dẫn cộng đồng.",
+        img: ASSETS.services.reportTiktok
+      },
+      {
+        title: "Dịch vụ Xây Kênh",
+        shortDesc: "Tư vấn, lên kịch bản, sản xuất video ngắn và vận hành kênh đa nền tảng.",
+        img: ASSETS.services.miniApp
+      },
+      {
+        title: "Dịch Vụ ADS",
+        shortDesc: "Tối ưu chiến dịch quảng cáo Facebook, Google, TikTok mang lại hiệu quả chuyển đổi cao.",
+        img: ASSETS.services.marketing
+      }
+    ]
   },
   {
-    title: "Dịch Vụ Xây Kênh",
-    shortDesc: "Xây dựng, vận hành và phát triển kênh TikTok, YouTube, Fanpage theo định hướng thương hiệu.",
-    img: ASSETS.services.miniApp
+    id: 2,
+    title: "AI & Software Solutions",
+    subServices: [
+      {
+        title: "Thiết kế Website",
+        shortDesc: "Xây dựng website doanh nghiệp, landing page tối giản, tốc độ cao và chuẩn SEO.",
+        img: ASSETS.services.website
+      },
+      {
+        title: "Thiết kế App Mobile",
+        shortDesc: "Phát triển ứng dụng di động native/hybrid trên iOS và Android theo yêu cầu.",
+        img: ASSETS.services.mobileApp
+      },
+      {
+        title: "Thiết kế App Mini",
+        shortDesc: "Thiết kế Zalo Mini App, Telegram Mini App đón đầu xu hướng tiện ích nội bộ.",
+        img: ASSETS.services.miniApp
+      },
+      {
+        title: "Tạo Tool Theo Yêu cầu",
+        shortDesc: "Lập trình phần mềm, tool tự động hóa quy trình (RPA) tối ưu năng suất lao động.",
+        img: ASSETS.services.software
+      },
+      {
+        title: "Dịch Vụ Chat Bot",
+        shortDesc: "Tích hợp chatbot AI thông minh tư vấn và chăm sóc khách hàng 24/7 tự động.",
+        img: ASSETS.services.chatbotAi
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: "PR, Trust & Branding",
+    subServices: [
+      {
+        title: "Xây Dựng Thương Hiệu",
+        shortDesc: "Tư vấn nhận diện thương hiệu, định vị hình ảnh cá nhân và doanh nghiệp chuyên nghiệp.",
+        img: ASSETS.services.branding
+      },
+      {
+        title: "Truyền Thông Báo Chí",
+        shortDesc: "Booking bài viết PR trên các trang báo điện tử lớn và các kênh truyền thông uy tín.",
+        img: ASSETS.services.marketing
+      },
+      {
+        title: "Dịch Vụ GEO",
+        shortDesc: "Tối ưu hóa công cụ tìm kiếm dựa trên AI sinh tạo (Generative Engine Optimization) đón đầu xu hướng mới.",
+        img: ASSETS.services.marketing
+      },
+      {
+        title: "Dịch Vụ SEO",
+        shortDesc: "Tối ưu hóa thứ hạng website trên công cụ tìm kiếm Google bền vững.",
+        img: ASSETS.services.website
+      }
+    ]
+  },
+  {
+    id: 4,
+    title: "Report",
+    subServices: [
+      {
+        title: "Report Tiktok",
+        shortDesc: "Xử lý, gỡ bỏ các video, kênh TikTok giả mạo, bôi nhọ hoặc vi phạm bản quyền.",
+        img: ASSETS.services.reportTiktok
+      },
+      {
+        title: "Report Youtube",
+        shortDesc: "Giải quyết video vi phạm bản quyền, reup trái phép và kênh mạo danh thương hiệu.",
+        img: ASSETS.services.reportTiktok
+      },
+      {
+        title: "Report Facebook",
+        shortDesc: "Hỗ trợ báo cáo và gỡ bỏ trang, tài khoản mạo danh, thông tin sai sự thật trên Facebook.",
+        img: ASSETS.services.branding
+      },
+      {
+        title: "Report Website",
+        shortDesc: "Yêu cầu gỡ bỏ trang web giả mạo, lừa đảo hoặc vi phạm bản quyền nội dung (DMCA).",
+        img: ASSETS.services.website
+      },
+      {
+        title: "Report Twitter X",
+        shortDesc: "Báo cáo xử lý các bài đăng, tài khoản bôi nhọ danh dự trên mạng xã hội X.",
+        img: ASSETS.services.marketing
+      },
+      {
+        title: "Report Instagram",
+        shortDesc: "Hỗ trợ gỡ tài khoản giả mạo hình ảnh, video reup trái phép trên Instagram.",
+        img: ASSETS.services.tichXanhFacebook
+      }
+    ]
   }
 ];
 
@@ -80,6 +163,7 @@ const Services = () => {
               key={svc.id}
               onClick={() => {
                 setActiveTab(svc);
+                setActiveSvcIndex(0); // Open first sub-service by default
                 setShowPopoverIndex(null);
               }}
               className={`services-tab-btn ${activeTab.id === svc.id ? 'active' : ''}`}
@@ -101,186 +185,111 @@ const Services = () => {
               className="service-tab-pane"
               style={{ display: 'block' }} // Force block layout to support accordion expansion correctly
             >
-              {activeTab.id === 1 ? (
-                /* Accordion List for Digital & Social Growth */
-                <div className="services-accordion-list">
-                  {subServices.map((subSvc, idx) => {
-                    const isOpen = activeSvcIndex === idx;
-                    return (
-                      <div 
-                        key={idx} 
-                        className={`services-accordion-card ${isOpen ? 'open' : ''}`}
-                      >
-                        <button 
-                          className="services-accordion-header"
-                          onClick={() => {
-                            setActiveSvcIndex(isOpen ? null : idx);
-                            setShowPopoverIndex(null);
-                          }}
-                        >
-                          <div className="services-accordion-header-info">
-                            <h4 className="services-accordion-title">{subSvc.title}</h4>
-                            <p className="services-accordion-short-desc">{subSvc.shortDesc}</p>
-                          </div>
-                          <span className="services-accordion-arrow">
-                            {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                          </span>
-                        </button>
-                        
-                        <AnimatePresence initial={false}>
-                          {isOpen && (
-                            <motion.div
-                              className="services-accordion-body"
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.3, ease: 'easeInOut' }}
-                            >
-                              <div className="services-accordion-content">
-                                <div className="services-accordion-visual">
-                                  <ImageWithFallback 
-                                    srcWebp={subSvc.img} 
-                                    alt={subSvc.title} 
-                                  />
-                                </div>
-                                <div className="services-accordion-cta-wrapper">
-                                  <button 
-                                    className="btn-primary services-accordion-cta"
-                                    onClick={(e) => handleCtaClick(e, idx)}
-                                  >
-                                    Nhận Tư Vấn
-                                  </button>
-                                  
-                                  {/* Inline Popover Zalo / Telegram */}
-                                  <AnimatePresence>
-                                    {showPopoverIndex === idx && (
-                                      <motion.div 
-                                        key={`popover-container-${idx}`}
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                      >
-                                        <div 
-                                          className="fixed inset-0 z-40" 
-                                          style={{ cursor: 'default' }}
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            setShowPopoverIndex(null);
-                                          }} 
-                                        />
-                                        <motion.div 
-                                          className="services-inline-popover"
-                                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                          transition={{ duration: 0.2 }}
-                                          onClick={(e) => e.stopPropagation()}
-                                        >
-                                          <a 
-                                            href="https://zalo.me/0765178999" 
-                                            target="_blank" 
-                                            rel="noopener noreferrer" 
-                                            className="popover-item zalo"
-                                            onClick={() => setShowPopoverIndex(null)}
-                                          >
-                                            <span>Zalo</span>
-                                          </a>
-                                          <a 
-                                            href="https://t.me/Tanlemedia" 
-                                            target="_blank" 
-                                            rel="noopener noreferrer" 
-                                            className="popover-item telegram"
-                                            onClick={() => setShowPopoverIndex(null)}
-                                          >
-                                            <span>Telegram</span>
-                                          </a>
-                                        </motion.div>
-                                      </motion.div>
-                                    )}
-                                  </AnimatePresence>
-                                </div>
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                /* Standard layout for other tabs */
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '40px', width: '100%' }} className="service-tab-pane-inner">
-                  <div className="service-tab-info">
-                    <h3 className="service-tab-title">{activeTab.title}</h3>
-                    <p className="service-tab-desc">{activeTab.desc}</p>
-                    <div style={{ marginTop: '40px' }} className="services-accordion-cta-wrapper">
+              {/* Accordion List for active tab */}
+              <div className="services-accordion-list">
+                {activeTab.subServices.map((subSvc, idx) => {
+                  const isOpen = activeSvcIndex === idx;
+                  return (
+                    <div 
+                      key={idx} 
+                      className={`services-accordion-card ${isOpen ? 'open' : ''}`}
+                    >
                       <button 
-                        className="btn-primary"
-                        onClick={(e) => handleCtaClick(e, activeTab.id)}
+                        className="services-accordion-header"
+                        onClick={() => {
+                          setActiveSvcIndex(isOpen ? null : idx);
+                          setShowPopoverIndex(null);
+                        }}
                       >
-                        Nhận tư vấn ngay
+                        <div className="services-accordion-header-info">
+                          <h4 className="services-accordion-title">{subSvc.title}</h4>
+                          <p className="services-accordion-short-desc">{subSvc.shortDesc}</p>
+                        </div>
+                        <span className="services-accordion-arrow">
+                          {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                        </span>
                       </button>
-
-                      {/* Inline Popover Zalo / Telegram for other tabs */}
-                      <AnimatePresence>
-                        {showPopoverIndex === activeTab.id && (
-                          <motion.div 
-                            key={`popover-container-tab-${activeTab.id}`}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
+                      
+                      <AnimatePresence initial={false}>
+                        {isOpen && (
+                          <motion.div
+                            className="services-accordion-body"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeInOut' }}
                           >
-                            <div 
-                              className="fixed inset-0 z-40" 
-                              style={{ cursor: 'default' }}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setShowPopoverIndex(null);
-                              }} 
-                            />
-                            <motion.div 
-                              className="services-inline-popover"
-                              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                              transition={{ duration: 0.2 }}
-                              onClick={(e) => e.stopPropagation()}
-                              style={{ left: '0', transform: 'none' }} // Align popover under standard tab button
-                            >
-                              <a 
-                                href="https://zalo.me/0765178999" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="popover-item zalo"
-                                onClick={() => setShowPopoverIndex(null)}
-                              >
-                                <span>Zalo</span>
-                              </a>
-                              <a 
-                                href="https://t.me/Tanlemedia" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="popover-item telegram"
-                                onClick={() => setShowPopoverIndex(null)}
-                              >
-                                <span>Telegram</span>
-                              </a>
-                            </motion.div>
+                            <div className="services-accordion-content">
+                              <div className="services-accordion-visual">
+                                <ImageWithFallback 
+                                  srcWebp={subSvc.img} 
+                                  alt={subSvc.title} 
+                                />
+                              </div>
+                              <div className="services-accordion-cta-wrapper">
+                                <button 
+                                  className="btn-primary services-accordion-cta"
+                                  onClick={(e) => handleCtaClick(e, idx)}
+                                >
+                                  Nhận Tư Vấn
+                                </button>
+                                
+                                {/* Inline Popover Zalo / Telegram */}
+                                <AnimatePresence>
+                                  {showPopoverIndex === idx && (
+                                    <motion.div 
+                                      key={`popover-container-${idx}`}
+                                      initial={{ opacity: 0 }}
+                                      animate={{ opacity: 1 }}
+                                      exit={{ opacity: 0 }}
+                                    >
+                                      <div 
+                                        className="fixed inset-0 z-40" 
+                                        style={{ cursor: 'default' }}
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          setShowPopoverIndex(null);
+                                        }} 
+                                      />
+                                      <motion.div 
+                                        className="services-inline-popover"
+                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        transition={{ duration: 0.2 }}
+                                        onClick={(e) => e.stopPropagation()}
+                                      >
+                                        <a 
+                                          href="https://zalo.me/0765178999" 
+                                          target="_blank" 
+                                          rel="noopener noreferrer" 
+                                          className="popover-item zalo"
+                                          onClick={() => setShowPopoverIndex(null)}
+                                        >
+                                          <span>Zalo</span>
+                                        </a>
+                                        <a 
+                                          href="https://t.me/Tanlemedia" 
+                                          target="_blank" 
+                                          rel="noopener noreferrer" 
+                                          className="popover-item telegram"
+                                          onClick={() => setShowPopoverIndex(null)}
+                                        >
+                                          <span>Telegram</span>
+                                        </a>
+                                      </motion.div>
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
                     </div>
-                  </div>
-                  
-                  <div className="service-tab-visual">
-                    <ImageWithFallback 
-                      srcWebp={activeTab.img} 
-                      alt={activeTab.title} 
-                    />
-                    <div className="service-tab-glow"></div>
-                  </div>
-                </div>
-              )}
+                  );
+                })}
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
