@@ -23,7 +23,7 @@ Hãy dựa trên các dịch vụ chính của LETAN Media sau để tư vấn:
 5. Report Cấm Livestream: Khóa quyền livestream của tài khoản vi phạm nhiều lần hoặc lạm dụng live.
 6. Report TikTok Shop: Xử lý shop giả mạo nhãn hiệu, sản phẩm vi phạm bản quyền, cạnh tranh bẩn.
 
-Cam ước của LETAN Media:
+Cam kết của LETAN Media:
 - Bảo mật thông tin khách hàng 100%.
 - Tốc độ xử lý nhanh chóng trong vòng 24 - 48 giờ.
 - Hoàn tiền 100% nếu không đạt kết quả như cam kết.
@@ -54,8 +54,9 @@ Hướng dẫn trả lời:
     let success = false;
     let attempts = 0;
     
-    // Select a random index to start to distribute load evenly across keys
-    let selectedIndex = Math.floor(Math.random() * apiKeys.length);
+    // Deterministic Alternating Selection: Choose index based on the message history length
+    // As history grows (2 -> 4 -> 6 -> 8), this alternates keys (1 -> 0 -> 1 -> 0) sequentially
+    let selectedIndex = Math.floor(messages.length / 2) % apiKeys.length;
     let apiKey = apiKeys[selectedIndex];
 
     // Attempt request, with auto failover loop to alternate keys if one is exhausted/throttled
@@ -98,7 +99,7 @@ Hướng dẫn trả lời:
         console.error(`Error using Gemini key index ${selectedIndex}:`, innerErr);
       }
 
-      // Alternate to the next key
+      // Alternate to the next key (failover)
       attempts++;
       selectedIndex = (selectedIndex + 1) % apiKeys.length;
       apiKey = apiKeys[selectedIndex];
