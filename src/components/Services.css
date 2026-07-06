@@ -107,15 +107,49 @@
   object-fit: contain;
 }
 
+.services-accordion-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
+}
+
 .services-accordion-cta-wrapper {
   position: relative;
-  display: inline-block;
-  width: fit-content;
+  flex: 1;
 }
 
 .services-accordion-cta {
   width: 100%;
-  min-width: 180px;
+  padding: 12px 24px;
+  border-radius: 14px !important;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.services-accordion-secondary-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.services-accordion-secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #3b82f6;
+  color: #3b82f6;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
 }
 
 /* Inline Popover Styles */
@@ -286,14 +320,18 @@
     border-radius: 16px;
   }
 
-  .services-accordion-cta-wrapper {
+  .services-accordion-actions {
+    flex-direction: row;
+    gap: 8px;
     width: 100%;
   }
 
-  .services-accordion-cta {
-    width: 100% !important; /* Full width CTA */
+  .services-accordion-cta,
+  .services-accordion-secondary-btn {
+    padding: 10px 12px;
+    font-size: 12px;
+    border-radius: 14px;
+    width: 100%;
     min-width: 0 !important;
-    padding: 12px;
-    font-size: 13px;
   }
 }

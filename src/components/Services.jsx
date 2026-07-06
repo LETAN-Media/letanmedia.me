@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ASSETS } from '../config/assets';
 import ImageWithFallback from './ImageWithFallback';
 import { ChevronDown, ChevronUp } from 'lucide-react';
@@ -153,6 +154,44 @@ const Services = () => {
     setShowPopoverIndex(showPopoverIndex === index ? null : index);
   };
 
+  const getServiceRoute = (title) => {
+    const t = title.toLowerCase();
+    if (t.includes('tiktok') && t.includes('report')) return '/tiktok-report';
+    if (t.includes('youtube') && t.includes('report')) return '/youtube-report';
+    if (t.includes('chatbot') || t.includes('chat bot')) return '/chatbot-ai';
+    return null;
+  };
+
+  const handleLearnMoreClick = (title) => {
+    // Open home chatbot and ask for information
+    window.dispatchEvent(new CustomEvent('open-home-chatbot', {
+      detail: { message: `Tôi muốn tìm hiểu thông tin chi tiết về dịch vụ: ${title}` }
+    }));
+  };
+
+  const renderLearnMoreButton = (subSvc) => {
+    const route = getServiceRoute(subSvc.title);
+    if (route) {
+      return (
+        <Link 
+          to={route} 
+          className="services-accordion-secondary-btn"
+        >
+          Tìm Hiểu Thêm
+        </Link>
+      );
+    }
+    return (
+      <button 
+        type="button"
+        className="services-accordion-secondary-btn"
+        onClick={() => handleLearnMoreClick(subSvc.title)}
+      >
+        Tìm Hiểu Thêm
+      </button>
+    );
+  };
+
   return (
     <section id="services" className="section services-section">
       <div className="section-header">
@@ -231,61 +270,66 @@ const Services = () => {
                                   alt={subSvc.title} 
                                 />
                               </div>
-                              <div className="services-accordion-cta-wrapper">
-                                <button 
-                                  className="btn-primary services-accordion-cta"
-                                  onClick={(e) => handleCtaClick(e, idx)}
-                                >
-                                  Nhận Tư Vấn
-                                </button>
-                                
-                                {/* Inline Popover Zalo / Telegram */}
-                                <AnimatePresence>
-                                  {showPopoverIndex === idx && (
-                                    <motion.div 
-                                      key={`popover-container-${idx}`}
-                                      initial={{ opacity: 0 }}
-                                      animate={{ opacity: 1 }}
-                                      exit={{ opacity: 0 }}
-                                    >
-                                      <div 
-                                        className="fixed inset-0 z-40" 
-                                        style={{ cursor: 'default' }}
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          setShowPopoverIndex(null);
-                                        }} 
-                                      />
+                              
+                              <div className="services-accordion-actions">
+                                <div className="services-accordion-cta-wrapper">
+                                  <button 
+                                    className="btn-primary services-accordion-cta"
+                                    onClick={(e) => handleCtaClick(e, idx)}
+                                  >
+                                    Nhận Tư Vấn
+                                  </button>
+                                  
+                                  {/* Inline Popover Zalo / Telegram */}
+                                  <AnimatePresence>
+                                    {showPopoverIndex === idx && (
                                       <motion.div 
-                                        className="services-inline-popover"
-                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        transition={{ duration: 0.2 }}
-                                        onClick={(e) => e.stopPropagation()}
+                                        key={`popover-container-${idx}`}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
                                       >
-                                        <a 
-                                          href="https://zalo.me/0765178999" 
-                                          target="_blank" 
-                                          rel="noopener noreferrer" 
-                                          className="popover-item zalo"
-                                          onClick={() => setShowPopoverIndex(null)}
+                                        <div 
+                                          className="fixed inset-0 z-40" 
+                                          style={{ cursor: 'default' }}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            setShowPopoverIndex(null);
+                                          }} 
+                                        />
+                                        <motion.div 
+                                          className="services-inline-popover"
+                                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                          transition={{ duration: 0.2 }}
+                                          onClick={(e) => e.stopPropagation()}
                                         >
-                                          <span>Zalo</span>
-                                        </a>
-                                        <a 
-                                          href="https://t.me/Tanlemedia" 
-                                          target="_blank" 
-                                          rel="noopener noreferrer" 
-                                          className="popover-item telegram"
-                                          onClick={() => setShowPopoverIndex(null)}
-                                        >
-                                          <span>Telegram</span>
-                                        </a>
+                                          <a 
+                                            href="https://zalo.me/0765178999" 
+                                            target="_blank" 
+                                            rel="noopener noreferrer" 
+                                            className="popover-item zalo"
+                                            onClick={() => setShowPopoverIndex(null)}
+                                          >
+                                            <span>Zalo</span>
+                                          </a>
+                                          <a 
+                                            href="https://t.me/Tanlemedia" 
+                                            target="_blank" 
+                                            rel="noopener noreferrer" 
+                                            className="popover-item telegram"
+                                            onClick={() => setShowPopoverIndex(null)}
+                                          >
+                                            <span>Telegram</span>
+                                          </a>
+                                        </motion.div>
                                       </motion.div>
-                                    </motion.div>
-                                  )}
-                                </AnimatePresence>
+                                    )}
+                                  </AnimatePresence>
+                                </div>
+                                
+                                {renderLearnMoreButton(subSvc)}
                               </div>
                             </div>
                           </motion.div>
