@@ -432,19 +432,25 @@ export default function TikTokReportPage() {
       <AnimatePresence>
         {showPopover && (
           <motion.div 
-            key="modal-overlay"
-            className="tiktok-consult-modal-overlay"
+            key="modal-container"
+            className="tiktok-consult-modal-container"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setShowPopover(false)}
+            transition={{ duration: 0.3 }}
           >
+            {/* Dark Blurred Backdrop */}
+            <div 
+              className="tiktok-consult-modal-backdrop"
+              onClick={() => setShowPopover(false)}
+            />
+            
+            {/* Popover Content */}
             <motion.div 
-              key="popover"
               className="tiktok-consult-popover"
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
             >

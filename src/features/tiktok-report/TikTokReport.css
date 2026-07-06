@@ -1135,11 +1135,9 @@
 }
 
 /* Centered Consult Modal Styles for TikTok */
-.tiktok-consult-modal-overlay {
+.tiktok-consult-modal-container {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(12px);
   z-index: 9998;
   display: flex;
   align-items: center;
@@ -1147,7 +1145,18 @@
   padding: 20px;
 }
 
+.tiktok-consult-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  z-index: 1;
+}
+
 .tiktok-consult-popover {
+  position: relative;
+  z-index: 2;
   display: flex;
   gap: 32px;
   padding: 40px;
