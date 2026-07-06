@@ -786,7 +786,7 @@
   position: absolute;
   top: -40px;
   right: 5%;
-  background: var(--color-blue);
+  background: linear-gradient(135deg, #00f2ea 0%, #ff0050 100%);
   color: white;
   width: 80px;
   height: 80px;
@@ -796,8 +796,14 @@
   justify-content: center;
   font-size: 2rem;
   z-index: 1000;
-  box-shadow: 0 10px 40px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 0 28px rgba(0, 242, 234, 0.25), 0 0 38px rgba(255, 0, 80, 0.28);
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.floating-ai svg {
+  width: 32px;
+  height: 32px;
+  color: #fff;
 }
 
 .floating-ai:hover {
