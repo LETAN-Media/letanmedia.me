@@ -227,10 +227,16 @@
 }
 
 @media (max-width: 768px) {
-  .feedback-section { padding: 5rem 1rem; }
-  .carousel-wrapper { height: 450px; }
-  .carousel-track { max-width: 260px; }
-  .carousel-nav { display: none; }
-  .feedback-title { font-size: 2.2rem; }
-  .carousel-card.inactive { opacity: 0 !important; pointer-events: none; }
+  .feedback-section { padding: 4rem 0rem; overflow-x: hidden; }
+  .carousel-wrapper { height: 420px; }
+  .carousel-track { max-width: 210px; }
+  .carousel-nav { 
+    width: 36px; 
+    height: 36px; 
+    background: rgba(255, 255, 255, 0.1); 
+  }
+  .carousel-nav.prev { left: 5px; }
+  .carousel-nav.next { right: 5px; }
+  .feedback-title { font-size: 2rem; padding: 0 1rem; }
+  .feedback-subtitle { padding: 0 1rem; }
 }
