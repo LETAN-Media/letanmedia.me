@@ -141,23 +141,68 @@ async function callHuggingFace(messages, env) {
   }
   throw new Error("All Hugging Face keys failed");
 }
+async function callNvidia(messages, env) {
+  const keys = [
+    env.NVIDIA_API_KEY_1,
+    env.NVIDIA_API_KEY_2,
+    env.NVIDIA_API_KEY,
+    env.NVIDIA_KEY
+  ].filter(Boolean);
+  if (!keys.length) {
+    throw new Error("Missing Nvidia API key");
+  }
+  const model = env.NVIDIA_MODEL || "meta/llama-3.1-70b-instruct";
+  
+  for (const key of keys) {
+    try {
+      const res = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${key}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model,
+          messages,
+          temperature: 0.6,
+          max_tokens: 900
+        })
+      });
+      if (!res.ok) {
+        continue;
+      }
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content;
+      if (reply) {
+        return reply.trim();
+      }
+    } catch (err) {
+      console.error("Nvidia provider failed");
+    }
+  }
+  throw new Error("All Nvidia keys failed");
+}
 
 async function callAI(messages, env) {
   const provider = (env.AI_PROVIDER || "gemini").toLowerCase();
-  if (provider === "huggingface") {
+  
+  const providers = {
+    huggingface: () => callHuggingFace(messages, env),
+    gemini: () => callGemini(messages, env),
+    nvidia: () => callNvidia(messages, env)
+  };
+  
+  const order = [provider, ...Object.keys(providers).filter(p => p !== provider)];
+  
+  for (const p of order) {
     try {
-      return await callHuggingFace(messages, env);
+      return await providers[p]();
     } catch (err) {
-      console.error("Primary Hugging Face failed. Fallback Gemini.");
-      return await callGemini(messages, env);
+      console.error(`${p} failed. Trying next.`);
     }
   }
-  try {
-    return await callGemini(messages, env);
-  } catch (err) {
-    console.error("Primary Gemini failed. Fallback Hugging Face.");
-    return await callHuggingFace(messages, env);
-  }
+  
+  throw new Error("All providers failed.");
 }
 
 export default {
