@@ -392,45 +392,51 @@ export default function YoutubeReportPage() {
           <YoutubeChatWidget />
         </Suspense>
 
-        {/* Contact Popup Popover */}
+        {/* Contact Popup Modal Popover */}
         <AnimatePresence>
           {showPopover && (
             <motion.div 
-              key="backdrop"
-              className="fixed inset-0 z-[9998]"
-              style={{ backgroundColor: 'transparent' }}
+              key="modal-overlay"
+              className="youtube-consult-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setShowPopover(false)}
-            />
-          )}
-          {showPopover && (
-            <motion.div 
-              key="popover"
-              className="youtube-consult-popover"
-              initial={{ opacity: 0, scale: 0.9, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 10 }}
-              transition={{ duration: 0.2 }}
             >
-              <a 
-                href="https://zalo.me/0765178999"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="youtube-consult-option zalo"
-                onClick={() => setShowPopover(false)}
+              <motion.div 
+                key="popover"
+                className="youtube-consult-popover"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                onClick={(e) => e.stopPropagation()}
               >
-                <img src="https://cdn.letanmedia.me/images/icon-zalo.svg" alt="Zalo" onError={(e) => e.target.style.display='none'} />
-                <span>Zalo</span>
-              </a>
-              <a 
-                href="https://t.me/Tanlemedia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="youtube-consult-option telegram"
-                onClick={() => setShowPopover(false)}
-              >
-                <img src="https://cdn.letanmedia.me/images/icon-telegram.svg" alt="Telegram" onError={(e) => e.target.style.display='none'} />
-                <span>Telegram</span>
-              </a>
+                <a 
+                  href="https://zalo.me/0765178999"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="youtube-consult-option zalo"
+                  onClick={() => setShowPopover(false)}
+                >
+                  <div className="icon-wrapper">
+                    <img src="https://cdn.letanmedia.me/images/icon-zalo.svg" alt="Zalo" onError={(e) => e.target.style.display='none'} />
+                  </div>
+                  <span>Zalo</span>
+                </a>
+                <a 
+                  href="https://t.me/Tanlemedia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="youtube-consult-option telegram"
+                  onClick={() => setShowPopover(false)}
+                >
+                  <div className="icon-wrapper">
+                    <img src="https://cdn.letanmedia.me/images/icon-telegram.svg" alt="Telegram" onError={(e) => e.target.style.display='none'} />
+                  </div>
+                  <span>Telegram</span>
+                </a>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
