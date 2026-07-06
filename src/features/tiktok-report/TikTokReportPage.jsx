@@ -1,11 +1,11 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldAlert, Scale, AlertTriangle, UserX, Radio, Ban, ShoppingBag, ChevronDown, Check, X } from 'lucide-react';
 import './TikTokReport.css';
-import TikTokChatWidget from './components/TikTokChatWidget';
-import FeedbackCarousel from './components/FeedbackCarousel';
 
 const TikTokHero3D = lazy(() => import('./components/TikTokHero3D'));
+const FeedbackCarousel = lazy(() => import('./components/FeedbackCarousel'));
+const TikTokChatWidget = lazy(() => import('./components/TikTokChatWidget'));
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -170,6 +170,14 @@ const services = [
 export default function TikTokReportPage() {
   const [activeIndex, setActiveIndex] = useState(null);
   const [showPopover, setShowPopover] = useState(false);
+
+  useEffect(() => {
+    document.title = "Dịch Vụ Report TikTok Uy Tín, Bảo Mật 100% — LETAN Media";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content", "Dịch vụ report kênh TikTok vi phạm, gỡ video bôi nhọ, fake news và bảo vệ tài khoản TikTok chuyên nghiệp. Hỗ trợ khẩn cấp 24/7.");
+    }
+  }, []);
 
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -411,10 +419,14 @@ export default function TikTokReportPage() {
       </section>
 
       {/* Feedback Carousel Section */}
-      <FeedbackCarousel />
+      <Suspense fallback={<div className="min-h-[400px] bg-[#050509]" />}>
+        <FeedbackCarousel />
+      </Suspense>
 
       {/* Bot Chat AI */}
-      <TikTokChatWidget />
+      <Suspense fallback={null}>
+        <TikTokChatWidget />
+      </Suspense>
 
       {/* Contact Popup Popover */}
       <AnimatePresence>

@@ -122,7 +122,7 @@ export default function FeedbackCarousel() {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <button className="carousel-nav prev" onClick={prevSlide}><ChevronLeft /></button>
+          <button aria-label="Previous Slide" className="carousel-nav prev" onClick={prevSlide}><ChevronLeft /></button>
           
           <div className="carousel-track">
             <AnimatePresence initial={false}>
@@ -147,7 +147,7 @@ export default function FeedbackCarousel() {
                   >
                     <div className="card-glass-effect">
                       <div className="image-wrapper">
-                        <img src={item.image} alt={item.customerName} loading="lazy" />
+                        <img src={item.image} alt={item.customerName} loading="lazy" width={320} height={570} />
                         <div className="skeleton-shimmer"></div>
                       </div>
                     </div>
@@ -157,7 +157,7 @@ export default function FeedbackCarousel() {
             </AnimatePresence>
           </div>
 
-          <button className="carousel-nav next" onClick={nextSlide}><ChevronRight /></button>
+          <button aria-label="Next Slide" className="carousel-nav next" onClick={nextSlide}><ChevronRight /></button>
         </div>
 
         <div className="carousel-pagination">
