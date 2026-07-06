@@ -104,7 +104,7 @@ export default function FeedbackCarousel() {
             viewport={{ once: true }}
             className="feedback-title"
           >
-            Phản Hồi Từ Khách Hàng
+            Kết Quả Xử Lý Thực Tế
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -113,7 +113,7 @@ export default function FeedbackCarousel() {
             transition={{ delay: 0.1 }}
             className="feedback-subtitle"
           >
-            Hàng trăm khách hàng đã tin tưởng và sử dụng dịch vụ của LETAN Media.
+            Những trường hợp thực tế đã được LETAN Media xử lý thành công.
           </motion.p>
         </div>
 
