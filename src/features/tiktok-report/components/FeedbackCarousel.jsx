@@ -6,38 +6,59 @@ import './FeedbackCarousel.css';
 const feedbacks = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop",
-    customerName: "Nguyễn V. • Telegram",
-    platform: "Telegram",
+    image: "https://cdn.letanmedia.me/images/cap/1.jpg",
+    customerName: "Khách hàng Zalo",
+    platform: "Zalo",
     service: "Dịch vụ Report TikTok"
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=800&auto=format&fit=crop", 
-    customerName: "Trần H. • Zalo",
+    image: "https://cdn.letanmedia.me/images/cap/2.jpg", 
+    customerName: "Khách hàng Zalo",
     platform: "Zalo",
     service: "Gỡ Video Bôi Nhọ"
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?q=80&w=800&auto=format&fit=crop",
-    customerName: "Shop Áo Thun • Messenger",
-    platform: "Messenger",
-    service: "Report TikTok Shop"
+    image: "https://cdn.letanmedia.me/images/cap/3.jpg",
+    customerName: "Khách hàng Telegram",
+    platform: "Telegram",
+    service: "Xử Lý Khủng Hoảng"
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?q=80&w=800&auto=format&fit=crop",
-    customerName: "Lê M. • Zalo",
+    image: "https://cdn.letanmedia.me/images/cap/4.jpg",
+    customerName: "Khách hàng Zalo",
     platform: "Zalo",
     service: "Bảo vệ Bản Quyền"
   },
   {
     id: 5,
-    image: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?q=80&w=800&auto=format&fit=crop",
-    customerName: "Hoàng K. • TikTok",
-    platform: "TikTok",
+    image: "https://cdn.letanmedia.me/images/cap/5.jpg",
+    customerName: "Khách hàng Telegram",
+    platform: "Telegram",
+    service: "Tư Vấn TikTok"
+  },
+  {
+    id: 6,
+    image: "https://cdn.letanmedia.me/images/cap/6.jpg",
+    customerName: "Khách hàng Messenger",
+    platform: "Messenger",
+    service: "Report Cạnh Tranh Bẩn"
+  },
+  {
+    id: 7,
+    image: "https://cdn.letanmedia.me/images/cap/7.jpg",
+    customerName: "Khách hàng Zalo",
+    platform: "Zalo",
     service: "Report Phiên Live"
+  },
+  {
+    id: 8,
+    image: "https://cdn.letanmedia.me/images/cap/8.jpg",
+    customerName: "Khách hàng Telegram",
+    platform: "Telegram",
+    service: "Đánh Gậy Bản Quyền"
   }
 ];
 
