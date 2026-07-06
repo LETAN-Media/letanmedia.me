@@ -481,7 +481,7 @@
 
 /* Accordion Content */
 .youtube-accordion-content-inner {
-  padding: 0 2.25rem 2.25rem 6.25rem; /* Lùi lề bằng đúng khoảng cách icon wrapper + padding để nội dung chi tiết thẳng hàng với chữ */
+  padding: 0 32px 32px 6.25rem; /* Lùi lề bằng đúng khoảng cách icon wrapper + padding để nội dung chi tiết thẳng hàng với chữ */
   text-align: left;
   position: relative;
   z-index: 3;
@@ -599,7 +599,7 @@
   }
   
   .youtube-accordion-content-inner {
-    padding: 0 1rem 1.25rem 1rem; /* Bỏ lùi lề quá mức trên mobile để tránh chật hẹp */
+    padding: 0 24px 24px 24px; /* Bỏ lùi lề quá mức trên mobile để tránh chật hẹp và cách lề đủ 24px */
   }
   
   .youtube-detail-text {

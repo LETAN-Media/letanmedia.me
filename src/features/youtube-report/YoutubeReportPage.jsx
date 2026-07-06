@@ -249,11 +249,16 @@ export default function YoutubeReportPage() {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <div className="youtube-accordion-body">
+                          <div className="youtube-accordion-content-inner">
                             <p className="text-gray-400 leading-relaxed mb-4">{service.description}</p>
-                            <ul className="list-disc pl-5 mb-6 text-gray-400 space-y-2">
+                            <ul className="youtube-details-list">
                               {service.details.map((detail, idx) => (
-                                <li key={idx}>{detail}</li>
+                                <li key={idx} className="youtube-detail-item">
+                                  <span className="youtube-check-icon">
+                                    <Check size={14} />
+                                  </span>
+                                  <span className="youtube-detail-text">{detail}</span>
+                                </li>
                               ))}
                             </ul>
                             <motion.button 
