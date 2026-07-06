@@ -183,20 +183,46 @@ async function callNvidia(messages, env) {
   throw new Error("All Nvidia keys failed");
 }
 
-async function callAI(messages, env) {
-  const provider = (env.AI_PROVIDER || "gemini").toLowerCase();
+async function callCloudflareAI(messages, env) {
+  if (!env.AI) {
+    throw new Error("Missing Cloudflare AI binding");
+  }
+  const model = env.CF_MODEL || "@cf/meta/llama-3-8b-instruct";
   
+  try {
+    const response = await env.AI.run(model, {
+      messages: messages,
+      temperature: 0.6,
+      max_tokens: 900
+    });
+    if (response && response.response) {
+      return response.response.trim();
+    }
+  } catch (err) {
+    console.error("Cloudflare AI provider failed", err);
+  }
+  throw new Error("Cloudflare AI failed");
+}
+
+async function callAI(messages, env) {
   const providers = {
+    cloudflare: () => callCloudflareAI(messages, env),
     huggingface: () => callHuggingFace(messages, env),
     gemini: () => callGemini(messages, env),
     nvidia: () => callNvidia(messages, env)
   };
   
-  const order = [provider, ...Object.keys(providers).filter(p => p !== provider)];
+  const desiredOrder = ["cloudflare", "huggingface", "gemini", "nvidia"];
+  const provider = (env.AI_PROVIDER || "cloudflare").toLowerCase();
+  
+  // Put the selected provider first, then the rest in desiredOrder
+  const order = [provider, ...desiredOrder.filter(p => p !== provider)];
   
   for (const p of order) {
     try {
-      return await providers[p]();
+      if (providers[p]) {
+        return await providers[p]();
+      }
     } catch (err) {
       console.error(`${p} failed. Trying next.`);
     }

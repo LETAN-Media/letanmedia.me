@@ -42,14 +42,32 @@ export default function TikTokChatWidget() {
 
     const fallbackMessage = "🤖 LETAN Shield AI hiện đang bận hoặc đang được nâng cấp.\n\nĐể được hỗ trợ ngay, vui lòng liên hệ:\n\n📞 Hotline/Zalo: 0765 178 999\n💬 Telegram: @Tanlemedia";
 
+    const systemPromptMessage = {
+      role: "system",
+      content: `Bạn là chatbot tư vấn của LETAN Media.
+Nhiệm vụ:
+- Tư vấn dịch vụ report TikTok.
+- Tư vấn xử lý kênh giả mạo, video bôi nhọ, fake news, bản quyền, livestream, TikTok Shop.
+- Trả lời ngắn gọn, chuyên nghiệp, dễ hiểu.
+- Không hứa chắc 100% nếu chưa kiểm tra case.
+- Khuyến khích khách để lại họ tên + số điện thoại/Zalo để được hỗ trợ nhanh.
+- Luôn trả lời bằng tiếng Việt.`
+    };
+
+    const payloadMessages = [
+      systemPromptMessage,
+      ...updatedMessages.map(m => ({ role: m.role, content: m.content }))
+    ];
+
     try {
-      const response = await fetch('/api/report-tiktok/chat', {
+      const chatApiUrl = import.meta.env.VITE_CHATBOT_API_URL || '/api/report-tiktok/chat';
+      const response = await fetch(chatApiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          messages: updatedMessages.map(m => ({ role: m.role, content: m.content }))
+          messages: payloadMessages
         })
       });
 
