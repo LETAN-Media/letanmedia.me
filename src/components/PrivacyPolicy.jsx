@@ -5,77 +5,68 @@ import { Link } from 'react-router-dom';
 const PrivacyPolicy = () => {
   const sections = [
     {
-      title: '1. Thông tin chúng tôi thu thập',
+      title: '1. Bên kiểm soát dữ liệu & Phạm vi áp dụng',
       items: [
-        'Thông tin cá nhân: Họ tên, số điện thoại, email, địa chỉ khi bạn đăng ký dịch vụ hoặc liên hệ với chúng tôi.',
-        'Thông tin tài khoản: Tên đăng nhập, mật khẩu và các thông tin liên quan đến tài khoản sử dụng dịch vụ.',
-        'Thông tin thanh toán: Thông tin thẻ thanh toán, tài khoản ngân hàng phục vụ giao dịch.',
-        'Dữ liệu sử dụng: Thông tin về cách bạn tương tác với website, bao gồm địa chỉ IP, trình duyệt, thời gian truy cập.',
-        'Cookie và công nghệ theo dõi: Chúng tôi sử dụng cookie để cải thiện trải nghiệm người dùng.',
-      ],
+        'Bên chịu trách nhiệm kiểm soát và xử lý dữ liệu cá nhân là LETAN Media, vận hành website letanmedia.me. Chính sách áp dụng cho mọi tương tác qua website, hotline, Zalo, Telegram, email, chatbot AI, biểu mẫu đăng ký và các kênh mạng xã hội chính thức của LETAN Media.'
+      ]
     },
     {
-      title: '2. Cách chúng tôi sử dụng thông tin',
+      title: '2. Thông tin chúng tôi thu thập',
       items: [
-        'Cung cấp, vận hành và duy trì các dịch vụ của LETAN Media.',
-        'Cải thiện, cá nhân hóa trải nghiệm người dùng trên website.',
-        'Xử lý giao dịch và gửi thông báo liên quan đến dịch vụ.',
-        'Liên hệ hỗ trợ khách hàng và giải quyết các vấn đề phát sinh.',
-        'Gửi thông tin khuyến mãi, cập nhật dịch vụ (khi có sự đồng ý của bạn).',
-        'Tuân thủ nghĩa vụ pháp lý và bảo vệ quyền lợi hợp pháp.',
-      ],
+        '• Thông tin liên hệ: họ tên, số điện thoại, email, địa chỉ, Zalo, Telegram.',
+        '• Thông tin dịch vụ report/xử lý vi phạm: link video, kênh, livestream, bài viết, bằng chứng liên quan.',
+        '• Dữ liệu cá nhân nhạy cảm (chỉ khi dịch vụ yêu cầu, có sự đồng ý riêng bằng văn bản): thông tin đăng nhập tài khoản của chính khách hàng, CCCD/hộ chiếu, giấy phép kinh doanh, giấy chứng nhận nhãn hiệu.',
+        '• Thông tin giao dịch: mã đơn hàng, thời gian và phương thức thanh toán, lịch sử giao dịch. Không lưu trữ số thẻ ngân hàng hay mật khẩu Internet Banking.',
+        '• Dữ liệu truy cập website: địa chỉ IP, loại trình duyệt, thiết bị, cookie, nhật ký truy cập.'
+      ]
     },
     {
-      title: '3. Chia sẻ thông tin với bên thứ ba',
+      title: '3. Mục đích sử dụng',
       items: [
-        'Chúng tôi cam kết không bán, trao đổi hoặc chuyển nhượng thông tin cá nhân của bạn cho bên thứ ba mà không có sự đồng ý, trừ các trường hợp sau:',
-        'Đối tác cung cấp dịch vụ: Các bên thứ ba hỗ trợ vận hành website, xử lý thanh toán, phân tích dữ liệu.',
-        'Tuân thủ pháp luật: Khi có yêu cầu từ cơ quan nhà nước có thẩm quyền.',
-        'Bảo vệ quyền lợi: Khi cần thiết để bảo vệ quyền lợi, tài sản hoặc sự an toàn của LETAN Media và người dùng.',
-      ],
+        'Thông tin được dùng để: tiếp nhận và xử lý yêu cầu tư vấn; triển khai, theo dõi tiến độ và bàn giao dịch vụ; xử lý thanh toán; phòng chống gian lận; cải thiện chất lượng dịch vụ và bảo mật hệ thống; thực hiện nghĩa vụ pháp luật. LETAN Media không sử dụng dữ liệu ngoài phạm vi đã thông báo.'
+      ]
     },
     {
-      title: '4. Lưu trữ và bảo mật thông tin',
+      title: '4. Sự đồng ý đối với dữ liệu nhạy cảm',
       items: [
-        'Chúng tôi áp dụng các biện pháp bảo mật kỹ thuật và tổ chức phù hợp để bảo vệ thông tin cá nhân của bạn khỏi truy cập trái phép, thay đổi, tiết lộ hoặc phá hủy.',
-        'Dữ liệu của bạn được lưu trữ trên máy chủ an toàn với các lớp bảo vệ nhiều tầng.',
-        'Chúng tôi giới hạn quyền truy cập thông tin cá nhân chỉ dành cho nhân viên, đại lý và nhà thầu cần biết để xử lý thông tin.',
-        'Thời gian lưu trữ dữ liệu được duy trì trong suốt thời gian bạn sử dụng dịch vụ và theo yêu cầu của pháp luật.',
-      ],
+        'Đối với dữ liệu cá nhân nhạy cảm (CCCD, thông tin tài khoản, hồ sơ xác minh danh tính...), LETAN Media chỉ thu thập sau khi có sự đồng ý riêng, rõ ràng của khách hàng cho từng mục đích cụ thể, tách biệt với việc đồng ý sử dụng dịch vụ nói chung. Khách hàng có quyền từ chối cung cấp và có thể rút lại sự đồng ý bất kỳ lúc nào.'
+      ]
     },
     {
-      title: '5. Quyền của bạn',
+      title: '5. Bảo mật & Chia sẻ thông tin',
       items: [
-        'Quyền truy cập: Yêu cầu xem thông tin cá nhân mà chúng tôi đang lưu trữ.',
-        'Quyền chỉnh sửa: Yêu cầu cập nhật hoặc sửa đổi thông tin không chính xác.',
-        'Quyền xóa: Yêu cầu xóa thông tin cá nhân của bạn khỏi hệ thống.',
-        'Quyền từ chối: Từ chối nhận thông tin tiếp thị và khuyến mãi từ chúng tôi.',
-        'Quyền rút lại sự đồng ý: Rút lại sự đồng ý đã cung cấp bất kỳ lúc nào.',
-      ],
+        '• Không mua bán dữ liệu khách hàng dưới mọi hình thức.',
+        '• Không chia sẻ cho bên thứ ba khi chưa có sự đồng ý, trừ khi pháp luật yêu cầu hoặc cần thiết để triển khai dịch vụ (đơn vị thanh toán, hạ tầng kỹ thuật).',
+        '• Chỉ nhân sự được phân quyền mới được truy cập dữ liệu cần thiết cho công việc.',
+        '• Áp dụng biện pháp kỹ thuật và quản lý phù hợp để giảm thiểu rùi ro rò rỉ, mất mát hoặc truy cập trái phép.'
+      ]
     },
     {
-      title: '6. Cookie',
+      title: '6. Lưu trữ & Chuyển dữ liệu',
       items: [
-        'Chúng tôi sử dụng cookie và công nghệ tương tự để cải thiện trải nghiệm người dùng, phân tích xu hướng và quản lý website.',
-        'Bạn có thể kiểm soát cookie thông qua cài đặt trình duyệt. Tuy nhiên, việc vô hiệu hóa cookie có thể ảnh hưởng đến trải nghiệm sử dụng dịch vụ.',
-      ],
+        'Dữ liệu được lưu trữ trong thời gian cần thiết để hoàn thành dịch vụ, chăm sóc khách hàng, giải quyết tranh chấp và thực hiện nghĩa vụ pháp lý, sau đó sẽ được xóa hoặc ẩn danh. Trường hợp dữ liệu được lưu trữ hoặc xử lý trên hạ tầng máy chủ đặt ngoài lãnh thổ Việt Nam, LETAN Media áp dụng các biện pháp bảo vệ tương đương và tuân thủ quy định pháp luật hiện hành về chuyển dữ liệu cá nhân ra nước ngoài.'
+      ]
     },
     {
-      title: '7. Thay đổi chính sách',
+      title: '7. Quyền của khách hàng',
       items: [
-        'LETAN Media có quyền cập nhật, thay đổi nội dung của Chính sách quyền riêng tư này bất kỳ lúc nào. Mọi thay đổi sẽ được đăng tải trên website và có hiệu lực ngay sau khi đăng tải.',
-        'Chúng tôi khuyến khích bạn thường xuyên xem lại chính sách này để cập nhật các thay đổi.',
-      ],
+        '• Yêu cầu xem, chỉnh sửa hoặc xóa dữ liệu đang được lưu trữ (trong phạm vi pháp luật cho phép).',
+        '• Rút lại sự đồng ý xử lý dữ liệu và từ chối nhận thông tin quảng bá.',
+        '• Gửi khiếu nại hoặc phản ánh liên quan đến việc xử lý dữ liệu cá nhân.'
+      ]
     },
     {
-      title: '8. Liên hệ',
+      title: '8. Cookie & Trẻ vị thành niên',
       items: [
-        'Nếu bạn có bất kỳ câu hỏi hoặc yêu cầu nào liên quan đến Chính sách quyền riêng tư, vui lòng liên hệ với chúng tôi:',
-        'Email: support@letanmedia.site',
-        'Hotline: 0765 178 999',
-        'Website: letanmedia.site',
-      ],
+        'Website sử dụng cookie để duy trì phiên đăng nhập, ghi nhớ tùy chọn và phân tích lưu lượng truy cập; bạn có thể quản lý cookie qua trình duyệt hoặc thông báo hiển thị khi truy cập lần đầu. LETAN Media không chủ đích thu thập dữ liệu của người dưới 16 tuổi mà không có sự đồng ý của cha mẹ/người giám hộ.'
+      ]
     },
+    {
+      title: '9. Cập nhật chính sách & Liên hệ',
+      items: [
+        'LETAN Media có quyền cập nhật chính sách này; phiên bản mới có hiệu lực từ thời điểm đăng tải trên website. Mọi câu hỏi vui lòng liên hệ: Hotline/Zalo 0765 178 999 · Telegram @Tanlemedia · Email infor@letanmedia.me · Website letanmedia.me.'
+      ]
+    }
   ];
 
   return (
@@ -90,12 +81,12 @@ const PrivacyPolicy = () => {
             &larr; Quay lại trang chủ
           </Link>
 
-          <h1 className="privacy-title">Chính sách quyền riêng tư</h1>
+          <h1 className="privacy-title">CHÍNH SÁCH QUYỀN RIÊNG TƯ</h1>
           <p className="privacy-update">
-            Cập nhật lần cuối: Tháng 07, 2026
+            Cập nhật lần cuối: Tháng 07/2026
           </p>
           <p className="privacy-intro">
-            LETAN Media cam kết bảo vệ quyền riêng tư của bạn. Chính sách quyền riêng tư này giải thích cách chúng tôi thu thập, sử dụng, tiết lộ và bảo vệ thông tin cá nhân của bạn khi bạn sử dụng website letanmedia.site và các dịch vụ của chúng tôi.
+            LETAN Media ("chúng tôi") cam kết tôn trọng và bảo vệ quyền riêng tư của khách hàng, đối tác và người dùng ("bạn"). Chính sách này quy định cách chúng tôi thu thập, sử dụng, lưu trữ, bảo vệ và xử lý thông tin cá nhân khi bạn truy cập website, liên hệ tư vấn hoặc sử dụng dịch vụ của LETAN Media. Việc bạn tiếp tục sử dụng website hoặc dịch vụ đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý với chính sách này.
           </p>
 
           {sections.map((section, index) => (
