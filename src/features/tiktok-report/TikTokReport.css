@@ -170,11 +170,38 @@
   font-size: 1.05rem;
 }
 
+.tiktok-workflow-section {
+  padding-top: 80px;
+  padding-bottom: 72px;
+}
+
+.tiktok-workflow-list {
+  margin-bottom: 56px;
+}
+
 .tiktok-process-section {
-  padding: 6rem 2rem 10rem;
+  margin-top: 0;
+  padding-top: 72px;
+  padding-bottom: 80px;
   background: #0a0f1c;
   position: relative;
   z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .tiktok-workflow-section {
+    padding-top: 120px;
+    padding-bottom: 96px;
+  }
+
+  .tiktok-workflow-list {
+    margin-bottom: 72px;
+  }
+
+  .tiktok-process-section {
+    padding-top: 96px;
+    padding-bottom: 120px;
+  }
 }
 
 .tiktok-section-title {

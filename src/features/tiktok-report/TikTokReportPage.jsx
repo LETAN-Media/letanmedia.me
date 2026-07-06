@@ -305,7 +305,7 @@ export default function TikTokReportPage() {
       </section>
       
       {/* Workflow Section */}
-      <section className="tiktok-workflow-section py-20 bg-[#050509] relative z-10">
+      <section className="tiktok-workflow-section bg-[#050509] relative z-10">
         <div className="max-w-6xl mx-auto px-4">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -316,7 +316,7 @@ export default function TikTokReportPage() {
             Quy Trình <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ea] to-[#ff0050]">Làm Việc</span>
           </motion.h2>
 
-          <div className="flex flex-col gap-4 max-w-4xl mx-auto">
+          <div className="tiktok-workflow-list flex flex-col gap-4 max-w-4xl mx-auto">
             {workflowSteps.map((step, index) => (
               <motion.div
                 key={index}
@@ -347,7 +347,7 @@ export default function TikTokReportPage() {
       </section>
 
       {/* Commitment Section */}
-      <section className="tiktok-process-section relative py-20 z-10">
+      <section className="tiktok-process-section relative z-10">
         <div className="max-w-5xl mx-auto px-4 relative">
           {/* Subtle background glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-to-r from-[#00f2ea]/8 to-[#ff0050]/8 blur-[100px] rounded-full pointer-events-none"></div>
