@@ -227,24 +227,7 @@ export default function LegalLayout({
             );
           })}
 
-          {/* Legal Page Footer */}
-          <footer className="legal-footer">
-            <div className="legal-footer-brand">LETAN Media</div>
-            <div className="legal-footer-grid">
-              <div className="legal-footer-item">
-                Hotline / Zalo: <a href="tel:0765178999">0765 178 999</a>
-              </div>
-              <div className="legal-footer-item">
-                Telegram: <a href="https://t.me/Tanlemedia" target="_blank" rel="noopener noreferrer">@Tanlemedia</a>
-              </div>
-              <div className="legal-footer-item">
-                Email: <a href="mailto:infor@letanmedia.me">infor@letanmedia.me</a>
-              </div>
-              <div className="legal-footer-item">
-                Website: <a href="https://letanmedia.me">letanmedia.me</a>
-              </div>
-            </div>
-          </footer>
+
         </main>
 
       </div>
