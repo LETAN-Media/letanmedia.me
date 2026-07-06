@@ -2,6 +2,18 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, ShieldCheck, Phone, Send as TelegramIcon } from 'lucide-react';
 
+const TikTokIcon = ({ size = 24 }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.94-1.74-.22-.2-.42-.42-.61-.65-.01 2.92.01 5.84-.02 8.75-.12 1.64-.79 3.25-2.02 4.34-1.52 1.39-3.71 1.9-5.73 1.58-2.2-.28-4.22-1.7-5.11-3.74-.95-2.12-.66-4.71.74-6.53 1.34-1.78 3.59-2.69 5.8-2.43.02 1.31-.01 2.61-.02 3.91-1.43-.24-2.98.24-3.79 1.48-.73 1.07-.63 2.58.26 3.52.88.98 2.37 1.22 3.49.59.85-.45 1.35-1.37 1.37-2.33.04-4.04.01-8.08.02-12.12z" />
+  </svg>
+);
+
 const suggestions = [
   "Làm sao gỡ video bôi nhọ?",
   "Báo cáo reup bản quyền thế nào?",
@@ -123,7 +135,7 @@ QUY TẮC CHỐNG LẠM DỤNG (BẮT BUỘC TUÂN THỦ):
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
       >
-        {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
+        {isOpen ? <X size={24} /> : <TikTokIcon size={24} />}
         {!isOpen && (
           <span className="pulse-glow" />
         )}
