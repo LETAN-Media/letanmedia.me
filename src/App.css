@@ -683,6 +683,32 @@
   font-size: 1rem;
 }
 
+.footer-bottom-single-line {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 16px !important;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 32px;
+  color: var(--color-text-muted);
+  font-size: clamp(10px, 3vw, 13px);
+  white-space: nowrap !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+.footer-bottom-single-line a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-bottom-single-line a:hover {
+  color: #fff;
+}
+
 /* Privacy Policy Page */
 .privacy-policy-page {
   padding: 150px 5% 100px;

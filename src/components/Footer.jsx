@@ -33,12 +33,10 @@ const Footer = () => {
         </div>
       </div>
       
-      <div className="footer-bottom">
-        <div>&copy; {new Date().getFullYear()} LETAN Media. All rights reserved.</div>
-        <div>
-          <Link to="/policy" style={{ marginRight: '20px' }}>Chính sách bảo mật</Link>
-          <a href="#">Điều khoản dịch vụ</a>
-        </div>
+      <div className="footer-bottom-single-line">
+        <span>&copy; 2026 LETAN Media.</span>
+        <Link to="/policy">Privacy policy</Link>
+        <a href="#">Terms of service</a>
       </div>
       
       <Link to="/chatbot-ai" className="floating-ai" title="LETAN AI Assistant">
