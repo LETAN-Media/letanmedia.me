@@ -30,6 +30,30 @@ export default function HomeChatWidget() {
     }
   }, [messages, isLoading]);
 
+  const handleSendRef = useRef(null);
+  useEffect(() => {
+    handleSendRef.current = handleSend;
+  });
+
+  useEffect(() => {
+    const handleOpenEvent = (e) => {
+      setIsOpen(true);
+      if (e.detail && e.detail.message) {
+        // Wait a small bit for opening animation before sending message
+        setTimeout(() => {
+          if (handleSendRef.current) {
+            handleSendRef.current(e.detail.message);
+          }
+        }, 300);
+      }
+    };
+
+    window.addEventListener('open-home-chatbot', handleOpenEvent);
+    return () => {
+      window.removeEventListener('open-home-chatbot', handleOpenEvent);
+    };
+  }, []);
+
   const handleSend = async (textToSend) => {
     const text = textToSend || input;
     if (!text.trim()) return;
