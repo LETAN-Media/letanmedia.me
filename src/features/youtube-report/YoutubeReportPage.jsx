@@ -1,0 +1,409 @@
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShieldAlert, Scale, AlertTriangle, UserX, Radio, Ban, ShoppingBag, ChevronDown, Check, X } from 'lucide-react';
+import './YoutubeReport.css';
+
+const YoutubeHero3D = lazy(() => import('./components/YoutubeHero3D'));
+const FeedbackCarousel = lazy(() => import('./components/FeedbackCarousel'));
+const YoutubeChatWidget = lazy(() => import('./components/YoutubeChatWidget'));
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("YoutubeReportPage caught an error:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="youtube-page flex items-center justify-center min-h-screen bg-[#050509] text-center px-4">
+          <div className="max-w-md p-8 rounded-3xl bg-[#1a0b0b] border border-red-500/20 backdrop-blur-md relative overflow-hidden shadow-[0_0_50px_rgba(255,0,0,0.05)]">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 bg-[#FF0000] opacity-10 blur-[100px] pointer-events-none"></div>
+            
+            <h2 className="text-2xl font-bold text-white mb-4">Hệ thống đang được cập nhật</h2>
+            <p className="text-gray-400 mb-6 leading-relaxed">
+              Chúng tôi đang tối ưu hóa trải nghiệm bảo vệ YouTube. Vui lòng tải lại trang hoặc liên hệ trực tiếp để được hỗ trợ nhanh nhất.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button 
+                onClick={() => window.location.reload()} 
+                className="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+                Tải Lại Trang
+              </button>
+              <a 
+                href="tel:0765178999" 
+                className="bg-gradient-to-r from-[#ff0000] to-[#ff4f4f] text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+                Hỗ Trợ Khẩn Cấp
+              </a>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+const services = [
+  {
+    id: 'copyright',
+    title: 'Gỡ Video Vi Phạm Bản Quyền',
+    shortDesc: 'Bảo vệ quyền sở hữu trí tuệ đối với các nội dung video, âm thanh bị reup trái phép.',
+    fullDesc: 'Dành cho các nhà sáng tạo nội dung, ca sĩ, doanh nghiệp sở hữu video/âm nhạc độc quyền nhưng bị các kênh khác tải về và phát lại trái phép. Chúng tôi đại diện pháp lý và kỹ thuật để yêu cầu gỡ bỏ video vi phạm nhanh chóng thông qua hệ thống CMS đối tác và cổng bản quyền của YouTube.',
+    icon: <ShieldAlert size={32} />
+  },
+  {
+    id: 'defamation',
+    title: 'Xử Lý Video Bôi Nhọ & Thông Tin Sai Sự Thật',
+    shortDesc: 'Can thiệp gỡ bỏ các video nói xấu, vu khống cá nhân, làm ảnh hưởng nghiêm trọng đến doanh nghiệp.',
+    fullDesc: 'Khi doanh nghiệp hoặc cá nhân bạn bị tấn công bởi các kênh YouTube đăng tải video cắt ghép bôi nhọ, tin giả (fake news) làm suy giảm danh dự và doanh số. Đội ngũ chuyên gia của chúng tôi sử dụng công cụ can thiệp và pháp lý của YouTube để gỡ bỏ triệt để nguồn phát tán.',
+    icon: <Scale size={32} />
+  },
+  {
+    id: 'impersonation',
+    title: 'Report Kênh Giả Mạo Thương Hiệu',
+    shortDesc: 'Báo cáo và khóa ngay lập tức các kênh cố ý giả danh người nổi tiếng hoặc doanh nghiệp để lừa đảo.',
+    fullDesc: 'Kẻ xấu lập các kênh YouTube trùng tên, sử dụng hình ảnh, logo của bạn để lừa đảo khách hàng hoặc đăng tải nội dung gây tranh cãi. Chúng tôi sẽ nhanh chóng chứng minh quyền sở hữu chính chủ với YouTube để vô hiệu hóa hoàn toàn kênh mạo danh đó.',
+    icon: <UserX size={32} />
+  },
+  {
+    id: 'strike-removal',
+    title: 'Hỗ Trợ Gỡ Gậy Bản Quyền & Kháng Cáo',
+    shortDesc: 'Giải cứu các kênh bị dính gậy cảnh cáo do đối thủ chơi xấu hoặc YouTube quét nhầm.',
+    fullDesc: 'Kênh của bạn bất ngờ nhận cảnh cáo gậy bản quyền hoặc gậy nguyên tắc cộng đồng từ đối thủ cạnh tranh không lành mạnh, gây nguy cơ bị tắt kiếm tiền hoặc xóa kênh. Chúng tôi hỗ trợ phân tích pháp lý, gửi đơn kháng cáo chứng minh tính hợp lệ của nội dung để khôi phục trạng thái xanh cho kênh.',
+    icon: <Radio size={32} />
+  },
+  {
+    id: 'channel-recovery',
+    title: 'Khôi Phục Kênh YouTube Bị Khóa',
+    shortDesc: 'Can thiệp kháng nghị chuyên sâu đối với các kênh bị tạm ngưng hoạt động đột ngột.',
+    fullDesc: 'Kênh YouTube tích lũy hàng triệu subscribe bị khóa không rõ lý do. Bằng quy trình kháng nghị trực tiếp với quản lý khu vực của YouTube và chứng minh sự tuân thủ chính sách, chúng tôi tối đa hóa cơ hội khôi phục kênh bị tạm ngưng trong thời gian sớm nhất.',
+    icon: <Ban size={32} />
+  },
+  {
+    id: 'brand-protection',
+    title: 'Lá Chắn Bảo Vệ Kênh YouTube Lớn',
+    shortDesc: 'Bảo mật, tối ưu hóa lá chắn bảo vệ kênh khỏi spam, report ảo và tấn công bản quyền.',
+    fullDesc: 'Gói giải pháp phòng ngừa rủi ro cho các kênh YouTube doanh nghiệp lớn. Chúng tôi cấu hình bảo vệ nội dung qua CMS, thiết lập hệ thống cảnh báo sớm và hỗ trợ xử lý sự cố khẩn cấp trong vòng 2 giờ khi có bất kỳ cuộc tấn công phá hoại nào xảy ra.',
+    icon: <ShoppingBag size={32} />
+  }
+];
+
+const workflowSteps = [
+  {
+    step: "01",
+    title: "Tiếp Nhận Thông Tin",
+    desc: "Khách hàng cung cấp đường link video vi phạm, thông tin kênh giả mạo hoặc mô tả chi tiết sự cố kênh đang gặp phải."
+  },
+  {
+    step: "02",
+    title: "Đánh Giá & Phân Loại",
+    desc: "Chuyên viên thẩm định loại hình vi phạm (Bản quyền, Mạo danh, Bôi nhọ) và đưa ra tỷ lệ thành công của trường hợp."
+  },
+  {
+    step: "03",
+    title: "Chuẩn Bị Hồ Sơ Kỹ Thuật",
+    desc: "Thu thập chứng cứ số, siêu dữ liệu gốc và soạn tài liệu pháp lý chứng minh quyền sở hữu hợp pháp của khách hàng."
+  },
+  {
+    step: "04",
+    title: "Gửi Yêu Cầu Can Thiệp",
+    desc: "Sử dụng cổng hỗ trợ đối tác (CMS/Content ID Partner) hoặc biểu mẫu pháp lý chính thức gửi trực tiếp đến đội ngũ duyệt của YouTube."
+  },
+  {
+    step: "05",
+    title: "Theo Dõi & Đối Thoại",
+    desc: "Giám sát phản hồi từ YouTube hàng giờ, cung cấp thêm thông tin đối chứng nếu phía đối tác phản hồi kháng nghị."
+  },
+  {
+    step: "06",
+    title: "Hoàn Tất Xử Lý",
+    desc: "YouTube phê duyệt yêu cầu: video vi phạm bị xóa bỏ vĩnh viễn hoặc kênh bị khóa/khôi phục thành công."
+  },
+  {
+    step: "07",
+    title: "Bàn Giao & Bảo Vệ Lâu Dài",
+    desc: "Gửi báo cáo kết quả và tư vấn các biện pháp kỹ thuật phòng ngừa đối thủ tiếp tục reup hoặc spam report về sau."
+  }
+];
+
+export default function YoutubeReportPage() {
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [showPopover, setShowPopover] = useState(false);
+
+  useEffect(() => {
+    document.title = "Dịch Vụ Report YouTube Uy Tín, Gỡ Video Vi Phượng — LETAN Media";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content", "Dịch vụ report kênh YouTube vi phạm, gỡ video reup bản quyền, video bôi nhọ danh dự và khôi phục kênh YouTube nhanh chóng. Hỗ trợ 24/7.");
+    }
+  }, []);
+
+  const toggleAccordion = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  return (
+    <ErrorBoundary>
+      <div className="youtube-page">
+        {/* Hero Section */}
+        <section className="youtube-hero-section">
+          <Suspense fallback={<div className="absolute inset-0 bg-[#050505]" />}>
+            <YoutubeHero3D />
+          </Suspense>
+          
+          <div className="max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center pt-24 pb-16 md:pt-32 md:pb-24">
+            <motion.div 
+              className="max-w-3xl text-left"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <div className="youtube-badge">YouTube Premium Shield</div>
+              
+              <h1 className="youtube-title">
+                Dịch Vụ Report YouTube
+              </h1>
+              
+              <p className="youtube-subtitle">
+                Giải pháp can thiệp chuyên sâu: Đánh gậy bản quyền, gỡ video bôi nhọ, 
+                report tài khoản YouTube nhanh chóng với công nghệ độc quyền từ LETAN Media.
+              </p>
+              
+              <motion.a 
+                href="tel:0765178999" 
+                className="youtube-cta-btn"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Yêu Cầu Hỗ Trợ Khẩn Cấp
+              </motion.a>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Services Section */}
+        <section id="services" className="youtube-services-section section-block">
+          <div className="max-w-7xl mx-auto">
+            <div className="section-header">
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                className="section-title"
+              >
+                Dịch Vụ <span className="gradient-text">Report YouTube Toàn Diện</span>
+              </motion.h2>
+            </div>
+
+            <div className="youtube-accordion-container">
+              {services.map((service, index) => {
+                const isOpen = activeIndex === index;
+                return (
+                  <motion.div 
+                    key={service.id} 
+                    className={`youtube-accordion-item ${isOpen ? 'active' : ''}`}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    <button 
+                      className="youtube-accordion-header"
+                      onClick={() => toggleAccordion(index)}
+                      aria-expanded={isOpen}
+                    >
+                      <div className="flex items-center gap-4">
+                        <span className="youtube-accordion-icon">
+                          {service.icon}
+                        </span>
+                        <h3 className="youtube-accordion-title">{service.title}</h3>
+                      </div>
+                      <ChevronDown className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div 
+                          className="youtube-accordion-content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <div className="youtube-accordion-body">
+                            <p className="text-gray-400 leading-relaxed mb-6">{service.fullDesc}</p>
+                            <motion.button 
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setShowPopover(true);
+                              }}
+                              className="youtube-accordion-cta-btn w-full max-w-[280px]"
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              Nhận Tư Vấn Case Này
+                            </motion.button>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+        
+        {/* Workflow Section */}
+        <section className="youtube-workflow-section section-block bg-[#090505] relative z-10">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="section-header">
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="section-title"
+              >
+                Quy Trình <span className="gradient-text">Làm Việc</span>
+              </motion.h2>
+            </div>
+
+            <div className="youtube-workflow-list flex flex-col gap-4 max-w-4xl mx-auto">
+              {workflowSteps.map((step, index) => (
+                <motion.div 
+                  key={step.step}
+                  className="youtube-workflow-card"
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                >
+                  <div className="youtube-workflow-step-num">{step.step}</div>
+                  <div className="youtube-workflow-content">
+                    <h3 className="youtube-workflow-step-title">{step.title}</h3>
+                    <p className="youtube-workflow-step-desc">{step.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Commitment Section */}
+        <section className="youtube-commit-section section-block relative z-10">
+          <div className="max-w-5xl mx-auto px-4">
+            <motion.div 
+              className="youtube-commit-card"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <div className="youtube-commit-glow" />
+              <div className="youtube-commit-grid">
+                <div className="youtube-commit-text">
+                  <h2 className="youtube-commit-title">Cam Kết Từ LETAN Media</h2>
+                  <p className="youtube-commit-subtitle">Bảo mật tuyệt đối. Hỗ trợ nhanh chóng.</p>
+                  <p className="youtube-commit-desc">
+                    Chúng tôi tiếp nhận và xử lý từng trường hợp theo quy trình riêng, 
+                    đảm bảo thông tin khách hàng được bảo mật 100% trong suốt quá trình làm việc.
+                  </p>
+                </div>
+                
+                <div className="youtube-commit-info-block">
+                  <div className="youtube-commit-list">
+                    {[
+                      { icon: <ShieldAlert size={18} />, text: "Bảo mật 100%" },
+                      { icon: <Radio size={18} />, text: "Cập nhật tiến độ" },
+                      { icon: <Check size={18} />, text: "Báo cáo kết quả" }
+                    ].map((highlight, idx) => (
+                      <div key={idx} className="youtube-commit-item">
+                        <div className="youtube-commit-icon">
+                          {highlight.icon}
+                        </div>
+                        <span>{highlight.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <motion.a 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowPopover(true);
+                    }}
+                    className="youtube-commit-cta cursor-pointer"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    Nhận Báo Giá Chi Tiết
+                  </motion.a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Feedback Carousel Section */}
+        <Suspense fallback={<div className="min-h-[400px] bg-[#090505]" />}>
+          <FeedbackCarousel />
+        </Suspense>
+
+        {/* Bot Chat AI */}
+        <Suspense fallback={null}>
+          <YoutubeChatWidget />
+        </Suspense>
+
+        {/* Contact Popup Popover */}
+        <AnimatePresence>
+          {showPopover && (
+            <motion.div 
+              key="backdrop"
+              className="fixed inset-0 z-[9998]"
+              style={{ backgroundColor: 'transparent' }}
+              onClick={() => setShowPopover(false)}
+            />
+          )}
+          {showPopover && (
+            <motion.div 
+              key="popover"
+              className="youtube-consult-popover"
+              initial={{ opacity: 0, scale: 0.9, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <a 
+                href="https://zalo.me/0765178999"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="youtube-consult-option zalo"
+                onClick={() => setShowPopover(false)}
+              >
+                <img src="https://cdn.letanmedia.me/images/icon-zalo.svg" alt="Zalo" onError={(e) => e.target.style.display='none'} />
+                <span>Zalo</span>
+              </a>
+              <a 
+                href="https://t.me/Tanlemedia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="youtube-consult-option telegram"
+                onClick={() => setShowPopover(false)}
+              >
+                <img src="https://cdn.letanmedia.me/images/icon-telegram.svg" alt="Telegram" onError={(e) => e.target.style.display='none'} />
+                <span>Telegram</span>
+              </a>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </ErrorBoundary>
+  );
+}

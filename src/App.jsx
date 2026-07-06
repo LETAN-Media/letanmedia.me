@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import ChatbotAIPage from "./features/chatbot-ai/ChatbotAIPage";
 import TikTokReportPage from "./features/tiktok-report/TikTokReportPage";
+import YoutubeReportPage from "./features/youtube-report/YoutubeReportPage";
 
 import './App.css';
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="/policy" element={<PrivacyPolicy />} />
           <Route path="/chatbot-ai" element={<ChatbotAIPage />} />
           <Route path="/tiktok-report" element={<TikTokReportPage />} />
+          <Route path="/youtube-report" element={<YoutubeReportPage />} />
         </Routes>
       </main>
       <Footer />
