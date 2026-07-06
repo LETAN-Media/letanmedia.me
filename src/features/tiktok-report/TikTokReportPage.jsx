@@ -169,6 +169,7 @@ const services = [
 
 export default function TikTokReportPage() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [popupService, setPopupService] = useState(null);
 
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -282,27 +283,18 @@ export default function TikTokReportPage() {
                           </li>
                         ))}
                       </ul>
-                      <div className="flex flex-col sm:flex-row gap-4 mt-6">
-                        <motion.a 
-                          href="https://zalo.me/0765178999"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 text-center bg-gradient-to-r from-[#0068ff] to-[#0055d4] text-white font-bold py-3.5 px-4 rounded-xl shadow-[0_0_20px_rgba(0,104,255,0.3)] hover:shadow-[0_0_30px_rgba(0,104,255,0.5)] transition-shadow border border-white/10"
+                      <div className="tiktok-accordion-cta-wrapper mt-6">
+                        <motion.button 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setPopupService(service);
+                          }}
+                          className="tiktok-accordion-cta-btn w-full max-w-[280px]"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          {service.ctaText} (Zalo)
-                        </motion.a>
-                        <motion.a 
-                          href="https://t.me/Tanlemedia"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 text-center bg-gradient-to-r from-[#229ED9] to-[#1c88ba] text-white font-bold py-3.5 px-4 rounded-xl shadow-[0_0_20px_rgba(34,158,217,0.3)] hover:shadow-[0_0_30px_rgba(34,158,217,0.5)] transition-shadow border border-white/10"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          {service.ctaText} (Telegram)
-                        </motion.a>
+                          {service.ctaText}
+                        </motion.button>
                       </div>
                     </div>
                   </motion.div>
@@ -390,6 +382,63 @@ export default function TikTokReportPage() {
 
       {/* Bot Chat AI */}
       <TikTokChatWidget />
+
+      {/* Contact Popup Modal */}
+      <AnimatePresence>
+        {popupService && (
+          <motion.div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setPopupService(null)}
+          >
+            <motion.div 
+              className="bg-[#0b0f1a] border border-white/10 rounded-3xl p-8 w-full max-w-md relative shadow-[0_0_50px_rgba(0,242,234,0.15)] overflow-hidden"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 bg-gradient-to-r from-[#00f2ea]/20 to-[#ff0050]/20 blur-[50px] pointer-events-none"></div>
+              
+              <button 
+                onClick={() => setPopupService(null)}
+                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors z-10 p-2"
+              >
+                <X size={24} />
+              </button>
+              
+              <h3 className="text-2xl font-bold text-white mb-2 text-center relative z-10">Chọn Kênh Tư Vấn</h3>
+              <p className="text-gray-400 text-center mb-8 relative z-10 leading-relaxed">
+                Kết nối ngay với chuyên gia LETAN Media để được hỗ trợ: <br/> 
+                <strong className="text-[#00f2ea] font-medium block mt-1">{popupService.title}</strong>
+              </p>
+              
+              <div className="flex flex-col gap-4 relative z-10">
+                <a 
+                  href="https://zalo.me/0765178999"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 bg-gradient-to-r from-[#0068ff] to-[#0055d4] text-white font-bold py-4 px-6 rounded-xl shadow-[0_0_20px_rgba(0,104,255,0.3)] hover:shadow-[0_0_30px_rgba(0,104,255,0.5)] transition-shadow border border-white/10"
+                >
+                  <img src="https://cdn.letanmedia.me/images/icon-zalo.svg" alt="Zalo" className="w-6 h-6" onError={(e) => e.target.style.display='none'} />
+                  Kết nối qua Zalo
+                </a>
+                <a 
+                  href="https://t.me/Tanlemedia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 bg-gradient-to-r from-[#229ED9] to-[#1c88ba] text-white font-bold py-4 px-6 rounded-xl shadow-[0_0_20px_rgba(34,158,217,0.3)] hover:shadow-[0_0_30px_rgba(34,158,217,0.5)] transition-shadow border border-white/10"
+                >
+                  <img src="https://cdn.letanmedia.me/images/icon-telegram.svg" alt="Telegram" className="w-6 h-6" onError={(e) => e.target.style.display='none'} />
+                  Kết nối qua Telegram
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
     </ErrorBoundary>
   );
