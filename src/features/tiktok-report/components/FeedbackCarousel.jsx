@@ -65,10 +65,9 @@ const feedbacks = [
 export default function FeedbackCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    if (isHovered || selectedImage) return;
+    if (isHovered) return;
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % feedbacks.length);
     }, 4000);
@@ -125,7 +124,6 @@ export default function FeedbackCarousel() {
                   <motion.div
                     key={item.id}
                     className={`carousel-card ${isActive ? 'active' : 'inactive'}`}
-                    onClick={() => isActive && setSelectedImage(item.image)}
                     initial={{ opacity: 0, x: `${position * 105}%`, scale: 0.8 }}
                     animate={{ 
                       opacity: isActive ? 1 : 0.5,
@@ -170,30 +168,6 @@ export default function FeedbackCarousel() {
           ))}
         </div>
       </div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div 
-            className="lightbox"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-          >
-            <button className="lightbox-close"><X size={32} /></button>
-            <motion.img 
-              src={selectedImage} 
-              alt="Feedback Lightbox"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              onClick={(e) => e.stopPropagation()}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
