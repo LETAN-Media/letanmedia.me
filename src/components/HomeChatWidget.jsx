@@ -256,18 +256,20 @@ QUY TẮC CỐNG LẠM DỤNG (BẮT BUỘC):
             </div>
 
             {/* Suggestions */}
-            <div className="home-chat-suggestions">
-              {suggestions.map((sug, idx) => (
-                <button
-                  key={idx}
-                  className="home-chat-suggest-btn"
-                  onClick={() => handleSend(sug)}
-                  disabled={isLoading}
-                >
-                  {sug}
-                </button>
-              ))}
-            </div>
+            {messages.length === 1 && !isLoading && (
+              <div className="home-chat-suggestions">
+                {suggestions.map((sug, idx) => (
+                  <button
+                    key={idx}
+                    className="home-chat-suggest-btn"
+                    onClick={() => handleSend(sug)}
+                    disabled={isLoading}
+                  >
+                    {sug}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Input Area */}
             <div className="home-chat-input-area">
