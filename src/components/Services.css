@@ -91,6 +91,7 @@
   width: 100%;
   max-width: 480px;
   height: auto;
+  aspect-ratio: 16 / 9; /* Enforce landscape 16:9 aspect ratio */
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -101,10 +102,9 @@
 .services-accordion-visual img {
   display: block;
   width: 100%;
-  max-width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 18px;
-  object-fit: contain;
+  object-fit: cover; /* Cover ratio to fill the landscape box perfectly */
 }
 
 .services-accordion-actions {
@@ -310,14 +310,16 @@
 
   .services-accordion-visual {
     height: auto;
+    aspect-ratio: 16 / 9; /* Enforce 16:9 on mobile */
     margin-top: 16px;
     max-width: 100%;
   }
 
   .services-accordion-visual img {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 16px;
+    object-fit: cover;
   }
 
   .services-accordion-actions {

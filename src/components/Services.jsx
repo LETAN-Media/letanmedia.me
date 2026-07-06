@@ -55,7 +55,7 @@ const services = [
       {
         title: "Thiết Kế App Mobile",
         shortDesc: "Phát triển ứng dụng di động native/hybrid trên iOS và Android theo yêu cầu.",
-        img: ASSETS.services.mobileApp
+        img: ASSETS.services.miniApp
       },
       {
         title: "Thiết Kế Mini App",
