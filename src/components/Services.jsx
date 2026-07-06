@@ -154,7 +154,12 @@ const Services = () => {
                                   {/* Inline Popover Zalo / Telegram */}
                                   <AnimatePresence>
                                     {showPopoverIndex === idx && (
-                                      <>
+                                      <motion.div 
+                                        key={`popover-container-${idx}`}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                      >
                                         <div 
                                           className="fixed inset-0 z-40" 
                                           style={{ cursor: 'default' }}
@@ -190,7 +195,7 @@ const Services = () => {
                                             <span>Telegram</span>
                                           </a>
                                         </motion.div>
-                                      </>
+                                      </motion.div>
                                     )}
                                   </AnimatePresence>
                                 </div>
@@ -219,7 +224,12 @@ const Services = () => {
                       {/* Inline Popover Zalo / Telegram for other tabs */}
                       <AnimatePresence>
                         {showPopoverIndex === activeTab.id && (
-                          <>
+                          <motion.div 
+                            key={`popover-container-tab-${activeTab.id}`}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                          >
                             <div 
                               className="fixed inset-0 z-40" 
                               style={{ cursor: 'default' }}
@@ -256,7 +266,7 @@ const Services = () => {
                                 <span>Telegram</span>
                               </a>
                             </motion.div>
-                          </>
+                          </motion.div>
                         )}
                       </AnimatePresence>
                     </div>
