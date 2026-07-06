@@ -107,7 +107,10 @@
   padding: 8rem 2rem;
   position: relative;
   z-index: 10;
-  background: linear-gradient(to bottom, transparent, #0a0f1c 20%);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(0, 242, 234, 0.08), transparent 28%),
+    radial-gradient(circle at 82% 20%, rgba(255, 0, 80, 0.08), transparent 30%),
+    #050509;
 }
 
 .tiktok-grid {
@@ -213,29 +216,68 @@
 }
 
 .tiktok-accordion-item {
-  background: rgba(20, 25, 40, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015)),
+    #0b0f1a;
+  border-radius: 1rem;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 18px 60px rgba(0, 0, 0, 0.32);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tiktok-accordion-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 242, 234, 0.38),
+    rgba(255, 0, 80, 0.34),
+    rgba(255, 255, 255, 0.04)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 2;
 }
 
 /* Hover nhẹ trên desktop */
 @media (min-width: 769px) {
   .tiktok-accordion-item:hover {
-    border-color: rgba(0, 242, 254, 0.35);
-    box-shadow: 0 10px 30px rgba(0, 242, 254, 0.05);
     transform: translateY(-2px);
-    background: rgba(30, 40, 60, 0.5);
+    background: rgba(15, 22, 38, 0.6);
+  }
+  .tiktok-accordion-item:hover::before {
+    opacity: 1;
   }
 }
 
 .tiktok-accordion-item.active {
-  border-color: rgba(0, 242, 254, 0.5);
-  box-shadow: 0 15px 40px rgba(0, 242, 254, 0.1);
-  background: rgba(25, 32, 50, 0.6);
+  background: #0b0f1a;
+  box-shadow:
+    0 0 30px rgba(0, 242, 234, 0.15),
+    0 0 40px rgba(255, 0, 80, 0.1);
+}
+
+.tiktok-accordion-item.active::before {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 242, 234, 0.65),
+    rgba(255, 0, 80, 0.6),
+    rgba(255, 255, 255, 0.1)
+  );
+  opacity: 1;
 }
 
 .tiktok-accordion-header {
@@ -246,6 +288,8 @@
   cursor: pointer;
   user-select: none;
   gap: 1.5rem;
+  position: relative;
+  z-index: 3;
 }
 
 .tiktok-accordion-header-left {
@@ -272,12 +316,36 @@
   margin-bottom: 0 !important;
   font-size: 1.3rem;
   line-height: 1.3;
+  color: #ffffff;
 }
 
 .tiktok-accordion-title-block .tiktok-card-desc {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.62);
   line-height: 1.5;
+}
+
+/* Icon & màu sắc xen kẽ */
+.tiktok-icon-wrapper {
+  background: linear-gradient(135deg, rgba(0, 242, 234, 0.14), rgba(255, 0, 80, 0.14));
+  border: 1px solid rgba(0, 242, 234, 0.28);
+  color: #00f2ea;
+  box-shadow:
+    0 0 22px rgba(0, 242, 234, 0.12),
+    0 0 28px rgba(255, 0, 80, 0.08);
+}
+
+.tiktok-accordion-item:nth-child(even) .tiktok-icon-wrapper {
+  border-color: rgba(255, 0, 80, 0.32);
+  color: #ff4fa3;
+  background: linear-gradient(135deg, rgba(255, 0, 80, 0.16), rgba(0, 242, 234, 0.1));
+  box-shadow:
+    0 0 22px rgba(255, 0, 80, 0.12),
+    0 0 28px rgba(0, 242, 234, 0.08);
+}
+
+.tiktok-accordion-item:hover .tiktok-icon-wrapper {
+  transform: scale(1.05);
 }
 
 .tiktok-accordion-toggle-icon {
@@ -287,17 +355,37 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.7);
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 255, 255, 0.72);
+  transition: all 0.25s ease;
   flex-shrink: 0;
 }
 
 .tiktok-accordion-item:hover .tiktok-accordion-toggle-icon {
-  background: rgba(0, 242, 254, 0.1);
-  border-color: rgba(0, 242, 254, 0.3);
-  color: #00F2FE;
+  color: #00f2ea;
+  border-color: rgba(0, 242, 234, 0.35);
+  box-shadow: 0 0 18px rgba(0, 242, 234, 0.12);
+}
+
+.tiktok-accordion-item:nth-child(even):hover .tiktok-accordion-toggle-icon {
+  color: #ff4fa3;
+  border-color: rgba(255, 0, 80, 0.35);
+  box-shadow: 0 0 18px rgba(255, 0, 80, 0.12);
+}
+
+.tiktok-accordion-item.active .tiktok-accordion-toggle-icon {
+  color: #ff4fa3;
+  border-color: rgba(255, 0, 80, 0.42);
+  background: rgba(255, 0, 80, 0.08);
+  box-shadow: 0 0 20px rgba(255, 0, 80, 0.18);
+}
+
+.tiktok-accordion-item:nth-child(even).active .tiktok-accordion-toggle-icon {
+  color: #00f2ea;
+  border-color: rgba(0, 242, 234, 0.42);
+  background: rgba(0, 242, 234, 0.08);
+  box-shadow: 0 0 20px rgba(0, 242, 234, 0.18);
 }
 
 .tiktok-accordion-toggle-icon .arrow-icon {
@@ -312,6 +400,8 @@
 .tiktok-accordion-content-inner {
   padding: 0 2.25rem 2.25rem 6.25rem; /* Lùi lề bằng đúng khoảng cách icon wrapper + padding để nội dung chi tiết thẳng hàng với chữ */
   text-align: left;
+  position: relative;
+  z-index: 3;
 }
 
 .tiktok-details-list {
@@ -321,6 +411,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.5rem;
 }
 
 .tiktok-detail-item {
@@ -330,14 +422,18 @@
 }
 
 .tiktok-check-icon {
-  color: #00F2FE;
+  color: #00f2ea;
   margin-top: 3px;
   flex-shrink: 0;
   display: inline-flex;
 }
 
+.tiktok-accordion-item:nth-child(even) .tiktok-check-icon {
+  color: #ff4fa3;
+}
+
 .tiktok-detail-text {
-  color: #a1a1aa;
+  color: rgba(255, 255, 255, 0.72);
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -351,25 +447,27 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 24px;
+  padding: 11px 26px;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(0, 242, 254, 0.12) 0%, rgba(0, 242, 254, 0.04) 100%);
-  color: #00F2FE;
+  background: linear-gradient(135deg, #00f2ea, #ff0050);
+  color: #fff;
   font-weight: 700;
   font-size: 0.9rem;
   text-decoration: none;
-  border: 1px solid rgba(0, 242, 254, 0.25);
-  box-shadow: 0 4px 20px rgba(0, 242, 254, 0.03);
-  transition: all 0.3s ease;
+  border: none;
+  box-shadow:
+    0 12px 36px rgba(255, 0, 80, 0.24),
+    0 8px 30px rgba(0, 242, 234, 0.12);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 }
 
 .tiktok-accordion-cta-btn:hover {
-  background: linear-gradient(135deg, #00F2FE, #00b0ff);
-  color: #050505;
-  box-shadow: 0 8px 25px rgba(0, 242, 254, 0.25);
-  transform: translateY(-1px);
-  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 40px rgba(255, 0, 80, 0.35),
+    0 10px 30px rgba(0, 242, 234, 0.2);
+  filter: brightness(1.1);
 }
 
 @media (max-width: 768px) {
