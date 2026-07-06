@@ -201,3 +201,234 @@
     font-size: 2rem;
   }
 }
+
+/* Accordion Container & Items */
+.tiktok-accordion-container {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-inline: 1rem;
+}
+
+.tiktok-accordion-item {
+  background: rgba(20, 25, 40, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Hover nhẹ trên desktop */
+@media (min-width: 769px) {
+  .tiktok-accordion-item:hover {
+    border-color: rgba(0, 242, 254, 0.35);
+    box-shadow: 0 10px 30px rgba(0, 242, 254, 0.05);
+    transform: translateY(-2px);
+    background: rgba(30, 40, 60, 0.5);
+  }
+}
+
+.tiktok-accordion-item.active {
+  border-color: rgba(0, 242, 254, 0.5);
+  box-shadow: 0 15px 40px rgba(0, 242, 254, 0.1);
+  background: rgba(25, 32, 50, 0.6);
+}
+
+.tiktok-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem 2.25rem;
+  cursor: pointer;
+  user-select: none;
+  gap: 1.5rem;
+}
+
+.tiktok-accordion-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+/* Đảm bảo icon wrapper đồng bộ */
+.tiktok-accordion-header-left .tiktok-icon-wrapper {
+  margin-bottom: 0 !important;
+  flex-shrink: 0;
+}
+
+.tiktok-accordion-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+.tiktok-accordion-title-block .tiktok-card-title {
+  margin-bottom: 0 !important;
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+
+.tiktok-accordion-title-block .tiktok-card-desc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
+.tiktok-accordion-toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.tiktok-accordion-item:hover .tiktok-accordion-toggle-icon {
+  background: rgba(0, 242, 254, 0.1);
+  border-color: rgba(0, 242, 254, 0.3);
+  color: #00F2FE;
+}
+
+.tiktok-accordion-toggle-icon .arrow-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tiktok-accordion-toggle-icon .arrow-icon.rotated {
+  transform: rotate(180deg);
+}
+
+/* Accordion Content */
+.tiktok-accordion-content-inner {
+  padding: 0 2.25rem 2.25rem 6.25rem; /* Lùi lề bằng đúng khoảng cách icon wrapper + padding để nội dung chi tiết thẳng hàng với chữ */
+  text-align: left;
+}
+
+.tiktok-details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tiktok-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.tiktok-check-icon {
+  color: #00F2FE;
+  margin-top: 3px;
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+.tiktok-detail-text {
+  color: #a1a1aa;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.tiktok-accordion-cta-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tiktok-accordion-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.12) 0%, rgba(0, 242, 254, 0.04) 100%);
+  color: #00F2FE;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 242, 254, 0.03);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tiktok-accordion-cta-btn:hover {
+  background: linear-gradient(135deg, #00F2FE, #00b0ff);
+  color: #050505;
+  box-shadow: 0 8px 25px rgba(0, 242, 254, 0.25);
+  transform: translateY(-1px);
+  border-color: transparent;
+}
+
+@media (max-width: 768px) {
+  /* Mobile Accordion overrides */
+  .tiktok-accordion-container {
+    padding-inline: 0.5rem;
+    gap: 1rem;
+  }
+  
+  .tiktok-accordion-header {
+    padding: 1.25rem 1rem;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+  
+  .tiktok-accordion-header-left {
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+  
+  .tiktok-accordion-header-left .tiktok-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+  }
+  
+  .tiktok-accordion-header-left .tiktok-icon-wrapper svg {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .tiktok-accordion-title-block .tiktok-card-title {
+    font-size: 1.1rem;
+  }
+  
+  .tiktok-accordion-title-block .tiktok-card-desc {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    margin-top: 0.15rem;
+  }
+  
+  .tiktok-accordion-toggle-icon {
+    width: 30px;
+    height: 30px;
+    margin-top: 4px;
+  }
+  
+  .tiktok-accordion-content-inner {
+    padding: 0 1rem 1.25rem 1rem; /* Bỏ lùi lề quá mức trên mobile để tránh chật hẹp */
+  }
+  
+  .tiktok-detail-text {
+    font-size: 0.88rem;
+  }
+  
+  .tiktok-accordion-cta-btn {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+}

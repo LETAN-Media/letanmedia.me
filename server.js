@@ -17,11 +17,27 @@ app.use(
   })
 );
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'dist')));
+// Serve static files with proper caching for hashed assets
+app.use(express.static(path.join(__dirname, 'dist'), {
+  maxAge: '1y',
+  setHeaders: (res, filePath) => {
+    // If it's the index.html, never cache it
+    if (path.basename(filePath) === 'index.html') {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    }
+  }
+}));
 
-// SPA fallback: serve index.html for all routes
-app.use((req, res) => {
+// SPA fallback: serve index.html for all routes, EXCEPT static assets
+app.use((req, res, next) => {
+  // If the request is for a static asset (has a file extension), do not fall back to index.html
+  const ext = path.extname(req.path);
+  if (ext && ext !== '.html') {
+    return res.status(404).send('Not Found');
+  }
+
+  // Set no-cache headers for the index.html fallback
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
