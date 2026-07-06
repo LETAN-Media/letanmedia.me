@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ShieldAlert, Scale, AlertTriangle, UserX, Radio, Ban, ShoppingBag, ChevronDown, Check } from 'lucide-react';
 import './TikTokReport.css';
 import TikTokChatWidget from './components/TikTokChatWidget';
+import FeedbackCarousel from './components/FeedbackCarousel';
 
 const TikTokHero3D = lazy(() => import('./components/TikTokHero3D'));
 
@@ -298,6 +299,9 @@ export default function TikTokReportPage() {
            </motion.div>
         </div>
       </section>
+
+      {/* Feedback Carousel Section */}
+      <FeedbackCarousel />
 
       {/* Bot Chat AI */}
       <TikTokChatWidget />
