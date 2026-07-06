@@ -419,41 +419,43 @@ export default function TikTokReportPage() {
       {/* Contact Popup Popover */}
       <AnimatePresence>
         {showPopover && (
-          <>
-            {/* Transparent backdrop to close when clicked outside */}
-            <div 
-              className="fixed inset-0 z-[9998] bg-transparent"
+          <motion.div 
+            key="backdrop"
+            className="fixed inset-0 z-[9998]"
+            style={{ backgroundColor: 'transparent' }}
+            onClick={() => setShowPopover(false)}
+          />
+        )}
+        {showPopover && (
+          <motion.div 
+            key="popover"
+            className="consult-popover"
+            initial={{ opacity: 0, scale: 0.9, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 10 }}
+            transition={{ duration: 0.2 }}
+          >
+            <a 
+              href="https://zalo.me/0765178999"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="consult-option zalo"
               onClick={() => setShowPopover(false)}
-            />
-            <motion.div 
-              className="consult-popover"
-              initial={{ opacity: 0, scale: 0.9, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 10 }}
-              transition={{ duration: 0.2 }}
             >
-              <a 
-                href="https://zalo.me/0765178999"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="consult-option zalo"
-                onClick={() => setShowPopover(false)}
-              >
-                <img src="https://cdn.letanmedia.me/images/icon-zalo.svg" alt="Zalo" onError={(e) => e.target.style.display='none'} />
-                <span>Zalo</span>
-              </a>
-              <a 
-                href="https://t.me/Tanlemedia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="consult-option telegram"
-                onClick={() => setShowPopover(false)}
-              >
-                <img src="https://cdn.letanmedia.me/images/icon-telegram.svg" alt="Telegram" onError={(e) => e.target.style.display='none'} />
-                <span>Telegram</span>
-              </a>
-            </motion.div>
-          </>
+              <img src="https://cdn.letanmedia.me/images/icon-zalo.svg" alt="Zalo" onError={(e) => e.target.style.display='none'} />
+              <span>Zalo</span>
+            </a>
+            <a 
+              href="https://t.me/Tanlemedia"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="consult-option telegram"
+              onClick={() => setShowPopover(false)}
+            >
+              <img src="https://cdn.letanmedia.me/images/icon-telegram.svg" alt="Telegram" onError={(e) => e.target.style.display='none'} />
+              <span>Telegram</span>
+            </a>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
