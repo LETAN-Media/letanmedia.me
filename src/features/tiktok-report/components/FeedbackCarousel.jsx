@@ -150,11 +150,6 @@ export default function FeedbackCarousel() {
                         <img src={item.image} alt={item.customerName} loading="lazy" />
                         <div className="skeleton-shimmer"></div>
                       </div>
-                      <div className="card-overlay">
-                        <div className="card-info">
-                          <p>{item.service}</p>
-                        </div>
-                      </div>
                     </div>
                   </motion.div>
                 );
