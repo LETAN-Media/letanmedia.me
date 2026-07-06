@@ -26,7 +26,7 @@ const Footer = () => {
           <ul>
             <li>Hotline: <a href="tel:0765178999">0765 178 999</a></li>
             <li>Telegram: <a href="https://t.me/Tanlemedia" target="_blank" rel="noreferrer">@Tanlemedia</a></li>
-            <li>Email: <a href="mailto:support@letanmedia.site">support@letanmedia.site</a></li>
+            <li>Email: <a href="mailto:infor@letanmedia.me">infor@letanmedia.me</a></li>
             <li>Website: <a href="https://letanmedia.site">letanmedia.site</a></li>
           </ul>
         </div>

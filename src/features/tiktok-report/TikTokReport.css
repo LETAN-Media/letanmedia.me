@@ -935,3 +935,118 @@
   box-shadow: 0 0 15px rgba(34, 158, 217, 0.4);
   transform: translateY(-1px);
 }
+
+/* Commitment Section Redesign Styles */
+.commit-card {
+  padding: 30px 22px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(0,242,234,.12), transparent 34%),
+    radial-gradient(circle at 100% 0%, rgba(255,0,80,.16), transparent 36%),
+    rgba(12, 15, 25, .92);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 24px 80px rgba(0,0,0,.35);
+}
+
+.commit-title {
+  font-size: clamp(30px, 8vw, 52px);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.commit-subtitle {
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 800;
+  background: linear-gradient(90deg, #00f2ea, #ff4fa3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  margin-bottom: 14px;
+}
+
+.commit-desc {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: rgba(255,255,255,.68);
+  margin-bottom: 24px;
+}
+
+.commit-list {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.commit-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.07);
+}
+
+.commit-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(0,242,234,.16), rgba(255,0,80,.16));
+  color: #00f2ea;
+  flex: 0 0 auto;
+}
+
+.commit-item span {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.commit-cta {
+  width: 100%;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #00f2ea, #ff0050);
+  color: #fff;
+  font-weight: 900;
+  font-size: 16px;
+  text-decoration: none;
+  box-shadow:
+    0 16px 40px rgba(255,0,80,.24),
+    0 12px 36px rgba(0,242,234,.12);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.commit-cta:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 20px 48px rgba(255,0,80,.35),
+    0 14px 40px rgba(0,242,234,.2);
+  filter: brightness(1.1);
+}
+
+@media (min-width: 768px) {
+  .commit-card {
+    padding: 48px;
+  }
+
+  .commit-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .commit-cta {
+    width: auto;
+    padding: 0 34px;
+  }
+}

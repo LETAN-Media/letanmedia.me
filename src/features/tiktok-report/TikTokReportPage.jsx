@@ -350,52 +350,53 @@ export default function TikTokReportPage() {
       <section className="tiktok-process-section relative py-20 z-10">
         <div className="max-w-5xl mx-auto px-4 relative">
           {/* Subtle background glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-to-r from-[#00f2ea]/10 to-[#ff0050]/10 blur-[100px] rounded-full pointer-events-none"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-to-r from-[#00f2ea]/8 to-[#ff0050]/8 blur-[100px] rounded-full pointer-events-none"></div>
 
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative p-[1px] rounded-3xl bg-gradient-to-r from-[#00f2ea]/40 to-[#ff0050]/40"
+            className="commit-card relative overflow-hidden"
           >
-            {/* The actual dark glass card inside the gradient border */}
-            <div className="bg-[#050509]/95 backdrop-blur-xl rounded-[23px] px-6 py-12 md:p-16 text-center h-full relative overflow-hidden">
-              {/* Inner ambient glow */}
-              <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#ff0050]/10 blur-[80px] rounded-full"></div>
-              <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-[#00f2ea]/10 blur-[80px] rounded-full"></div>
+            {/* Inner ambient glow */}
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#ff0050]/5 blur-[80px] rounded-full pointer-events-none"></div>
+            <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-[#00f2ea]/5 blur-[80px] rounded-full pointer-events-none"></div>
 
-              <div className="relative z-10">
-                <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
-                  Cam Kết Từ LETAN Media
-                </h2>
-                <h3 className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ea] to-[#ff0050] mb-6">
-                  Bảo mật tuyệt đối. Xử lý nhanh. Báo cáo rõ ràng.
-                </h3>
-                
-                <p className="text-[#a1a1aa] text-base md:text-lg mb-10 leading-relaxed max-w-2xl mx-auto">
-                  Chúng tôi tiếp nhận và xử lý từng trường hợp theo quy trình riêng, đảm bảo thông tin khách hàng được bảo mật 100% trong suốt quá trình làm việc.
-                </p>
+            <div className="relative z-10">
+              <h2 className="commit-title">
+                Cam Kết Từ LETAN Media
+              </h2>
+              <p className="commit-subtitle">
+                Bảo mật tuyệt đối. Xử lý rõ ràng.
+              </p>
+              
+              <p className="commit-desc max-w-2xl">
+                Mỗi trường hợp đều được tiếp nhận riêng, tư vấn phương án phù hợp và cập nhật kết quả minh bạch trong suốt quá trình xử lý.
+              </p>
 
-                {/* Highlights grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12 max-w-3xl mx-auto">
-                  {[
-                    { icon: <ShieldAlert size={20} className="text-[#00f2ea]" />, text: "Bảo mật 100%" },
-                    { icon: <Radio size={20} className="text-[#ff0050]" />, text: "Cập nhật tiến độ rõ ràng" },
-                    { icon: <Check size={20} className="text-[#00f2ea]" />, text: "Báo cáo kết quả sau khi hoàn tất" }
-                  ].map((highlight, idx) => (
-                    <div key={idx} className="flex items-center justify-center gap-3 py-3 px-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors">
+              {/* Highlights grid */}
+              <div className="commit-list">
+                {[
+                  { icon: <ShieldAlert size={18} />, text: "Bảo mật 100%" },
+                  { icon: <Radio size={18} />, text: "Cập nhật tiến độ" },
+                  { icon: <Check size={18} />, text: "Báo cáo kết quả" }
+                ].map((highlight, idx) => (
+                  <div key={idx} className="commit-item">
+                    <div className="commit-icon">
                       {highlight.icon}
-                      <span className="text-white text-sm md:text-base font-medium">{highlight.text}</span>
                     </div>
-                  ))}
-                </div>
+                    <span>{highlight.text}</span>
+                  </div>
+                ))}
+              </div>
 
+              <div className="text-center md:text-left">
                 <motion.a 
                   href="/#contact" 
-                  className="inline-block bg-gradient-to-r from-[#00f2ea] to-[#ff0050] text-white font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,0,80,0.3)] hover:shadow-[0_0_40px_rgba(255,0,80,0.5)] transition-all duration-300 transform hover:-translate-y-1"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="commit-cta"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                 >
                   Nhận Báo Giá Chi Tiết
                 </motion.a>
