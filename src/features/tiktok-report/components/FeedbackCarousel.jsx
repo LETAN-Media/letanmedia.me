@@ -139,6 +139,10 @@ export default function FeedbackCarousel() {
                   >
                     <div className="card-glass-effect">
                       <div className="image-wrapper">
+                        <div 
+                          className="absolute inset-0 bg-cover bg-center opacity-40 blur-2xl scale-110"
+                          style={{ backgroundImage: `url(${item.image})` }}
+                        />
                         <img src={item.image} alt={item.customerName} loading="lazy" />
                         <div className="skeleton-shimmer"></div>
                       </div>
