@@ -325,11 +325,11 @@ export default function TikTokReportPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative p-6 md:p-8 rounded-2xl bg-[#0b0f1a] border border-white/5 backdrop-blur-sm overflow-hidden group hover:border-[#ff0050]/30 transition-all duration-300 flex items-center"
+                className="relative p-6 md:p-8 rounded-2xl bg-[#0b0f1a] border border-white/5 backdrop-blur-sm overflow-hidden group hover:border-[#ff0050]/30 transition-all duration-300 flex items-center gap-5 md:gap-8"
               >
                 <div className="absolute top-1/2 right-0 w-32 h-32 bg-gradient-to-br from-[#00f2ea] to-[#ff0050] opacity-0 blur-3xl group-hover:opacity-10 transition-opacity duration-500 rounded-full translate-x-1/2 -translate-y-1/2"></div>
                 
-                <div className="text-5xl md:text-6xl font-black text-transparent -webkit-text-stroke text-stroke-white/10 mr-6 md:mr-8 group-hover:text-white/10 transition-colors flex-shrink-0 w-16 md:w-20 text-center" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>
+                <div className="text-5xl md:text-6xl font-black text-transparent -webkit-text-stroke text-stroke-white/10 group-hover:text-white/10 transition-colors flex-shrink-0 min-w-[70px] md:min-w-[100px] text-left md:text-center" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>
                   0{index + 1}
                 </div>
                 
@@ -348,32 +348,61 @@ export default function TikTokReportPage() {
       </section>
 
       {/* Commitment Section */}
-      <section className="tiktok-process-section">
-        <div className="max-w-4xl mx-auto text-center px-4">
-           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="py-16 px-8 rounded-3xl bg-gradient-to-b from-[rgba(255,0,80,0.08)] to-transparent border border-[rgba(255,0,80,0.15)] backdrop-blur-md relative overflow-hidden"
-           >
-             {/* Decorative glow */}
-             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 bg-[#FF0050] opacity-10 blur-[100px] pointer-events-none"></div>
-             
-             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white tracking-tight">Cam Kết Của LETAN Media</h2>
-             <p className="text-[#a1a1aa] text-lg md:text-xl mb-10 leading-relaxed max-w-3xl mx-auto">
-               Với kinh nghiệm xử lý hàng trăm ca khủng hoảng mạng xã hội phức tạp, 
-               chúng tôi cam kết bảo mật 100% thông tin khách hàng, tốc độ xử lý trong vòng <strong className="text-[#00F2FE] font-semibold">24-48h</strong> và hoàn tiền nếu không đạt kết quả.
-             </p>
-             <motion.a 
-               href="/#contact" 
-               className="inline-block bg-white text-black font-bold py-4 px-8 rounded-full shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] transition-all duration-300 transform hover:-translate-y-1"
-               whileHover={{ scale: 1.05 }}
-               whileTap={{ scale: 0.95 }}
-             >
-                Nhận Báo Giá Chi Tiết
-             </motion.a>
-           </motion.div>
+      <section className="tiktok-process-section relative py-20 z-10">
+        <div className="max-w-5xl mx-auto px-4 relative">
+          {/* Subtle background glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-to-r from-[#00f2ea]/10 to-[#ff0050]/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="relative p-[1px] rounded-3xl bg-gradient-to-r from-[#00f2ea]/40 to-[#ff0050]/40"
+          >
+            {/* The actual dark glass card inside the gradient border */}
+            <div className="bg-[#050509]/95 backdrop-blur-xl rounded-[23px] px-6 py-12 md:p-16 text-center h-full relative overflow-hidden">
+              {/* Inner ambient glow */}
+              <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#ff0050]/10 blur-[80px] rounded-full"></div>
+              <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-[#00f2ea]/10 blur-[80px] rounded-full"></div>
+
+              <div className="relative z-10">
+                <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
+                  Cam Kết Từ LETAN Media
+                </h2>
+                <h3 className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ea] to-[#ff0050] mb-6">
+                  Bảo mật tuyệt đối. Xử lý nhanh. Báo cáo rõ ràng.
+                </h3>
+                
+                <p className="text-[#a1a1aa] text-base md:text-lg mb-10 leading-relaxed max-w-2xl mx-auto">
+                  Chúng tôi tiếp nhận và xử lý từng trường hợp theo quy trình riêng, đảm bảo thông tin khách hàng được bảo mật 100% trong suốt quá trình làm việc.
+                </p>
+
+                {/* Highlights grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12 max-w-3xl mx-auto">
+                  {[
+                    { icon: <ShieldAlert size={20} className="text-[#00f2ea]" />, text: "Bảo mật 100%" },
+                    { icon: <Radio size={20} className="text-[#ff0050]" />, text: "Cập nhật tiến độ rõ ràng" },
+                    { icon: <Check size={20} className="text-[#00f2ea]" />, text: "Báo cáo kết quả sau khi hoàn tất" }
+                  ].map((highlight, idx) => (
+                    <div key={idx} className="flex items-center justify-center gap-3 py-3 px-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors">
+                      {highlight.icon}
+                      <span className="text-white text-sm md:text-base font-medium">{highlight.text}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <motion.a 
+                  href="/#contact" 
+                  className="inline-block bg-gradient-to-r from-[#00f2ea] to-[#ff0050] text-white font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,0,80,0.3)] hover:shadow-[0_0_40px_rgba(255,0,80,0.5)] transition-all duration-300 transform hover:-translate-y-1"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Nhận Báo Giá Chi Tiết
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
