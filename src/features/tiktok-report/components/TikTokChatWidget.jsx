@@ -5,8 +5,8 @@ import { MessageSquare, X, Send, Bot, Phone, Send as TelegramIcon } from 'lucide
 const suggestions = [
   "Làm sao gỡ video bôi nhọ?",
   "Báo cáo reup bản quyền thế nào?",
-  "Bên mình bảo mật thông tin ra sao?",
-  "Livestream bị cấm làm sao gỡ?"
+  "Làm sao report Tiktok Shop?",
+  "Muốn báo cáo livestream 1 tài khoản?"
 ];
 
 export default function TikTokChatWidget() {
@@ -14,7 +14,7 @@ export default function TikTokChatWidget() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Chào bạn! Tôi là trợ lý AI chuyên bảo vệ thương hiệu TikTok của LETAN Media. Bạn cần tư vấn về vấn đề gì (bản quyền, gỡ video bôi nhọ, phục hồi live...)? Hãy nhắn cho tôi nhé!'
+      content: 'Chào bạn! Tôi là trợ lý AI của LETAN Media. Bạn cần tư vấn về vấn đề gì ? Hãy nhắn cho tôi nhé!'
     }
   ]);
   const [input, setInput] = useState('');
