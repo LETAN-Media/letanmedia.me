@@ -1077,3 +1077,79 @@
     padding: 0 34px;
   }
 }
+
+/* Consult Popover Styles */
+.consult-popover {
+  position: fixed;
+  right: 24px;
+  bottom: 110px;
+  z-index: 9999;
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
+    rgba(8, 10, 18, .96);
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.45),
+    0 0 24px rgba(0,242,234,.12),
+    0 0 28px rgba(255,0,80,.12);
+  backdrop-filter: blur(14px);
+}
+
+.consult-option {
+  width: 82px;
+  height: 82px;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.08);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.consult-option:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,.08);
+}
+
+.consult-option svg,
+.consult-option img {
+  width: 30px;
+  height: 30px;
+}
+
+.consult-option span {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.consult-option.zalo {
+  border-color: rgba(0, 174, 255, .35);
+}
+
+.consult-option.telegram {
+  border-color: rgba(45, 170, 255, .35);
+}
+
+@media (max-width: 768px) {
+  .consult-popover {
+    right: 20px;
+    bottom: 96px;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .consult-option {
+    width: 76px;
+    height: 76px;
+    border-radius: 20px;
+  }
+}
