@@ -218,7 +218,7 @@ export default function TikTokReportPage() {
       </section>
 
       {/* Services Section */}
-      <section className="tiktok-services-section section-block">
+      <section id="services" className="tiktok-services-section section-block">
         <div className="max-w-7xl mx-auto">
           <div className="section-header">
             <motion.h2 

@@ -17,10 +17,7 @@ const Header = () => {
       <div className="header-logo">LETAN Media</div>
       <nav className="header-nav">
         <a href="#services">Dịch vụ</a>
-        <a href="#portfolio">Dự án</a>
-        <a href="#pricing">Bảng giá</a>
         <a href="#knowledge">Kiến thức</a>
-        <a href="/tiktok-report">TikTok Report</a>
         <a href="#contact">Liên hệ</a>
       </nav>
       <button className="btn-primary">Tư vấn ngay</button>
