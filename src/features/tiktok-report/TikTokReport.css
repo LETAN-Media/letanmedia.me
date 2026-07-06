@@ -1,3 +1,59 @@
+/* Unified Section Header & Block Styles */
+.section-block {
+  padding: 96px 0;
+}
+
+.section-header {
+  max-width: 860px;
+  margin: 0 auto 44px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.section-title {
+  margin: 0;
+  font-size: clamp(36px, 7vw, 64px);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  color: #fff;
+}
+
+.section-title .gradient-text {
+  background: linear-gradient(90deg, #00f2ea, #ff4fa3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.section-subtitle {
+  max-width: 680px;
+  margin: 16px auto 0;
+  font-size: clamp(15px, 3.8vw, 20px);
+  line-height: 1.65;
+  color: rgba(255,255,255,0.62);
+}
+
+@media (max-width: 767px) {
+  .section-block {
+    padding: 72px 0;
+  }
+
+  .section-header {
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-size: clamp(34px, 9vw, 46px);
+    line-height: 1.08;
+  }
+
+  .section-subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
 .tiktok-page {
   background-color: #050505;
   color: #fff;

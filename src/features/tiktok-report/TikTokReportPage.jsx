@@ -218,16 +218,18 @@ export default function TikTokReportPage() {
       </section>
 
       {/* Services Section */}
-      <section className="tiktok-services-section">
+      <section className="tiktok-services-section section-block">
         <div className="max-w-7xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="tiktok-section-title"
-          >
-            Giải Pháp <span className="tiktok-accent-cyan">Bảo Vệ Toàn Diện</span>
-          </motion.h2>
+          <div className="section-header">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="section-title"
+            >
+              Giải Pháp <span className="gradient-text">Bảo Vệ Toàn Diện</span>
+            </motion.h2>
+          </div>
 
           <div className="tiktok-accordion-container">
             {services.map((service, index) => {
@@ -305,16 +307,18 @@ export default function TikTokReportPage() {
       </section>
       
       {/* Workflow Section */}
-      <section className="tiktok-workflow-section bg-[#050509] relative z-10">
+      <section className="tiktok-workflow-section section-block bg-[#050509] relative z-10">
         <div className="max-w-6xl mx-auto px-4">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center text-3xl md:text-5xl font-bold mb-16 text-white tracking-tight"
-          >
-            Quy Trình <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ea] to-[#ff0050]">Làm Việc</span>
-          </motion.h2>
+          <div className="section-header">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="section-title"
+            >
+              Quy Trình <span className="gradient-text">Làm Việc</span>
+            </motion.h2>
+          </div>
 
           <div className="tiktok-workflow-list flex flex-col gap-4 max-w-4xl mx-auto">
             {workflowSteps.map((step, index) => (

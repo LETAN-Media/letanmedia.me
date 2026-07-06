@@ -1,5 +1,4 @@
 .feedback-section {
-  padding: 8rem 1rem;
   background: #050509;
   position: relative;
   overflow: hidden;
@@ -227,7 +226,7 @@
 }
 
 @media (max-width: 768px) {
-  .feedback-section { padding: 4rem 0rem; overflow-x: hidden; }
+  .feedback-section { overflow-x: hidden; }
   .carousel-wrapper { height: 450px; }
   .carousel-track { max-width: 250px; }
   .carousel-nav { 

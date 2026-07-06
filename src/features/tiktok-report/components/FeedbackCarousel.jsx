@@ -95,23 +95,23 @@ export default function FeedbackCarousel() {
   };
 
   return (
-    <section className="feedback-section" id="feedback">
+    <section className="feedback-section section-block" id="feedback">
       <div className="feedback-container">
-        <div className="feedback-header">
+        <div className="section-header">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="feedback-title"
+            className="section-title"
           >
-            Kết Quả Xử Lý Thực Tế
+            Kết Quả <span className="gradient-text">Xử Lý Thực Tế</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="feedback-subtitle"
+            className="section-subtitle"
           >
             Những trường hợp thực tế đã được LETAN Media xử lý thành công.
           </motion.p>
