@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Bot, Phone, Send as TelegramIcon } from 'lucide-react';
+import { MessageSquare, X, Send, ShieldCheck, Phone, Send as TelegramIcon } from 'lucide-react';
 
 const suggestions = [
   "Làm sao gỡ video bôi nhọ?",
@@ -143,7 +143,9 @@ QUY TẮC CHỐNG LẠM DỤNG (BẮT BUỘC TUÂN THỦ):
             <div className="tiktok-chat-header">
               <div className="tiktok-chat-header-info">
                 <div className="bot-avatar">
-                  <Bot size={20} />
+                  <div className="bot-avatar-inner">
+                    <ShieldCheck size={20} />
+                  </div>
                 </div>
                 <div>
                   <h4 className="bot-name">LETAN Shield AI</h4>
