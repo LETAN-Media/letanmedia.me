@@ -1,0 +1,13 @@
+{
+  "name": "letan-chatbot-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker AI Gateway for LETAN Media, AI Construction, and BMT Decor",
+  "main": "src/index.js",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "start": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

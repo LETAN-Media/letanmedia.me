@@ -1,0 +1,8 @@
+name = "letan-chatbot-worker"
+main = "src/index.js"
+compatibility_date = "2026-07-06"
+
+[vars]
+AI_PROVIDER = "gemini"
+GEMINI_MODEL = "gemini-2.5-flash"
+HF_MODEL = "mistralai/Mistral-7B-Instruct-v0.3"
