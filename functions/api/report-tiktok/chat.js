@@ -39,7 +39,6 @@ Hướng dẫn trả lời:
       ...messages
     ];
 
-    // Read Hugging Face configuration from environment or fall back to default values
     const hfApiKey = context.env.HF_API_KEY || "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";
     const modelName = context.env.HF_MODEL || "HauhauCS/Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-MTP";
 
@@ -47,7 +46,6 @@ Hướng dẫn trả lời:
       throw new Error("Hugging Face API key is missing");
     }
 
-    // Call Hugging Face Serverless Inference API via OpenAI-compatible route
     const hfResponse = await fetch("https://api-inference.huggingface.co/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -84,9 +82,10 @@ Hướng dẫn trả lời:
   } catch (error) {
     console.error("Hugging Face API error:", error);
     
+    // TEMPORARY: Return raw error details to UI for debugging purposes
     return new Response(JSON.stringify({ 
       success: false, 
-      message: "🤖 LETAN Shield AI hiện đang bận hoặc đang được nâng cấp.\n\nĐể được hỗ trợ ngay, vui lòng liên hệ:\n\n📞 Hotline/Zalo: 0765 178 999\n💬 Telegram: @Tanlemedia"
+      message: `❌ DEBUG ERROR:\n${error.message}`
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
