@@ -146,7 +146,6 @@ export default function FeedbackCarousel() {
                       </div>
                       <div className="card-overlay">
                         <div className="card-info">
-                          <h4>{item.customerName}</h4>
                           <p>{item.service}</p>
                         </div>
                       </div>
