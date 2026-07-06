@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Icosahedron, MeshDistortMaterial } from '@react-three/drei';
 import { EffectComposer, Bloom, Glitch } from '@react-three/postprocessing';
 import { GlitchMode } from 'postprocessing';
 
-const CyberCore = () => {
+const CyberCore = ({ isMobile }) => {
   const meshRef = useRef();
   const innerRef = useRef();
   
@@ -18,32 +18,53 @@ const CyberCore = () => {
     }
   });
 
+  // Base positions for desktop
+  const baseSphereY = -1.2;
+  const baseGlowY = -1.2;
+
+  // Lift sphere by 1.2 units (~140px) and glow by 0.8 units (~90px) on mobile
+  const sphereY = isMobile ? baseSphereY + 1.2 : baseSphereY;
+  const glowY = isMobile ? baseGlowY + 0.8 : baseGlowY;
+
   return (
-    <group position={[0, -1.2, 0]}>
+    <group>
       {/* Outer shield wireframe */}
-      <Icosahedron args={[2.5, 2]} ref={meshRef}>
-        <meshBasicMaterial color="#00F2FE" wireframe transparent opacity={0.55} />
-      </Icosahedron>
+      <group position={[0, sphereY, 0]}>
+        <Icosahedron args={[2.5, 2]} ref={meshRef}>
+          <meshBasicMaterial color="#00F2FE" wireframe transparent opacity={0.55} />
+        </Icosahedron>
+      </group>
       
       {/* Inner distorting core */}
-      <Icosahedron args={[1.02, 4]} ref={innerRef}>
-        <MeshDistortMaterial 
-          color="#ff0a6c" 
-          emissive="#ff0a6c"
-          emissiveIntensity={0.8}
-          distort={0.4} 
-          speed={3} 
-          roughness={0.2}
-          metalness={0.8}
-          transparent
-          opacity={0.45}
-        />
-      </Icosahedron>
+      <group position={[0, glowY, 0]}>
+        <Icosahedron args={[1.02, 4]} ref={innerRef}>
+          <MeshDistortMaterial 
+            color="#ff0a6c" 
+            emissive="#ff0a6c"
+            emissiveIntensity={0.8}
+            distort={0.4} 
+            speed={3} 
+            roughness={0.2}
+            metalness={0.8}
+            transparent
+            opacity={0.45}
+          />
+        </Icosahedron>
+      </group>
     </group>
   );
 };
 
 export default function TikTokHero3D() {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
       <Canvas camera={{ position: [0, 0, 6], fov: 60 }} dpr={[1, 2]}>
@@ -51,7 +72,7 @@ export default function TikTokHero3D() {
         <ambientLight intensity={0.2} />
         <pointLight position={[10, 10, 10]} intensity={1.5} color="#00F2FE" />
         <pointLight position={[-10, -10, -10]} intensity={2} color="#FF0050" />
-        <CyberCore />
+        <CyberCore isMobile={isMobile} />
         <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={0.2} luminanceSmoothing={0.9} intensity={1.5} />
           <Glitch 
