@@ -284,7 +284,9 @@ export default function TikTokReportPage() {
                       </ul>
                       <div className="tiktok-accordion-cta-wrapper">
                         <motion.a 
-                          href="/#contact" 
+                          href="https://zalo.me/0765178999"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="tiktok-accordion-cta-btn"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
