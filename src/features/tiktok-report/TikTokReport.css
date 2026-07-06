@@ -37,29 +37,32 @@
 
 .tiktok-content-overlay {
   position: relative;
-  z-index: 3;
-  max-width: 540px;
+  z-index: 10;
+  width: min(100%, 1180px);
   margin: 0 auto;
-  padding: 0 24px;
+  padding-inline: 48px;
   text-align: center;
+  padding-top: 80px;
 }
 
 .tiktok-title {
   color: #fff;
-  font-size: clamp(34px, 8vw, 64px);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  font-size: clamp(48px, 5vw, 88px);
+  max-width: 980px;
+  margin: 0 auto 22px;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
   font-weight: 900;
-  text-shadow: 0 8px 40px rgba(0,0,0,0.75);
-  margin-bottom: 22px;
+  text-shadow: 0 8px 30px rgba(0,0,0,0.45);
 }
 
 .tiktok-subtitle {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: clamp(16px, 4vw, 20px);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 22px;
   line-height: 1.6;
+  max-width: 860px;
+  margin: 0 auto 34px;
   text-shadow: 0 4px 24px rgba(0,0,0,0.75);
-  margin-bottom: 34px;
 }
 
 .tiktok-badge {
@@ -180,13 +183,21 @@
 }
 
 @media (max-width: 768px) {
+  .tiktok-content-overlay {
+    max-width: 560px;
+    padding-inline: 24px;
+    padding-top: 60px;
+    padding-bottom: 100px;
+  }
   .tiktok-title {
-    font-size: 2.5rem;
+    font-size: clamp(34px, 8.8vw, 56px);
+  }
+  .tiktok-subtitle {
+    font-size: 16px;
+    max-width: 92%;
+    margin-top: 18px;
   }
   .tiktok-section-title {
     font-size: 2rem;
-  }
-  .tiktok-content-overlay {
-    padding-bottom: 100px;
   }
 }

@@ -18,25 +18,26 @@ const CyberCore = ({ isMobile }) => {
     }
   });
 
-  // Base positions for desktop
-  const baseSphereY = -1.2;
-  const baseGlowY = -1.2;
-
-  // Lift sphere by 1.2 units (~140px) and glow by 0.8 units (~90px) on mobile
-  const sphereY = isMobile ? baseSphereY + 1.2 : baseSphereY;
-  const glowY = isMobile ? baseGlowY + 0.8 : baseGlowY;
+  // Tweak positions for premium feel
+  // Mobile: sphere is higher to sit behind text
+  // Desktop: sphere is larger and centered
+  const sphereY = isMobile ? 0.2 : -0.4;
+  const sphereScale = isMobile ? 1.12 : 1.08;
+  
+  const glowY = isMobile ? -0.5 : -1.0;
+  const glowScale = isMobile ? 1.0 : 1.25;
 
   return (
     <group>
       {/* Outer shield wireframe */}
-      <group position={[0, sphereY, 0]}>
+      <group position={[0, sphereY, 0]} scale={[sphereScale, sphereScale, sphereScale]}>
         <Icosahedron args={[2.5, 2]} ref={meshRef}>
-          <meshBasicMaterial color="#00F2FE" wireframe transparent opacity={0.55} />
+          <meshBasicMaterial color="#00F2FE" wireframe transparent opacity={isMobile ? 0.58 : 0.52} />
         </Icosahedron>
       </group>
       
       {/* Inner distorting core */}
-      <group position={[0, glowY, 0]}>
+      <group position={[0, glowY, 0]} scale={[glowScale, glowScale, glowScale]}>
         <Icosahedron args={[1.02, 4]} ref={innerRef}>
           <MeshDistortMaterial 
             color="#ff0a6c" 
@@ -47,7 +48,7 @@ const CyberCore = ({ isMobile }) => {
             roughness={0.2}
             metalness={0.8}
             transparent
-            opacity={0.45}
+            opacity={isMobile ? 0.45 : 0.34}
           />
         </Icosahedron>
       </group>
