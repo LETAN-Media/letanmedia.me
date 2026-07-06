@@ -103,12 +103,12 @@ export default function FeedbackCarousel() {
                 return (
                   <motion.div
                     key={item.id}
-                    className={\`carousel-card \${isActive ? 'active' : 'inactive'}\`}
+                    className={`carousel-card ${isActive ? 'active' : 'inactive'}`}
                     onClick={() => isActive && setSelectedImage(item.image)}
-                    initial={{ opacity: 0, x: \`\${position * 105}%\`, scale: 0.8 }}
+                    initial={{ opacity: 0, x: `${position * 105}%`, scale: 0.8 }}
                     animate={{ 
                       opacity: isActive ? 1 : 0.5,
-                      x: \`\${position * 110}%\`,
+                      x: `${position * 110}%`,
                       scale: isActive ? 1 : 0.92,
                       filter: isActive ? 'blur(0px)' : 'blur(4px)',
                       zIndex: isActive ? 10 : 0
@@ -143,8 +143,8 @@ export default function FeedbackCarousel() {
           {feedbacks.map((_, idx) => (
             <button 
               key={idx} 
-              aria-label={\`Go to slide \${idx + 1}\`}
-              className={\`dot \${idx === currentIndex ? 'active' : ''}\`}
+              aria-label={`Go to slide ${idx + 1}`}
+              className={`dot ${idx === currentIndex ? 'active' : ''}`}
               onClick={() => setCurrentIndex(idx)}
             />
           ))}
