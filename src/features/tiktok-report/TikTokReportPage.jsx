@@ -55,13 +55,34 @@ class ErrorBoundary extends React.Component {
 
 
 const workflowSteps = [
-  "Tiếp nhận yêu cầu",
-  "Nhận link cần xử lý để kiểm tra",
-  "Tư vấn phương án phù hợp",
-  "Chốt thời gian thực hiện",
-  "Thanh toán dịch vụ",
-  "Báo cáo kết quả đúng thời gian đã cam kết",
-  "Bảo mật 100% thông tin khách hàng"
+  {
+    title: "Tiếp nhận yêu cầu",
+    desc: "Khách hàng gửi thông tin và mô tả vấn đề cần hỗ trợ qua các kênh liên lạc."
+  },
+  {
+    title: "Kiểm tra liên kết",
+    desc: "Tiếp nhận link TikTok, video, kênh hoặc phiên live cần xử lý để phân tích."
+  },
+  {
+    title: "Tư vấn phương án",
+    desc: "Đề xuất giải pháp can thiệp tối ưu nhất và báo giá chi tiết cho khách hàng."
+  },
+  {
+    title: "Chốt thời gian",
+    desc: "Xác nhận thỏa thuận, cam kết KPI và thời hạn hoàn thành công việc rõ ràng."
+  },
+  {
+    title: "Thanh toán",
+    desc: "Khách hàng tiến hành thanh toán chi phí dịch vụ theo lộ trình đã thống nhất."
+  },
+  {
+    title: "Báo cáo kết quả",
+    desc: "Cập nhật tiến độ liên tục và bàn giao kết quả đúng hoặc trước thời gian cam kết."
+  },
+  {
+    title: "Bảo mật thông tin",
+    desc: "Xóa toàn bộ dữ liệu dự án, cam kết bảo mật 100% danh tính khách hàng."
+  }
 ];
 
 const services = [
@@ -292,7 +313,7 @@ export default function TikTokReportPage() {
             Quy Trình <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ea] to-[#ff0050]">Làm Việc</span>
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex flex-col gap-4 max-w-4xl mx-auto">
             {workflowSteps.map((step, index) => (
               <motion.div
                 key={index}
@@ -300,15 +321,22 @@ export default function TikTokReportPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative p-8 rounded-2xl bg-[#0b0f1a] border border-white/5 backdrop-blur-sm overflow-hidden group hover:border-[#ff0050]/30 transition-all duration-300 ${index === 6 ? 'md:col-span-2 lg:col-span-2' : ''}`}
+                className="relative p-6 md:p-8 rounded-2xl bg-[#0b0f1a] border border-white/5 backdrop-blur-sm overflow-hidden group hover:border-[#ff0050]/30 transition-all duration-300 flex items-center"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#00f2ea] to-[#ff0050] opacity-0 blur-3xl group-hover:opacity-10 transition-opacity duration-500 rounded-full translate-x-1/2 -translate-y-1/2"></div>
-                <div className="text-5xl font-black text-transparent -webkit-text-stroke text-stroke-white/10 mb-4 group-hover:text-white/10 transition-colors" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>
+                <div className="absolute top-1/2 right-0 w-32 h-32 bg-gradient-to-br from-[#00f2ea] to-[#ff0050] opacity-0 blur-3xl group-hover:opacity-10 transition-opacity duration-500 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+                
+                <div className="text-5xl md:text-6xl font-black text-transparent -webkit-text-stroke text-stroke-white/10 mr-6 md:mr-8 group-hover:text-white/10 transition-colors flex-shrink-0 w-16 md:w-20 text-center" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>
                   0{index + 1}
                 </div>
-                <h3 className="text-xl font-semibold text-white/90 leading-snug group-hover:text-white transition-colors">
-                  {step}
-                </h3>
+                
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-[#00f2ea] mb-2 group-hover:text-white transition-colors">
+                    {step.title}
+                  </h3>
+                  <p className="text-[#a1a1aa] leading-relaxed text-sm md:text-base m-0">
+                    {step.desc}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
