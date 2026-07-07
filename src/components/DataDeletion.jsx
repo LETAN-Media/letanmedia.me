@@ -121,8 +121,8 @@ const DataDeletion = () => {
                 </div>
                 <div className="info-content">
                   <span className="info-label">Email hỗ trợ</span>
-                  <a href="mailto:letan.offcial@gmail.com" className="info-value">
-                    letan.offcial@gmail.com
+                  <a href="mailto:infor@letanmedia.me" className="info-value">
+                    infor@letanmedia.me
                   </a>
                 </div>
               </div>
