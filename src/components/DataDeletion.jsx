@@ -145,8 +145,8 @@ const DataDeletion = () => {
                 </div>
                 <div className="info-content">
                   <span className="info-label">Website</span>
-                  <a href="https://letanmedia.site" target="_blank" rel="noopener noreferrer" className="info-value">
-                    https://letanmedia.site
+                  <a href="https://letanmedia.me" target="_blank" rel="noopener noreferrer" className="info-value">
+                    https://letanmedia.me
                   </a>
                 </div>
               </div>
