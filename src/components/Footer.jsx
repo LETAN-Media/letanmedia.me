@@ -37,6 +37,7 @@ const Footer = () => {
         <span>&copy; 2026 LETAN Media.</span>
         <Link to="/policy">Privacy policy</Link>
         <Link to="/terms">Terms of service</Link>
+        <Link to="/data-deletion">Data deletion</Link>
       </div>
       
       <Link to="/chatbot-ai" className="floating-ai" title="LETAN AI Assistant">
