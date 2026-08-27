@@ -1,15 +1,7 @@
 export const CDN = "https://cdn.letanmedia.me";
 
 export const ASSETS = {
-  hero: {
-    // TODO: Replace with final media asset
-    // TODO: Upload asset to Cloudflare R2
-    mainAvif: `${CDN}/images/hero/hero-main.avif`,
-    mainWebp: `${CDN}/images/hero/hero-main.webp`,
-    videoWebm: `${CDN}/videos/hero/hero-video.webm`,
-    videoMp4: `${CDN}/videos/hero/hero-video.mp4`,
-    poster: `${CDN}/images/hero/hero-poster.webp`,
-  },
+  // NOTE: hero visual is rendered live (ParticleField); no static hero media.
   services: {
     reportTiktok: `${CDN}/images/services/report-tiktok.webp`,
     tichXanh: `${CDN}/images/services/tich-xanh-tiktok.webp`,

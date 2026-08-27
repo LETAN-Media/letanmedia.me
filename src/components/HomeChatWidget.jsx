@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { MessageSquare, X, Send } from 'lucide-react';
+import { track, ANALYTICS_EVENTS } from '../lib/analytics';
 import './HomeChatWidget.css';
 
 const suggestions = [
@@ -38,6 +39,7 @@ export default function HomeChatWidget() {
   useEffect(() => {
     const handleOpenEvent = (e) => {
       setIsOpen(true);
+      track(ANALYTICS_EVENTS.OPEN_CHAT);
       if (e.detail && e.detail.message) {
         // Wait a small bit for opening animation before sending message
         setTimeout(() => {

@@ -1,4 +1,6 @@
 User-agent: *
+Disallow: /api/
+Disallow: /geo-entity-manager
 Allow: /
 
 Sitemap: https://letanmedia.me/sitemap.xml

@@ -1,19 +1,65 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+/* ============================================================
+   DESIGN TOKENS — single source of truth (Tailwind v4 @theme)
+   New palette per design system. Utilities (bg-primary,
+   text-digital, ...) and var(--color-*) both resolve here.
+   ============================================================ */
+@theme {
+  /* Color */
+  --color-bg: #070A12;
+  --color-surface-1: #0D1220;
+  --color-surface-2: #131927;
+  --color-primary: #4F7CFF;
+  --color-digital: #26D9F2;
+  --color-ai: #2FD4A7;
+  --color-text: #F7F8FA;
+  --color-muted: #A7B0C0;
+
+  /* Typography */
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.375rem;
+  --radius-full: 999px;
+
+  /* Container */
+  --container-max: 80rem; /* 1280px */
+}
+
+/* Legacy aliases — keep existing component CSS working while migrating.
+   These map old names to the new token system (no duplicated hex). */
 :root {
-  --color-bg: #050505;
-  --color-surface: #0F172A;
-  --color-surface-light: #111827;
-  --color-text: #ffffff;
-  --color-text-muted: #9ca3af;
-  --color-blue: #2563EB;
-  --color-orange: #F97316;
-  --font-inter: 'Inter', sans-serif;
-  --font-space: 'Space Grotesk', sans-serif;
-  
-  --spacing-section: 180px;
+  --color-surface: var(--color-surface-1);
+  --color-surface-light: var(--color-surface-2);
+  --color-text-muted: var(--color-muted);
+  --color-blue: var(--color-primary);
+  --color-orange: var(--color-digital);
+
+  --font-inter: var(--font-body);
+  --font-space: var(--font-heading);
+
+  --spacing-section: 120px;
   --spacing-container: 5%;
+
+  /* Elevation */
+  --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.38);
+  --shadow-glow: 0 0 48px rgba(79, 124, 255, 0.22);
+
+  /* Border */
+  --border-subtle: 1px solid rgba(167, 176, 192, 0.12);
+
+  /* Motion */
+  --transition-base: 0.3s ease;
+
+  /* Layering */
+  --z-header: 100;
+  --z-modal: 1000;
+  --z-chat: 900;
 }
 
 * {
@@ -62,7 +108,7 @@ button {
 .skeleton-placeholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #0F172A, #111827);
+  background: linear-gradient(135deg, var(--color-surface-1), var(--color-surface-2));
   position: relative;
   overflow: hidden;
   border-radius: inherit;
@@ -74,7 +120,7 @@ button {
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(79, 124, 255, 0.1), transparent);
   animation: loading 1.5s infinite;
 }
 
@@ -84,14 +130,14 @@ button {
 
 /* Typography Utilities */
 .text-gradient {
-  background: linear-gradient(135deg, #ffffff, #9ca3af);
+  background: linear-gradient(135deg, #ffffff, var(--color-muted));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-accent {
-  background: linear-gradient(135deg, var(--color-blue), var(--color-orange));
+  background: linear-gradient(135deg, var(--color-primary), var(--color-digital));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -100,7 +146,7 @@ button {
 /* Common Section Styles */
 .section {
   padding: var(--spacing-section) var(--spacing-container);
-  max-width: 1600px;
+  max-width: var(--container-max);
   margin: 0 auto;
 }
 
@@ -116,7 +162,7 @@ button {
 
 .section-subtitle {
   font-size: 1.25rem;
-  color: var(--color-text-muted);
+  color: var(--color-muted);
 }
 
 @media (max-width: 768px) {

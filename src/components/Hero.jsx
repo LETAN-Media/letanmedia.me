@@ -1,62 +1,58 @@
-import React, { Suspense, lazy, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ASSETS } from '../config/assets';
-import ImageWithFallback from './ImageWithFallback';
+import React, { Suspense, lazy } from 'react';
+import { Link } from 'react-router-dom';
+import HeroBase from './hero/HeroBase';
+import { track, ANALYTICS_EVENTS } from '../lib/analytics';
 
 const Hero3D = lazy(() => import('./Hero3D'));
 
 const Hero = () => {
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const visual = (
+    <Suspense fallback={<div style={{ position: 'absolute', inset: 0 }} />}>
+      <div className="hm-hero__bg" aria-hidden="true">
+        <Hero3D />
+        <div className="hm-hero__grid-overlay" />
+        <div className="hm-hero__scroll">
+          Scroll
+          <span />
+        </div>
+      </div>
+    </Suspense>
+  );
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduceMotion(mediaQuery.matches);
-    const handler = (e) => setReduceMotion(e.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, []);
-
-  const fallbackContent = (
-    <div className="hero-image">
-      <ImageWithFallback 
-        srcWebp={ASSETS.hero.mainWebp} 
-        srcAvif={ASSETS.hero.mainAvif} 
-        alt="Hero Background" 
-      />
-    </div>
+  const actions = (
+    <>
+      <Link
+        to="/contact"
+        className="ui-btn ui-btn--primary ui-btn--lg"
+        onClick={() => track(ANALYTICS_EVENTS.CLICK_PRIMARY_CTA)}
+      >
+        Nhận tư vấn chiến lược
+      </Link>
+      <Link to="/work" className="ui-btn ui-btn--secondary ui-btn--lg">
+        Xem dự án
+      </Link>
+    </>
   );
 
   return (
-    <section className="hero">
-      <div className="hero-visual-bg">
-        <div className="hero-gradient-overlay"></div>
-        
-        {!reduceMotion ? (
-          <Suspense fallback={fallbackContent}>
-            <Hero3D />
-          </Suspense>
-        ) : fallbackContent}
-      </div>
-
-      <motion.div 
-        className="hero-content"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.165, 0.84, 0.44, 1] }}
-      >
-        <h1 className="hero-title">
-          LETAN Media<br/>
-          <span className="text-gradient-accent">AI • Marketing • Digital Growth</span>
-        </h1>
-        <h2 className="hero-subtitle">
-          Giải pháp AI, truyền thông số và phát triển phần mềm dành cho cá nhân và doanh nghiệp.
-        </h2>
-        <div className="hero-actions">
-          <button className="btn-primary">Khám phá dịch vụ</button>
-          <button className="btn-outline">Tư vấn ngay</button>
-        </div>
-      </motion.div>
-    </section>
+    <HeroBase
+      className="hm-hero"
+      contentClassName="hm-hero__content"
+      titleClassName="hm-hero__title"
+      subtitleClassName="hm-hero__sub"
+      actionsClassName="hm-hero__actions"
+      visual={visual}
+      badge={<span className="ui-badge ui-badge--digital">AI-first Digital Agency</span>}
+      title={(
+        <>
+          AI + Digital Growth<br />
+          cho thương hiệu<br />
+          <span className="accent">muốn đi nhanh hơn</span>
+        </>
+      )}
+      subtitle="LETAN kết hợp chiến lược Digital, AI và công nghệ để xây dựng hệ thống tăng trưởng, tự động hóa và bảo vệ thương hiệu."
+      actions={actions}
+    />
   );
 };
 

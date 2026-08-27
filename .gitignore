@@ -13,6 +13,8 @@ dist-ssr
 *.local
 .env
 .env.*
+!.env.example
+.env.backup_*
 update_env.sh
 
 # Editor directories and files

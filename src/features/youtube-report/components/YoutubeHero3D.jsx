@@ -1,8 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Icosahedron, MeshDistortMaterial } from '@react-three/drei';
 import { EffectComposer, Bloom, Glitch } from '@react-three/postprocessing';
 import { GlitchMode } from 'postprocessing';
+import { useIsMobile } from '../../../hooks/useIsMobile';
+import { usePrefersReducedMotion } from '../../../hooks/usePrefersReducedMotion';
 
 const CyberCore = ({ isMobile }) => {
   const meshRef = useRef();
@@ -54,19 +56,23 @@ const CyberCore = ({ isMobile }) => {
 };
 
 export default function YoutubeHero3D() {
-  const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  const isMobile = useIsMobile(768);
+  const reduced = usePrefersReducedMotion();
+
+  if (reduced) {
+    return (
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        aria-hidden="true"
+        style={{ background: 'radial-gradient(circle at 50% 45%, rgba(255,0,0,0.20), rgba(255,94,98,0.10) 45%, #070A12 75%)' }}
+      />
+    );
+  }
 
   return (
     <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
       <Canvas camera={{ position: [0, 0, 6], fov: 60 }} dpr={[1, 2]}>
-        <color attach="background" args={['#050505']} />
+        <color attach="background" args={['#070A12']} />
         <ambientLight intensity={0.2} />
         <pointLight position={[10, 10, 10]} intensity={1.5} color="#FF0000" />
         <pointLight position={[-10, -10, -10]} intensity={2} color="#FF5E62" />

@@ -1,0 +1,4 @@
+# Cloudflare Pages / Netlify 301 redirects (new taxonomy path -> canonical route)
+/products/chatbot-ai    /chatbot-ai    301
+/products/tiktok-report /tiktok-report 301
+/products/youtube-report /youtube-report 301
