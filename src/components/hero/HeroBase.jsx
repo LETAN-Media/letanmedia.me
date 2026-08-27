@@ -54,9 +54,9 @@ const HeroBase = ({
       ) : (
         <motion.div
           className={`heroBase-content ${contentClassName}`}
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0.15, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.165, 0.84, 0.44, 1] }}
+          transition={{ duration: 0.7, ease: [0.165, 0.84, 0.44, 1] }}
         >
           {content}
         </motion.div>

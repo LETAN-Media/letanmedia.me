@@ -59,7 +59,24 @@ function App() {
       <ScrollToTop />
       {!isGeoManager && <Header />}
       <main>
-        <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
+      <Suspense fallback={
+        <div style={{
+          minHeight: '100vh',
+          background: 'var(--color-bg, #070A12)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <div style={{
+            width: 40,
+            height: 40,
+            borderRadius: '50%',
+            border: '2px solid rgba(79,124,255,0.2)',
+            borderTopColor: '#4F7CFF',
+            animation: 'spin 0.8s linear infinite',
+          }} />
+        </div>
+      }>
         <Routes>
           <Route path="/" element={
             <>
