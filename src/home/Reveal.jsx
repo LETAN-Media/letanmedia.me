@@ -2,7 +2,23 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
-export const MotionLink = motion(Link);
+const createMotionComponent = motion.create || motion;
+export const MotionLink = createMotionComponent(Link);
+
+const motionComponentCache = new Map();
+motionComponentCache.set(Link, MotionLink);
+
+function getMotionTag(as) {
+  if (!as) return motion.div;
+  if (as === Link || as === 'link') return MotionLink;
+  if (typeof as === 'string') {
+    return motion[as] || motion.div;
+  }
+  if (!motionComponentCache.has(as)) {
+    motionComponentCache.set(as, createMotionComponent(as));
+  }
+  return motionComponentCache.get(as);
+}
 
 /**
  * Reveal — subtle entrance animation that respects reduced-motion.
@@ -11,7 +27,7 @@ export const MotionLink = motion(Link);
  */
 const Reveal = ({ children, as = 'div', delay = 0, y = 28, className = '', ...rest }) => {
   const reduced = usePrefersReducedMotion();
-  const Tag = motion[as] || motion.div;
+  const Tag = getMotionTag(as);
 
   if (reduced) {
     const Static = as;

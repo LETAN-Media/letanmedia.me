@@ -12,6 +12,6 @@ npm install --production=false
 npm run build
 
 # Restart PM2
-pm2 restart letan-media
+pm2 restart letan-web
 
 echo === Deploy complete ===
