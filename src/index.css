@@ -34,30 +34,31 @@
 /* Legacy aliases — keep existing component CSS working while migrating.
    These map old names to the new token system (no duplicated hex). */
 :root {
-  --color-surface: var(--color-surface-1);
-  --color-surface-light: var(--color-surface-2);
-  --color-text-muted: var(--color-muted);
-  --color-blue: var(--color-primary);
-  --color-orange: var(--color-digital);
-
-  --font-inter: var(--font-body);
-  --font-space: var(--font-heading);
-
-  --spacing-section: 120px;
+  --color-bg: #050505;
+  --color-surface: #0F172A;
+  --color-surface-light: #111827;
+  --color-text: #ffffff;
+  --color-text-muted: #9ca3af;
+  --color-blue: #2563EB;
+  --color-orange: #F97316;
+  --font-inter: 'Inter', sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
+  
+  --spacing-section: 140px;
   --spacing-container: 5%;
 
   /* Elevation */
   --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.38);
-  --shadow-glow: 0 0 48px rgba(79, 124, 255, 0.22);
+  --shadow-glow: 0 0 48px rgba(37, 99, 235, 0.22);
 
   /* Border */
-  --border-subtle: 1px solid rgba(167, 176, 192, 0.12);
+  --border-subtle: 1px solid rgba(255, 255, 255, 0.08);
 
   /* Motion */
   --transition-base: 0.3s ease;
 
   /* Layering */
-  --z-header: 100;
+  --z-header: 1000;
   --z-modal: 1000;
   --z-chat: 900;
 }

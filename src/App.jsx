@@ -11,7 +11,16 @@ import { initAnalytics } from './lib/analytics';
 import PlaceholderPage from './components/PlaceholderPage';
 import { REDIRECTS } from './lib/ia';
 import { Navigate } from 'react-router-dom';
-import Home from './home/Home';
+import Hero from './components/Hero';
+import ShowcaseCarousel from './components/ShowcaseCarousel';
+import FeaturedServices from './components/FeaturedServices';
+import About from './components/About';
+import Services from './components/Services';
+import WhyChoose from './components/WhyChoose';
+import Stats from './components/Stats';
+import Portfolio from './components/Portfolio';
+import AIAssistant from './components/AIAssistant';
+import CTA from './components/CTA';
 import { captureUtm } from './lib/utm';
 
 import './App.css';
@@ -85,7 +94,16 @@ function App() {
                 description="Giải pháp AI, truyền thông số và phát triển phần mềm dành cho cá nhân và doanh nghiệp. Premium AI-first digital agency."
                 path="/"
               />
-              <Home />
+              <Hero />
+              <ShowcaseCarousel />
+              <FeaturedServices />
+              <About />
+              <Services />
+              <Portfolio />
+              <WhyChoose />
+              <Stats />
+              <AIAssistant />
+              <CTA />
             </>
           } />
           <Route path="/policy" element={

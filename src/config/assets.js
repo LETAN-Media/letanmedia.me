@@ -1,7 +1,10 @@
 export const CDN = "https://cdn.letanmedia.me";
 
 export const ASSETS = {
-  // NOTE: hero visual is rendered live (ParticleField); no static hero media.
+  hero: {
+    mainWebp: `${CDN}/images/hero/hero-poster.webp`,
+    mainAvif: `${CDN}/images/hero/hero-poster.webp`,
+  },
   services: {
     reportTiktok: `${CDN}/images/services/report-tiktok.webp`,
     tichXanh: `${CDN}/images/services/tich-xanh-tiktok.webp`,
