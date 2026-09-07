@@ -6,18 +6,16 @@ import {
 } from 'framer-motion';
 import {
   ArrowRight,
-  MessageCircle,
+  MessageSquare,
   Sparkles,
+  Zap,
 } from 'lucide-react';
 
 const openAssistant = () => {
   window.dispatchEvent(
-    new CustomEvent(
-      'open-home-chatbot',
-      {
-        detail: {},
-      },
-    ),
+    new CustomEvent('open-home-chatbot', {
+      detail: {},
+    }),
   );
 };
 
@@ -29,120 +27,45 @@ const FinalCTAV2 = () => {
       <div className="lm-section-container">
         <motion.div
           className="lm-final-cta__panel"
-          initial={
-            reduceMotion
-              ? false
-              : {
-                  opacity: 0,
-                  y: 28,
-                }
-          }
-          whileInView={
-            reduceMotion
-              ? undefined
-              : {
-                  opacity: 1,
-                  y: 0,
-                }
-          }
-          viewport={{
-            once: true,
-            amount: 0.25,
-          }}
-          transition={{
-            duration: 0.7,
-          }}
+          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.7 }}
         >
-          <div
-            className="lm-final-cta__grid"
-            aria-hidden="true"
-          />
-
-          <div
-            className="lm-final-cta__glow lm-final-cta__glow--one"
-            aria-hidden="true"
-          />
-
-          <div
-            className="lm-final-cta__glow lm-final-cta__glow--two"
-            aria-hidden="true"
-          />
-
-          <div
-            className="lm-final-cta__horizon"
-            aria-hidden="true"
-          >
-            <span className="lm-final-cta__mountain lm-final-cta__mountain--1" />
-            <span className="lm-final-cta__mountain lm-final-cta__mountain--2" />
-            <span className="lm-final-cta__mountain lm-final-cta__mountain--3" />
-          </div>
+          {/* Subtle Ambient Refraction */}
+          <div className="lm-final-cta__ambient" aria-hidden="true" />
 
           <div className="lm-final-cta__content">
             <div className="lm-final-cta__eyebrow">
-              <Sparkles
-                size={14}
-                strokeWidth={1.7}
-              />
-
-              LETAN MEDIA
+              <span className="lm-final-cta__eyebrow-dot" />
+              BẮT ĐẦU DỰ ÁN
             </div>
 
             <h2>
-              Có một ý tưởng?
+              Sẵn sàng kiến tạo bước đột phá số
               <br />
-              <span>
-                Hãy biến nó thành hiện thực.
-              </span>
+              <span>cùng LETAN Media?</span>
             </h2>
 
             <p>
-              Từ chiến lược tăng trưởng, AI,
-              website đến phần mềm theo yêu cầu —
-              LETAN Media có thể đồng hành từ ý
-              tưởng đến sản phẩm hoàn chỉnh.
+              Từ chiến lược tăng trưởng truyền thông đến triển khai hệ thống phần mềm và tích hợp AI tự động — chúng tôi luôn sẵn sàng đồng hành từ ý tưởng đến kết quả đo lường được.
             </p>
 
             <div className="lm-final-cta__actions">
-              <Link
-                to="/contact"
-                className="lm-final-cta__primary"
-              >
-                <span>
-                  Bắt đầu dự án
-                </span>
-
-                <ArrowRight
-                  size={17}
-                  strokeWidth={1.8}
-                />
+              <Link to="/contact" className="lm-btn lm-btn--primary">
+                <span>Tư vấn chiến lược ngay</span>
+                <ArrowRight size={17} strokeWidth={1.8} />
               </Link>
 
               <button
                 type="button"
-                className="lm-final-cta__secondary"
+                className="lm-btn lm-btn--secondary"
                 onClick={openAssistant}
               >
-                <MessageCircle
-                  size={17}
-                  strokeWidth={1.7}
-                />
-
-                <span>
-                  Hỏi LETAN AI
-                </span>
+                <MessageSquare size={17} strokeWidth={1.7} />
+                <span>Trao đổi với LETAN AI</span>
               </button>
             </div>
-          </div>
-
-          <div
-            className="lm-final-cta__signature"
-            aria-hidden="true"
-          >
-            LET'S
-            <br />
-            BUILD
-            <br />
-            IT.
           </div>
         </motion.div>
       </div>
