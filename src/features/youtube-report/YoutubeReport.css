@@ -103,21 +103,22 @@
 
 .youtube-title {
   color: #fff;
-  font-size: clamp(48px, 5vw, 88px);
+  font-size: clamp(32px, 6vw, 84px);
   max-width: 980px;
-  margin: 0 auto 22px;
-  line-height: 1.02;
+  margin: 0 0 22px;
+  line-height: 1.1;
   letter-spacing: -0.03em;
   font-weight: 900;
   text-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  word-break: break-word;
 }
 
 .youtube-subtitle {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 22px;
+  font-size: clamp(16px, 2.5vw, 22px);
   line-height: 1.6;
   max-width: 860px;
-  margin: 0 auto 34px;
+  margin: 0 0 34px;
   text-shadow: 0 4px 24px rgba(0,0,0,0.75);
 }
 
@@ -152,12 +153,24 @@
   box-shadow: 0 18px 50px rgba(255, 0, 0, 0.4);
   transition: all 0.3s ease;
   cursor: pointer;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .youtube-cta-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 22px 60px rgba(255, 0, 0, 0.6);
   background: linear-gradient(135deg, #ff1a1a, #ff6666);
+}
+
+@media (max-width: 768px) {
+  .youtube-cta-btn {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
 }
 
 .youtube-services-section {
@@ -168,63 +181,6 @@
     radial-gradient(circle at 18% 12%, rgba(255, 0, 0, 0.08), transparent 28%),
     radial-gradient(circle at 82% 20%, rgba(255, 79, 79, 0.08), transparent 30%),
     #090505;
-}
-
-.youtube-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.youtube-card {
-  background: rgba(20, 25, 40, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  padding: 2.5rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.youtube-card:hover {
-  border-color: rgba(0, 242, 254, 0.4);
-  box-shadow: 0 10px 40px rgba(0, 242, 254, 0.1);
-  transform: translateY(-8px);
-  background: rgba(30, 40, 60, 0.6);
-}
-
-.youtube-icon-wrapper {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, rgba(0, 242, 254, 0.1) 0%, rgba(0, 242, 254, 0.05) 100%);
-  color: #00F2FE;
-  border: 1px solid rgba(0, 242, 254, 0.2);
-  transition: all 0.3s ease;
-}
-
-.youtube-card:hover .youtube-icon-wrapper {
-  background: linear-gradient(135deg, rgba(0, 242, 254, 0.2) 0%, rgba(0, 242, 254, 0.1) 100%);
-  transform: scale(1.05);
-}
-
-.youtube-card-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #fff;
-  letter-spacing: -0.02em;
-}
-
-.youtube-card-desc {
-  color: #a1a1aa;
-  line-height: 1.6;
-  font-size: 1.05rem;
 }
 
 .youtube-workflow-section {
@@ -277,8 +233,9 @@
     padding-bottom: 100px;
   }
   .youtube-title {
-    font-size: clamp(28px, 8vw, 46px);
-    line-height: 1.15;
+    font-size: clamp(24px, 7vw, 36px);
+    line-height: 1.2;
+    margin-bottom: 16px;
   }
   .youtube-subtitle {
     font-size: 16px;
@@ -1019,121 +976,6 @@
 .consult-btn.telegram:hover {
   box-shadow: 0 0 15px rgba(34, 158, 217, 0.4);
   transform: translateY(-1px);
-}
-
-/* Commitment Section Redesign Styles */
-.commit-card {
-  padding: 30px 22px;
-  border-radius: 28px;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(255, 0, 0,.12), transparent 34%),
-    radial-gradient(circle at 100% 0%, rgba(255, 79, 79,.16), transparent 36%),
-    rgba(12, 15, 25, .92);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 24px 80px rgba(0,0,0,.35);
-}
-
-.commit-title {
-  font-size: clamp(30px, 8vw, 52px);
-  line-height: 1.05;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  color: #fff;
-  margin-bottom: 12px;
-}
-
-.commit-subtitle {
-  font-size: 18px;
-  line-height: 1.35;
-  font-weight: 800;
-  background: linear-gradient(90deg, #ff0000, #ff7676);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  margin-bottom: 14px;
-}
-
-.commit-desc {
-  font-size: 15.5px;
-  line-height: 1.65;
-  color: rgba(255,255,255,.68);
-  margin-bottom: 24px;
-}
-
-.commit-list {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 28px;
-}
-
-.commit-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border-radius: 18px;
-  background: rgba(255,255,255,.045);
-  border: 1px solid rgba(255,255,255,.07);
-}
-
-.commit-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, rgba(255, 0, 0,.16), rgba(255, 79, 79,.16));
-  color: #ff0000;
-  flex: 0 0 auto;
-}
-
-.commit-item span {
-  font-size: 16px;
-  font-weight: 800;
-  color: #fff;
-}
-
-.commit-cta {
-  width: 100%;
-  min-height: 52px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #ff0000, #ff4f4f);
-  color: #fff;
-  font-weight: 900;
-  font-size: 16px;
-  text-decoration: none;
-  box-shadow:
-    0 16px 40px rgba(255, 79, 79,.24),
-    0 12px 36px rgba(255, 0, 0,.12);
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-}
-
-.commit-cta:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 20px 48px rgba(255, 79, 79,.35),
-    0 14px 40px rgba(255, 0, 0,.2);
-  filter: brightness(1.1);
-}
-
-@media (min-width: 768px) {
-  .commit-card {
-    padding: 48px;
-  }
-
-  .commit-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .commit-cta {
-    width: auto;
-    padding: 0 34px;
-  }
 }
 
 /* Centered Consult Modal Styles */

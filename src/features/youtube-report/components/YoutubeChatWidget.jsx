@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, ShieldCheck, Phone, Send as TelegramIcon } from 'lucide-react';
+import { X, Send, ShieldCheck, Phone } from 'lucide-react';
 
 const YoutubeIcon = () => (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style={{ display: 'block' }}>

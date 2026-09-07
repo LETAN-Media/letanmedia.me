@@ -138,7 +138,11 @@ function App() {
           } />
           <Route path="/youtube-report" element={
             <>
-              <Seo title="Dịch vụ Report & Bảo vệ kênh YouTube | LETAN Media" description="Bảo vệ kênh YouTube: báo cáo bản quyền DMCA, kháng nghị, gỡ video mạo danh và vu khống." path="/youtube-report" />
+              <Seo 
+                title="Dịch Vụ Report YouTube Uy Tín, Gỡ Video Vi Phạm — LETAN Media" 
+                description="Dịch vụ report kênh YouTube vi phạm, gỡ video reup bản quyền DMCA, video bôi nhọ danh dự và khôi phục kênh YouTube nhanh chóng. Hỗ trợ 24/7." 
+                path="/youtube-report" 
+              />
               <YoutubeReportPage />
             </>
           } />

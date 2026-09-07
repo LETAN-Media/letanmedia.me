@@ -4,6 +4,8 @@
 .header {
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   padding: 30px 5%;
   display: flex;
@@ -11,6 +13,7 @@
   align-items: center;
   z-index: 1000;
   transition: all 0.4s ease;
+  box-sizing: border-box;
 }
 
 .header.scrolled {
@@ -793,6 +796,9 @@
   .hero-gradient-overlay { background: linear-gradient(to top, #050505 20%, transparent 100%); }
   .hero-title { font-size: 3.5rem; }
   .hero-subtitle { font-size: 1.1rem; margin-bottom: 30px; }
+  .header { padding: 16px 20px; }
+  .header-logo { font-size: 1.25rem; }
+  .header .btn-primary { padding: 8px 16px; font-size: 0.85rem; white-space: nowrap; }
   .header-nav { display: none; }
   .cta-section .section-title { font-size: 3rem; }
   .about-content-text p { font-size: 1.5rem; }

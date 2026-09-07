@@ -58,6 +58,18 @@ const STATIC_ROUTES = {
     title: 'Điều khoản dịch vụ | LETAN Media',
     description: 'Điều khoản dịch vụ của LETAN Media dành cho cá nhân và doanh nghiệp.',
   },
+  '/chatbot-ai': {
+    title: 'Chatbot AI & Phần mềm tự động hóa | LETAN Media',
+    description: 'Giải pháp Chatbot AI, phần mềm và tự động hóa quy trình cho doanh nghiệp từ LETAN Media.',
+  },
+  '/tiktok-report': {
+    title: 'Dịch vụ Report & Bảo vệ kênh TikTok | LETAN Media',
+    description: 'Bảo vệ và xử lý khủng hoảng kênh TikTok: report vi phạm, gỡ video, DMCA, tích xanh.',
+  },
+  '/youtube-report': {
+    title: 'Dịch Vụ Report YouTube Uy Tín, Gỡ Video Vi Phạm — LETAN Media',
+    description: 'Dịch vụ report kênh YouTube vi phạm, gỡ video reup bản quyền DMCA, video bôi nhọ danh dự và khôi phục kênh YouTube nhanh chóng. Hỗ trợ 24/7.',
+  },
 };
 
 function generateRouteHtml(routePath, meta) {

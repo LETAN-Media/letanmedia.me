@@ -27,3 +27,12 @@ update_env.sh
 *.njsproj
 *.sln
 *.sw?
+
+# Scratch, agent artifacts & raw source uploads
+.mimocode/
+.toolnet/
+aimeta/
+AUDIT.md
+PHASE1_REPORT.md
+IMG_*.JPG
+IMG_*.PNG

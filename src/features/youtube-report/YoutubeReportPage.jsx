@@ -1,6 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldAlert, Scale, AlertTriangle, UserX, Radio, Ban, ShoppingBag, ChevronDown, Check, X } from 'lucide-react';
+import { ShieldAlert, Scale, AlertTriangle, Radio, ShoppingBag, ChevronDown, Check } from 'lucide-react';
 import './YoutubeReport.css';
 
 const YoutubeHero3D = lazy(() => import('./components/YoutubeHero3D'));
@@ -150,10 +150,10 @@ export default function YoutubeReportPage() {
   const [showPopover, setShowPopover] = useState(false);
 
   useEffect(() => {
-    document.title = "Dịch Vụ Report YouTube Uy Tín, Gỡ Video Vi Phượng — LETAN Media";
+    document.title = "Dịch Vụ Report YouTube Uy Tín, Gỡ Video Vi Phạm — LETAN Media";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Dịch vụ report kênh YouTube vi phạm, gỡ video reup bản quyền, video bôi nhọ danh dự và khôi phục kênh YouTube nhanh chóng. Hỗ trợ 24/7.");
+      metaDesc.setAttribute("content", "Dịch vụ report kênh YouTube vi phạm, gỡ video reup bản quyền DMCA, video bôi nhọ danh dự và khôi phục kênh YouTube nhanh chóng. Hỗ trợ 24/7.");
     }
   }, []);
 
@@ -170,9 +170,9 @@ export default function YoutubeReportPage() {
             <YoutubeHero3D />
           </Suspense>
           
-          <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 h-full flex items-center pt-24 pb-16 md:pt-32 md:pb-24">
+          <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 md:px-8 relative z-10 h-full flex flex-col justify-center pt-24 pb-16 md:pt-32 md:pb-24">
             <motion.div 
-              className="max-w-3xl text-left"
+              className="w-full max-w-3xl text-left"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
