@@ -1450,3 +1450,129 @@
       0.01ms !important;
   }
 }
+
+
+/* ============================================================
+   PHASE 01 — VISUAL REFINEMENT
+   Match reference mockup more closely
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .lm-hero__container {
+    padding-top: 102px;
+  }
+
+  .lm-hero__content {
+    padding-bottom: 0;
+  }
+
+  .lm-hero__eyebrow {
+    margin-bottom: 18px;
+  }
+
+  .lm-hero__brand {
+    font-size: clamp(2.65rem, 11.6vw, 3.45rem);
+    line-height: 0.98;
+    margin-bottom: 10px;
+  }
+
+  .lm-hero__headline {
+    font-size: clamp(1.8rem, 7.8vw, 2.35rem);
+    line-height: 1.08;
+    max-width: 95%;
+  }
+
+  .lm-hero__description {
+    max-width: 95%;
+    margin-top: 22px;
+    font-size: 0.9rem;
+    line-height: 1.62;
+  }
+
+  .lm-hero__actions {
+    margin-top: 25px;
+  }
+
+  .lm-btn {
+    min-height: 45px;
+    font-size: 0.78rem;
+  }
+
+  .lm-hero__visual {
+    height: 355px;
+    min-height: 355px;
+    margin-top: -4px;
+  }
+
+  .lm-hero__visual-glow {
+    top: 55%;
+    width: 82%;
+  }
+
+  .lm-orbit-chip--ai {
+    top: 29%;
+    left: 17%;
+  }
+
+  .lm-orbit-chip--growth {
+    top: 40%;
+    left: 43%;
+  }
+
+  .lm-orbit-chip--automation {
+    top: 52%;
+    right: 4%;
+  }
+
+  .lm-orbit-chip--results {
+    top: 60%;
+    left: 7%;
+  }
+
+  .lm-hero__visual-fade {
+    height: 22%;
+  }
+
+  .lm-hero__trust {
+    margin-top: -28px;
+  }
+
+  .lm-hero__trust-inner {
+    min-height: 88px;
+    gap: 9px;
+  }
+
+  .lm-header__cta {
+    min-height: 38px;
+    padding-inline: 13px;
+  }
+
+  .lm-header__burger {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 430px) {
+  .lm-hero__container {
+    padding-top: 98px;
+  }
+
+  .lm-hero__brand {
+    font-size: 2.55rem;
+  }
+
+  .lm-hero__headline {
+    font-size: 1.82rem;
+  }
+
+  .lm-hero__description {
+    font-size: 0.88rem;
+  }
+
+  .lm-hero__visual {
+    height: 345px;
+    min-height: 345px;
+  }
+}
+

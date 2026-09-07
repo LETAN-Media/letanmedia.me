@@ -111,7 +111,7 @@ const NetworkGlobe = ({ isMobile }) => {
       ref={globeRef}
       position={
         isMobile
-          ? [0, -1.18, 0]
+          ? [0, -0.82, 0]
           : [0.38, -0.75, 0]
       }
       rotation={[0, -0.35, -0.08]}
