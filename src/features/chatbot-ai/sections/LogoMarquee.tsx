@@ -42,38 +42,45 @@ function LogoItem({ name, color }: { name: string; color: string }) {
 }
 export function LogoMarquee() {
   return (
-    <section className="py-8 overflow-hidden bg-gray-50/50">
+    <section className="py-10 overflow-hidden relative">
+      <div className="text-center mb-6">
+        <p className="text-xs sm:text-sm font-medium uppercase tracking-widest text-gray-400">
+          Tích hợp sẵn sàng với mọi nền tảng nhắn tin phổ biến
+        </p>
+      </div>
       <div className="relative">
-        {/* Gradient masks */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10" />
+        {/* Dark Gradient masks */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-[#070A12] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-[#070A12] to-transparent z-10 pointer-events-none" />
+        
         <motion.div
           animate={{ x: [0, -1920] }}
           transition={{
             x: {
-              duration: 30,
+              duration: 25,
               repeat: Infinity,
               repeatType: "loop",
               ease: "linear",
             },
           }}
-          className="flex"
+          className="flex gap-4"
         >
           {[...logos, ...logos, ...logos, ...logos].map((item, index) => (
-        <div
-          key={index}
-          className="mx-3 flex h-[56px] min-w-[160px] items-center gap-5 rounded-3xl border border-zinc-200 bg-white px-7 shadow-sm transition-all duration-300 hover:shadow-lg"
-        >
-          <img
-            src={item.logo}
-            alt={item.name}
-            className="h-8 w-8 rounded-lg object-contain"
-          />
-          <span className="text-sm font-semibold text-zinc-700">
-           {item.name}
-          </span>
-         </div>
-         ))}
+            <div
+              key={index}
+              className="flex h-[52px] min-w-[170px] items-center gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md px-6 shadow-sm transition-all duration-300 hover:border-emerald-500/40 hover:bg-white/[0.06]"
+            >
+              <img
+                src={item.logo}
+                alt={item.name}
+                className="h-7 w-7 rounded-lg object-contain filter drop-shadow"
+                loading="lazy"
+              />
+              <span className="text-sm font-semibold text-gray-200">
+                {item.name}
+              </span>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

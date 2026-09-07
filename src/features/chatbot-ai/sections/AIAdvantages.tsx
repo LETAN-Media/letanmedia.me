@@ -1,92 +1,130 @@
 import { motion } from "framer-motion";
-import { Hash, ArrowRight } from "lucide-react";
+import { Users, Zap, TrendingUp, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+
 const advantages = [
   {
     tag: "Dành cho Khách hàng",
-    title: "Trải nghiệm khách hàng vượt trội",
+    badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    glowColor: "group-hover:border-emerald-500/40 group-hover:shadow-[0_0_30px_rgba(47,212,167,0.12)]",
+    iconBg: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    icon: <Users className="w-6 h-6" />,
+    title: "Phản hồi tức thì & Cá nhân hóa sâu sắc",
     description:
-      "AI cải thiện trải nghiệm khách hàng bằng cách hỗ trợ nhân viên trong quá trình trò chuyện, giúp giảm thiểu thởi gian chờ đợi và tối ưu hóa sự hài lòng của khách hàng. Phản hồi tự nhiên như con người thật.",
-    color: "text-orange-500",
-    borderColor: "border-orange-200",
-    bgColor: "bg-orange-50",
+      "Khách hàng không bao giờ phải chờ đợi. Trợ lý AI thấu hiểu ngữ cảnh, nhớ lịch sử giao dịch và phản hồi tự nhiên, tinh tế như chuyên viên tư vấn hàng đầu.",
+    highlights: ["Phản hồi dưới 1 giây", "Nhận diện cảm xúc & ngữ cảnh", "Hỗ trợ đa ngôn ngữ"],
   },
   {
-    tag: "Dành cho Nhân viên",
-    title: "Giảm tải công việc lặp lại",
+    tag: "Dành cho Đội ngũ & Nhân sự",
+    badgeColor: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
+    glowColor: "group-hover:border-cyan-500/40 group-hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]",
+    iconBg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
+    icon: <Zap className="w-6 h-6" />,
+    title: "Giải phóng 80% khối lượng tác vụ lặp lại",
     description:
-      "AI giải phóng nhân viên khỏi những công việc lặp lại, giúp họ tập trung vào những nhiệm vụ sáng tạo và tạo ra giá trị cao hơn trong công việc. Tự động trả lởi 80% câu hỏi thường gặp.",
-    color: "text-emerald-600",
-    borderColor: "border-emerald-200",
-    bgColor: "bg-emerald-50",
+      "Tự động giải đáp thắc mắc FAQ, tra cứu tồn kho, tạo báo giá và phân loại ticket. Nhân viên được giải phóng để tập trung chốt sale các giao dịch giá trị cao.",
+    highlights: ["Tự động trả lời 80%+ FAQ", "Tự tạo đơn & lưu CRM", "Tiết kiệm 4+ giờ/ngày/nhân sự"],
   },
   {
-    tag: "Dành cho Quản lý, Lãnh đạo",
-    title: "Ra quyết định dựa trên dữ liệu",
+    tag: "Dành cho Quản lý & Lãnh đạo",
+    badgeColor: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+    glowColor: "group-hover:border-purple-500/40 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.12)]",
+    iconBg: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+    icon: <TrendingUp className="w-6 h-6" />,
+    title: "Ra quyết định chuẩn xác dựa trên dữ liệu thời gian thực",
     description:
-      "Sử dụng sức mạnh của AI để Quản lý và Lãnh đạo ra quyết định nhanh hơn, chính xác hơn với dữ liệu thởi gian thực và cảnh báo thông minh. Giúp giảm rủi ro, tăng hiệu suất và nâng cao kết quả kinh doanh.",
-    color: "text-red-500",
-    borderColor: "border-red-200",
-    bgColor: "bg-red-50",
+      "Hệ thống phân tích báo cáo trực quan, nhận diện xu hướng hành vi khách hàng và cảnh báo cơ hội kinh doanh mới ngay lập tức mà không cần tổng hợp thủ công.",
+    highlights: ["Dashboard báo cáo real-time", "Cảnh báo khủng hoảng & rủi ro", "Tối ưu hóa tỷ lệ chuyển đổi"],
   },
 ];
+
 export function AIAdvantages() {
   return (
-    <section className="py-16 sm:py-24 bg-gray-50">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 sm:py-32 relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12"
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            AI-First
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono tracking-wider text-emerald-400 uppercase mb-4">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>AI-First Value Proposition</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6">
+            Giá trị đột phá cho <br className="hidden sm:inline" />
+            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+              toàn bộ tổ chức của bạn
+            </span>
           </h2>
-          <p className="text-gray-500 text-lg leading-relaxed">
-            Chúng tôi sử dụng AI xử lý công việc nặng nhọc, nhằm chăn để bạn có thể làm những điều thú vị và tận hưởng cuộc sống.
+          <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
+            Chúng tôi ứng dụng công nghệ AI tiên tiến để xử lý khối lượng công việc nặng nhọc,
+            giúp doanh nghiệp tối ưu chi phí vận hành và bứt phá doanh số thần tốc.
           </p>
         </motion.div>
+
         {/* Advantage Cards */}
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {advantages.map((item, index) => (
             <motion.div
               key={item.tag}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className={`p-6 rounded-2xl border ${item.borderColor} ${item.bgColor} transition-all hover:shadow-md`}
+              transition={{ delay: index * 0.12, duration: 0.5 }}
+              className={`group relative flex flex-col justify-between p-7 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/10 ${item.glowColor} transition-all duration-300 hover:-translate-y-1`}
             >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center">
-                  <Hash className={`w-5 h-5 ${item.color}`} />
-                </div>
-                <div>
-                  <h3 className={`font-bold text-base mb-1 ${item.color}`}>
+              <div>
+                {/* Header: Tag + Icon */}
+                <div className="flex items-center justify-between gap-4 mb-6">
+                  <span
+                    className={`inline-block text-xs font-semibold px-3 py-1 rounded-full border ${item.badgeColor}`}
+                  >
                     {item.tag}
-                  </h3>
-                  <h4 className="font-semibold text-gray-900 mb-2">{item.title}</h4>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {item.description}
-                  </p>
+                  </span>
+                  <div
+                    className={`w-11 h-11 rounded-xl border flex items-center justify-center ${item.iconBg} transition-transform group-hover:scale-110 duration-300`}
+                  >
+                    {item.icon}
+                  </div>
                 </div>
+
+                {/* Title & Desc */}
+                <h3 className="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-emerald-300 transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                  {item.description}
+                </p>
+              </div>
+
+              {/* Highlights List */}
+              <div className="pt-6 border-t border-white/5 space-y-2.5">
+                {item.highlights.map((point) => (
+                  <div key={point} className="flex items-center gap-2.5 text-xs text-gray-300">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                    <span>{point}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
           ))}
         </div>
-        {/* CTA */}
+
+        {/* Bottom CTA bar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-10 text-center"
+          className="mt-14 text-center"
         >
           <a
             href="tel:0765178999"
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-800 transition-all hover:shadow-xl"
+            className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-black font-bold text-sm tracking-wide rounded-full hover:shadow-[0_0_35px_rgba(47,212,167,0.4)] transition-all duration-300 active:scale-95"
           >
-            Bắt đầu miễn phí
+            <span>Tư Vấn Miễn Phí Kiến Trúc AI</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
         </motion.div>

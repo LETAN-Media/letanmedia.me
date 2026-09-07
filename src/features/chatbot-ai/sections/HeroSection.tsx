@@ -32,84 +32,95 @@ export function HeroSection() {
     return () => clearTimeout(timer);
   }, [charIndex, isDeleting, wordIndex]);
   return (
-    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-1/4 w-72 h-72 bg-emerald-200/20 rounded-full blur-3xl" />
-        <div className="absolute top-40 right-1/4 w-96 h-96 bg-green-200/15 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-t from-emerald-50/50 to-transparent" />
-      </div>
+    <section className="relative pt-36 pb-20 sm:pt-44 sm:pb-28 overflow-hidden">
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-100 rounded-full mb-8"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full mb-8 backdrop-blur-md"
         >
-          <Sparkles className="w-4 h-4 text-emerald-600" />
-          <span className="text-sm font-medium text-emerald-700">
-            AI Agent thế hệ mới — Đã có mặt tại Việt Nam
+          <Sparkles className="w-4 h-4 text-emerald-400" />
+          <span className="text-sm font-semibold text-emerald-300 tracking-wide">
+            AI Agent Thế Hệ Mới — Tự Động Hóa Toàn Diện
           </span>
         </motion.div>
+
         {/* Main Heading */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6"
+          className="text-4xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-6"
         >
           Cách mạng hóa{" "}
           <span className="relative inline-block">
-            <span className="text-emerald-600">{displayText}</span>
-            <span className="absolute right-[-4px] top-0 h-full w-[3px] bg-emerald-500 animate-pulse" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
+              {displayText}
+            </span>
+            <span className="absolute right-[-6px] top-1 bottom-1 w-[3px] bg-emerald-400 animate-pulse" />
           </span>{" "}
-          <br className="hidden sm:block" />
-          với AI
+          <br />
+          với Chatbot AI
         </motion.h1>
+
         {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
         >
-          Quản lý các kênh nhắn tin tại một nơi để đơn giản hóa hoạt động kinh doanh.
-          <br className="hidden sm:block" />
-          Sử dụng Chatbot AI Agent của LetanMedia là miễn phí!
+          Đồng bộ mọi kênh nhắn tin (Zalo, Facebook, Telegram, WhatsApp) trên một nền tảng duy nhất. 
+          Tự động tư vấn, chốt đơn và chăm sóc khách hàng 24/7 với trí tuệ nhân tạo.
         </motion.p>
+
         {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
         >
           <a
-            href="#features"
-            className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gray-900 text-white font-semibold rounded-full overflow-hidden transition-all hover:shadow-xl hover:shadow-gray-900/20"
+            href="tel:0765178999"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-400 to-teal-400 text-gray-950 font-bold text-base rounded-full shadow-[0_0_30px_rgba(45,212,167,0.35)] hover:shadow-[0_0_45px_rgba(45,212,167,0.6)] hover:scale-105 transition-all duration-300 cursor-pointer"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative">Bắt đầu miễn phí</span>
-            <ArrowRight className="relative w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <span>Tư Vấn Miễn Phí 24/7</span>
+            <ArrowRight className="w-4 h-4" />
           </a>
           <a
-            href="tel:0765178999"
-            className="inline-flex items-center gap-2 px-8 py-4 text-gray-700 font-semibold rounded-full border-2 border-gray-200 hover:border-emerald-300 hover:text-emerald-600 transition-all"
+            href="#features"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-white font-semibold text-base rounded-full border border-white/20 bg-white/[0.04] hover:bg-white/[0.08] hover:border-emerald-400/50 backdrop-blur-sm transition-all duration-300"
           >
-            Tư vấn ngay
+            <span>Khám Phá Tính Năng</span>
           </a>
         </motion.div>
-        {/* Stats */}
+
+        {/* Stats Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-16 pt-10 border-t border-gray-100"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8 border-t border-white/10"
         >
-          <p className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-6">
-            Hơn 500+ doanh nghiệp đã tin dùng từ 10+ quốc gia
-          </p>
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div className="text-2xl sm:text-3xl font-bold text-emerald-400 mb-1">&lt; 1 giây</div>
+            <div className="text-xs sm:text-sm text-gray-400">Tốc độ phản hồi tức thì</div>
+          </div>
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1">24/7</div>
+            <div className="text-xs sm:text-sm text-gray-400">Hoạt động không nghỉ</div>
+          </div>
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div className="text-2xl sm:text-3xl font-bold text-emerald-400 mb-1">80%+</div>
+            <div className="text-xs sm:text-sm text-gray-400">Tự động xử lý thắc mắc</div>
+          </div>
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1">6+ Kênh</div>
+            <div className="text-xs sm:text-sm text-gray-400">Đồng bộ đa nền tảng</div>
+          </div>
         </motion.div>
       </div>
     </section>
