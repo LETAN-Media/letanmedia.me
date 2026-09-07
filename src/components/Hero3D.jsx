@@ -15,225 +15,212 @@ import {
 } from '@react-three/drei';
 import * as THREE from 'three';
 
-const seededRandom = (seed) => {
-  const value = Math.sin(seed * 12.9898) * 43758.5453;
-  return value - Math.floor(value);
+// Custom Shader for Generative Glass Sphere
+const SphereShaderMaterial = {
+  uniforms: {
+    uTime: { value: 0 },
+    uPointer: { value: new THREE.Vector2(0, 0) },
+    uDeepColor: { value: new THREE.Color('#070A10') },
+    uCobaltColor: { value: new THREE.Color('#1E56A0') },
+    uChampagneColor: { value: new THREE.Color('#D4AF37') },
+    uRimColor: { value: new THREE.Color('#F6E7C1') },
+  },
+  vertexShader: `
+    uniform float uTime;
+    uniform vec2 uPointer;
+    varying vec3 vNormal;
+    varying vec3 vViewDir;
+    varying vec3 vWorldPosition;
+    varying float vWave;
+
+    void main() {
+      vNormal = normalize(normalMatrix * normal);
+      vec4 worldPos = modelMatrix * vec4(position, 1.0);
+      vWorldPosition = worldPos.xyz;
+      vViewDir = normalize(cameraPosition - worldPos.xyz);
+
+      // Organic fluid wave displacement along normal
+      float wave = sin(position.x * 2.2 + uTime * 0.9 + uPointer.x * 1.5) 
+                 * cos(position.y * 2.2 + uTime * 0.7 + uPointer.y * 1.5) 
+                 * sin(position.z * 1.8 + uTime * 0.6);
+      vWave = wave;
+
+      vec3 displacedPos = position + normal * (wave * 0.12);
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPos, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform vec3 uDeepColor;
+    uniform vec3 uCobaltColor;
+    uniform vec3 uChampagneColor;
+    uniform vec3 uRimColor;
+    varying vec3 vNormal;
+    varying vec3 vViewDir;
+    varying vec3 vWorldPosition;
+    varying float vWave;
+
+    void main() {
+      // Fresnel edge glow
+      float fresnel = 1.0 - max(dot(vNormal, vViewDir), 0.0);
+      float fresnelPow = pow(fresnel, 2.5);
+      float rim = pow(fresnel, 4.2);
+
+      // Core blend: Deep Obsidian base to subtle Cobalt depth
+      vec3 color = mix(uDeepColor, uCobaltColor, clamp(vWave * 0.5 + 0.35, 0.0, 1.0));
+
+      // Add Champagne Gold to mid-reflections
+      color = mix(color, uChampagneColor, fresnelPow * 0.7);
+
+      // Add brilliant Champagne / Platinum rim
+      color += uRimColor * rim * 1.4;
+
+      // Soft translucency alpha
+      float alpha = clamp(0.72 + fresnelPow * 0.28, 0.0, 1.0);
+
+      gl_FragColor = vec4(color, alpha);
+    }
+  `,
 };
 
-const createSpherePoints = (
-  count,
-  radius,
-  seedOffset = 0,
-) => {
+const createAmbientStardust = (count) => {
   const positions = new Float32Array(count * 3);
+  for (let i = 0; i < count; i += 1) {
+    const radius = 3.2 + Math.random() * 3.5;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(Math.random() * 2 - 1);
 
-  for (let index = 0; index < count; index += 1) {
-    const u = seededRandom(
-      index * 2 + seedOffset + 1,
-    );
-
-    const v = seededRandom(
-      index * 2 + seedOffset + 2,
-    );
-
-    const theta = 2 * Math.PI * u;
-    const phi = Math.acos(2 * v - 1);
-
-    const jitter =
-      (seededRandom(index + seedOffset + 9) - 0.5) *
-      0.045;
-
-    const currentRadius = radius + jitter;
-
-    positions[index * 3] =
-      currentRadius *
-      Math.sin(phi) *
-      Math.cos(theta);
-
-    positions[index * 3 + 1] =
-      currentRadius *
-      Math.sin(phi) *
-      Math.sin(theta);
-
-    positions[index * 3 + 2] =
-      currentRadius * Math.cos(phi);
+    positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+    positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+    positions[i * 3 + 2] = radius * Math.cos(phi);
   }
-
   return positions;
 };
 
-const createAmbientPoints = (count) => {
-  const positions = new Float32Array(count * 3);
-
-  for (let index = 0; index < count; index += 1) {
-    const spread = 9;
-
-    positions[index * 3] =
-      (seededRandom(index + 101) - 0.5) *
-      spread;
-
-    positions[index * 3 + 1] =
-      (seededRandom(index + 301) - 0.5) *
-      6;
-
-    positions[index * 3 + 2] =
-      -1 -
-      seededRandom(index + 501) * 4;
-  }
-
-  return positions;
-};
-
-const NetworkGlobe = ({ isMobile }) => {
-  const globeRef = useRef();
-
-  const pointCount = isMobile ? 850 : 1800;
-
-  const globePoints = useMemo(
-    () => createSpherePoints(pointCount, 2.15, 13),
-    [pointCount],
-  );
+const GenerativeGlassSphere = ({ isMobile }) => {
+  const groupRef = useRef();
+  const materialRef = useRef();
+  const targetRotation = useRef({ x: 0, y: 0 });
 
   useFrame((state, delta) => {
-    if (!globeRef.current) {
-      return;
+    if (materialRef.current) {
+      materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+      // Smooth lerp pointer into uniform
+      materialRef.current.uniforms.uPointer.value.lerp(state.pointer, 0.05);
     }
 
-    globeRef.current.rotation.y += delta * 0.045;
-    globeRef.current.rotation.x =
-      -0.08 +
-      Math.sin(state.clock.elapsedTime * 0.22) *
-        0.025;
+    if (groupRef.current) {
+      // Idle rotation + smooth responsive tilt to pointer
+      targetRotation.current.y = state.clock.elapsedTime * 0.08 + state.pointer.x * 0.45;
+      targetRotation.current.x = -0.1 + state.pointer.y * 0.3;
+
+      groupRef.current.rotation.y = THREE.MathUtils.damp(
+        groupRef.current.rotation.y,
+        targetRotation.current.y,
+        3.5,
+        delta,
+      );
+      groupRef.current.rotation.x = THREE.MathUtils.damp(
+        groupRef.current.rotation.x,
+        targetRotation.current.x,
+        3.5,
+        delta,
+      );
+    }
   });
 
   return (
     <group
-      ref={globeRef}
-      position={
-        isMobile
-          ? [0, -0.82, 0]
-          : [0.38, -0.75, 0]
-      }
-      rotation={[0, -0.35, -0.08]}
-      scale={isMobile ? 0.92 : 1.08}
+      ref={groupRef}
+      position={isMobile ? [0, -0.25, 0] : [0.25, -0.1, 0]}
+      scale={isMobile ? 0.95 : 1.15}
     >
+      {/* Main Generative Organic Sphere */}
       <mesh>
-        <sphereGeometry
-          args={[2.15, 40, 40]}
-        />
-
-        <meshBasicMaterial
-          color="#147DFF"
+        <icosahedronGeometry args={[2.0, isMobile ? 32 : 54]} />
+        <shaderMaterial
+          ref={materialRef}
+          args={[SphereShaderMaterial]}
           transparent
-          opacity={0.055}
-          wireframe
-        />
-      </mesh>
-
-      <mesh scale={1.035}>
-        <sphereGeometry
-          args={[2.15, 48, 48]}
-        />
-
-        <meshBasicMaterial
-          color="#2AC8FF"
-          transparent
-          opacity={0.035}
-          side={THREE.BackSide}
-        />
-      </mesh>
-
-      <Points
-        positions={globePoints}
-        stride={3}
-        frustumCulled={false}
-      >
-        <PointMaterial
-          transparent
-          color="#49B8FF"
-          size={isMobile ? 0.024 : 0.019}
-          sizeAttenuation
           depthWrite={false}
-          opacity={0.9}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+
+      {/* Internal Luminous Core */}
+      <mesh scale={0.78}>
+        <sphereGeometry args={[2.0, 32, 32]} />
+        <meshBasicMaterial
+          color="#1E457A"
+          transparent
+          opacity={0.35}
           blending={THREE.AdditiveBlending}
         />
-      </Points>
+      </mesh>
 
-      <mesh rotation={[Math.PI / 2.5, 0, 0]}>
-        <torusGeometry
-          args={[2.3, 0.009, 8, 160]}
-        />
-
+      {/* Outer Elegant Halo Rim */}
+      <mesh rotation={[Math.PI / 3, 0.25, 0]}>
+        <torusGeometry args={[2.45, 0.006, 16, 160]} />
         <meshBasicMaterial
-          color="#147DFF"
+          color="#C5A869"
           transparent
-          opacity={0.28}
+          opacity={0.45}
         />
       </mesh>
 
-      <mesh rotation={[1.05, 0.4, 0.25]}>
-        <torusGeometry
-          args={[2.38, 0.006, 8, 160]}
-        />
-
+      <mesh rotation={[1.1, 0.4, 0.5]}>
+        <torusGeometry args={[2.58, 0.004, 16, 160]} />
         <meshBasicMaterial
-          color="#2AC8FF"
+          color="#3182CE"
           transparent
-          opacity={0.15}
+          opacity={0.32}
         />
       </mesh>
 
+      {/* Warm & Cobalt Specular Point Lights */}
       <pointLight
-        color="#147DFF"
-        intensity={3.2}
-        distance={9}
-        position={[1.8, 1.8, 3]}
-      />
-
-      <pointLight
-        color="#2AC8FF"
-        intensity={2}
+        color="#D4AF37"
+        intensity={2.8}
         distance={8}
-        position={[-2.4, -0.5, 2]}
+        position={[2.5, 2.5, 3]}
+      />
+      <pointLight
+        color="#2B6CB0"
+        intensity={2.2}
+        distance={8}
+        position={[-3, -1.5, 2]}
       />
     </group>
   );
 };
 
-const AmbientField = ({ isMobile }) => {
-  const ref = useRef();
-
-  const ambientPoints = useMemo(
-    () =>
-      createAmbientPoints(
-        isMobile ? 90 : 190,
-      ),
+const AmbientStardust = ({ isMobile }) => {
+  const pointsRef = useRef();
+  const positions = useMemo(
+    () => createAmbientStardust(isMobile ? 70 : 160),
     [isMobile],
   );
 
   useFrame((state) => {
-    if (!ref.current) {
-      return;
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.015;
+      pointsRef.current.rotation.x = state.clock.elapsedTime * 0.008;
     }
-
-    ref.current.rotation.z =
-      state.clock.elapsedTime * 0.004;
   });
 
   return (
     <Points
-      ref={ref}
-      positions={ambientPoints}
+      ref={pointsRef}
+      positions={positions}
       stride={3}
       frustumCulled={false}
     >
       <PointMaterial
         transparent
-        color="#6CCBFF"
-        size={isMobile ? 0.018 : 0.014}
+        color="#DFCA95"
+        size={isMobile ? 0.024 : 0.018}
         sizeAttenuation
         depthWrite={false}
-        opacity={0.6}
+        opacity={0.55}
         blending={THREE.AdditiveBlending}
       />
     </Points>
@@ -242,38 +229,24 @@ const AmbientField = ({ isMobile }) => {
 
 const Scene = ({ isMobile }) => (
   <>
-    <AmbientField isMobile={isMobile} />
-    <NetworkGlobe isMobile={isMobile} />
+    <ambientLight intensity={0.4} />
+    <AmbientStardust isMobile={isMobile} />
+    <GenerativeGlassSphere isMobile={isMobile} />
   </>
 );
 
 const Hero3D = () => {
-  const [isMobile, setIsMobile] =
-    useState(() =>
-      typeof window !== 'undefined'
-        ? window.innerWidth < 768
-        : false,
-    );
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false,
+  );
 
   useEffect(() => {
-    const updateViewport = () => {
+    const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    window.addEventListener(
-      'resize',
-      updateViewport,
-      {
-        passive: true,
-      },
-    );
-
-    return () => {
-      window.removeEventListener(
-        'resize',
-        updateViewport,
-      );
-    };
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -281,8 +254,8 @@ const Hero3D = () => {
       <Canvas
         dpr={isMobile ? [1, 1.25] : [1, 1.6]}
         camera={{
-          position: [0, 0, 6],
-          fov: isMobile ? 53 : 48,
+          position: [0, 0, 5.8],
+          fov: isMobile ? 52 : 46,
         }}
         gl={{
           antialias: !isMobile,

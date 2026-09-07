@@ -53,16 +53,6 @@ const Hero = () => {
 
   return (
     <section className="lm-hero">
-      <div
-        className="lm-hero__ambient"
-        aria-hidden="true"
-      />
-
-      <div
-        className="lm-hero__grid-pattern"
-        aria-hidden="true"
-      />
-
       <div className="lm-hero__container">
         <motion.div
           className="lm-hero__content"
@@ -81,26 +71,23 @@ const Hero = () => {
         >
           <div className="lm-hero__eyebrow">
             <span className="lm-hero__eyebrow-dot" />
-            AI · DIGITAL · GROWTH
+            AI · DIGITAL SOLUTIONS & GROWTH
           </div>
 
           <h1 className="lm-hero__title">
             <span className="lm-hero__brand">
-              LETAN Media
+              LETAN <span>Media</span>
             </span>
 
             <span className="lm-hero__headline">
-              Kiến tạo tăng trưởng
+              Kiến tạo vị thế số &
               <br />
-              trong kỷ nguyên AI
+              tăng trưởng bứt phá
             </span>
           </h1>
 
           <p className="lm-hero__description">
-            Giải pháp truyền thông số, AI, phần mềm
-            automation và tư vấn chiến lược giúp cá
-            nhân và doanh nghiệp bứt phá trong thời
-            đại số.
+            Giải pháp AI, truyền thông số, phần mềm tự động hóa và bảo vệ thương hiệu — xây dựng năng lực số toàn diện cho doanh nghiệp trong kỷ nguyên mới.
           </p>
 
           <div className="lm-hero__actions">
@@ -108,7 +95,7 @@ const Hero = () => {
               href="#services"
               className="lm-btn lm-btn--primary"
             >
-              <span>Khám phá dịch vụ</span>
+              <span>Khám phá giải pháp</span>
               <ArrowRight
                 size={18}
                 strokeWidth={1.8}
@@ -123,7 +110,7 @@ const Hero = () => {
                 size={18}
                 strokeWidth={1.7}
               />
-              <span>Tư vấn ngay</span>
+              <span>Tư vấn chiến lược</span>
             </Link>
           </div>
         </motion.div>
@@ -155,26 +142,6 @@ const Hero = () => {
             </Suspense>
           )}
 
-          <div className="lm-orbit-chip lm-orbit-chip--ai">
-            <span />
-            AI
-          </div>
-
-          <div className="lm-orbit-chip lm-orbit-chip--growth">
-            <span />
-            GROWTH
-          </div>
-
-          <div className="lm-orbit-chip lm-orbit-chip--automation">
-            <span />
-            AUTOMATION
-          </div>
-
-          <div className="lm-orbit-chip lm-orbit-chip--results">
-            <span />
-            REAL RESULTS
-          </div>
-
           <div className="lm-hero__visual-fade" />
         </motion.div>
       </div>
@@ -182,19 +149,17 @@ const Hero = () => {
       <div className="lm-hero__trust">
         <div className="lm-hero__trust-inner">
           <div className="lm-hero__trust-label">
-            Đồng hành cùng bạn kiến tạo tương lai
+            Lĩnh vực thế mạnh
           </div>
 
           <div className="lm-hero__trust-items">
-            <span>TikTok</span>
-            <span>Facebook</span>
-
-            <ArrowRight
-              size={16}
-              strokeWidth={1.5}
-            />
-
-            <strong>Business Growth</strong>
+            <span>AI Automation</span>
+            <span style={{ color: 'var(--lm-champagne)', opacity: 0.5 }}>•</span>
+            <span>Digital Growth</span>
+            <span style={{ color: 'var(--lm-champagne)', opacity: 0.5 }}>•</span>
+            <span>Platform Protection</span>
+            <span style={{ color: 'var(--lm-champagne)', opacity: 0.5 }}>•</span>
+            <span>Web Systems</span>
           </div>
         </div>
       </div>
