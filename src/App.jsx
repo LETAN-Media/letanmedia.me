@@ -12,6 +12,8 @@ import PlaceholderPage from './components/PlaceholderPage';
 import { REDIRECTS } from './lib/ia';
 import { Navigate } from 'react-router-dom';
 import Hero from './components/Hero';
+import ServiceEcosystem from './home/ServiceEcosystem';
+import FeaturedServicesV2 from './home/FeaturedServicesV2';
 import ShowcaseCarousel from './components/ShowcaseCarousel';
 import FeaturedServices from './components/FeaturedServices';
 import About from './components/About';
@@ -96,10 +98,8 @@ function App() {
                 path="/"
               />
               <Hero />
-              <ShowcaseCarousel />
-              <FeaturedServices />
-              <About />
-              <Services />
+              <ServiceEcosystem />
+              <FeaturedServicesV2 />
               <Portfolio />
               <WhyChoose />
               <Stats />
