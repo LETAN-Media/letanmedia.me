@@ -1,99 +1,251 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+
+const NAV_ITEMS = [
+  {
+    index: '01',
+    label: 'Dịch vụ',
+    href: '#services',
+  },
+  {
+    index: '02',
+    label: 'Dự án',
+    href: '#portfolio',
+  },
+  {
+    index: '03',
+    label: 'Về chúng tôi',
+    href: '#about',
+  },
+  {
+    index: '04',
+    label: 'Liên hệ',
+    to: '/contact',
+  },
+];
 
 const Header = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    const updateHeader = () => {
+      setScrolled(window.scrollY > 24);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    updateHeader();
+
+    window.addEventListener('scroll', updateHeader, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener('scroll', updateHeader);
+    };
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
-  const isTikTokActive = location.pathname.startsWith('/tiktok-report');
-  const isYouTubeActive = location.pathname.startsWith('/youtube-report');
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      return undefined;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event) => {
+      if (event.key !== 'Escape') {
+        return;
+      }
+
+      setMobileMenuOpen(false);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
+  const resolveHash = (hash) => {
+    if (location.pathname === '/') {
+      return hash;
+    }
+
+    return `/${hash}`;
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-      <Link to="/" className="header-logo" onClick={() => setMobileMenuOpen(false)}>LETAN Media</Link>
-      
-      <nav className={`header-nav ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-        <a 
-          href={location.pathname === '/' ? '#services' : '/#services'} 
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          Dịch vụ
-        </a>
-        <Link 
-          to="/tiktok-report/" 
-          className={isTikTokActive ? 'active' : ''}
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          Report TikTok
-        </Link>
-        <Link 
-          to="/youtube-report" 
-          className={isYouTubeActive ? 'active' : ''}
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          Report YouTube
-        </Link>
-        <a 
-          href={location.pathname === '/' ? '#portfolio' : '/#portfolio'} 
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          Dự án
-        </a>
-        <a 
-          href={location.pathname === '/' ? '#about' : '/#about'} 
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          Về chúng tôi
-        </a>
-        <Link 
-          to="/contact" 
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          Liên hệ
-        </Link>
-
-        <div className="header-mobile-cta">
-          <Link 
-            to="/contact" 
-            className="btn-primary" 
-            style={{ textDecoration: 'none' }}
-            onClick={() => setMobileMenuOpen(false)}
+    <>
+      <header
+        className={[
+          'lm-header',
+          scrolled ? 'lm-header--scrolled' : '',
+          mobileMenuOpen ? 'lm-header--menu-open' : '',
+        ]
+          .filter(Boolean)
+          .join(' ')}
+      >
+        <div className="lm-header__inner">
+          <Link
+            to="/"
+            className="lm-header__logo"
+            aria-label="LETAN Media"
+            onClick={closeMobileMenu}
           >
-            Tư vấn ngay
+            LETAN <span>Media</span>
           </Link>
-        </div>
-      </nav>
 
-      <div className="header-actions">
-        <Link to="/contact" className="btn-primary" style={{ textDecoration: 'none' }}>
-          Tư vấn ngay
-        </Link>
-        <button 
+          <nav
+            className="lm-header__nav"
+            aria-label="Điều hướng chính"
+          >
+            <a href={resolveHash('#services')}>
+              Dịch vụ
+            </a>
+
+            <a href={resolveHash('#portfolio')}>
+              Dự án
+            </a>
+
+            <a href={resolveHash('#about')}>
+              Về chúng tôi
+            </a>
+
+            <Link to="/contact">
+              Liên hệ
+            </Link>
+          </nav>
+
+          <div className="lm-header__actions">
+            <Link
+              to="/contact"
+              className="lm-header__cta"
+            >
+              <span>Tư vấn ngay</span>
+              <ArrowUpRight
+                size={16}
+                strokeWidth={1.8}
+              />
+            </Link>
+
+            <button
+              type="button"
+              className="lm-header__burger"
+              aria-label={
+                mobileMenuOpen
+                  ? 'Đóng menu'
+                  : 'Mở menu'
+              }
+              aria-expanded={mobileMenuOpen}
+              onClick={() => {
+                setMobileMenuOpen((current) => !current);
+              }}
+            >
+              {mobileMenuOpen ? (
+                <X size={24} strokeWidth={1.8} />
+              ) : (
+                <Menu size={24} strokeWidth={1.8} />
+              )}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div
+        className={[
+          'lm-mobile-menu',
+          mobileMenuOpen
+            ? 'lm-mobile-menu--open'
+            : '',
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        aria-hidden={!mobileMenuOpen}
+      >
+        <button
           type="button"
-          className={`header-burger ${mobileMenuOpen ? 'active' : ''}`}
-          onClick={() => setMobileMenuOpen((prev) => !prev)}
-          aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+          className="lm-mobile-menu__backdrop"
+          aria-label="Đóng menu"
+          tabIndex={mobileMenuOpen ? 0 : -1}
+          onClick={closeMobileMenu}
+        />
+
+        <div className="lm-mobile-menu__panel">
+          <div className="lm-mobile-menu__eyebrow">
+            Navigation
+          </div>
+
+          <nav
+            className="lm-mobile-menu__nav"
+            aria-label="Điều hướng mobile"
+          >
+            {NAV_ITEMS.map((item) => {
+              const content = (
+                <>
+                  <span className="lm-mobile-menu__index">
+                    {item.index}
+                  </span>
+
+                  <span className="lm-mobile-menu__label">
+                    {item.label}
+                  </span>
+
+                  <ArrowUpRight
+                    className="lm-mobile-menu__arrow"
+                    size={22}
+                    strokeWidth={1.5}
+                  />
+                </>
+              );
+
+              if (item.to) {
+                return (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    className="lm-mobile-menu__item"
+                    onClick={closeMobileMenu}
+                  >
+                    {content}
+                  </Link>
+                );
+              }
+
+              return (
+                <a
+                  key={item.label}
+                  href={resolveHash(item.href)}
+                  className="lm-mobile-menu__item"
+                  onClick={closeMobileMenu}
+                >
+                  {content}
+                </a>
+              );
+            })}
+          </nav>
+
+          <div className="lm-mobile-menu__footer">
+            <span>AI</span>
+            <span>Digital Growth</span>
+            <span>Software</span>
+          </div>
+        </div>
       </div>
-    </header>
+    </>
   );
 };
 

@@ -24,6 +24,7 @@ import CTA from './components/CTA';
 import { captureUtm } from './lib/utm';
 
 import './App.css';
+import './home/redesign.css';
 
 // Route-level code splitting: heavy feature pages (and their three.js
 // hero bundles) load on demand instead of bloating the initial payload.
