@@ -1054,7 +1054,7 @@ img, video {
 }
 
 .lm-metric {
-  padding: 28px 22px;
+  padding: 28px 20px;
   border: 1px solid var(--lm-border);
   border-radius: var(--lm-radius-md);
   background: var(--lm-bg);
@@ -1062,23 +1062,45 @@ img, video {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  transition: all 220ms var(--lm-ease);
+}
+
+.lm-metric:hover {
+  transform: translateY(-3px);
+  border-color: var(--lm-border-champagne);
+}
+
+.lm-metric__icon {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 14px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--lm-surface-soft);
+  border: 1px solid var(--lm-border);
+  color: var(--lm-champagne);
 }
 
 .lm-metric strong {
-  color: var(--lm-text);
+  color: var(--lm-champagne);
   font-family: var(--font-space);
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   font-weight: 700;
   line-height: 1;
 }
 
 .lm-metric span {
   margin-top: 10px;
-  color: var(--lm-champagne);
-  font-size: 0.78rem;
+  color: var(--lm-text);
+  font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+}
+
+.lm-metric small {
+  margin-top: 4px;
+  color: var(--lm-text-muted);
+  font-size: 0.72rem;
 }
 
 /* ============================================================

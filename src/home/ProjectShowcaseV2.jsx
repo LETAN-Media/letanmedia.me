@@ -7,9 +7,11 @@ import {
   Bot,
   Code2,
   ShieldCheck,
+  Sparkles,
 } from 'lucide-react';
 import {
   getFeaturedCases,
+  getPublishedCases,
 } from '../data/caseStudies';
 
 const CATEGORY_META = {
@@ -30,7 +32,7 @@ const CATEGORY_META = {
 const getCategoryMeta = (category) => {
   return (
     CATEGORY_META[category] ?? {
-      label: category?.toUpperCase() || 'LETAN PROJECT',
+      label: category?.toUpperCase() || 'LETAN CASE',
       icon: Code2,
     }
   );
@@ -38,11 +40,9 @@ const getCategoryMeta = (category) => {
 
 const getProjectShortTitle = (project) => {
   if (!project?.title) {
-    return 'LETAN Media Project';
+    return 'LETAN Media Case Study';
   }
-
   const [firstPart] = project.title.split('—');
-
   return firstPart.trim();
 };
 
@@ -65,31 +65,12 @@ const ProjectCard = ({
         'lm-project-card',
         `lm-project-card--${variant}`,
       ].join(' ')}
-      initial={
-        reduceMotion
-          ? false
-          : {
-              opacity: 0,
-              y: 28,
-            }
-      }
-      whileInView={
-        reduceMotion
-          ? undefined
-          : {
-              opacity: 1,
-              y: 0,
-            }
-      }
-      viewport={{
-        once: true,
-        amount: 0.18,
-      }}
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
       transition={{
-        duration: 0.58,
-        delay: reduceMotion
-          ? 0
-          : index * 0.06,
+        duration: 0.55,
+        delay: reduceMotion ? 0 : index * 0.08,
       }}
     >
       <Link
@@ -107,28 +88,17 @@ const ProjectCard = ({
             />
           ) : (
             <div className="lm-project-card__placeholder">
-              <Icon
-                size={42}
-                strokeWidth={1.4}
-              />
+              <Icon size={38} strokeWidth={1.3} />
             </div>
           )}
 
-          <div className="lm-project-card__media-overlay" />
-
           <div className="lm-project-card__category">
-            <Icon
-              size={12}
-              strokeWidth={1.7}
-            />
+            <Icon size={12} strokeWidth={1.8} />
             <span>{meta.label}</span>
           </div>
 
           <div className="lm-project-card__open">
-            <ArrowUpRight
-              size={19}
-              strokeWidth={1.6}
-            />
+            <ArrowUpRight size={17} strokeWidth={1.8} />
           </div>
         </div>
 
@@ -144,11 +114,9 @@ const ProjectCard = ({
           {project.technologies?.length > 0 && (
             <div className="lm-project-card__tech">
               {project.technologies
-                .slice(0, variant === 'hero' ? 4 : 2)
+                .slice(0, variant === 'hero' ? 4 : 3)
                 .map((technology) => (
-                  <span key={technology}>
-                    {technology}
-                  </span>
+                  <span key={technology}>{technology}</span>
                 ))}
             </div>
           )}
@@ -160,76 +128,41 @@ const ProjectCard = ({
 
 const ProjectShowcaseV2 = () => {
   const reduceMotion = useReducedMotion();
-
-  const projects = getFeaturedCases();
-
-  if (!projects.length) {
-    return null;
-  }
-
-  const [featured, ...secondary] = projects;
-  const secondaryProjects = secondary.slice(0, 2);
+  const allCases = getPublishedCases();
+  const featured = allCases.find((c) => c.featured) || allCases[0];
+  const secondaryProjects = allCases
+    .filter((c) => c.slug !== featured?.slug)
+    .slice(0, 2);
 
   return (
-    <section
-      id="portfolio"
-      className="lm-projects"
-    >
+    <section id="portfolio" className="lm-projects">
       <div className="lm-section-container">
         <motion.div
           className="lm-projects__head"
-          initial={
-            reduceMotion
-              ? false
-              : {
-                  opacity: 0,
-                  y: 22,
-                }
-          }
-          whileInView={
-            reduceMotion
-              ? undefined
-              : {
-                  opacity: 1,
-                  y: 0,
-                }
-          }
-          viewport={{
-            once: true,
-            amount: 0.35,
-          }}
-          transition={{
-            duration: 0.6,
-          }}
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
         >
           <div>
             <div className="lm-section-eyebrow">
-              DỰ ÁN TIÊU BIỂU
+              DỰ ÁN CHỌN LỌC
             </div>
 
             <h2>
-              Những dự án
+              Hệ thống & giải pháp số
               <br />
-              đã tạo nên khác biệt
+              đã được chứng thực
             </h2>
 
             <p>
-              Mỗi dự án là một bài toán thực tế.
-              LETAN Media kết hợp công nghệ, AI và
-              chiến lược để xây dựng giải pháp có
-              thể tiếp tục mở rộng.
+              Mỗi sản phẩm là một bài toán thực tế được giải quyết bằng kỹ thuật hiện đại, kiến trúc bền vững và tư duy tăng trưởng dài hạn.
             </p>
           </div>
 
-          <Link
-            to="/work"
-            className="lm-view-all"
-          >
-            <span>Xem tất cả</span>
-            <ArrowRight
-              size={16}
-              strokeWidth={1.7}
-            />
+          <Link to="/work" className="lm-view-all">
+            <span>Hồ sơ dự án</span>
+            <ArrowRight size={16} strokeWidth={1.8} />
           </Link>
         </motion.div>
 
@@ -243,17 +176,15 @@ const ProjectShowcaseV2 = () => {
 
           {secondaryProjects.length > 0 && (
             <div className="lm-projects__secondary">
-              {secondaryProjects.map(
-                (project, index) => (
-                  <ProjectCard
-                    key={project.slug}
-                    project={project}
-                    variant="small"
-                    index={index + 1}
-                    reduceMotion={reduceMotion}
-                  />
-                ),
-              )}
+              {secondaryProjects.map((project, index) => (
+                <ProjectCard
+                  key={project.slug}
+                  project={project}
+                  variant="small"
+                  index={index + 1}
+                  reduceMotion={reduceMotion}
+                />
+              ))}
             </div>
           )}
         </div>
