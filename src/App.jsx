@@ -20,7 +20,6 @@ import LetanAIV2 from './home/LetanAIV2';
 import FinalCTAV2 from './home/FinalCTAV2';
 import { captureUtm } from './lib/utm';
 
-import './App.css';
 import './home/redesign.css';
 
 // Route-level code splitting: heavy feature pages (and their three.js
