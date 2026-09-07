@@ -6,8 +6,11 @@ import {
   Bot,
   Boxes,
   CodeXml,
+  Globe,
   MonitorSmartphone,
+  ShieldCheck,
   Smartphone,
+  Sparkles,
 } from 'lucide-react';
 import { SiTiktok } from 'react-icons/si';
 import { FaFacebookF } from 'react-icons/fa';
@@ -15,59 +18,53 @@ import { FaFacebookF } from 'react-icons/fa';
 const FEATURED_SERVICES = [
   {
     id: 'tiktok-verified',
-    title: 'Tích Xanh TikTok',
-    description:
-      'Tư vấn và thực hiện quy trình xác minh tích xanh TikTok nhanh chóng, uy tín.',
+    title: 'Xác minh Tích Xanh TikTok',
+    description: 'Quy trình tư vấn và hoàn thiện hồ sơ xác minh tích xanh chính chủ nhanh chóng, chuẩn chính sách nền tảng.',
     icon: SiTiktok,
     iconType: 'brand',
-    route: '/services',
-    accent: 'tiktok',
+    route: '/tiktok-report',
+    badge: 'Platform Trust',
   },
   {
     id: 'facebook-verified',
-    title: 'Tích Xanh Facebook',
-    description:
-      'Hỗ trợ xác minh tài khoản Facebook, khôi phục tài khoản bị khóa hoặc checkpoint.',
+    title: 'Xác minh Tích Xanh Facebook',
+    description: 'Hỗ trợ xác minh tài khoản, fanpage doanh nghiệp và hỗ trợ xử lý sự cố xác thực tài khoản chuyên sâu.',
     icon: FaFacebookF,
     iconType: 'brand',
     route: '/services',
-    accent: 'facebook',
-  },
-  {
-    id: 'mini-app',
-    title: 'Tạo Mini App',
-    description:
-      'Xây dựng Mini App chuyên nghiệp, tối ưu chuyển đổi và trải nghiệm khách hàng.',
-    icon: Smartphone,
-    route: '/services',
-    accent: 'blue',
+    badge: 'Identity Verification',
   },
   {
     id: 'chatbot-ai',
-    title: 'Chatbot AI',
-    description:
-      'Trợ lý AI 24/7, tự động hóa chăm sóc khách hàng và tối ưu vận hành.',
+    title: 'Chatbot AI Doanh Nghiệp',
+    description: 'Trợ lý AI thông minh tích hợp tri thức doanh nghiệp, tự động hóa tư vấn và vận hành 24/7.',
     icon: Bot,
     route: '/chatbot-ai',
-    accent: 'cyan',
+    badge: 'AI Automation',
   },
   {
     id: 'website',
-    title: 'Thiết Kế Website',
-    description:
-      'Website chuẩn SEO, tốc độ cao, giao diện hiện đại và tối ưu chuyển đổi.',
+    title: 'Thiết Kế Website Studio',
+    description: 'Kiến trúc website cao cấp, chuẩn SEO, tốc độ vượt trội, tương thích hoàn hảo mọi thiết bị.',
     icon: MonitorSmartphone,
     route: '/services',
-    accent: 'blue',
+    badge: 'Modern Web',
   },
   {
     id: 'custom-software',
     title: 'Phần Mềm Theo Yêu Cầu',
-    description:
-      'Phát triển phần mềm theo yêu cầu, tự động hóa và tối ưu quy trình doanh nghiệp.',
+    description: 'Xây dựng web apps, dashboard quản trị và công cụ tự động hóa riêng biệt theo bài toán của doanh nghiệp.',
     icon: CodeXml,
     route: '/services',
-    accent: 'cyan',
+    badge: 'Custom Software',
+  },
+  {
+    id: 'mini-app',
+    title: 'Phát Triển Mini App',
+    description: 'Giải pháp Mini App tối ưu hóa trải nghiệm người dùng, mở rộng kênh tương tác và tỷ lệ chuyển đổi.',
+    icon: Smartphone,
+    route: '/services',
+    badge: 'App Ecosystem',
   },
 ];
 
@@ -75,38 +72,27 @@ const FeaturedServicesV2 = () => {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section
-      id="featured-services"
-      className="lm-featured-services"
-    >
+    <section id="featured-services" className="lm-featured-services">
       <div className="lm-section-container">
         <motion.div
           className="lm-featured-services__head"
-          initial={reduceMotion ? false : { opacity: 0, y: 22 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
           <div>
             <div className="lm-section-eyebrow">
-              DỊCH VỤ NỔI BẬT
+              DỊCH VỤ TRỌNG TÂM
             </div>
             <h2>
-              Những giải pháp được
-              <br />
-              tin tưởng nhất
+              Giải pháp chuyên sâu được tin chọn
             </h2>
           </div>
 
-          <Link
-            to="/services"
-            className="lm-view-all"
-          >
-            <span>Xem tất cả</span>
-            <ArrowRight
-              size={16}
-              strokeWidth={1.7}
-            />
+          <Link to="/services" className="lm-view-all">
+            <span>Danh mục dịch vụ</span>
+            <ArrowRight size={16} strokeWidth={1.8} />
           </Link>
         </motion.div>
 
@@ -118,57 +104,28 @@ const FeaturedServicesV2 = () => {
                 key={service.id}
                 initial={reduceMotion ? false : { opacity: 0, y: 22 }}
                 whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{
                   duration: 0.5,
-                  delay: reduceMotion ? 0 : index * 0.055,
+                  delay: reduceMotion ? 0 : index * 0.05,
                 }}
               >
-                <Link
-                  to={service.route}
-                  className={`lm-featured-card lm-featured-card--${service.accent}`}
-                >
-                  <div
-                    className={`lm-featured-card__icon ${
-                      service.iconType === 'brand'
-                        ? 'lm-featured-card__icon--brand'
-                        : ''
-                    }`}
-                  >
-                    <Icon
-                      size={service.iconType === 'brand' ? 27 : 25}
-                    />
+                <Link to={service.route} className="lm-featured-card">
+                  <div className="lm-featured-card__icon">
+                    <Icon size={service.iconType === 'brand' ? 24 : 22} />
                   </div>
 
-                  <div className="lm-featured-card__body">
-                    <h3>
-                      {service.title}
-                      {(service.id === 'tiktok-verified' ||
-                        service.id === 'facebook-verified') && (
-                        <span
-                          className="lm-verified-badge"
-                          aria-label="Xác minh"
-                        >
-                          ✓
-                        </span>
-                      )}
-                    </h3>
-                    <p>
-                      {service.description}
-                    </p>
+                  <div className="lm-featured-card__content">
+                    <div className="lm-featured-card__meta">
+                      <span className="lm-featured-card__badge">{service.badge}</span>
+                    </div>
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
                   </div>
 
                   <div className="lm-featured-card__arrow">
-                    <ArrowRight
-                      size={18}
-                      strokeWidth={1.7}
-                    />
+                    <ArrowRight size={18} strokeWidth={1.8} />
                   </div>
-
-                  <div
-                    className="lm-featured-card__glow"
-                    aria-hidden="true"
-                  />
                 </Link>
               </motion.div>
             );
@@ -182,21 +139,13 @@ const FeaturedServicesV2 = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="lm-featured-services__bottom-icon">
-            <Boxes
-              size={18}
-              strokeWidth={1.6}
-            />
+          <div className="lm-featured-services__bottom-left">
+            <Boxes size={18} strokeWidth={1.6} />
+            <span>Cần một giải pháp công nghệ hoặc chiến lược riêng biệt?</span>
           </div>
-          <span>
-            Không thấy dịch vụ bạn cần?
-          </span>
           <Link to="/contact">
-            Yêu cầu giải pháp riêng
-            <ArrowRight
-              size={15}
-              strokeWidth={1.7}
-            />
+            <span>Tư vấn theo yêu cầu</span>
+            <ArrowRight size={15} strokeWidth={1.8} />
           </Link>
         </motion.div>
       </div>

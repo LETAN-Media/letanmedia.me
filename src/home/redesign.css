@@ -559,28 +559,58 @@ img, video {
 }
 
 /* ============================================================
-   SERVICE ECOSYSTEM
+   SERVICE ECOSYSTEM (Split Editorial Layout)
    ============================================================ */
 .lm-ecosystem {
-  padding: 110px 0;
+  padding: 120px 0;
   border-top: 1px solid var(--lm-border-soft);
   background: var(--lm-bg);
 }
 
-.lm-ecosystem__grid {
-  margin-top: 52px;
+.lm-ecosystem__layout {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.lm-ecosystem__lead {
+  position: sticky;
+  top: 120px;
+}
+
+.lm-ecosystem__lead h2 {
+  margin: 0;
+  color: var(--lm-text);
+  font-family: var(--font-space);
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.lm-ecosystem__lead p {
+  margin: 22px 0 32px;
+  color: var(--lm-text-secondary);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.lm-ecosystem__cta-wrap {
+  margin-top: 28px;
+}
+
+.lm-ecosystem__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .lm-ecosystem-card {
   position: relative;
-  min-height: 280px;
-  padding: 26px;
+  padding: 26px 28px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   border: 1px solid var(--lm-border);
   border-radius: var(--lm-radius-md);
   background: var(--lm-surface);
@@ -589,7 +619,7 @@ img, video {
 }
 
 .lm-ecosystem-card:hover {
-  transform: translateY(-4px);
+  transform: translateX(6px);
   border-color: var(--lm-border-champagne);
   background: var(--lm-surface-raised);
   box-shadow: var(--lm-shadow-card);
@@ -597,24 +627,67 @@ img, video {
 
 .lm-ecosystem-card__top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.lm-ecosystem-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lm-ecosystem-card__idx {
+  font-family: var(--font-space);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--lm-champagne);
+}
+
+.lm-ecosystem-card__tag {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--lm-surface-soft);
+  border: 1px solid var(--lm-border);
+  color: var(--lm-text-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lm-ecosystem-card__header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.lm-ecosystem-card__header h3 {
+  margin: 0;
+  color: var(--lm-text);
+  font-family: var(--font-space);
+  font-size: 1.22rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .lm-service-icon {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   display: grid;
   place-items: center;
   border: 1px solid var(--lm-border);
   border-radius: var(--lm-radius-sm);
   color: var(--lm-champagne);
   background: var(--lm-surface-soft);
+  flex-shrink: 0;
 }
 
 .lm-card-arrow {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   border: 1px solid var(--lm-border);
@@ -630,27 +703,18 @@ img, video {
   transform: rotate(45deg);
 }
 
-.lm-ecosystem-card h3 {
-  margin: 0 0 10px;
-  color: var(--lm-text);
-  font-family: var(--font-space);
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
 .lm-ecosystem-card p {
   margin: 0;
   color: var(--lm-text-secondary);
   font-size: 0.88rem;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 /* ============================================================
    FEATURED SERVICES
    ============================================================ */
 .lm-featured-services {
-  padding: 110px 0;
+  padding: 120px 0;
   border-top: 1px solid var(--lm-border-soft);
   background: var(--lm-surface);
 }
@@ -666,17 +730,17 @@ img, video {
 .lm-featured-services__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
 
 .lm-featured-card {
   position: relative;
-  min-height: 130px;
-  padding: 20px;
+  min-height: 136px;
+  padding: 22px 24px;
   display: grid;
-  grid-template-columns: 52px minmax(0, 1fr) 32px;
+  grid-template-columns: 48px minmax(0, 1fr) 28px;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
   border: 1px solid var(--lm-border);
   border-radius: var(--lm-radius-md);
   background: var(--lm-bg);
@@ -691,8 +755,8 @@ img, video {
 }
 
 .lm-featured-card__icon {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   display: grid;
   place-items: center;
   border: 1px solid var(--lm-border);
@@ -701,11 +765,24 @@ img, video {
   background: var(--lm-surface);
 }
 
+.lm-featured-card__meta {
+  margin-bottom: 4px;
+}
+
+.lm-featured-card__badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lm-champagne);
+  opacity: 0.85;
+}
+
 .lm-featured-card h3 {
   margin: 0 0 6px;
   color: var(--lm-text);
   font-family: var(--font-space);
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   font-weight: 600;
 }
 
@@ -727,15 +804,23 @@ img, video {
 }
 
 .lm-featured-services__bottom {
-  margin-top: 36px;
-  padding: 16px 24px;
+  margin-top: 40px;
+  padding: 18px 26px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px dashed var(--lm-border);
+  border: 1px solid var(--lm-border);
   border-radius: var(--lm-radius-sm);
+  background: var(--lm-bg);
   color: var(--lm-text-secondary);
   font-size: 0.88rem;
+}
+
+.lm-featured-services__bottom-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--lm-text);
 }
 
 .lm-featured-services__bottom a {
@@ -745,6 +830,10 @@ img, video {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+
+.lm-featured-services__bottom a:hover {
+  color: var(--lm-champagne-light);
 }
 
 /* ============================================================
@@ -1382,8 +1471,12 @@ img, video {
     height: 380px;
     min-height: 380px;
   }
-  .lm-ecosystem__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .lm-ecosystem__layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .lm-ecosystem__lead {
+    position: static;
   }
   .lm-projects__layout {
     grid-template-columns: 1fr;

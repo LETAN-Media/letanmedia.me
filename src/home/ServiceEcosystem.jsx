@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
+  ArrowRight,
   ArrowUpRight,
   Bot,
   Code2,
@@ -10,32 +12,40 @@ import {
 
 const ECOSYSTEM_ITEMS = [
   {
-    id: 'growth',
-    title: 'Digital Growth',
-    description: 'Tăng trưởng trên TikTok, Facebook và Social Media.',
+    id: '01',
+    category: 'Digital Growth',
+    title: 'Tăng trưởng đa kênh',
+    description: 'Chiến lược tăng trưởng thực tế trên TikTok, Facebook và các nền tảng mạng xã hội với data-driven marketing.',
     icon: TrendingUp,
-    href: '#featured-services',
+    href: '/services',
+    tag: 'Marketing & Scale',
   },
   {
-    id: 'ai',
-    title: 'AI Solutions',
-    description: 'Ứng dụng AI vào kinh doanh và tự động hóa quy trình.',
+    id: '02',
+    category: 'AI Solutions',
+    title: 'Trợ lý AI & Tự động hóa',
+    description: 'Tích hợp chatbot AI thông minh, LLM agents và automation workflows vào quy trình vận hành và chăm sóc khách hàng.',
     icon: Bot,
     href: '/chatbot-ai',
+    tag: 'AI Automation',
   },
   {
-    id: 'software',
-    title: 'Website / Software',
-    description: 'Thiết kế website, hệ thống và phần mềm theo yêu cầu.',
+    id: '03',
+    category: 'Engineering',
+    title: 'Web & Phần mềm tùy chỉnh',
+    description: 'Thiết kế website chuẩn studio, web apps hiệu năng cao và hệ thống phần mềm nghiệp vụ chuyên sâu theo yêu cầu.',
     icon: Code2,
-    href: '#featured-services',
+    href: '/services',
+    tag: 'Web & Software',
   },
   {
-    id: 'trust',
-    title: 'Trust & Branding',
-    description: 'Xây dựng uy tín thương hiệu số, tích xanh và PR.',
+    id: '04',
+    category: 'Security & Trust',
+    title: 'Bảo vệ nền tảng & Uy tín',
+    description: 'Bảo vệ kênh, giải quyết vi phạm bản quyền DMCA, xác minh tích xanh chính chủ và bảo vệ danh tiếng thương hiệu.',
     icon: ShieldCheck,
-    href: '#featured-services',
+    href: '/tiktok-report',
+    tag: 'Platform Protection',
   },
 ];
 
@@ -43,76 +53,77 @@ const ServiceEcosystem = () => {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section
-      id="services"
-      className="lm-ecosystem"
-    >
+    <section id="services" className="lm-ecosystem">
       <div className="lm-section-container">
-        <motion.div
-          className="lm-section-heading"
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.65 }}
-        >
-          <div className="lm-section-eyebrow">
-            HỆ SINH THÁI DỊCH VỤ
+        <div className="lm-ecosystem__layout">
+          {/* Left Column: Editorial Positioning */}
+          <motion.div
+            className="lm-ecosystem__lead"
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+            whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.65 }}
+          >
+            <div className="lm-section-eyebrow">
+              HỆ SINH THÁI GIẢI PHÁP
+            </div>
+            <h2>
+              Năng lực số hóa &
+              <br />
+              chiến lược tăng trưởng
+            </h2>
+            <p>
+              Chúng tôi không cung cấp dịch vụ đơn lẻ. LETAN Media xây dựng một hệ sinh thái gắn kết giữa công nghệ AI, truyền thông số và kỹ thuật phần mềm để tạo ra đòn bẩy tăng trưởng thực chất cho khách hàng.
+            </p>
+
+            <div className="lm-ecosystem__cta-wrap">
+              <Link to="/services" className="lm-btn lm-btn--primary">
+                <span>Xem tất cả dịch vụ</span>
+                <ArrowRight size={17} strokeWidth={1.8} />
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Interactive Luxury Cards */}
+          <div className="lm-ecosystem__grid">
+            {ECOSYSTEM_ITEMS.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                  whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: reduceMotion ? 0 : index * 0.08,
+                  }}
+                >
+                  <Link to={item.href} className="lm-ecosystem-card">
+                    <div className="lm-ecosystem-card__top">
+                      <div className="lm-ecosystem-card__meta">
+                        <span className="lm-ecosystem-card__idx">{item.id}</span>
+                        <span className="lm-ecosystem-card__tag">{item.tag}</span>
+                      </div>
+                      <div className="lm-card-arrow">
+                        <ArrowUpRight size={16} strokeWidth={1.8} />
+                      </div>
+                    </div>
+
+                    <div className="lm-ecosystem-card__content">
+                      <div className="lm-ecosystem-card__header">
+                        <div className="lm-service-icon">
+                          <Icon size={22} strokeWidth={1.75} />
+                        </div>
+                        <h3>{item.title}</h3>
+                      </div>
+                      <p>{item.description}</p>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
-          <h2>
-            Giải pháp toàn diện
-            <br />
-            cho mọi nhu cầu số
-          </h2>
-          <p>
-            Từ tăng trưởng truyền thông, ứng dụng AI,
-            thiết kế website đến phát triển phần mềm theo
-            yêu cầu — tất cả trong một hệ sinh thái.
-          </p>
-        </motion.div>
-
-        <div className="lm-ecosystem__grid">
-          {ECOSYSTEM_ITEMS.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <motion.a
-                key={item.id}
-                href={item.href}
-                className={`lm-ecosystem-card lm-ecosystem-card--${item.id}`}
-                initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{
-                  duration: 0.55,
-                  delay: reduceMotion ? 0 : index * 0.07,
-                }}
-              >
-                <div className="lm-ecosystem-card__top">
-                  <div className="lm-service-icon">
-                    <Icon
-                      size={25}
-                      strokeWidth={1.7}
-                    />
-                  </div>
-                  <div className="lm-card-arrow">
-                    <ArrowUpRight
-                      size={17}
-                      strokeWidth={1.7}
-                    />
-                  </div>
-                </div>
-
-                <div className="lm-ecosystem-card__content">
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-
-                <div
-                  className="lm-ecosystem-card__glow"
-                  aria-hidden="true"
-                />
-              </motion.a>
-            );
-          })}
         </div>
       </div>
     </section>
