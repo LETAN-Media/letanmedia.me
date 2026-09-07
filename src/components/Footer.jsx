@@ -23,9 +23,10 @@ const Footer = () => {
         <div className="footer-link-group">
           <h4>Dịch vụ</h4>
           <ul>
-            <li><a href="/#services">Report TikTok</a></li>
+            <li><Link to="/tiktok-report/">Report TikTok</Link></li>
+            <li><Link to="/youtube-report">Report YouTube</Link></li>
             <li><a href="/#services">Tích Xanh TikTok</a></li>
-            <li><a href="/chatbot-ai">Chatbot AI</a></li>
+            <li><Link to="/chatbot-ai">Chatbot AI</Link></li>
             <li><a href="/#services">Thiết Kế Website</a></li>
             <li><a href="/#services">Phần Mềm Theo Yêu Cầu</a></li>
           </ul>

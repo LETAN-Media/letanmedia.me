@@ -50,7 +50,7 @@ const ScrollToTop = () => {
 
 function App() {
   const location = useLocation();
-  const showHomeChatbot = !['/tiktok-report', '/youtube-report', '/geo-entity-manager'].includes(location.pathname);
+  const showHomeChatbot = !['/tiktok-report', '/youtube-report', '/geo-entity-manager'].some(p => location.pathname.startsWith(p));
   const isGeoManager = location.pathname === '/geo-entity-manager';
 
   useEffect(() => {
