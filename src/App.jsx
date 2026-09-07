@@ -1,7 +1,7 @@
 import React, { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
-import Footer from './components/Footer';
+import FooterV2 from './components/FooterV2';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import DataDeletion from './components/DataDeletion';
@@ -14,15 +14,10 @@ import { Navigate } from 'react-router-dom';
 import Hero from './components/Hero';
 import ServiceEcosystem from './home/ServiceEcosystem';
 import FeaturedServicesV2 from './home/FeaturedServicesV2';
-import ShowcaseCarousel from './components/ShowcaseCarousel';
-import FeaturedServices from './components/FeaturedServices';
-import About from './components/About';
-import Services from './components/Services';
-import WhyChoose from './components/WhyChoose';
-import Stats from './components/Stats';
-import Portfolio from './components/Portfolio';
-import AIAssistant from './components/AIAssistant';
-import CTA from './components/CTA';
+import ProjectShowcaseV2 from './home/ProjectShowcaseV2';
+import WhyLetanV2 from './home/WhyLetanV2';
+import LetanAIV2 from './home/LetanAIV2';
+import FinalCTAV2 from './home/FinalCTAV2';
 import { captureUtm } from './lib/utm';
 
 import './App.css';
@@ -100,11 +95,10 @@ function App() {
               <Hero />
               <ServiceEcosystem />
               <FeaturedServicesV2 />
-              <Portfolio />
-              <WhyChoose />
-              <Stats />
-              <AIAssistant />
-              <CTA />
+              <ProjectShowcaseV2 />
+              <WhyLetanV2 />
+              <LetanAIV2 />
+              <FinalCTAV2 />
             </>
           } />
           <Route path="/policy" element={
@@ -196,7 +190,7 @@ function App() {
         </Routes>
         </Suspense>
       </main>
-      {!isGeoManager && <Footer />}
+      {!isGeoManager && <FooterV2 />}
       {showHomeChatbot && <HomeChatWidget />}
     </div>
   );
