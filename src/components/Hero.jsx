@@ -247,7 +247,6 @@ const Hero = () => {
               scale: artifactScale,
               y: artifactY,
               rotateZ: artifactRotate,
-              filter: artifactFilter,
             }}
           >
             
