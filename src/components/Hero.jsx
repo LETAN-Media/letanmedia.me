@@ -149,17 +149,27 @@ const Hero = () => {
       <div className="lm-hero__trust">
         <div className="lm-hero__trust-inner">
           <div className="lm-hero__trust-label">
-            Lĩnh vực thế mạnh
+            <span className="lm-hero__trust-indicator" />
+            <span>Năng lực cốt lõi</span>
           </div>
 
           <div className="lm-hero__trust-items">
-            <span>AI Automation</span>
-            <span style={{ color: 'var(--lm-champagne)', opacity: 0.5 }}>•</span>
-            <span>Digital Growth</span>
-            <span style={{ color: 'var(--lm-champagne)', opacity: 0.5 }}>•</span>
-            <span>Platform Protection</span>
-            <span style={{ color: 'var(--lm-champagne)', opacity: 0.5 }}>•</span>
-            <span>Web Systems</span>
+            <div className="lm-hero__trust-pill">
+              <span className="lm-hero__trust-pill-dot lm-hero__trust-pill-dot--ai" />
+              <span>AI Automation</span>
+            </div>
+            <div className="lm-hero__trust-pill">
+              <span className="lm-hero__trust-pill-dot lm-hero__trust-pill-dot--cyan" />
+              <span>Digital Growth</span>
+            </div>
+            <div className="lm-hero__trust-pill">
+              <span className="lm-hero__trust-pill-dot lm-hero__trust-pill-dot--gold" />
+              <span>Platform Protection</span>
+            </div>
+            <div className="lm-hero__trust-pill">
+              <span className="lm-hero__trust-pill-dot lm-hero__trust-pill-dot--cobalt" />
+              <span>Web & Software</span>
+            </div>
           </div>
         </div>
       </div>

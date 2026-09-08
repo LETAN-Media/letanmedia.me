@@ -29,6 +29,7 @@ update_env.sh
 *.sw?
 
 # Scratch, agent artifacts & raw source uploads
+.agents/
 .mimocode/
 .toolnet/
 aimeta/

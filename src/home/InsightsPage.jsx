@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Clock } from 'lucide-react';
+import { ArrowUpRight, ArrowLeft, ArrowRight, Clock } from 'lucide-react';
 import Seo from '../components/Seo';
 import Reveal from './Reveal';
 import { getPublishedInsights, getFeaturedInsights, getInsightsByCategory, TOPIC_CATEGORIES } from '../data/insights';
@@ -25,8 +25,21 @@ const InsightsPage = () => {
         path="/insights"
       />
 
+      {/* Breadcrumb */}
+      <nav className="hm-wrap" aria-label="Breadcrumb" style={{ paddingTop: '120px', paddingBottom: '0' }}>
+        <Reveal>
+          <div className="hm-breadcrumb">
+            <Link to="/" className="hm-breadcrumb-link">
+              <ArrowLeft size={14} /> Trang chủ
+            </Link>
+            <span className="hm-breadcrumb-sep" aria-hidden="true">/</span>
+            <span className="hm-breadcrumb-current">Kiến thức</span>
+          </div>
+        </Reveal>
+      </nav>
+
       {/* Hero */}
-      <section className="hm-section hm-section--tight" style={{ paddingTop: '160px', paddingBottom: '60px' }}>
+      <section className="hm-section hm-section--tight" style={{ paddingTop: '40px', paddingBottom: '60px' }}>
         <div className="hm-wrap">
           <Reveal>
             <span className="hm-eyebrow">Kiến thức</span>
@@ -122,18 +135,35 @@ const InsightsPage = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="hm-section hm-final" aria-label="Liên hệ LETAN">
-        <div className="hm-final__bg" aria-hidden="true" />
-        <div className="hm-wrap hm-final__inner">
-          <Reveal>
-            <h2 className="hm-final__title">Bạn cần tư vấn về nội dung nào?</h2>
-          </Reveal>
-          <Reveal delay={0.1} className="hm-final__actions">
-            <Link to="/contact" className="ui-btn ui-btn--primary ui-btn--lg">
-              Trao đổi với LETAN
-            </Link>
-          </Reveal>
+      {/* Climax CTA */}
+      <section className="lm-final-cta" aria-label="Liên hệ LETAN">
+        <div className="hm-wrap">
+          <div className="lm-final-cta__panel">
+            <div className="lm-final-cta__content">
+              <div className="lm-final-cta__eyebrow">
+                <span className="lm-final-cta__eyebrow-dot" />
+                ĐỒNG HÀNH & PHÁT TRIỂN
+              </div>
+              <h2>
+                Bạn cần tư vấn giải pháp
+                <br />
+                <span>dành riêng cho doanh nghiệp?</span>
+              </h2>
+              <p>
+                Đội ngũ chuyên gia LETAN Media sẵn sàng trao đổi chi tiết về kiến trúc AI, chiến lược tăng trưởng và bảo vệ thương hiệu số.
+              </p>
+              <div className="lm-final-cta__actions">
+                <Link to="/contact" className="lm-btn lm-btn--primary">
+                  <span>Trao đổi với LETAN</span>
+                  <ArrowRight size={17} strokeWidth={1.8} />
+                </Link>
+                <Link to="/services" className="lm-btn lm-btn--secondary">
+                  <span>Khám phá dịch vụ</span>
+                  <ArrowUpRight size={17} strokeWidth={1.8} />
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>

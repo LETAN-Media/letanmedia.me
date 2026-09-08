@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import Seo from '../components/Seo';
+import Breadcrumbs from '../components/Breadcrumbs';
 import Reveal from './Reveal';
 import { getFeaturedCases, getCasesByTag, FILTER_TAGS } from '../data/caseStudies';
 import { track, ANALYTICS_EVENTS } from '../lib/analytics';
@@ -12,7 +13,9 @@ const CAPABILITIES = [
   { label: 'Digital Growth', desc: 'SEO, GEO, Social Media, Paid Ads' },
   { label: 'Web & Software', desc: 'Website, Mini App, dashboard, tool' },
   { label: 'Platform Protection', desc: 'Report TikTok, YouTube, Facebook' },
-];const WorkPage = () => {
+];
+
+const WorkPage = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const featured = getFeaturedCases();
   const filtered = getCasesByTag(activeFilter);
@@ -22,7 +25,7 @@ const CAPABILITIES = [
   }, []);
 
   return (
-    <>
+    <div className="lm-work-page">
       <Seo
         title="Dự án — Selected Work | LETAN Media"
         description="Những hệ thống, chiến dịch và sản phẩm số được LETAN xây dựng để giải quyết bài toán tăng trưởng thực tế."
@@ -30,15 +33,16 @@ const CAPABILITIES = [
       />
 
       {/* Hero */}
-      <section className="hm-section hm-work-hero" style={{ paddingTop: '160px', paddingBottom: '80px' }}>
+      <section className="hm-section hm-work-hero" style={{ paddingTop: '140px', paddingBottom: '50px' }}>
         <div className="hm-wrap">
+          <Breadcrumbs />
           <Reveal>
-            <span className="hm-eyebrow">Selected Work</span>
-            <h1 className="hm-h2" style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)' }}>
-              Những hệ thống, chiến dịch và sản phẩm số được LETAN xây dựng
+            <span className="lm-section-eyebrow">DỰ ÁN CHỌN LỌC · SELECTED PORTFOLIO</span>
+            <h1 className="hm-h2" style={{ fontSize: 'clamp(2.2rem, 4.8vw, 3.8rem)', marginTop: '12px' }}>
+              Hệ thống số & dự án thực chiến
             </h1>
-            <p className="hm-lead" style={{ marginTop: '18px', maxWidth: '680px' }}>
-              Để giải quyết bài toán tăng trưởng thực tế — không phải demo, không phải concept.
+            <p className="hm-lead" style={{ marginTop: '16px', maxWidth: '720px' }}>
+              Những sản phẩm và chiến dịch được LETAN Media phát triển để giải quyết bài toán kinh doanh cụ thể — không phải bản vẽ ý niệm, mà là kết quả đo lường được.
             </p>
           </Reveal>
         </div>
@@ -145,20 +149,38 @@ const CAPABILITIES = [
       </section>
 
       {/* Final CTA */}
-      <section className="hm-section hm-final" aria-label="Liên hệ LETAN">
-        <div className="hm-final__bg" aria-hidden="true" />
-        <div className="hm-wrap hm-final__inner">
-          <Reveal>
-            <h2 className="hm-final__title">Bạn có dự án cần triển khai?</h2>
-          </Reveal>
-          <Reveal delay={0.1} className="hm-final__actions">
-            <Link to="/contact" className="ui-btn ui-btn--primary ui-btn--lg">
-              Trao đổi với LETAN
-            </Link>
-          </Reveal>
+      <section className="lm-about-cta" style={{ paddingTop: '40px', paddingBottom: '100px' }}>
+        <div className="lm-section-container">
+          <div className="lm-final-cta__panel">
+            <div className="lm-final-cta__ambient" aria-hidden="true" />
+            <div className="lm-final-cta__content">
+              <div className="lm-final-cta__eyebrow">
+                <span className="lm-final-cta__eyebrow-dot" />
+                KHỞI ĐỘNG DỰ ÁN
+              </div>
+              <h2>
+                Bạn có bài toán kinh doanh
+                <br />
+                <span>cần hiện thực hóa bằng công nghệ?</span>
+              </h2>
+              <p>
+                Từ việc xây dựng hệ thống web, tích hợp AI tự động hóa đến bảo vệ kênh thương hiệu — chúng tôi sẵn sàng đồng hành cùng bạn.
+              </p>
+              <div className="lm-final-cta__actions">
+                <Link to="/contact" className="lm-btn lm-btn--primary">
+                  <span>Trao đổi về dự án</span>
+                  <ArrowRight size={17} strokeWidth={1.8} />
+                </Link>
+                <Link to="/services" className="lm-btn lm-btn--secondary">
+                  <span>Khám phá dịch vụ</span>
+                  <ArrowUpRight size={17} strokeWidth={1.8} />
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

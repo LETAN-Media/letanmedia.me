@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { ArrowUpRight, ArrowLeft, Check } from 'lucide-react';
+import { ArrowUpRight, ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import Seo from '../components/Seo';
 import Reveal from './Reveal';
 import { getServiceBySlug } from '../data/services';
@@ -269,31 +269,45 @@ const ServicePage = () => {
         </section>
       )}
 
-      {/* Final CTA */}
-      <section className="hm-section hm-final" aria-label="Liên hệ LETAN">
-        <div className="hm-final__bg" aria-hidden="true" />
-        <div className="hm-wrap hm-final__inner">
-          <Reveal>
-            <h2 className="hm-final__title">Bạn cần {service.shortTitle.toLowerCase()} cho doanh nghiệp?</h2>
-          </Reveal>
-          <Reveal delay={0.1} className="hm-final__actions">
-            <Link
-              to="/contact"
-              className="ui-btn ui-btn--primary ui-btn--lg"
-              onClick={() => trackCta('final')}
-            >
-              {service.primaryCTA}
-            </Link>
-            <a
-              href="https://zalo.me/0765178999"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ui-btn ui-btn--secondary ui-btn--lg"
-              onClick={() => trackContact('zalo', 'final')}
-            >
-              Nhắn Zalo
-            </a>
-          </Reveal>
+      {/* Final Climax CTA */}
+      <section className="lm-final-cta" aria-label="Liên hệ LETAN">
+        <div className="hm-wrap">
+          <div className="lm-final-cta__panel">
+            <div className="lm-final-cta__content">
+              <div className="lm-final-cta__eyebrow">
+                <span className="lm-final-cta__eyebrow-dot" />
+                KHỞI ĐẦU DỰ ÁN CÙNG LETAN
+              </div>
+              <h2>
+                Bạn cần {service.shortTitle.toLowerCase()}
+                <br />
+                <span>cho doanh nghiệp của mình?</span>
+              </h2>
+              <p>
+                Đội ngũ kỹ thuật và chuyên gia của LETAN Media sẽ phản hồi, rà soát hiện trạng và đề xuất giải pháp tối ưu trong vòng 24 giờ.
+              </p>
+              <div className="lm-final-cta__actions">
+                <Link
+                  to="/contact"
+                  className="lm-btn lm-btn--primary"
+                  onClick={() => trackCta('final')}
+                >
+                  <span>{service.primaryCTA}</span>
+                  <ArrowRight size={17} strokeWidth={1.8} />
+                </Link>
+                <a
+                  href="https://zalo.me/0765178999"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="lm-btn lm-btn--secondary"
+                  onClick={() => trackContact('zalo', 'final')}
+                >
+                  <span>Nhắn Zalo trực tiếp</span>
+                  <ArrowUpRight size={17} strokeWidth={1.8} />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>

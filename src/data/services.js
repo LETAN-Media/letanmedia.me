@@ -12,7 +12,7 @@ export const SERVICES = [
     title: 'SEO & GEO — Tăng hiện diện trên Google và AI Search',
     shortTitle: 'SEO & GEO',
     eyebrow: 'Digital Growth',
-    description: 'Tối ưu website để được tìm thấy trên Google传统搜索 và AI search (GEO — Generative Engine Optimization). Kết hợp technical SEO, content architecture và entity SEO để tăng traffic tự nhiên bền vững.',
+    description: 'Tối ưu website để được tìm thấy trên Google Search truyền thống và AI search (GEO — Generative Engine Optimization). Kết hợp technical SEO, content architecture và entity SEO để tăng traffic tự nhiên bền vững.',
     problem: 'Website của bạn đang ở trang kết quả tìm kiếm thứ 2, thứ 3 — hoặc hoàn toàn vắng mặt trên AI search. Khách hàng tiềm năng tìm kiếm giải pháp nhưng không thấy bạn.',
     outcomes: [
       'Tăng traffic tự nhiên từ tìm kiếm Google',

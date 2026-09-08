@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
-import { ArrowUpRight, ArrowLeft } from 'lucide-react';
+import { ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
 import Seo from '../components/Seo';
 import Reveal from './Reveal';
 import { getCaseBySlug, getPublishedCases } from '../data/caseStudies';
@@ -204,26 +204,51 @@ const CaseStudyDetail = () => {
         </section>
       )}
 
-      {/* Next Project + CTA */}
-      <section className="hm-section hm-final" aria-label="Dự án tiếp theo">
-        <div className="hm-final__bg" aria-hidden="true" />
-        <div className="hm-wrap hm-final__inner">
-          {nextCase && nextCase.slug !== cs.slug && (
+      {/* Next Project Nav */}
+      {nextCase && nextCase.slug !== cs.slug && (
+        <section className="hm-section hm-section--tight" style={{ borderTop: 'var(--border-subtle)' }} aria-label="Dự án tiếp theo">
+          <div className="hm-wrap" style={{ textAlign: 'center' }}>
             <Reveal>
-              <p className="hm-muted" style={{ marginBottom: '12px', textAlign: 'center' }}>Dự án tiếp theo</p>
-              <Link to={`/work/${nextCase.slug}`} className="hm-case-next-link">
-                {nextCase.title} <ArrowUpRight size={18} />
-              </Link>
+              <span className="hm-eyebrow">Dự án tiếp theo</span>
+              <div style={{ marginTop: '12px' }}>
+                <Link to={`/work/${nextCase.slug}`} className="hm-case-next-link">
+                  {nextCase.title} <ArrowUpRight size={20} />
+                </Link>
+              </div>
             </Reveal>
-          )}
-          <Reveal delay={0.1} className="hm-final__actions" style={{ marginTop: '40px' }}>
-            <Link to="/work" className="ui-btn ui-btn--secondary ui-btn--lg">
-              <ArrowLeft size={16} /> Xem tất cả dự án
-            </Link>
-            <Link to="/contact" className="ui-btn ui-btn--primary ui-btn--lg">
-              Trao đổi với LETAN
-            </Link>
-          </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* Climax CTA */}
+      <section className="lm-final-cta" aria-label="Khởi đầu dự án">
+        <div className="hm-wrap">
+          <div className="lm-final-cta__panel">
+            <div className="lm-final-cta__content">
+              <div className="lm-final-cta__eyebrow">
+                <span className="lm-final-cta__eyebrow-dot" />
+                ĐỒNG HÀNH CHIẾN LƯỢC CÙNG LETAN
+              </div>
+              <h2>
+                Bạn muốn đạt được kết quả tương tự
+                <br />
+                <span>cho thương hiệu của mình?</span>
+              </h2>
+              <p>
+                LETAN Media sẵn sàng đồng hành từ khâu phân tích bài toán, xây dựng kiến trúc cho đến triển khai kỹ thuật toàn diện.
+              </p>
+              <div className="lm-final-cta__actions">
+                <Link to="/contact" className="lm-btn lm-btn--primary">
+                  <span>Trao đổi về dự án</span>
+                  <ArrowRight size={17} strokeWidth={1.8} />
+                </Link>
+                <Link to="/work" className="lm-btn lm-btn--secondary">
+                  <span>Xem tất cả dự án</span>
+                  <ArrowUpRight size={17} strokeWidth={1.8} />
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>
