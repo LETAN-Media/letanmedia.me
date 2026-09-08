@@ -45,9 +45,7 @@ function FishModel({ progress, reduceMotion = false }) {
       return undefined;
     }
 
-    swimAction
-      .fadeIn(0.25)
-      .play();
+    swimAction.fadeIn(0.25).play();
 
     return () => {
       swimAction.fadeOut(0.15);
@@ -64,30 +62,26 @@ function FishModel({ progress, reduceMotion = false }) {
         : 0;
 
     const p = reduceMotion
-      ? 0.4
+      ? 0.35
       : THREE.MathUtils.clamp(rawProgress, 0, 1);
 
-    /*
-     * Cá đi từ trên xuống dưới theo scroll.
-     * X dao động nhẹ để tạo cảm giác lượn trong nước.
-     */
+    const targetX =
+      Math.sin(p * Math.PI * 2.4) * 0.62;
+
     const targetY = THREE.MathUtils.lerp(
-      2.15,
-      -2.15,
+      1.45,
+      -1.75,
       p,
     );
 
-    const targetX =
-      Math.sin(p * Math.PI * 3.2) * 0.55;
-
     const targetZ =
-      Math.sin(p * Math.PI * 2) * 0.18;
+      Math.sin(p * Math.PI * 1.8) * 0.2;
 
     rootRef.current.position.x =
       THREE.MathUtils.damp(
         rootRef.current.position.x,
         targetX,
-        5.5,
+        4.6,
         delta,
       );
 
@@ -95,7 +89,7 @@ function FishModel({ progress, reduceMotion = false }) {
       THREE.MathUtils.damp(
         rootRef.current.position.y,
         targetY,
-        5.5,
+        4.8,
         delta,
       );
 
@@ -103,46 +97,44 @@ function FishModel({ progress, reduceMotion = false }) {
       THREE.MathUtils.damp(
         rootRef.current.position.z,
         targetZ,
-        5,
+        4,
         delta,
       );
 
-    /*
-     * Nghiêng thân nhẹ theo quỹ đạo.
-     */
-    const sway =
-      Math.cos(p * Math.PI * 3.2) * 0.12;
+    const roll =
+      Math.sin(p * Math.PI * 2.4) * 0.18;
+
+    const yaw =
+      THREE.MathUtils.lerp(-0.36, 0.34, p);
 
     rootRef.current.rotation.z =
       THREE.MathUtils.damp(
         rootRef.current.rotation.z,
-        sway,
-        5,
+        roll,
+        4.5,
         delta,
       );
 
     rootRef.current.rotation.y =
       THREE.MathUtils.damp(
         rootRef.current.rotation.y,
-        Math.sin(p * Math.PI * 2.5) * 0.18,
+        yaw,
         4,
         delta,
       );
 
-    /*
-     * Cá vẫn có chuyển động sống nhẹ ngay cả khi
-     * người dùng dừng scroll.
-     */
     if (!reduceMotion) {
       rootRef.current.position.x +=
-        Math.sin(state.clock.elapsedTime * 0.8) * 0.0008;
+        Math.sin(state.clock.elapsedTime * 0.9) * 0.0009;
+      rootRef.current.position.y +=
+        Math.cos(state.clock.elapsedTime * 0.8) * 0.0007;
     }
   });
 
   return (
     <group
       ref={rootRef}
-      scale={1.28}
+      scale={1.2}
     >
       <primitive
         object={fishScene}
@@ -161,44 +153,48 @@ function Fish3D({
   reduceMotion = false,
 }) {
   return (
-    <Canvas
-      camera={{
-        position: [0, 0, 6],
-        fov: 38,
-        near: 0.1,
-        far: 100,
-      }}
-      dpr={[1, 1.6]}
-      gl={{
-        alpha: true,
-        antialias: true,
-        powerPreference: 'high-performance',
-      }}
-      style={{
-        width: '100%',
-        height: '100%',
-        background: 'transparent',
-      }}
-    >
-      <ambientLight intensity={2.4} />
-
-      <directionalLight
-        position={[3, 4, 5]}
-        intensity={3}
-      />
-
-      <directionalLight
-        position={[-4, 1, 3]}
-        intensity={1.5}
-      />
-
-      <Suspense fallback={null}>
-        <FishModel
-          progress={progress}
-          reduceMotion={reduceMotion}
+    <div className="lm-hero3d" aria-hidden="true">
+      <Canvas
+        camera={{
+          position: [0, 0, 6],
+          fov: 38,
+          near: 0.1,
+          far: 100,
+        }}
+        dpr={[1, 1.5]}
+        gl={{
+          alpha: true,
+          antialias: true,
+          powerPreference: 'high-performance',
+        }}
+        style={{
+          width: '100%',
+          height: '100%',
+          background: 'transparent',
+        }}
+      >
+        <ambientLight intensity={2.2} />
+        <directionalLight
+          position={[4, 5, 5]}
+          intensity={2.8}
         />
-      </Suspense>
-    </Canvas>
+        <directionalLight
+          position={[-4, 2, 3]}
+          intensity={1.5}
+        />
+        <hemisphereLight
+          intensity={1.1}
+          groundColor="#b8c7ff"
+        />
+
+        <Suspense fallback={null}>
+          <FishModel
+            progress={progress}
+            reduceMotion={reduceMotion}
+          />
+        </Suspense>
+      </Canvas>
+    </div>
   );
 }
 

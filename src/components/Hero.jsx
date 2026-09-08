@@ -1,4 +1,9 @@
-import React, { Suspense, lazy, useMemo, useRef } from 'react';
+import React, {
+  Suspense,
+  lazy,
+  useMemo,
+  useRef,
+} from 'react';
 import {
   motion,
   useReducedMotion,
@@ -11,7 +16,29 @@ import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react';
 
 import '../home/fable-hero.css';
 
+const Hero3D = lazy(() => import('./Hero3D'));
 const Fish3D = lazy(() => import('./Fish3D'));
+
+class VisualErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch() {}
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+
+    return this.props.children;
+  }
+}
 
 const canUseWebGL = () => {
   if (typeof document === 'undefined') return false;
@@ -58,7 +85,6 @@ const Hero = () => {
     mass: 0.34,
   });
 
-  // Scene 01 — editorial white
   const lightOpacity = useTransform(
     progress,
     [0, 0.28, 0.48],
@@ -77,7 +103,6 @@ const Hero = () => {
     ['0%', '-4%'],
   );
 
-  // Scene 02 — blue plane rises from bottom
   const blueY = useTransform(
     progress,
     [0.18, 0.50],
@@ -96,7 +121,6 @@ const Hero = () => {
     [54, 0],
   );
 
-  // Persistent central object
   const artifactScale = useTransform(
     progress,
     [0, 0.30, 0.54, 1],
@@ -129,7 +153,6 @@ const Hero = () => {
     >
       <div className="lm-film-hero__stage">
 
-        {/* Scene 01 */}
         <motion.div
           className="lm-film-hero__scene lm-film-hero__scene--light"
           style={{
@@ -185,7 +208,6 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Scene 02 */}
         <motion.div
           className="lm-film-hero__scene lm-film-hero__scene--blue"
           style={{ y: blueY }}
@@ -236,7 +258,6 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* Persistent central visual */}
         <div
           className="lm-film-hero__artifact-slot"
           aria-hidden="true"
@@ -249,15 +270,24 @@ const Hero = () => {
               rotateZ: artifactRotate,
             }}
           >
-            
-
             <div className="lm-film-hero__artifact-canvas">
               {reduceMotion || !supportsWebGL ? (
                 <HeroFallback />
               ) : (
-                <Suspense fallback={<HeroFallback />}>
-                  <Fish3D progress={progress} reduceMotion={reduceMotion} />
-                </Suspense>
+                <VisualErrorBoundary
+                  fallback={(
+                    <Suspense fallback={<HeroFallback />}>
+                      <Hero3D />
+                    </Suspense>
+                  )}
+                >
+                  <Suspense fallback={<HeroFallback />}>
+                    <Fish3D
+                      progress={progress}
+                      reduceMotion={reduceMotion}
+                    />
+                  </Suspense>
+                </VisualErrorBoundary>
               )}
             </div>
           </motion.div>
