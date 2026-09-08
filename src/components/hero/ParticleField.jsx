@@ -8,7 +8,7 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
  * the initial bundle small and mobile-friendly. Respects reduced-motion
  * (renders a single static frame) and pauses when off-screen.
  */
-const ParticleField = ({ color = '#4F7CFF', accent = '#26D9F2', className = '', density = 1 }) => {
+const ParticleField = ({ color = 'var(--lm-electric)', accent = 'var(--lm-champagne)', className = '', density = 1 }) => {
   const canvasRef = useRef(null);
   const isMobile = useIsMobile();
   const reduced = usePrefersReducedMotion();

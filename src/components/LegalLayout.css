@@ -69,7 +69,7 @@
 }
 
 .legal-title-gradient {
-  background: linear-gradient(90deg, #22D3EE 0%, #3B82F6 30%, #8B5CF6 60%, #EC4899 100%);
+  background: linear-gradient(90deg, var(--lm-electric) 0%, var(--lm-champagne) 30%, var(--lm-electric) 60%, var(--lm-champagne) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -138,7 +138,7 @@
 .legal-toc-link:hover,
 .legal-toc-link.active {
   color: #FFFFFF;
-  border-left-color: #3B82F6;
+  border-left-color: var(--lm-electric);
   padding-left: 16px;
 }
 
@@ -193,7 +193,7 @@
 }
 
 .legal-toc-mobile-link.active {
-  color: #3B82F6;
+  color: var(--lm-electric);
   font-weight: 600;
 }
 
@@ -291,7 +291,7 @@
 .legal-footer-brand {
   font-size: 22px;
   font-weight: 800;
-  background: linear-gradient(90deg, #22D3EE 0%, #3B82F6 30%, #8B5CF6 60%, #EC4899 100%);
+  background: linear-gradient(90deg, var(--lm-electric) 0%, var(--lm-champagne) 30%, var(--lm-electric) 60%, var(--lm-champagne) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -320,5 +320,5 @@
 }
 
 .legal-footer-item a:hover {
-  color: #3B82F6;
+  color: var(--lm-electric);
 }

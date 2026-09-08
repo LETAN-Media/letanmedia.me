@@ -1,5 +1,5 @@
 .feedback-section {
-  background: #090505;
+  background: var(--lm-bg);
   position: relative;
   overflow: hidden;
 }
@@ -12,7 +12,7 @@
   transform: translate(-50%, -50%);
   width: 60%;
   height: 60%;
-  background: radial-gradient(circle, rgba(255, 0, 0, 0.08) 0%, rgba(255, 79, 79, 0.08) 100%);
+  background: radial-gradient(circle, var(--lm-champagne-glow) 0%, var(--lm-electric-glow) 100%);
   filter: blur(120px);
   pointer-events: none;
 }

@@ -1,8 +1,31 @@
 /* ============================================================
    HOME REDESIGN — src/home/home.css
-   Editorial premium-dark system. Reuses Phase 2 tokens
-   (--color-*, --font-*, --radius-*, --spacing-*). No new hex.
+   Electric Blue + Champagne on True Black.
+   Maps legacy tokens to new design system.
    ============================================================ */
+
+/* Legacy token aliases → New design tokens */
+:root {
+  --color-primary: var(--lm-electric);
+  --color-digital: var(--lm-electric);
+  --color-text: var(--lm-text);
+  --color-muted: var(--lm-text-muted);
+  --color-surface-1: var(--lm-surface);
+  --color-surface-2: var(--lm-surface-raised);
+  --color-ai: var(--color-success);
+  --font-space: var(--font-display);
+  --font-body: var(--font-body);
+  --border-subtle: var(--lm-border);
+  --border-hover: var(--lm-border-electric);
+  --shadow-card: var(--lm-shadow-card);
+  --shadow-glow: var(--lm-electric-glow);
+  --radius-lg: var(--lm-radius-lg);
+  --radius-md: var(--lm-radius-md);
+  --radius-sm: var(--lm-radius-sm);
+  --container-max: var(--lm-container);
+  --spacing-section: var(--spacing-section);
+  --spacing-container: var(--spacing-container);
+}
 
 /* Layout primitives ---------------------------------------- */
 .hm-wrap {
@@ -23,24 +46,24 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-digital);
+  color: var(--lm-champagne);
   margin-bottom: 18px;
 }
 .hm-eyebrow::before {
   content: '';
   width: 28px;
   height: 1px;
-  background: var(--color-digital);
+  background: var(--lm-champagne);
   opacity: 0.6;
 }
 
 .hm-h2 {
-  font-family: var(--font-space);
+  font-family: var(--font-display);
   font-size: clamp(2rem, 4.4vw, 3.4rem);
   line-height: 1.06;
   letter-spacing: -0.03em;
@@ -48,7 +71,7 @@
 }
 
 .hm-h3 {
-  font-family: var(--font-space);
+  font-family: var(--font-display);
   font-size: clamp(1.4rem, 2.4vw, 2rem);
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -56,29 +79,29 @@
 
 .hm-lead {
   font-size: clamp(1.05rem, 1.4vw, 1.3rem);
-  color: var(--color-muted);
+  color: var(--lm-text-secondary);
   line-height: 1.65;
   max-width: 60ch;
 }
 
-.hm-muted { color: var(--color-muted); }
+.hm-muted { color: var(--lm-text-muted); }
 
 .hm-link-arrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--lm-electric);
   transition: gap 0.25s ease, color 0.25s ease;
 }
-.hm-link-arrow:hover { gap: 14px; color: var(--color-digital); }
+.hm-link-arrow:hover { gap: 14px; color: var(--lm-electric-dim); }
 .hm-link-arrow svg { transition: transform 0.25s ease; }
 
 /* focus-visible for accessibility */
 .hm-section a:focus-visible,
 .hm-section button:focus-visible,
 .ui-btn:focus-visible {
-  outline: 2px solid var(--color-digital);
+  outline: 2px solid var(--lm-electric);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -103,16 +126,16 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(120% 80% at 80% 20%, rgba(79,124,255,0.12), transparent 60%),
-    radial-gradient(90% 70% at 10% 90%, rgba(38,217,242,0.08), transparent 55%),
-    linear-gradient(to top, var(--color-bg) 4%, transparent 38%);
+    radial-gradient(120% 80% at 80% 20%, rgba(0, 212, 255, 0.12), transparent 60%),
+    radial-gradient(90% 70% at 10% 90%, rgba(0, 212, 255, 0.08), transparent 55%),
+    linear-gradient(to top, var(--lm-bg) 4%, transparent 38%);
 }
 .hm-hero__grid-overlay {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(167,176,192,0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(167,176,192,0.045) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(120% 100% at 50% 0%, #000 30%, transparent 80%);
   z-index: 0;
@@ -124,22 +147,22 @@
   max-width: 1040px;
 }
 .hm-hero__title {
-  font-family: var(--font-space);
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: clamp(2.6rem, 6.4vw, 5.4rem);
   line-height: 1.02;
   letter-spacing: -0.035em;
   margin: 22px 0 28px;
 }
 .hm-hero__title .accent {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-digital));
+  background: linear-gradient(135deg, var(--lm-electric), var(--lm-champagne));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .hm-hero__sub {
   font-size: clamp(1.05rem, 1.5vw, 1.35rem);
-  color: var(--color-muted);
+  color: var(--lm-text-secondary);
   max-width: 640px;
   line-height: 1.65;
   margin-bottom: 40px;
@@ -158,7 +181,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--lm-text-muted);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -167,7 +190,7 @@
 .hm-hero__scroll span {
   width: 1px;
   height: 46px;
-  background: linear-gradient(var(--color-muted), transparent);
+  background: linear-gradient(var(--lm-text-muted), transparent);
   animation: hm-scroll 2.4s ease-in-out infinite;
 }
 @keyframes hm-scroll {
@@ -177,9 +200,9 @@
 
 /* 2. TrustBar ---------------------------------------------- */
 .hm-trust {
-  border-top: var(--border-subtle);
-  border-bottom: var(--border-subtle);
-  background: var(--color-surface-1);
+  border-top: var(--lm-border);
+  border-bottom: var(--lm-border);
+  background: var(--lm-surface);
 }
 .hm-trust__inner {
   display: flex;
@@ -192,7 +215,7 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--color-muted);
+  color: var(--lm-text-muted);
   font-weight: 600;
 }
 .hm-trust__logos {
@@ -202,10 +225,10 @@
   align-items: center;
 }
 .hm-trust__item {
-  font-family: var(--font-space);
+  font-family: var(--font-display);
   font-size: clamp(1.1rem, 1.8vw, 1.5rem);
   font-weight: 600;
-  color: var(--color-text);
+  color: var(--lm-text);
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -215,10 +238,10 @@
 .hm-trust__item:hover { opacity: 1; }
 .hm-trust__dot {
   width: 7px; height: 7px; border-radius: 50%;
-  background: var(--color-ai);
-  box-shadow: 0 0 12px var(--color-ai);
+  background: var(--lm-electric);
+  box-shadow: 0 0 12px var(--lm-electric);
 }
-.hm-trust__sep { color: var(--color-muted); opacity: 0.4; }
+.hm-trust__sep { color: var(--lm-text-muted); opacity: 0.4; }
 
 /* 3. Solution Pillars -------------------------------------- */
 .hm-pillars { display: flex; flex-direction: column; gap: 0; }
@@ -228,19 +251,19 @@
   gap: 32px;
   align-items: start;
   padding: 44px 0;
-  border-top: var(--border-subtle);
+  border-top: var(--lm-border);
   transition: background 0.3s ease;
 }
-.hm-pillar:last-child { border-bottom: var(--border-subtle); }
+.hm-pillar:last-child { border-bottom: var(--lm-border); }
 .hm-pillar__num {
-  font-family: var(--font-space);
+  font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--lm-electric);
   padding-top: 6px;
 }
 .hm-pillar__title {
-  font-family: var(--font-space);
+  font-family: var(--font-display);
   font-size: clamp(1.4rem, 2.4vw, 2.1rem);
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -250,7 +273,7 @@
   font-family: var(--font-body);
   font-size: 0.85rem;
   letter-spacing: 0.04em;
-  color: var(--color-muted);
+  color: var(--lm-text-muted);
   text-transform: none;
   margin-top: 8px;
   font-weight: 400;
@@ -262,11 +285,11 @@
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--color-digital);
+  color: var(--lm-electric);
   font-weight: 600;
   padding-top: 3px;
 }
-.hm-pillar__v { color: var(--color-muted); line-height: 1.6; font-size: 1rem; }
+.hm-pillar__v { color: var(--lm-text-muted); line-height: 1.6; font-size: 1rem; }
 .hm-pillar__cta { align-self: center; white-space: nowrap; }
 
 /* 4. Featured Work ----------------------------------------- */
@@ -286,10 +309,10 @@
 .hm-work__card {
   grid-column: span 4;
   position: relative;
-  border-radius: var(--radius-lg);
+  border-radius: var(--lm-radius-lg);
   overflow: hidden;
-  border: var(--border-subtle);
-  background: var(--color-surface-1);
+  border: var(--lm-border);
+  background: var(--lm-surface);
   min-height: 340px;
   display: flex;
   flex-direction: column;
@@ -298,13 +321,13 @@
   isolation: isolate;
   transition: transform 0.4s cubic-bezier(0.165,0.84,0.44,1), border-color 0.3s ease;
 }
-.hm-work__card:hover { transform: translateY(-6px); border-color: rgba(79,124,255,0.4); }
+.hm-work__card:hover { transform: translateY(-6px); border-color: var(--lm-border-electric); }
 .hm-work__card::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -2;
-  background: linear-gradient(160deg, var(--c1, var(--color-primary)), var(--c2, var(--color-surface-2)));
+  background: linear-gradient(160deg, var(--lm-electric), var(--lm-surface-raised));
   opacity: 0.92;
 }
 .hm-work__card::after {
@@ -312,24 +335,24 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(to top, rgba(7,10,18,0.94) 6%, rgba(7,10,18,0.25) 60%, transparent);
+  background: linear-gradient(to top, rgba(0,0,0,0.94) 6%, rgba(0,0,0,0.25) 60%, transparent);
 }
 .hm-work__card.is-wide { grid-column: span 8; }
 .hm-work__cat {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(247,248,250,0.8);
+  color: rgba(250,250,250,0.8);
   font-weight: 600;
   margin-bottom: 10px;
 }
 .hm-work__title {
-  font-family: var(--font-space);
+  font-family: var(--font-display);
   font-size: clamp(1.4rem, 2vw, 1.9rem);
   line-height: 1.1;
   margin-bottom: 10px;
 }
-.hm-work__desc { color: rgba(247,248,250,0.78); font-size: 0.98rem; line-height: 1.55; max-width: 46ch; }
+.hm-work__desc { color: rgba(250,250,250,0.78); font-size: 0.98rem; line-height: 1.55; max-width: 46ch; }
 .hm-work__arrow {
   position: absolute;
   top: 26px; right: 26px;
@@ -341,10 +364,10 @@
   color: #fff;
   transition: transform 0.3s ease, background 0.3s ease;
 }
-.hm-work__card:hover .hm-work__arrow { transform: rotate(-45deg); background: var(--color-primary); }
+.hm-work__card:hover .hm-work__arrow { transform: rotate(-45deg); background: var(--lm-electric); }
 
 /* 5. LETAN Method ------------------------------------------ */
-.hm-method { background: var(--color-surface-1); border-top: var(--border-subtle); border-bottom: var(--border-subtle); }
+.hm-method { background: var(--lm-surface); border-top: var(--lm-border); border-bottom: var(--lm-border); }
 .hm-method__steps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -354,28 +377,28 @@
 .hm-step {
   position: relative;
   padding: 32px 26px 30px;
-  border-radius: var(--radius-lg);
-  border: var(--border-subtle);
-  background: var(--color-surface-2);
+  border-radius: var(--lm-radius-lg);
+  border: var(--lm-border);
+  background: var(--lm-surface-raised);
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
-.hm-step:hover { transform: translateY(-5px); border-color: rgba(79,124,255,0.4); box-shadow: var(--shadow-card); }
+.hm-step:hover { transform: translateY(-5px); border-color: var(--lm-border-electric); box-shadow: var(--lm-shadow-card); }
 .hm-step__num {
-  font-family: var(--font-space);
+  font-family: var(--font-display);
   font-size: 2.6rem;
   font-weight: 600;
   line-height: 1;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-digital));
+  background: linear-gradient(135deg, var(--lm-electric), var(--lm-champagne));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   margin-bottom: 20px;
 }
-.hm-step__title { font-family: var(--font-space); font-size: 1.3rem; margin-bottom: 10px; }
-.hm-step__desc { color: var(--color-muted); font-size: 0.98rem; line-height: 1.6; }
+.hm-step__title { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 10px; }
+.hm-step__desc { color: var(--lm-text-muted); font-size: 0.98rem; line-height: 1.6; }
 .hm-step__line {
   position: absolute;
   top: 64px; right: -12px;
   width: 24px; height: 1px;
-  background: rgba(167,176,192,0.25);
+  background: rgba(255,255,255,0.25);
 }
 
 /* 6. LetanAI / Products ------------------------------------ */
@@ -389,63 +412,63 @@
   flex-direction: column;
   gap: 16px;
   padding: 34px 30px;
-  border-radius: var(--radius-lg);
-  border: var(--border-subtle);
-  background: var(--color-surface-1);
+  border-radius: var(--lm-radius-lg);
+  border: var(--lm-border);
+  background: var(--lm-surface);
   position: relative;
   overflow: hidden;
   transition: transform 0.35s cubic-bezier(0.165,0.84,0.44,1), border-color 0.3s ease;
 }
-.hm-product:hover { transform: translateY(-6px); border-color: rgba(79,124,255,0.45); }
+.hm-product:hover { transform: translateY(-6px); border-color: var(--lm-border-electric); }
 .hm-product__glow {
   position: absolute;
   top: -40%; right: -30%;
   width: 260px; height: 260px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(47,212,167,0.16), transparent 70%);
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.16), transparent 70%);
   pointer-events: none;
 }
 .hm-product__icon {
   width: 54px; height: 54px;
-  border-radius: var(--radius-md);
+  border-radius: var(--lm-radius-md);
   display: grid; place-items: center;
-  background: rgba(47,212,167,0.12);
-  color: var(--color-ai);
+  background: rgba(0, 212, 255, 0.12);
+  color: var(--lm-electric);
   font-size: 1.5rem;
 }
-.hm-product__name { font-family: var(--font-space); font-size: 1.45rem; }
+.hm-product__name { font-family: var(--font-display); font-size: 1.45rem; }
 .hm-product__tag {
   font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--color-ai); font-weight: 600;
+  color: var(--lm-electric); font-weight: 600;
 }
-.hm-product__desc { color: var(--color-muted); font-size: 1rem; line-height: 1.6; flex: 1; }
+.hm-product__desc { color: var(--lm-text-muted); font-size: 1rem; line-height: 1.6; flex: 1; }
 
 /* 7. Results / Metrics ------------------------------------- */
-.hm-results { background: linear-gradient(180deg, var(--color-bg), var(--color-surface-1)); }
+.hm-results { background: linear-gradient(180deg, var(--lm-bg), var(--lm-surface)); }
 .hm-metrics {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 40px 24px;
-  border-top: var(--border-subtle);
+  border-top: var(--lm-border);
   padding-top: 60px;
 }
 .hm-metric { text-align: left; }
 .hm-metric__value {
-  font-family: var(--font-space);
+  font-family: var(--font-display);
   font-size: clamp(2.6rem, 5vw, 4rem);
   line-height: 1;
   font-weight: 600;
-  background: linear-gradient(135deg, #fff, var(--color-muted));
+  background: linear-gradient(135deg, #fff, var(--lm-text-muted));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
-.hm-metric__value .accent { background: linear-gradient(135deg, var(--color-primary), var(--color-digital)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hm-metric__value .accent { background: linear-gradient(135deg, var(--lm-electric), var(--lm-champagne)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hm-metric__label {
   margin-top: 12px;
-  color: var(--color-muted);
+  color: var(--lm-text-muted);
   font-size: 1rem;
   line-height: 1.5;
 }
-.hm-metric__note { display:block; font-size: 0.8rem; color: var(--color-muted); opacity: 0.7; margin-top: 6px; }
+.hm-metric__note { display:block; font-size: 0.8rem; color: var(--lm-text-muted); opacity: 0.7; margin-top: 6px; }
 
 /* 8. Selected Services ------------------------------------ */
 .hm-services__grid {
@@ -458,19 +481,19 @@
   flex-direction: column;
   gap: 10px;
   padding: 28px 26px;
-  border-radius: var(--radius-md);
-  border: var(--border-subtle);
-  background: var(--color-surface-1);
+  border-radius: var(--lm-radius-md);
+  border: var(--lm-border);
+  background: var(--lm-surface);
   transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
-.hm-service:hover { transform: translateY(-4px); border-color: rgba(79,124,255,0.4); background: var(--color-surface-2); }
-.hm-service__idx { font-size: 0.8rem; color: var(--color-digital); font-weight: 600; letter-spacing: 0.1em; }
-.hm-service__name { font-family: var(--font-space); font-size: 1.2rem; }
-.hm-service__desc { color: var(--color-muted); font-size: 0.95rem; line-height: 1.55; }
+.hm-service:hover { transform: translateY(-4px); border-color: var(--lm-border-electric); background: var(--lm-surface-raised); }
+.hm-service__idx { font-size: 0.8rem; color: var(--lm-electric); font-weight: 600; letter-spacing: 0.1em; }
+.hm-service__name { font-family: var(--font-display); font-size: 1.2rem; }
+.hm-service__desc { color: var(--lm-text-muted); font-size: 0.95rem; line-height: 1.55; }
 .hm-services__cta { margin-top: 40px; display: flex; justify-content: center; }
 
 /* 9. Insights preview ------------------------------------- */
-.hm-insights { border-top: var(--border-subtle); }
+.hm-insights { border-top: var(--lm-border); }
 .hm-insights__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
 .hm-insights__topics { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 .hm-chip {
@@ -511,7 +534,7 @@
 .hm-company__ic {
   flex: 0 0 42px; height: 42px; border-radius: var(--radius-md);
   display: grid; place-items: center;
-  background: rgba(79,124,255,0.12); color: var(--color-primary);
+  background: rgba(0, 212, 255, 0.12); color: var(--color-primary);
   font-size: 1.1rem;
 }
 .hm-company__item h4 { font-family: var(--font-space); font-size: 1.1rem; margin-bottom: 4px; }
@@ -527,8 +550,8 @@
 .hm-final__bg {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(80% 60% at 50% 0%, rgba(79,124,255,0.14), transparent 60%),
-    radial-gradient(60% 50% at 50% 100%, rgba(38,217,242,0.08), transparent 60%);
+    radial-gradient(80% 60% at 50% 0%, rgba(0, 212, 255, 0.14), transparent 60%),
+    radial-gradient(60% 50% at 50% 100%, rgba(0, 212, 255, 0.08), transparent 60%);
 }
 .hm-final__inner { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; }
 .hm-final__title {
@@ -818,7 +841,7 @@
   transition: border-color 0.25s ease;
 }
 .hm-service-cap:hover {
-  border-color: rgba(79,124,255,0.35);
+  border-color: rgba(0, 212, 255, 0.35);
   color: var(--color-text);
 }
 
@@ -837,7 +860,7 @@
 }
 .hm-service-step:hover {
   transform: translateY(-4px);
-  border-color: rgba(79,124,255,0.4);
+  border-color: rgba(0, 212, 255, 0.4);
 }
 .hm-service-step__num {
   font-family: var(--font-space);
@@ -957,7 +980,7 @@
 .hm-form-input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(79,124,255,0.15);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
 }
 .hm-form-input--error {
   border-color: #ff5f5f;
@@ -1058,8 +1081,8 @@ textarea.hm-form-input { resize: vertical; min-height: 120px; }
 }
 .hm-contact-pref:hover { border-color: rgba(167,176,192,0.4); color: var(--color-text); }
 .hm-contact-pref.active {
-  background: rgba(79,124,255,0.12);
-  border-color: rgba(79,124,255,0.4);
+  background: rgba(0, 212, 255, 0.12);
+  border-color: rgba(0, 212, 255, 0.4);
   color: var(--color-primary);
 }
 .hm-sr-only {
@@ -1110,7 +1133,7 @@ textarea.hm-form-input { resize: vertical; min-height: 120px; }
   transition: all 0.25s ease;
 }
 .hm-contact-channel:hover {
-  border-color: rgba(79,124,255,0.4);
+  border-color: rgba(0, 212, 255, 0.4);
   background: var(--color-surface-2);
 }
 .hm-contact-channel__icon {
@@ -1119,7 +1142,7 @@ textarea.hm-form-input { resize: vertical; min-height: 120px; }
   border-radius: var(--radius-md);
   display: grid;
   place-items: center;
-  background: rgba(79,124,255,0.1);
+  background: rgba(0, 212, 255, 0.1);
   color: var(--color-primary);
   flex-shrink: 0;
 }
@@ -1172,7 +1195,7 @@ textarea.hm-form-input { resize: vertical; min-height: 120px; }
 }
 .hm-services-index-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(79,124,255,0.4);
+  border-color: rgba(0, 212, 255, 0.4);
   box-shadow: var(--shadow-card);
 }
 .hm-services-index-card__eyebrow {
@@ -1219,7 +1242,7 @@ textarea.hm-form-input { resize: vertical; min-height: 120px; }
 }
 .hm-insight-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(79,124,255,0.4);
+  border-color: rgba(0, 212, 255, 0.4);
   box-shadow: var(--shadow-card);
 }
 .hm-insight-card__category {

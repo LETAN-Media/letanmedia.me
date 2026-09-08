@@ -9,22 +9,22 @@
 
 .services-accordion-card {
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
+  border: 1px solid var(--lm-border);
+  border-radius: var(--lm-radius-md);
   overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 280ms var(--lm-ease);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .services-accordion-card:hover {
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--lm-border-strong);
   background: rgba(255, 255, 255, 0.03);
 }
 
 .services-accordion-card.open {
-  border-color: rgba(59, 130, 246, 0.3);
-  background: rgba(15, 23, 42, 0.4);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--lm-border-electric);
+  background: var(--lm-surface);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3), 0 0 20px var(--lm-electric-glow);
 }
 
 .services-accordion-header {

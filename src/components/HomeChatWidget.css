@@ -86,7 +86,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1E3A8A, #3B82F6);
+  background: linear-gradient(135deg, var(--lm-electric) 0%, var(--lm-champagne) 100%);
   display: grid;
   place-items: center;
   font-weight: 800;
@@ -182,7 +182,7 @@
 
 .home-chat-message.user {
   align-self: flex-end;
-  background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+  background: linear-gradient(135deg, var(--lm-electric) 0%, var(--lm-champagne) 100%);
   color: #fff;
   border-top-right-radius: 4px;
 }
@@ -211,7 +211,7 @@
 .home-chat-suggest-btn:hover {
   background: rgba(59, 130, 246, 0.1);
   border-color: rgba(59, 130, 246, 0.3);
-  color: #3B82F6;
+  color: var(--lm-electric);
   transform: translateY(-1px);
 }
 
@@ -241,7 +241,7 @@
 }
 
 .home-chat-send-btn {
-  background: #3B82F6;
+  background: var(--lm-electric);
   color: #fff;
   border: none;
   width: 38px;

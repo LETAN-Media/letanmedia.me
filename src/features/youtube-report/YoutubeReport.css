@@ -1,26 +1,27 @@
 /* Unified Section Header & Block Styles */
 .section-block {
-  padding: 96px 0;
+  padding: clamp(80px, 10vw, 140px) 0;
 }
 
 .section-header {
   max-width: 860px;
-  margin: 0 auto 44px;
+  margin: 0 auto 48px;
   text-align: center;
   padding: 0 20px;
 }
 
 .section-title {
   margin: 0;
-  font-size: clamp(36px, 7vw, 64px);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   line-height: 1.05;
-  font-weight: 900;
-  letter-spacing: -0.045em;
-  color: #fff;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--lm-text);
+  font-family: var(--font-display);
 }
 
 .section-title .gradient-text {
-  background: linear-gradient(90deg, #ff0000, #ff7676);
+  background: linear-gradient(135deg, var(--lm-electric), var(--lm-champagne));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
@@ -28,10 +29,10 @@
 
 .section-subtitle {
   max-width: 680px;
-  margin: 16px auto 0;
-  font-size: clamp(15px, 3.8vw, 20px);
-  line-height: 1.65;
-  color: rgba(255,255,255,0.62);
+  margin: 20px auto 0;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.7;
+  color: var(--lm-text-secondary);
 }
 
 @media (max-width: 767px) {

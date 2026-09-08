@@ -71,7 +71,7 @@ const AIAssistant = () => {
               width: '44px',
               height: '44px',
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #22D3EE 0%, #3B82F6 100%)',
+              background: 'linear-gradient(135deg, var(--lm-electric) 0%, var(--lm-champagne) 100%)',
               border: 'none',
               color: '#fff',
               display: 'grid',
