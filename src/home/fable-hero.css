@@ -98,8 +98,8 @@
   position: absolute;
   z-index: 1;
   top: 22%;
-  left: -1.7vw;
-  width: 104vw;
+  left: 1.2vw;
+  width: 96vw;
   margin: 0;
   display: flex;
   align-items: baseline;
@@ -111,7 +111,7 @@
     'Baskerville',
     'Times New Roman',
     serif;
-  font-size: clamp(7rem, 14.8vw, 17rem);
+  font-size: clamp(6.5rem, 13.8vw, 15.5rem);
   font-weight: 400;
   line-height: 0.76;
   letter-spacing: -0.075em;
@@ -707,12 +707,12 @@
   }
 
   .lm-film-hero__masthead {
-    top: 22%;
-    left: -3vw;
-    width: 108vw;
+    top: 23%;
+    left: 4vw;
+    width: 90vw;
     display: block;
-    font-size: 24.5vw;
-    line-height: 0.73;
+    font-size: 21vw;
+    line-height: 0.76;
     white-space: normal;
   }
 
@@ -721,7 +721,7 @@
   }
 
   .lm-film-hero__masthead-media {
-    margin-left: 17vw;
+    margin-left: 10vw;
   }
 
   .lm-film-hero__artifact {
