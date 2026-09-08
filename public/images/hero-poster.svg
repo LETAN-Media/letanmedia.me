@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-labelledby="title desc">
+  <title id="title">LETAN Signal Orb</title>
+  <desc id="desc">Quả cầu tín hiệu tối với các đường quỹ đạo champagne và cobalt.</desc>
+  <defs>
+    <radialGradient id="orb" cx="38%" cy="30%" r="72%">
+      <stop offset="0" stop-color="#273246"/>
+      <stop offset="0.48" stop-color="#10141C"/>
+      <stop offset="0.82" stop-color="#07090F"/>
+      <stop offset="1" stop-color="#C7AA6B" stop-opacity=".42"/>
+    </radialGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6E8FFF" stop-opacity=".12"/>
+      <stop offset=".52" stop-color="#6E8FFF" stop-opacity=".8"/>
+      <stop offset="1" stop-color="#C7AA6B" stop-opacity=".24"/>
+    </linearGradient>
+    <clipPath id="orbClip">
+      <circle cx="360" cy="360" r="205"/>
+    </clipPath>
+  </defs>
+
+  <circle cx="360" cy="360" r="205" fill="url(#orb)" stroke="#C7AA6B" stroke-opacity=".42" stroke-width="2"/>
+
+  <g clip-path="url(#orbClip)" fill="none">
+    <path d="M126 322C215 205 468 187 604 315S484 546 273 502 112 382 126 322Z" stroke="url(#signal)" stroke-width="7" opacity=".42"/>
+    <path d="M154 406C253 338 410 331 568 397" stroke="#C7AA6B" stroke-width="2" opacity=".5"/>
+    <path d="M194 264C313 353 425 391 552 463" stroke="#6E8FFF" stroke-width="2" opacity=".5"/>
+    <path d="M289 146C340 247 390 433 431 565" stroke="#F5F3EE" stroke-width="1" opacity=".14"/>
+  </g>
+
+  <path d="M93 430C135 294 430 199 612 286C700 329 632 443 454 505C260 572 64 526 93 430Z" fill="none" stroke="#C7AA6B" stroke-opacity=".5" stroke-width="2"/>
+  <path d="M190 116C318 85 518 268 584 449C644 614 502 657 343 535C176 407 80 143 190 116Z" fill="none" stroke="#6E8FFF" stroke-opacity=".38" stroke-width="2"/>
+
+  <g fill="#C7AA6B">
+    <circle cx="160" cy="482" r="4"/>
+    <circle cx="566" cy="237" r="3"/>
+    <circle cx="619" cy="410" r="2" opacity=".7"/>
+  </g>
+  <g fill="#6E8FFF">
+    <circle cx="230" cy="194" r="3"/>
+    <circle cx="520" cy="514" r="3"/>
+  </g>
+</svg>

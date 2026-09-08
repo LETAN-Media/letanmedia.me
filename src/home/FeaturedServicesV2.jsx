@@ -6,24 +6,40 @@ import {
   Bot,
   Boxes,
   CodeXml,
-  Globe,
   MonitorSmartphone,
-  ShieldCheck,
   Smartphone,
-  Sparkles,
 } from 'lucide-react';
 import { SiTiktok } from 'react-icons/si';
 import { FaFacebookF } from 'react-icons/fa';
 
 const FEATURED_SERVICES = [
   {
+    id: 'chatbot-ai',
+    title: 'Chatbot AI Doanh Nghiệp',
+    description: 'Trợ lý AI tích hợp nguồn tri thức doanh nghiệp, hỗ trợ tự động hóa tư vấn và các bước vận hành lặp lại.',
+    icon: Bot,
+    route: '/chatbot-ai',
+    badge: 'AI Automation',
+    layout: 'wide',
+  },
+  {
+    id: 'website',
+    title: 'Thiết Kế Website Studio',
+    description: 'Thiết kế và phát triển website có cấu trúc rõ ràng, nền tảng SEO kỹ thuật và trải nghiệm thích ứng trên nhiều thiết bị.',
+    icon: MonitorSmartphone,
+    route: '/services',
+    badge: 'Modern Web',
+    layout: 'wide',
+  },
+  {
     id: 'tiktok-verified',
     title: 'Xác minh Tích Xanh TikTok',
-    description: 'Quy trình tư vấn và hoàn thiện hồ sơ xác minh tích xanh chính chủ nhanh chóng, chuẩn chính sách nền tảng.',
+    description: 'Tư vấn điều kiện, rà soát tài khoản và hỗ trợ hoàn thiện hồ sơ xác minh theo chính sách nền tảng.',
     icon: SiTiktok,
     iconType: 'brand',
     route: '/tiktok-report',
     badge: 'Platform Trust',
+    layout: 'compact',
   },
   {
     id: 'facebook-verified',
@@ -33,22 +49,7 @@ const FEATURED_SERVICES = [
     iconType: 'brand',
     route: '/services',
     badge: 'Identity Verification',
-  },
-  {
-    id: 'chatbot-ai',
-    title: 'Chatbot AI Doanh Nghiệp',
-    description: 'Trợ lý AI thông minh tích hợp tri thức doanh nghiệp, tự động hóa tư vấn và vận hành 24/7.',
-    icon: Bot,
-    route: '/chatbot-ai',
-    badge: 'AI Automation',
-  },
-  {
-    id: 'website',
-    title: 'Thiết Kế Website Studio',
-    description: 'Kiến trúc website cao cấp, chuẩn SEO, tốc độ vượt trội, tương thích hoàn hảo mọi thiết bị.',
-    icon: MonitorSmartphone,
-    route: '/services',
-    badge: 'Modern Web',
+    layout: 'compact',
   },
   {
     id: 'custom-software',
@@ -57,14 +58,16 @@ const FEATURED_SERVICES = [
     icon: CodeXml,
     route: '/services',
     badge: 'Custom Software',
+    layout: 'compact',
   },
   {
     id: 'mini-app',
     title: 'Phát Triển Mini App',
-    description: 'Giải pháp Mini App tối ưu hóa trải nghiệm người dùng, mở rộng kênh tương tác và tỷ lệ chuyển đổi.',
+    description: 'Phát triển Mini App theo luồng sử dụng thực tế, mở rộng kênh tương tác và kết nối với hệ thống hiện có.',
     icon: Smartphone,
     route: '/services',
     badge: 'App Ecosystem',
+    layout: 'compact',
   },
 ];
 
@@ -86,7 +89,7 @@ const FeaturedServicesV2 = () => {
               DỊCH VỤ TRỌNG TÂM
             </div>
             <h2>
-              Giải pháp chuyên sâu được tin chọn
+              Năng lực trọng tâm cho từng bài toán số
             </h2>
           </div>
 
@@ -102,6 +105,7 @@ const FeaturedServicesV2 = () => {
             return (
               <motion.div
                 key={service.id}
+                className={`lm-featured-card-wrap lm-featured-card-wrap--${service.layout}`}
                 initial={reduceMotion ? false : { opacity: 0, y: 22 }}
                 whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
@@ -110,7 +114,10 @@ const FeaturedServicesV2 = () => {
                   delay: reduceMotion ? 0 : index * 0.05,
                 }}
               >
-                <Link to={service.route} className="lm-featured-card">
+                <Link
+                  to={service.route}
+                  className={`lm-featured-card lm-featured-card--${service.layout}`}
+                >
                   <div className="lm-featured-card__icon">
                     <Icon size={service.iconType === 'brand' ? 24 : 22} />
                   </div>

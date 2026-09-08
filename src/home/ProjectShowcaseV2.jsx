@@ -7,12 +7,8 @@ import {
   Bot,
   Code2,
   ShieldCheck,
-  Sparkles,
 } from 'lucide-react';
-import {
-  getFeaturedCases,
-  getPublishedCases,
-} from '../data/caseStudies';
+import { getPublishedCases } from '../data/caseStudies';
 
 const CATEGORY_META = {
   'Web & Software': {
@@ -150,13 +146,13 @@ const ProjectShowcaseV2 = () => {
             </div>
 
             <h2>
-              Hệ thống & giải pháp số
+              Sản phẩm & hệ thống
               <br />
-              đã được chứng thực
+              đã được triển khai
             </h2>
 
             <p>
-              Mỗi sản phẩm là một bài toán thực tế được giải quyết bằng kỹ thuật hiện đại, kiến trúc bền vững và tư duy tăng trưởng dài hạn.
+              Mỗi hồ sơ trình bày một bài toán thực tế, phạm vi triển khai và lựa chọn kỹ thuật đã được ghi nhận trong dự án.
             </p>
           </div>
 

@@ -2,12 +2,9 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
   CheckCircle2,
-  Clock,
   Cpu,
   Layers,
-  Lock,
   Shield,
-  Sparkles,
   TrendingUp,
 } from 'lucide-react';
 
@@ -16,56 +13,56 @@ const PRINCIPLES = [
     id: '01',
     title: 'AI-First Engineering',
     description:
-      'Tích hợp mô hình AI và tự động hóa vào quy trình thực tế, loại bỏ thao tác thủ công và tạo ra năng lực cạnh tranh vượt trội.',
+      'Đánh giá nơi AI và tự động hóa thực sự phù hợp với quy trình, ưu tiên những điểm có thể giảm thao tác lặp lại và hỗ trợ ra quyết định.',
     icon: Cpu,
   },
   {
     id: '02',
     title: 'Data-Driven Strategy',
     description:
-      'Mọi quyết định phân phối nội dung, truyền thông số và tối ưu chuyển đổi đều dựa trên dữ liệu định lượng, không cảm tính.',
+      'Kết hợp dữ liệu định lượng với bối cảnh thương hiệu để xây dựng giả thuyết, triển khai và điều chỉnh theo kết quả quan sát được.',
     icon: TrendingUp,
   },
   {
     id: '03',
     title: 'Production-Grade Quality',
     description:
-      'Sản phẩm công nghệ và nền tảng web được phát triển với tiêu chuẩn khắt khe về tốc độ tải trang, bảo mật và khả năng chịu tải cao.',
+      'Sản phẩm được kiểm tra theo phạm vi về hiệu năng, bảo mật và khả năng vận hành trước khi bàn giao.',
     icon: Layers,
   },
   {
     id: '04',
     title: 'End-to-End Protection',
     description:
-      'Quy trình bảo vệ kênh, xử lý vi phạm bản quyền và xác minh uy tín thương hiệu theo quy chuẩn chính sách toàn cầu của các nền tảng.',
+      'Rà soát hồ sơ, bằng chứng và quy trình xử lý theo chính sách áp dụng của từng nền tảng và từng trường hợp.',
     icon: Shield,
   },
 ];
 
-const METRICS = [
+const STANDARDS = [
   {
-    value: '100%',
-    label: 'Chuẩn chính sách nền tảng',
-    detail: 'Meta, TikTok & YouTube API',
+    id: '01',
+    label: 'Phạm vi rõ ràng',
+    detail: 'Mục tiêu, đầu việc và tiêu chí bàn giao được thống nhất trước triển khai.',
     icon: CheckCircle2,
   },
   {
-    value: '< 24h',
-    label: 'SLA phản hồi & kích hoạt',
-    detail: 'Tiếp nhận xử lý khủng hoảng',
-    icon: Clock,
+    id: '02',
+    label: 'Kiểm thử trước bàn giao',
+    detail: 'Luồng chính và các rủi ro liên quan được kiểm tra theo phạm vi dự án.',
+    icon: Layers,
   },
   {
-    value: '99.9%',
-    label: 'Độ sẵn sàng hệ thống',
-    detail: 'Chatbot & automation workflows',
+    id: '03',
+    label: 'Theo dõi khi vận hành',
+    detail: 'Tín hiệu thực tế được dùng để phát hiện vấn đề và ưu tiên vòng cải tiến tiếp theo.',
     icon: Cpu,
   },
   {
-    value: 'Zero-Trust',
-    label: 'Bảo mật quyền riêng tư',
-    detail: 'Mã hóa và cam kết bảo mật thông tin',
-    icon: Lock,
+    id: '04',
+    label: 'Bảo mật theo phạm vi',
+    detail: 'Quyền truy cập và dữ liệu nhạy cảm được xem xét theo kiến trúc của từng giải pháp.',
+    icon: Shield,
   },
 ];
 
@@ -127,7 +124,7 @@ const WhyLetanV2 = () => {
           })}
         </div>
 
-        {/* Results & SLAs */}
+        {/* Qualitative delivery standards */}
         <div className="lm-results">
           <motion.div
             className="lm-results__heading"
@@ -137,17 +134,17 @@ const WhyLetanV2 = () => {
             transition={{ duration: 0.55 }}
           >
             <div className="lm-section-eyebrow">
-              CHỈ SỐ TIÊU CHUẨN
+              CHUẨN THỰC THI
             </div>
-            <h2>Năng lực thực thi & cam kết SLA</h2>
+            <h2>Cách LETAN kiểm soát chất lượng</h2>
           </motion.div>
 
           <div className="lm-results__grid">
-            {METRICS.map((metric, index) => {
-              const Icon = metric.icon;
+            {STANDARDS.map((standard, index) => {
+              const Icon = standard.icon;
               return (
                 <motion.div
-                  key={metric.label}
+                  key={standard.id}
                   className="lm-metric"
                   initial={reduceMotion ? false : { opacity: 0, y: 18 }}
                   whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -160,9 +157,9 @@ const WhyLetanV2 = () => {
                   <div className="lm-metric__icon">
                     <Icon size={20} strokeWidth={1.75} />
                   </div>
-                  <strong>{metric.value}</strong>
-                  <span>{metric.label}</span>
-                  <small>{metric.detail}</small>
+                  <strong>{standard.id}</strong>
+                  <span>{standard.label}</span>
+                  <small>{standard.detail}</small>
                 </motion.div>
               );
             })}

@@ -1,115 +1,88 @@
-# Design System Master File — LETAN Media
+# LETAN Media — Homepage Design System
 
-> **Studio Premium Direction:** LETAN Media (AI, Marketing & Digital Growth)
-> **Role & Tone:** Senior Design Lead + High-end WebGL Studio. High-tech, deeply trustworthy, butter-smooth motion, avoiding generic AI templates.
+> Scope: homepage first. Internal product and service pages retain their current page-specific systems until a later approved phase.
 
----
+## Direction
 
-## 1. Visual Identity & Brand Archetype
+- **Positioning:** AI-first digital studio for technology, media, software, automation, and brand protection.
+- **Tone:** premium, technical, editorial, minimal, confident.
+- **Composition:** hero-centric opening, editorial capability ledger, asymmetric service and work grids, focused closing CTA.
+- **Avoid:** generic neon SaaS visuals, liquid-glass everywhere, decorative dashboard charts, unverified metrics, repeated three-card rows, and gradient text as a default treatment.
+- **Design dials:** variance 6/10, motion 5/10, density 5/10.
 
-- **Brand:** LETAN Media
-- **Tagline:** "Giải pháp AI, truyền thông số và phát triển phần mềm dành cho cá nhân và doanh nghiệp."
-- **Visual Aesthetic:** High-End AI Studio / Dark Cyber-Luxury. Deep obsidian surfaces, illuminated by electric cobalt intelligence and warm champagne gold trust accents.
-- **Design Dials:** Variance 6/10 (Modern Balanced) | Motion 7/10 (Polished & Smooth) | Density 5/10 (Spacious & Clean)
+## Brand palette
 
----
+The visible brand palette is intentionally limited. Alpha variants and borders are derived from these colors.
 
-## 2. Color Palette Tokens
+| Token | Hex | Use |
+|---|---:|---|
+| `--lm-bg` | `#07090F` | Primary ink canvas |
+| `--lm-surface` | `#10141C` | Cards and navigation surfaces |
+| `--lm-text` | `#F5F3EE` | Primary copy |
+| `--lm-text-secondary` | `#A3AAB8` | Supporting copy |
+| `--lm-champagne` | `#C7AA6B` | Brand wordmark, primary CTA, selected details |
+| `--lm-cobalt` | `#6E8FFF` | Technical state and focus indication only |
 
-All colors are strictly chosen and tested for WCAG 2.2 AA / AAA contrast ratios:
+Semantic error/success colors are reserved for real interface feedback and are not decorative brand accents.
+Elevated surfaces and borders are derived with `color-mix()` and alpha variants rather than adding palette colors.
 
-| Token | Hex / Value | Purpose & Semantics |
-|---|---|---|
-| `--lm-bg` | `#06080E` | Canvas foundation, deep space void |
-| `--lm-surface-1` | `#0D111A` | Main card surface, frosted backdrop |
-| `--lm-surface-2` | `#141B29` | Elevated card, hover state, dropdown |
-| `--lm-surface-3` | `#1C2538` | Active item, interactive pill |
-| `--lm-cobalt` | `#2B6CB0` | Deep structural brand blue |
-| `--lm-cobalt-bright`| `#3B82F6` | Primary interactive button, active focus, links |
-| `--lm-cobalt-glow`  | `rgba(59, 130, 246, 0.22)` | Subtle ambient back-glow |
-| `--lm-champagne`    | `#C5A869` | Secondary luxury accent, verification, trust badge |
-| `--lm-champagne-light`| `#DFCA95`| Hover for gold badges, shiny text rim |
-| `--lm-champagne-glow` | `rgba(197, 168, 105, 0.2)` | Ambient gold refraction |
-| `--lm-cyan`         | `#26D9F2` | Digital growth indicator, data highlights |
-| `--lm-emerald`      | `#10B981` | Real-time SLA active badge, operational indicator |
-| `--lm-text`         | `#F8FAFC` | Primary heading and high-contrast body (15.5:1 ratio) |
-| `--lm-text-muted`   | `#94A3B8` | Body text, subheadings, explanations (5.8:1 ratio) |
-| `--lm-text-subtle`  | `#64748B` | Footers, metadata tags, captions |
-| `--lm-border`       | `rgba(255, 255, 255, 0.08)` | Hairline luxury border |
-| `--lm-border-hover` | `rgba(59, 130, 246, 0.35)` | Interactive border state |
-| `--lm-border-gold`  | `rgba(197, 168, 105, 0.3)` | Verification / trust border |
+## Typography
 
----
+- **Display, H1-H4:** Plus Jakarta Sans, weights 500-700.
+- **Body and controls:** Inter, weights 400-600.
+- **Display:** `clamp(2.75rem, 5.2vw, 4.75rem)`, line-height 1.02, tracking -0.04em.
+- **H2:** `clamp(2rem, 3.6vw, 3.25rem)`, line-height 1.1, tracking -0.03em.
+- **Body:** 1rem minimum, line-height 1.65; editorial measure 45-72 characters.
+- **Labels:** 0.72-0.78rem, uppercase only for short taxonomy or status copy.
+- Headings use balanced wrapping where supported; body copy uses pretty wrapping.
 
-## 3. Typography Hierarchy
+## Spacing and layout
 
-Fonts loaded via Google Fonts with `font-display: swap`:
-- **Headings & Display:** `Plus Jakarta Sans` (weights: 500, 600, 700, 800)
-  - Hero Display: `clamp(2.5rem, 5.5vw, 4.4rem)`, line-height `1.04`, tracking `-0.035em`
-  - Section Title (H2): `clamp(2rem, 3.8vw, 3.2rem)`, line-height `1.12`, tracking `-0.025em`
-  - Card Title (H3): `clamp(1.2rem, 1.8vw, 1.5rem)`, line-height `1.25`, tracking `-0.015em`
-  - Eyebrow / Overline: `0.75rem (12px)`, bold (700), uppercase, letter-spacing `0.16em`
-- **Body & Controls:** `Inter` (weights: 400, 500, 600)
-  - Lead Paragraph: `clamp(1.05rem, 1.25vw, 1.25rem)`, line-height `1.65`
-  - Standard Body: `0.95rem - 1rem (15-16px)`, line-height `1.6`
-  - Secondary/Caption: `0.85rem (13.6px)`, line-height `1.5`
-- **Metrics & Numbers:** Tabular figures (`font-feature-settings: 'tnum'`), crisp and aligned.
+- **Wide container:** 1240px maximum.
+- **Standard container:** 1080px maximum.
+- **Editorial measure:** 720px maximum.
+- **Gutters:** 24px desktop, 20px tablet, 18px phone.
+- **Section rhythm:** `clamp(72px, 8vw, 112px)`.
+- **Radius:** 8px controls, 14px cards, 20px major panels. Pills are limited to compact status or taxonomy controls.
+- Use CSS Grid for homepage compositions and Flexbox only for linear alignment.
 
----
+## Signature element — Signal Orb
 
-## 4. Spacing, Container & Grid System
+- One custom Three.js/GLSL orb represents an AI system processing signals.
+- The core stays dark; champagne and cobalt appear as restrained edge/signal light, never as a blown-out white globe.
+- The scene is lazy-loaded, capped at low DPR, simplified on low-power/mobile hardware, paused offscreen, and non-interactive for pointer/scroll hit-testing.
+- A local `hero-poster.webp` provides the loading, reduced-motion, and WebGL-unavailable fallback.
+- No other section introduces a competing continuous decorative animation.
 
-- **Container Width:** `width: min(calc(100% - 40px), 1240px); margin: 0 auto;` (mobile: `calc(100% - 28px)`)
-- **8-Point Rhythm:**
-  - `4px` (`--space-2xs`) - Micro elements, badge padding
-  - `8px` (`--space-xs`) - Icon gap, inline tag gap
-  - `12px` (`--space-sm`) - Compact button padding, card meta gap
-  - `16px` (`--space-md`) - Form field padding, default gap
-  - `24px` (`--space-lg`) - Card internal padding
-  - `32px` (`--space-xl`) - Grid column gap
-  - `48px` (`--space-2xl`) - Header/content offset
-  - `80px - 120px` (`--space-section`) - Section vertical breathing room
-- **Grid Layouts:**
-  - Ecosystem: 1 col (mobile) -> 2 cols (tablet) -> 2 cols balanced with editorial sticky lead (desktop)
-  - Featured Services: 1 col (<640px) -> 2 cols (640-1024px) -> 3 cols (>1024px)
-  - Work Showcase: Hero large card (2/3) + stacked cards (1/3) -> fluid stacking on mobile
-  - SLAs & Metrics: 2 cols (mobile) -> 4 cols (desktop)
+## Components
 
----
+- Header: compact wordmark, five links, one CTA, accessible mobile dialog.
+- Hero: one value statement, concise support copy, primary and secondary actions, Signal Orb.
+- Ecosystem: editorial lead plus capability ledger.
+- Featured services: asymmetric hierarchy rather than six identical cards.
+- Selected work: one lead project plus supporting work using real repository data only.
+- Principles: qualitative operating standards; no unsupported percentages, uptime, or client counts.
+- LETAN AI: interactive product demonstration connected to the existing chat widget.
+- Footer: brand endpoint with verified contact and legal links only.
 
-## 5. Signature 3D Element (Hero3D)
+## Motion
 
-- **Concept:** Generative Luminous Glass Sphere with real-time GLSL displacement wave and Fresnel champagne rim.
-- **Representation:** "AI in active continuous cognition" — reacting smoothly to mouse pointer tilt without blocking touch scrolling.
-- **Optimization:**
-  - Mobile: polygon count reduced to 32 subdivisions, 70 stardust particles, DPR capped at 1.25, antialias off.
-  - Desktop: 54 subdivisions, 160 particles, DPR 1.6, full high-performance shader.
-  - `prefers-reduced-motion`: Replaced automatically with lightweight CSS static halo grid (`HeroStaticFallback`), 0% WebGL overhead.
-  - Canvas has `pointer-events: none` on ambient regions so all links/CTAs are effortlessly clickable.
+- Default easing: `cubic-bezier(0.16, 1, 0.3, 1)`.
+- Hover/focus: 160-220ms. Section reveals: 480-650ms.
+- Animate opacity and transform only for reveals; no bounce, elastic overshoot, or layout-changing hover states.
+- Respect `prefers-reduced-motion`; remove continuous pulse effects and render content in its final state.
 
----
+## Accessibility and performance gates
 
-## 6. Micro-Interactions & Transitions
+- Visible focus on every operable element; no global outline removal.
+- Mobile menu moves focus into the dialog, traps focus, closes on Escape, and returns focus to its trigger.
+- Minimum touch target: 44px. No horizontal overflow at 375px.
+- Canvas is `aria-hidden`, has `pointer-events: none`, and never blocks navigation.
+- Above-the-fold text renders before the Three.js chunk; below-fold images lazy-load with dimensions.
+- Validate at 375, 390, 430, 768, 1024, 1280, 1440, and 1920px, including reduced motion.
 
-- **Default Easing:** `cubic-bezier(0.16, 1, 0.3, 1)` (fluid spring-like deceleration)
-- **Durations:**
-  - Quick hover/focus: `180ms - 250ms`
-  - Modal/Drawer slide: `350ms - 450ms`
-  - Scroll reveals: `600ms - 750ms`
-- **Button Micro-interaction:**
-  - On hover: `transform: translateY(-2px); box-shadow: 0 8px 24px var(--lm-cobalt-glow);`
-  - Arrow icon translates `+3px` horizontally and `-2px` vertically on hover.
-  - On active/press: `transform: translateY(0); opacity: 0.92;`
-- **Card Micro-interaction:**
-  - Subtle gradient border illumination (`--lm-border-hover`)
-  - Arrow badge transitions color from champagne to electric cobalt
+## Content integrity
 
----
-
-## 7. Accessibility (WCAG 2.2 AA)
-
-- All interactive controls have visible focus rings: `outline: 2px solid var(--lm-cobalt-bright); outline-offset: 3px;`
-- Touch targets strictly `>= 44px x 44px` on mobile/tablet.
-- Safe areas for iPhone/Android notch respected via `env(safe-area-inset-*)`.
-- All icons have `aria-hidden="true"` when accompanied by text, or meaningful `aria-label` when standalone.
-- Form inputs have explicit labels, field-level error messages, and `aria-invalid` bindings.
+- Use only content, projects, services, and contact channels present in the repository.
+- Do not display unverified client counts, satisfaction percentages, response times, availability figures, awards, testimonials, or partnerships.
+- Copy may be tightened for clarity, but business claims and URLs remain unchanged unless evidence supports a correction.

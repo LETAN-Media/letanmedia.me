@@ -5,206 +5,196 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {
-  Canvas,
-  useFrame,
-} from '@react-three/fiber';
-import {
-  PointMaterial,
-  Points,
-} from '@react-three/drei';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { PointMaterial, Points } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Custom Shader for Generative Glass Sphere
-const SphereShaderMaterial = {
+const SIGNAL_ORB_SHADER = {
   uniforms: {
     uTime: { value: 0 },
     uPointer: { value: new THREE.Vector2(0, 0) },
-    uDeepColor: { value: new THREE.Color('#070A10') },
-    uCobaltColor: { value: new THREE.Color('#1E56A0') },
-    uChampagneColor: { value: new THREE.Color('#D4AF37') },
-    uRimColor: { value: new THREE.Color('#F6E7C1') },
+    uDeepColor: { value: new THREE.Color('#07090F') },
+    uMidColor: { value: new THREE.Color('#18202C') },
+    uCobaltColor: { value: new THREE.Color('#6E8FFF') },
+    uChampagneColor: { value: new THREE.Color('#C7AA6B') },
   },
   vertexShader: `
     uniform float uTime;
     uniform vec2 uPointer;
     varying vec3 vNormal;
-    varying vec3 vViewDir;
+    varying vec3 vViewDirection;
     varying vec3 vWorldPosition;
-    varying float vWave;
+    varying float vSignal;
 
     void main() {
+      float latitude = sin(position.y * 3.15 + uTime * 0.42);
+      float longitude = cos(position.x * 2.45 - position.z * 1.7 - uTime * 0.28);
+      float pulse = sin(length(position.xz) * 4.1 - uTime * 0.52);
+      float pointerWave = dot(normalize(position.xy + 0.001), normalize(uPointer + 0.001));
+      float signal = latitude * longitude * 0.62 + pulse * 0.28 + pointerWave * 0.1;
+      float displacement = signal * 0.055;
+      vec3 displacedPosition = position + normal * displacement;
+      vec4 worldPosition = modelMatrix * vec4(displacedPosition, 1.0);
+
+      vSignal = signal;
       vNormal = normalize(normalMatrix * normal);
-      vec4 worldPos = modelMatrix * vec4(position, 1.0);
-      vWorldPosition = worldPos.xyz;
-      vViewDir = normalize(cameraPosition - worldPos.xyz);
-
-      // Organic fluid wave displacement along normal
-      float wave = sin(position.x * 2.2 + uTime * 0.9 + uPointer.x * 1.5) 
-                 * cos(position.y * 2.2 + uTime * 0.7 + uPointer.y * 1.5) 
-                 * sin(position.z * 1.8 + uTime * 0.6);
-      vWave = wave;
-
-      vec3 displacedPos = position + normal * (wave * 0.12);
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPos, 1.0);
+      vWorldPosition = worldPosition.xyz;
+      vViewDirection = normalize(cameraPosition - worldPosition.xyz);
+      gl_Position = projectionMatrix * viewMatrix * worldPosition;
     }
   `,
   fragmentShader: `
+    uniform float uTime;
     uniform vec3 uDeepColor;
+    uniform vec3 uMidColor;
     uniform vec3 uCobaltColor;
     uniform vec3 uChampagneColor;
-    uniform vec3 uRimColor;
     varying vec3 vNormal;
-    varying vec3 vViewDir;
+    varying vec3 vViewDirection;
     varying vec3 vWorldPosition;
-    varying float vWave;
+    varying float vSignal;
 
     void main() {
-      // Fresnel edge glow
-      float fresnel = 1.0 - max(dot(vNormal, vViewDir), 0.0);
-      float fresnelPow = pow(fresnel, 2.5);
-      float rim = pow(fresnel, 4.2);
+      float facing = clamp(dot(normalize(vNormal), normalize(vViewDirection)), 0.0, 1.0);
+      float fresnel = pow(1.0 - facing, 2.35);
+      float fineRim = pow(1.0 - facing, 6.0);
+      float movingBand = 0.5 + 0.5 * sin(
+        vWorldPosition.y * 3.6
+        + vWorldPosition.x * 1.15
+        - vWorldPosition.z * 0.7
+        + uTime * 0.34
+      );
+      float signalBand = smoothstep(0.78, 0.98, movingBand) * (0.34 + fresnel * 0.66);
+      float depthMix = clamp(0.28 + vSignal * 0.12 + facing * 0.12, 0.08, 0.54);
 
-      // Core blend: Deep Obsidian base to subtle Cobalt depth
-      vec3 color = mix(uDeepColor, uCobaltColor, clamp(vWave * 0.5 + 0.35, 0.0, 1.0));
+      vec3 color = mix(uDeepColor, uMidColor, depthMix);
+      color += uCobaltColor * signalBand * 0.2;
+      color += uChampagneColor * fresnel * 0.42;
+      color += uChampagneColor * fineRim * 0.18;
 
-      // Add Champagne Gold to mid-reflections
-      color = mix(color, uChampagneColor, fresnelPow * 0.7);
-
-      // Add brilliant Champagne / Platinum rim
-      color += uRimColor * rim * 1.4;
-
-      // Soft translucency alpha
-      float alpha = clamp(0.72 + fresnelPow * 0.28, 0.0, 1.0);
-
-      gl_FragColor = vec4(color, alpha);
+      gl_FragColor = vec4(color, 0.96);
     }
   `,
 };
 
-const createAmbientStardust = (count) => {
-  const positions = new Float32Array(count * 3);
-  for (let i = 0; i < count; i += 1) {
-    const radius = 3.2 + Math.random() * 3.5;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(Math.random() * 2 - 1);
+const seededRandom = (seed) => {
+  const value = Math.sin(seed * 12.9898) * 43758.5453;
+  return value - Math.floor(value);
+};
 
-    positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-    positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-    positions[i * 3 + 2] = radius * Math.cos(phi);
+const createSignalDust = (count) => {
+  const positions = new Float32Array(count * 3);
+
+  for (let index = 0; index < count; index += 1) {
+    const radius = 3.1 + seededRandom(index + 1) * 2.8;
+    const theta = seededRandom(index + 11) * Math.PI * 2;
+    const phi = Math.acos(seededRandom(index + 29) * 2 - 1);
+
+    positions[index * 3] = radius * Math.sin(phi) * Math.cos(theta);
+    positions[index * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+    positions[index * 3 + 2] = radius * Math.cos(phi);
   }
+
   return positions;
 };
 
-const GenerativeGlassSphere = ({ isMobile }) => {
-  const groupRef = useRef();
-  const materialRef = useRef();
-  const targetRotation = useRef({ x: 0, y: 0 });
+const SignalOrb = ({ lowPower }) => {
+  const groupRef = useRef(null);
+  const shellRef = useRef(null);
+  const materialRef = useRef(null);
 
   useFrame((state, delta) => {
     if (materialRef.current) {
       materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
-      // Smooth lerp pointer into uniform
-      materialRef.current.uniforms.uPointer.value.lerp(state.pointer, 0.05);
+      materialRef.current.uniforms.uPointer.value.lerp(state.pointer, 0.035);
     }
 
     if (groupRef.current) {
-      // Idle rotation + smooth responsive tilt to pointer
-      targetRotation.current.y = state.clock.elapsedTime * 0.08 + state.pointer.x * 0.45;
-      targetRotation.current.x = -0.1 + state.pointer.y * 0.3;
-
-      groupRef.current.rotation.y = THREE.MathUtils.damp(
-        groupRef.current.rotation.y,
-        targetRotation.current.y,
-        3.5,
-        delta,
-      );
+      const targetX = -0.12 + state.pointer.y * 0.12;
+      const targetY = state.clock.elapsedTime * 0.055 + state.pointer.x * 0.18;
       groupRef.current.rotation.x = THREE.MathUtils.damp(
         groupRef.current.rotation.x,
-        targetRotation.current.x,
-        3.5,
+        targetX,
+        2.6,
+        delta,
+      );
+      groupRef.current.rotation.y = THREE.MathUtils.damp(
+        groupRef.current.rotation.y,
+        targetY,
+        2.6,
         delta,
       );
     }
+
+    if (shellRef.current) {
+      shellRef.current.rotation.y -= delta * 0.025;
+      shellRef.current.rotation.z += delta * 0.012;
+    }
   });
+
+  const ringSegments = lowPower ? 64 : 96;
 
   return (
     <group
       ref={groupRef}
-      position={isMobile ? [0, -0.25, 0] : [0.25, -0.1, 0]}
-      scale={isMobile ? 0.95 : 1.15}
+      position={lowPower ? [0, -0.08, 0] : [0.18, -0.04, 0]}
+      scale={lowPower ? 0.9 : 1.04}
     >
-      {/* Main Generative Organic Sphere */}
       <mesh>
-        <icosahedronGeometry args={[2.0, isMobile ? 32 : 54]} />
+        <icosahedronGeometry args={[2, lowPower ? 3 : 5]} />
         <shaderMaterial
           ref={materialRef}
-          args={[SphereShaderMaterial]}
+          args={[SIGNAL_ORB_SHADER]}
           transparent
+          depthWrite
+          side={THREE.FrontSide}
+        />
+      </mesh>
+
+      <mesh ref={shellRef} scale={1.018}>
+        <icosahedronGeometry args={[2, lowPower ? 2 : 3]} />
+        <meshBasicMaterial
+          color="#C7AA6B"
+          wireframe
+          transparent
+          opacity={lowPower ? 0.08 : 0.105}
           depthWrite={false}
-          side={THREE.DoubleSide}
         />
       </mesh>
 
-      {/* Internal Luminous Core */}
-      <mesh scale={0.78}>
-        <sphereGeometry args={[2.0, 32, 32]} />
+      <mesh scale={0.73}>
+        <sphereGeometry args={[2, lowPower ? 20 : 28, lowPower ? 20 : 28]} />
         <meshBasicMaterial
-          color="#1E457A"
+          color="#18202C"
           transparent
-          opacity={0.35}
-          blending={THREE.AdditiveBlending}
+          opacity={0.24}
+          depthWrite={false}
         />
       </mesh>
 
-      {/* Outer Elegant Halo Rim */}
-      <mesh rotation={[Math.PI / 3, 0.25, 0]}>
-        <torusGeometry args={[2.45, 0.006, 16, 160]} />
-        <meshBasicMaterial
-          color="#C5A869"
-          transparent
-          opacity={0.45}
-        />
+      <mesh rotation={[Math.PI / 2.8, 0.16, 0.08]}>
+        <torusGeometry args={[2.43, 0.008, 8, ringSegments]} />
+        <meshBasicMaterial color="#C7AA6B" transparent opacity={0.46} />
       </mesh>
 
-      <mesh rotation={[1.1, 0.4, 0.5]}>
-        <torusGeometry args={[2.58, 0.004, 16, 160]} />
-        <meshBasicMaterial
-          color="#3182CE"
-          transparent
-          opacity={0.32}
-        />
+      <mesh rotation={[1.08, 0.48, 0.72]}>
+        <torusGeometry args={[2.58, 0.006, 8, ringSegments]} />
+        <meshBasicMaterial color="#6E8FFF" transparent opacity={0.34} />
       </mesh>
-
-      {/* Warm & Cobalt Specular Point Lights */}
-      <pointLight
-        color="#D4AF37"
-        intensity={2.8}
-        distance={8}
-        position={[2.5, 2.5, 3]}
-      />
-      <pointLight
-        color="#2B6CB0"
-        intensity={2.2}
-        distance={8}
-        position={[-3, -1.5, 2]}
-      />
     </group>
   );
 };
 
-const AmbientStardust = ({ isMobile }) => {
-  const pointsRef = useRef();
+const SignalDust = ({ lowPower }) => {
+  const pointsRef = useRef(null);
   const positions = useMemo(
-    () => createAmbientStardust(isMobile ? 70 : 160),
-    [isMobile],
+    () => createSignalDust(lowPower ? 44 : 88),
+    [lowPower],
   );
 
   useFrame((state) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.015;
-      pointsRef.current.rotation.x = state.clock.elapsedTime * 0.008;
-    }
+    if (!pointsRef.current) return;
+    pointsRef.current.rotation.y = state.clock.elapsedTime * 0.012;
   });
 
   return (
@@ -216,55 +206,75 @@ const AmbientStardust = ({ isMobile }) => {
     >
       <PointMaterial
         transparent
-        color="#DFCA95"
-        size={isMobile ? 0.024 : 0.018}
+        color="#C7AA6B"
+        size={lowPower ? 0.021 : 0.016}
         sizeAttenuation
         depthWrite={false}
-        opacity={0.55}
-        blending={THREE.AdditiveBlending}
+        opacity={0.42}
       />
     </Points>
   );
 };
 
-const Scene = ({ isMobile }) => (
+const Scene = ({ lowPower }) => (
   <>
-    <ambientLight intensity={0.4} />
-    <AmbientStardust isMobile={isMobile} />
-    <GenerativeGlassSphere isMobile={isMobile} />
+    <SignalDust lowPower={lowPower} />
+    <SignalOrb lowPower={lowPower} />
   </>
 );
 
+const getLowPowerMode = () => {
+  if (typeof window === 'undefined') return true;
+  const cores = navigator.hardwareConcurrency || 4;
+  return window.innerWidth < 768 || cores <= 4;
+};
+
 const Hero3D = () => {
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth < 768 : false,
+  const containerRef = useRef(null);
+  const [lowPower, setLowPower] = useState(getLowPowerMode);
+  const [inView, setInView] = useState(true);
+  const [pageVisible, setPageVisible] = useState(
+    () => typeof document === 'undefined' || !document.hidden,
   );
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const syncPowerMode = () => setLowPower(getLowPowerMode());
+    window.addEventListener('resize', syncPowerMode, { passive: true });
+    return () => window.removeEventListener('resize', syncPowerMode);
+  }, []);
 
-    window.addEventListener('resize', handleResize, { passive: true });
-    return () => window.removeEventListener('resize', handleResize);
+  useEffect(() => {
+    if (!containerRef.current || !('IntersectionObserver' in window)) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: '160px' },
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleVisibility = () => setPageVisible(!document.hidden);
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
 
   return (
-    <div className="lm-hero3d">
+    <div className="lm-hero3d" ref={containerRef} aria-hidden="true">
       <Canvas
-        dpr={isMobile ? [1, 1.25] : [1, 1.6]}
-        camera={{
-          position: [0, 0, 5.8],
-          fov: isMobile ? 52 : 46,
-        }}
+        frameloop={inView && pageVisible ? 'always' : 'never'}
+        dpr={lowPower ? [1, 1.1] : [1, 1.35]}
+        camera={{ position: [0, 0, 6.35], fov: lowPower ? 50 : 45 }}
         gl={{
-          antialias: !isMobile,
+          antialias: !lowPower,
           alpha: true,
           powerPreference: 'high-performance',
         }}
+        performance={{ min: 0.65 }}
       >
         <Suspense fallback={null}>
-          <Scene isMobile={isMobile} />
+          <Scene lowPower={lowPower} />
         </Suspense>
       </Canvas>
     </div>

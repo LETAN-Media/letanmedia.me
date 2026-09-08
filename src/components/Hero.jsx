@@ -1,8 +1,7 @@
 import React, {
   Suspense,
   lazy,
-  useEffect,
-  useState,
+  useMemo,
 } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -10,46 +9,41 @@ import {
   ArrowRight,
   MessageCircle,
 } from 'lucide-react';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
 const Hero3D = lazy(() => import('./Hero3D'));
 
 const HeroStaticFallback = () => (
-  <div
-    className="lm-hero__static-globe"
-    aria-hidden="true"
-  >
-    <div className="lm-hero__static-grid" />
-    <div className="lm-hero__static-halo" />
-  </div>
+  <picture className="lm-hero__poster" aria-hidden="true">
+    <source srcSet="/images/hero-poster.webp" type="image/webp" />
+    <img
+      src="/images/hero-poster.webp"
+      alt=""
+      width="720"
+      height="720"
+      decoding="async"
+    />
+  </picture>
 );
 
+const canUseWebGL = () => {
+  if (typeof document === 'undefined') return false;
+
+  try {
+    const canvas = document.createElement('canvas');
+    return Boolean(
+      canvas.getContext('webgl2')
+      || canvas.getContext('webgl')
+      || canvas.getContext('experimental-webgl'),
+    );
+  } catch {
+    return false;
+  }
+};
+
 const Hero = () => {
-  const [reduceMotion, setReduceMotion] =
-    useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    );
-
-    const syncMotionPreference = () => {
-      setReduceMotion(mediaQuery.matches);
-    };
-
-    syncMotionPreference();
-
-    mediaQuery.addEventListener(
-      'change',
-      syncMotionPreference,
-    );
-
-    return () => {
-      mediaQuery.removeEventListener(
-        'change',
-        syncMotionPreference,
-      );
-    };
-  }, []);
+  const reduceMotion = usePrefersReducedMotion();
+  const supportsWebGL = useMemo(canUseWebGL, []);
 
   return (
     <section className="lm-hero">
@@ -71,23 +65,18 @@ const Hero = () => {
         >
           <div className="lm-hero__eyebrow">
             <span className="lm-hero__eyebrow-dot" />
-            AI · DIGITAL SOLUTIONS & GROWTH
+            AI · MEDIA · SOFTWARE
           </div>
 
           <h1 className="lm-hero__title">
-            <span className="lm-hero__brand">
-              LETAN <span>Media</span>
-            </span>
-
             <span className="lm-hero__headline">
-              Kiến tạo vị thế số &
-              <br />
-              tăng trưởng bứt phá
+              <span className="lm-hero__headline-line">Biến công nghệ thành</span>
+              <span className="lm-hero__headline-line">năng lực tăng trưởng</span>
             </span>
           </h1>
 
           <p className="lm-hero__description">
-            Giải pháp AI, truyền thông số, phần mềm tự động hóa và bảo vệ thương hiệu — xây dựng năng lực số toàn diện cho doanh nghiệp trong kỷ nguyên mới.
+            Kết nối AI, truyền thông số, phần mềm tự động hóa và bảo vệ thương hiệu thành một hệ giải pháp phù hợp với bài toán thực tế của doanh nghiệp.
           </p>
 
           <div className="lm-hero__actions">
@@ -95,7 +84,7 @@ const Hero = () => {
               href="#services"
               className="lm-btn lm-btn--primary"
             >
-              <span>Khám phá giải pháp</span>
+              <span>Khám phá năng lực</span>
               <ArrowRight
                 size={18}
                 strokeWidth={1.8}
@@ -110,7 +99,7 @@ const Hero = () => {
                 size={18}
                 strokeWidth={1.7}
               />
-              <span>Tư vấn chiến lược</span>
+              <span>Trao đổi bài toán</span>
             </Link>
           </div>
         </motion.div>
@@ -134,7 +123,7 @@ const Hero = () => {
         >
           <div className="lm-hero__visual-glow" />
 
-          {reduceMotion ? (
+          {reduceMotion || !supportsWebGL ? (
             <HeroStaticFallback />
           ) : (
             <Suspense fallback={<HeroStaticFallback />}>
@@ -150,7 +139,7 @@ const Hero = () => {
         <div className="lm-hero__trust-inner">
           <div className="lm-hero__trust-label">
             <span className="lm-hero__trust-indicator" />
-            <span>Năng lực cốt lõi</span>
+            <span>Một hệ năng lực kết nối</span>
           </div>
 
           <div className="lm-hero__trust-items">

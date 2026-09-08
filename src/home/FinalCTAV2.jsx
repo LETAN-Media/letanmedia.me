@@ -7,8 +7,6 @@ import {
 import {
   ArrowRight,
   MessageSquare,
-  Sparkles,
-  Zap,
 } from 'lucide-react';
 
 const openAssistant = () => {
@@ -48,7 +46,7 @@ const FinalCTAV2 = () => {
             </h2>
 
             <p>
-              Từ chiến lược tăng trưởng truyền thông đến triển khai hệ thống phần mềm và tích hợp AI tự động — chúng tôi luôn sẵn sàng đồng hành từ ý tưởng đến kết quả đo lường được.
+              Từ chiến lược truyền thông đến triển khai phần mềm và tích hợp AI — LETAN Media cùng bạn làm rõ bài toán, chọn phạm vi phù hợp và đưa giải pháp vào vận hành.
             </p>
 
             <div className="lm-final-cta__actions">

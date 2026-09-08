@@ -6,12 +6,9 @@ import {
 import {
   ArrowRight,
   Bot,
-  CheckCircle2,
   Cpu,
-  MessageSquare,
   Send,
   ShieldCheck,
-  Sparkles,
   Zap,
 } from 'lucide-react';
 
@@ -82,7 +79,7 @@ const LetanAIV2 = () => {
             </h2>
 
             <p>
-              Không chỉ trả lời câu hỏi thông thường, LETAN AI được đào tạo trên dữ liệu thực tế để hỗ trợ tư vấn dịch vụ, rà soát điều kiện xác minh tài khoản và gợi ý giải pháp tăng trưởng tự động 24/7.
+              LETAN AI có thể được cấu hình trên nguồn tri thức và luồng nghiệp vụ của doanh nghiệp để hỗ trợ tư vấn, sàng lọc yêu cầu và kết nối người dùng với bước xử lý phù hợp.
             </p>
 
             <div className="lm-ai__features">
@@ -91,8 +88,8 @@ const LetanAIV2 = () => {
                   <Zap size={18} strokeWidth={1.8} />
                 </div>
                 <div>
-                  <h4>Phản hồi tức thì 24/7</h4>
-                  <p>Không độ trễ, sẵn sàng tiếp nhận và giải đáp mọi yêu cầu tư vấn.</p>
+                  <h3>Phản hồi theo ngữ cảnh</h3>
+                  <p>Ưu tiên câu trả lời ngắn gọn dựa trên nhu cầu và thông tin người dùng cung cấp.</p>
                 </div>
               </div>
 
@@ -101,8 +98,8 @@ const LetanAIV2 = () => {
                   <ShieldCheck size={18} strokeWidth={1.8} />
                 </div>
                 <div>
-                  <h4>Nắm vững chính sách nền tảng</h4>
-                  <p>Cập nhật quy định mới nhất về tích xanh, bản quyền và an toàn kênh.</p>
+                  <h3>Bám sát nguồn tri thức</h3>
+                  <p>Có thể kết nối tài liệu dịch vụ, quy trình nội bộ và hướng dẫn đã được doanh nghiệp duyệt.</p>
                 </div>
               </div>
 
@@ -111,8 +108,8 @@ const LetanAIV2 = () => {
                   <Cpu size={18} strokeWidth={1.8} />
                 </div>
                 <div>
-                  <h4>Tích hợp sâu theo yêu cầu</h4>
-                  <p>Có thể đóng gói thành giải pháp riêng cho doanh nghiệp của bạn.</p>
+                  <h3>Tích hợp theo quy trình</h3>
+                  <p>Kết nối với website và các bước chuyển tiếp phù hợp với phạm vi triển khai.</p>
                 </div>
               </div>
             </div>
@@ -131,10 +128,10 @@ const LetanAIV2 = () => {
               <div className="lm-ai-console__header">
                 <div className="lm-ai-console__title">
                   <span className="lm-ai-console__dot" />
-                  <span>LETAN AI Studio · v3.2</span>
+                  <span>LETAN AI · PRODUCT DEMO</span>
                 </div>
                 <div className="lm-ai-console__badge">
-                  <span>ACTIVE</span>
+                  <span>DEMO</span>
                 </div>
               </div>
 

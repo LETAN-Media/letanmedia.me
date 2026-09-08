@@ -49,6 +49,7 @@ function App() {
   const location = useLocation();
   const showHomeChatbot = !['/tiktok-report', '/youtube-report', '/geo-entity-manager'].some(p => location.pathname.startsWith(p));
   const isGeoManager = location.pathname === '/geo-entity-manager';
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     initAnalytics();
@@ -61,31 +62,24 @@ function App() {
   }, [location.pathname]);
 
   return (
-    <div className="app-container">
+    <div className={`app-container${isHome ? ' lm-home-shell' : ''}`}>
       <ScrollToTop />
+      {!isGeoManager && (
+        <a className="lm-skip-link" href="#main-content">
+          Bỏ qua điều hướng
+        </a>
+      )}
       {!isGeoManager && <Header />}
-      <main>
-      <Suspense fallback={
-        <div style={{
-          minHeight: '100vh',
-          background: 'var(--color-bg, #070A12)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          <div style={{
-            width: 40,
-            height: 40,
-            borderRadius: '50%',
-            border: '2px solid rgba(79,124,255,0.2)',
-            borderTopColor: '#4F7CFF',
-            animation: 'spin 0.8s linear infinite',
-          }} />
-        </div>
-      }>
-        <Routes>
+      <main id="main-content" tabIndex="-1">
+        <Suspense fallback={
+          <div className="lm-route-loader" role="status" aria-live="polite">
+            <span className="lm-route-loader__spinner" aria-hidden="true" />
+            <span className="lm-sr-only">Đang tải nội dung</span>
+          </div>
+        }>
+          <Routes>
           <Route path="/" element={
-            <>
+            <div className="lm-home">
               <Seo
                 title="LETAN Media — AI, Marketing & Digital Growth"
                 description="Giải pháp AI, truyền thông số và phát triển phần mềm dành cho cá nhân và doanh nghiệp. Premium AI-first digital agency."
@@ -98,7 +92,7 @@ function App() {
               <WhyLetanV2 />
               <LetanAIV2 />
               <FinalCTAV2 />
-            </>
+            </div>
           } />
           <Route path="/policy" element={
             <>
@@ -186,7 +180,7 @@ function App() {
 
           {/* Catch-all -> home (no broken links) */}
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+          </Routes>
         </Suspense>
       </main>
       {!isGeoManager && <FooterV2 />}

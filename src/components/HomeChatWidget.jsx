@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { MessageSquare, X, Send } from 'lucide-react';
 import { track, ANALYTICS_EVENTS } from '../lib/analytics';
@@ -13,23 +13,52 @@ const suggestions = [
 ];
 
 export default function HomeChatWidget() {
+  const reduceMotion = useReducedMotion();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Chào bạn, Tôi là trợ lý AI của LETAN Media. Tôi có thể giúp gì cho bạn. ?'
+      content: 'Chào bạn, tôi là trợ lý AI của LETAN Media. Tôi có thể hỗ trợ gì cho bạn?'
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [consecutiveErrors, setConsecutiveErrors] = useState(0);
   const chatEndRef = useRef(null);
+  const triggerRef = useRef(null);
+  const closeRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      chatEndRef.current.scrollIntoView({
+        behavior: reduceMotion ? 'auto' : 'smooth',
+      });
     }
-  }, [messages, isLoading]);
+  }, [messages, isLoading, reduceMotion]);
+
+  useEffect(() => {
+    if (isOpen) {
+      window.requestAnimationFrame(() => closeRef.current?.focus());
+      return undefined;
+    }
+
+    return undefined;
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+        triggerRef.current?.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
 
   const handleSendRef = useRef(null);
   useEffect(() => {
@@ -41,12 +70,12 @@ export default function HomeChatWidget() {
       setIsOpen(true);
       track(ANALYTICS_EVENTS.OPEN_CHAT);
       if (e.detail && e.detail.message) {
-        // Wait a small bit for opening animation before sending message
+        // Allow the panel to mount before forwarding a pre-filled prompt.
         setTimeout(() => {
           if (handleSendRef.current) {
             handleSendRef.current(e.detail.message);
           }
-        }, 300);
+        }, reduceMotion ? 0 : 250);
       }
     };
 
@@ -54,7 +83,7 @@ export default function HomeChatWidget() {
     return () => {
       window.removeEventListener('open-home-chatbot', handleOpenEvent);
     };
-  }, []);
+  }, [reduceMotion]);
 
   const handleSend = async (textToSend) => {
     const text = textToSend || input;
@@ -81,7 +110,7 @@ CÁC ROUTE ĐIỀU HƯỚNG BẮT BUỘC DÙNG (KHI NÓI ĐẾN DỊCH VỤ TƯ�
 3. Dịch vụ Chatbot AI, phần mềm, thiết kế web, CRM: chèn [Tìm Hiểu Giải Pháp Chatbot AI](/chatbot-ai) ở dòng cuối.
 4. Bất kỳ dịch vụ nào khác hoặc khi khách cần báo giá tổng thể: Hãy hướng dẫn khách liên hệ qua Zalo: [Liên Hệ Qua Zalo](https://zalo.me/0765178999) hoặc Telegram: [Liên Hệ Qua Telegram](https://t.me/Tanlemedia).
 
-QUY TẮC CỐNG LẠM DỤNG (BẮT BUỘC):
+QUY TẮC CHỐNG LẠM DỤNG (BẮT BUỘC):
 - Trả lời ngắn gọn, cô đọng, không viết dông dài.
 - Tuyệt đối không viết code, không làm thơ, không làm toán.
 - Luôn luôn chèn liên kết markdown tương ứng ở dòng cuối để điều hướng người dùng.`
@@ -201,46 +230,64 @@ QUY TẮC CỐNG LẠM DỤNG (BẮT BUỘC):
     <div className="home-chat-widget">
       {/* Floating Button */}
       <motion.button
+        ref={triggerRef}
+        type="button"
         className="home-chat-trigger"
         onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={reduceMotion ? undefined : { scale: 1.05 }}
+        whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+        aria-label={isOpen ? 'Đóng trợ lý LETAN' : 'Mở trợ lý LETAN'}
+        aria-expanded={isOpen}
+        aria-controls="home-chat-dialog"
       >
-        {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
-        {!isOpen && (
-          <span className="home-pulse-glow" />
-        )}
+        {isOpen ? <X size={24} aria-hidden="true" /> : <MessageSquare size={24} aria-hidden="true" />}
       </motion.button>
 
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="home-chat-dialog"
             className="home-chat-window"
-            initial={{ opacity: 0, scale: 0.85, y: 30 }}
+            role="dialog"
+            aria-labelledby="home-chat-title"
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.96, y: 18 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.85, y: 30 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: 18 }}
+            transition={{ duration: reduceMotion ? 0 : 0.22, ease: 'easeOut' }}
           >
             {/* Header */}
             <div className="home-chat-header">
               <div className="home-chat-header-info">
                 <div className="home-bot-avatar">LT</div>
                 <div className="home-bot-name">
-                  <h4>LETAN Assistant</h4>
+                  <div className="home-bot-title" id="home-chat-title">LETAN Assistant</div>
                   <div className="home-bot-status">
                     <span className="home-status-dot"></span>
-                    <span>Sẵn sàng hỗ trợ</span>
+                    <span>Trợ lý tư vấn</span>
                   </div>
                 </div>
               </div>
-              <button className="home-chat-close" onClick={() => setIsOpen(false)}>
-                <X size={18} />
+              <button
+                ref={closeRef}
+                type="button"
+                className="home-chat-close"
+                onClick={() => {
+                  setIsOpen(false);
+                  triggerRef.current?.focus();
+                }}
+                aria-label="Đóng trợ lý LETAN"
+              >
+                <X size={18} aria-hidden="true" />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="home-chat-messages">
+            <div
+              className="home-chat-messages"
+              aria-live="polite"
+              aria-busy={isLoading}
+            >
               {messages.map((msg, idx) => (
                 <div key={idx} className={`home-chat-message ${msg.role}`}>
                   {renderMessageContent(msg.content)}
@@ -263,6 +310,7 @@ QUY TẮC CỐNG LẠM DỤNG (BẮT BUỘC):
                 {suggestions.map((sug, idx) => (
                   <button
                     key={idx}
+                    type="button"
                     className="home-chat-suggest-btn"
                     onClick={() => handleSend(sug)}
                     disabled={isLoading}
@@ -276,6 +324,7 @@ QUY TẮC CỐNG LẠM DỤNG (BẮT BUỘC):
             {/* Input Area */}
             <div className="home-chat-input-area">
               <input
+                ref={inputRef}
                 type="text"
                 className="home-chat-input"
                 placeholder="Nhập nội dung tin nhắn..."
@@ -283,13 +332,16 @@ QUY TẮC CỐNG LẠM DỤNG (BẮT BUỘC):
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 disabled={isLoading}
+                aria-label="Tin nhắn cho trợ lý LETAN"
               />
               <button
+                type="button"
                 className="home-chat-send-btn"
                 onClick={() => handleSend()}
                 disabled={!input.trim() || isLoading}
+                aria-label="Gửi tin nhắn"
               >
-                <Send size={16} />
+                <Send size={16} aria-hidden="true" />
               </button>
             </div>
           </motion.div>

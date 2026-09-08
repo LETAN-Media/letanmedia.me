@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 const SITE_URL = 'https://letanmedia.me';
-const DEFAULT_IMAGE = 'https://cdn.letanmedia.me/images/hero/hero-poster.webp';
+const DEFAULT_IMAGE = 'https://letanmedia.me/images/hero-poster.webp';
 
 /**
  * SEO component that renders meta tags in JSX for prerender/SSG
@@ -59,7 +59,7 @@ export default function Seo({
     upsertMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
     upsertMeta('meta[name="twitter:image"]', 'name', 'twitter:image', image);
     upsertMeta('meta[name="robots"]', 'name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow');
-  }, [title, description, path, image, type, noindex]);
+  }, [title, description, canonical, image, type, noindex]);
 
   // Render meta tags in JSX for prerender/SSG compatibility.
   // During client render these are no-ops (useEffect handles updates).
