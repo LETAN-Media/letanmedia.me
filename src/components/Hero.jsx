@@ -11,7 +11,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react';
 
 import '../home/fable-hero.css';
 
-const Hero3D = lazy(() => import('./Hero3D'));
+const Fish3D = lazy(() => import('./Fish3D'));
 
 const canUseWebGL = () => {
   if (typeof document === 'undefined') return false;
@@ -113,23 +113,6 @@ const Hero = () => {
     progress,
     [0, 0.48, 0.72, 1],
     [0, -1.6, 2.8, 0.8],
-  );
-
-  const artifactFilter = useTransform(
-    progress,
-    [0, 0.40, 0.58, 1],
-    [
-      'saturate(0.88) contrast(1.03)',
-      'saturate(0.95) contrast(1.06)',
-      'saturate(1.08) brightness(0.96) contrast(1.08)',
-      'saturate(1.12) brightness(0.90) contrast(1.12)',
-    ],
-  );
-
-  const digitalOverlayOpacity = useTransform(
-    progress,
-    [0.40, 0.62],
-    [0, 1],
   );
 
   const scrollHintOpacity = useTransform(
@@ -267,26 +250,17 @@ const Hero = () => {
               filter: artifactFilter,
             }}
           >
-            <div className="lm-film-hero__artifact-glow" />
+            
 
             <div className="lm-film-hero__artifact-canvas">
               {reduceMotion || !supportsWebGL ? (
                 <HeroFallback />
               ) : (
                 <Suspense fallback={<HeroFallback />}>
-                  <Hero3D />
+                  <Fish3D progress={progress} reduceMotion={reduceMotion} />
                 </Suspense>
               )}
             </div>
-
-            <motion.div
-              className="lm-film-hero__digital-overlay"
-              style={{ opacity: digitalOverlayOpacity }}
-            >
-              <div className="lm-film-hero__scanlines" />
-              <div className="lm-film-hero__digital-ring" />
-              <div className="lm-film-hero__digital-ring lm-film-hero__digital-ring--two" />
-            </motion.div>
           </motion.div>
         </div>
 
