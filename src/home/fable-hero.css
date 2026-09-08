@@ -884,3 +884,136 @@
     transform: none !important;
   }
 }
+
+/* ============================================================
+   IPAD / TABLET PORTRAIT HERO FIX
+   Fix awkward spacing, oversized title split, and floating orb
+   ============================================================ */
+@media (min-width: 721px) and (max-width: 1100px) and (orientation: portrait) {
+  .lm-film-hero {
+    height: 178svh;
+  }
+
+  .lm-film-hero__stage {
+    min-height: 900px;
+  }
+
+  .lm-film-hero__light-meta {
+    top: calc(108px + env(safe-area-inset-top, 0px));
+    left: 28px;
+    right: 28px;
+    font-size: 0.60rem;
+    letter-spacing: 0.16em;
+  }
+
+  .lm-film-hero__masthead {
+    top: 24%;
+    left: 4vw;
+    width: 90vw;
+    display: block;
+    font-size: 13.2vw;
+    line-height: 0.84;
+    white-space: normal;
+  }
+
+  .lm-film-hero__masthead span {
+    display: block;
+  }
+
+  .lm-film-hero__masthead-media {
+    margin-top: 4px;
+    margin-left: 33vw;
+  }
+
+  .lm-film-hero__artifact-slot {
+    align-items: start;
+    padding-top: 34svh;
+  }
+
+  .lm-film-hero__artifact {
+    width: min(48vw, 390px);
+    height: min(48vw, 390px);
+    min-width: 300px;
+    min-height: 300px;
+    margin-top: 0;
+  }
+
+  .lm-film-hero__light-footer {
+    left: 28px;
+    right: 28px;
+    bottom: calc(44px + env(safe-area-inset-bottom, 0px));
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 18px;
+    align-items: end;
+  }
+
+  .lm-film-hero__intro {
+    max-width: 340px;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+  }
+
+  .lm-film-hero__intro p {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .lm-film-hero__light-actions {
+    gap: 14px;
+    justify-content: flex-end;
+  }
+
+  .lm-film-hero__text-link {
+    font-size: 0.74rem;
+  }
+
+  .lm-film-hero__pill {
+    min-height: 42px;
+    padding-inline: 16px;
+    font-size: 0.74rem;
+  }
+
+  .lm-film-hero__scroll {
+    bottom: 18px;
+    font-size: 0.54rem;
+  }
+
+  /* Blue scene on iPad portrait */
+  .lm-film-hero__blue-title {
+    top: 15%;
+    left: 28px;
+    right: 28px;
+    display: block;
+    font-size: 10.5vw;
+    line-height: 0.84;
+  }
+
+  .lm-film-hero__blue-title-right {
+    margin-top: 8px;
+    text-align: right;
+  }
+
+  .lm-film-hero__blue-footer {
+    left: 28px;
+    right: 28px;
+    bottom: calc(44px + env(safe-area-inset-bottom, 0px));
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .lm-film-hero__capabilities {
+    grid-template-columns: repeat(2, max-content);
+    gap: 8px 20px;
+    font-size: 0.58rem;
+  }
+
+  .lm-film-hero__blue-description {
+    max-width: 360px;
+    justify-self: end;
+  }
+
+  .lm-film-hero__blue-description p {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+}
