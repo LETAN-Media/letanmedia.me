@@ -1,13 +1,36 @@
-import React, { Suspense, lazy, useMemo } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import React, { Suspense, lazy, useMemo, useRef } from 'react';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MessageCircle } from 'lucide-react';
-import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react';
+
+import '../home/fable-hero.css';
 
 const Hero3D = lazy(() => import('./Hero3D'));
 
-const HeroStaticFallback = () => (
-  <picture className="lm-hero__poster" aria-hidden="true">
+const canUseWebGL = () => {
+  if (typeof document === 'undefined') return false;
+
+  try {
+    const canvas = document.createElement('canvas');
+
+    return Boolean(
+      canvas.getContext('webgl2')
+      || canvas.getContext('webgl')
+      || canvas.getContext('experimental-webgl'),
+    );
+  } catch {
+    return false;
+  }
+};
+
+const HeroFallback = () => (
+  <picture className="lm-film-hero__fallback" aria-hidden="true">
     <source srcSet="/images/hero-poster.webp" type="image/webp" />
     <img
       src="/images/hero-poster.webp"
@@ -19,123 +42,263 @@ const HeroStaticFallback = () => (
   </picture>
 );
 
-const canUseWebGL = () => {
-  if (typeof document === 'undefined') return false;
-
-  try {
-    const canvas = document.createElement('canvas');
-    return Boolean(
-      canvas.getContext('webgl2')
-      || canvas.getContext('webgl')
-      || canvas.getContext('experimental-webgl'),
-    );
-  } catch {
-    return false;
-  }
-};
-
 const Hero = () => {
-  const reduceMotion = usePrefersReducedMotion();
+  const sectionRef = useRef(null);
+  const reduceMotion = useReducedMotion();
   const supportsWebGL = useMemo(canUseWebGL, []);
 
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  });
+
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 88,
+    damping: 26,
+    mass: 0.34,
+  });
+
+  // Scene 01 — editorial white
+  const lightOpacity = useTransform(
+    progress,
+    [0, 0.28, 0.48],
+    [1, 1, 0],
+  );
+
+  const lightY = useTransform(
+    progress,
+    [0, 0.48],
+    [0, -70],
+  );
+
+  const mastheadX = useTransform(
+    progress,
+    [0, 0.45],
+    ['0%', '-4%'],
+  );
+
+  // Scene 02 — blue plane rises from bottom
+  const blueY = useTransform(
+    progress,
+    [0.18, 0.50],
+    ['101%', '0%'],
+  );
+
+  const blueContentOpacity = useTransform(
+    progress,
+    [0.46, 0.62],
+    [0, 1],
+  );
+
+  const blueContentY = useTransform(
+    progress,
+    [0.46, 0.68],
+    [54, 0],
+  );
+
+  // Persistent central object
+  const artifactScale = useTransform(
+    progress,
+    [0, 0.30, 0.54, 1],
+    [0.92, 1.04, 0.79, 0.91],
+  );
+
+  const artifactY = useTransform(
+    progress,
+    [0, 0.32, 0.60, 1],
+    [18, -8, 10, -14],
+  );
+
+  const artifactRotate = useTransform(
+    progress,
+    [0, 0.48, 0.72, 1],
+    [0, -1.6, 2.8, 0.8],
+  );
+
+  const artifactFilter = useTransform(
+    progress,
+    [0, 0.40, 0.58, 1],
+    [
+      'saturate(0.8) contrast(1.05)',
+      'saturate(0.9) contrast(1.08)',
+      'saturate(0.18) brightness(1.85) contrast(1.14)',
+      'saturate(0.05) brightness(2.15) contrast(1.1)',
+    ],
+  );
+
+  const digitalOverlayOpacity = useTransform(
+    progress,
+    [0.40, 0.62],
+    [0, 1],
+  );
+
+  const scrollHintOpacity = useTransform(
+    progress,
+    [0, 0.10, 0.26],
+    [1, 1, 0],
+  );
+
   return (
-    <section className="lm-hero">
-      <div className="lm-hero__container">
-        <div className="lm-hero__layout">
-          {/* Left: Editorial Content */}
-          <motion.div
-            className="lm-hero__content"
-            initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
+    <section
+      ref={sectionRef}
+      className={`lm-film-hero${reduceMotion ? ' lm-film-hero--reduced' : ''}`}
+      aria-labelledby="lm-film-hero-title"
+    >
+      <div className="lm-film-hero__stage">
+
+        {/* Scene 01 */}
+        <motion.div
+          className="lm-film-hero__scene lm-film-hero__scene--light"
+          style={{
+            opacity: lightOpacity,
+            y: lightY,
+          }}
+        >
+          <div className="lm-film-hero__light-meta">
+            <span>AI · MEDIA · SOFTWARE</span>
+            <span>VIETNAM / 2026</span>
+          </div>
+
+          <motion.h1
+            id="lm-film-hero-title"
+            className="lm-film-hero__masthead"
+            style={{ x: mastheadX }}
           >
-            <div className="lm-eyebrow lm-eyebrow--electric">
-              <span className="lm-eyebrow-dot" />
-              AI · MEDIA · SOFTWARE
+            <span>LETAN</span>
+            <span className="lm-film-hero__masthead-media">
+              Media
+            </span>
+          </motion.h1>
+
+          <div className="lm-film-hero__light-footer">
+            <div className="lm-film-hero__intro">
+              <span className="lm-film-hero__number">
+                001
+              </span>
+
+              <p>
+                Giải pháp AI, truyền thông số và phát triển
+                phần mềm dành cho cá nhân và doanh nghiệp.
+              </p>
             </div>
 
-            <h1 className="lm-hero__title">
-              <span className="lm-hero__headline">
-                <span className="lm-hero__headline-line">Biến công nghệ thành</span>
-                <span className="lm-hero__headline-line lm-hero__headline-line--accent">
-                  năng lực tăng trưởng
-                </span>
-              </span>
-            </h1>
-
-            <p className="lm-hero__description">
-              Kết nối AI, truyền thông số, phần mềm tự động hóa và bảo vệ thương hiệu thành một hệ giải pháp phù hợp với bài toán thực tế của doanh nghiệp.
-            </p>
-
-            <div className="lm-hero__actions">
+            <div className="lm-film-hero__light-actions">
               <a
                 href="#services"
-                className="lm-btn lm-btn--primary"
+                className="lm-film-hero__text-link"
               >
                 <span>Khám phá năng lực</span>
-                <ArrowRight size={18} strokeWidth={1.8} />
+                <ArrowRight size={16} strokeWidth={1.5} />
               </a>
 
               <Link
                 to="/contact"
-                className="lm-btn lm-btn--secondary"
+                className="lm-film-hero__pill lm-film-hero__pill--dark"
               >
-                <MessageCircle size={18} strokeWidth={1.7} />
-                <span>Trao đổi bài toán</span>
+                <span>Trao đổi dự án</span>
+                <ArrowUpRight size={15} strokeWidth={1.6} />
               </Link>
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          {/* Right: Signal Field (3D Canvas) */}
+        {/* Scene 02 */}
+        <motion.div
+          className="lm-film-hero__scene lm-film-hero__scene--blue"
+          style={{ y: blueY }}
+        >
+          <div className="lm-film-hero__blue-light lm-film-hero__blue-light--one" />
+          <div className="lm-film-hero__blue-light lm-film-hero__blue-light--two" />
+          <div className="lm-film-hero__noise" />
+
           <motion.div
-            className="lm-hero__visual"
-            initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
-            animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
-            transition={{ duration: 1.1, delay: 0.15, ease: [0.165, 0.84, 0.44, 1] }}
-            aria-hidden="true"
+            className="lm-film-hero__blue-content"
+            style={{
+              opacity: blueContentOpacity,
+              y: blueContentY,
+            }}
           >
-            <div className="lm-hero__visual-glow" />
+            <h2 className="lm-film-hero__blue-title">
+              <span>Biến công nghệ</span>
 
-            {reduceMotion || !supportsWebGL ? (
-              <HeroStaticFallback />
-            ) : (
-              <Suspense fallback={<HeroStaticFallback />}>
-                <Hero3D />
-              </Suspense>
-            )}
+              <span className="lm-film-hero__blue-title-right">
+                thành năng lực tăng trưởng.
+              </span>
+            </h2>
 
-            <div className="lm-hero__visual-fade" />
-          </motion.div>
-        </div>
-
-        {/* Trust bar below fold */}
-        <div className="lm-hero__trust">
-          <div className="lm-hero__trust-inner">
-            <div className="lm-hero__trust-label">
-              <span className="lm-hero__trust-indicator" />
-              <span>Một hệ năng lực kết nối</span>
-            </div>
-
-            <div className="lm-hero__trust-items">
-              <div className="lm-hero__trust-pill">
-                <span className="lm-hero__trust-pill-dot lm-hero__trust-pill-dot--ai" />
-                <span>AI Automation</span>
-              </div>
-              <div className="lm-hero__trust-pill">
-                <span className="lm-hero__trust-pill-dot lm-hero__trust-pill-dot--cyan" />
+            <div className="lm-film-hero__blue-footer">
+              <div className="lm-film-hero__capabilities">
                 <span>Digital Growth</span>
-              </div>
-              <div className="lm-hero__trust-pill">
-                <span className="lm-hero__trust-pill-dot lm-hero__trust-pill-dot--gold" />
+                <span>AI Automation</span>
+                <span>Web & Software</span>
                 <span>Platform Protection</span>
               </div>
-              <div className="lm-hero__trust-pill">
-                <span className="lm-hero__trust-pill-dot lm-hero__trust-pill-dot--cobalt" />
-                <span>Web & Software</span>
+
+              <div className="lm-film-hero__blue-description">
+                <p>
+                  Kết nối AI, truyền thông số, phần mềm tự động
+                  hóa và bảo vệ thương hiệu thành một hệ giải
+                  pháp phù hợp với bài toán thực tế.
+                </p>
+
+                <Link
+                  to="/contact"
+                  className="lm-film-hero__pill lm-film-hero__pill--light"
+                >
+                  <span>Bắt đầu dự án</span>
+                  <ArrowUpRight size={15} strokeWidth={1.6} />
+                </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Persistent central visual */}
+        <div
+          className="lm-film-hero__artifact-slot"
+          aria-hidden="true"
+        >
+          <motion.div
+            className="lm-film-hero__artifact"
+            style={{
+              scale: artifactScale,
+              y: artifactY,
+              rotateZ: artifactRotate,
+              filter: artifactFilter,
+            }}
+          >
+            <div className="lm-film-hero__artifact-glow" />
+
+            <div className="lm-film-hero__artifact-canvas">
+              {reduceMotion || !supportsWebGL ? (
+                <HeroFallback />
+              ) : (
+                <Suspense fallback={<HeroFallback />}>
+                  <Hero3D />
+                </Suspense>
+              )}
+            </div>
+
+            <motion.div
+              className="lm-film-hero__digital-overlay"
+              style={{ opacity: digitalOverlayOpacity }}
+            >
+              <div className="lm-film-hero__scanlines" />
+              <div className="lm-film-hero__digital-ring" />
+              <div className="lm-film-hero__digital-ring lm-film-hero__digital-ring--two" />
+            </motion.div>
+          </motion.div>
         </div>
+
+        <motion.div
+          className="lm-film-hero__scroll"
+          style={{ opacity: scrollHintOpacity }}
+          aria-hidden="true"
+        >
+          <span>SCROLL TO TRANSFORM</span>
+          <ArrowDown size={15} strokeWidth={1.5} />
+        </motion.div>
+
       </div>
     </section>
   );
