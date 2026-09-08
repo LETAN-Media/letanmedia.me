@@ -100,7 +100,7 @@ const Hero = () => {
   const artifactScale = useTransform(
     progress,
     [0, 0.30, 0.54, 1],
-    [0.92, 1.04, 0.79, 0.91],
+    [0.84, 0.94, 0.70, 0.76],
   );
 
   const artifactY = useTransform(
@@ -119,10 +119,10 @@ const Hero = () => {
     progress,
     [0, 0.40, 0.58, 1],
     [
-      'saturate(0.8) contrast(1.05)',
-      'saturate(0.9) contrast(1.08)',
-      'saturate(0.18) brightness(1.85) contrast(1.14)',
-      'saturate(0.05) brightness(2.15) contrast(1.1)',
+      'saturate(0.88) contrast(1.03)',
+      'saturate(0.95) contrast(1.06)',
+      'saturate(1.08) brightness(0.96) contrast(1.08)',
+      'saturate(1.12) brightness(0.90) contrast(1.12)',
     ],
   );
 
