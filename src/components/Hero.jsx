@@ -237,9 +237,15 @@ const Hero = () => {
             <div className="lm-film-hero__artifact-canvas">
               {!supportsWebGL ? null : (
                 <VisualErrorBoundary
-                  fallback={null}
+                  fallback={
+                    <div className="lm-peach-scene-fallback" />
+                  }
                 >
-                  <Suspense fallback={null}>
+                  <Suspense
+                    fallback={
+                      <div className="lm-peach-scene-fallback" />
+                    }
+                  >
                     <Fish3D
                       progress={progress}
                       reduceMotion={reduceMotion}

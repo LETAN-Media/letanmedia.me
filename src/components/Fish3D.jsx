@@ -1113,19 +1113,23 @@ function PeachUnderworld({
             </group>
           )}
 
-          <VideoLayer
-            config={waterLayer}
-            src="/peach/video/water2.mp4"
-            color="#1f9eff"
-            opacity={0.66}
-          />
+          {!reduceMotion && (
+            <Suspense fallback={null}>
+              <VideoLayer
+                config={waterLayer}
+                src="/peach/video/water2.mp4"
+                color="#1f9eff"
+                opacity={0.66}
+              />
 
-          <VideoLayer
-            config={raysLayer}
-            src="/peach/video/rays-2b.mp4"
-            color="#6abeff"
-            opacity={0.56}
-          />
+              <VideoLayer
+                config={raysLayer}
+                src="/peach/video/rays-2b.mp4"
+                color="#6abeff"
+                opacity={0.56}
+              />
+            </Suspense>
+          )}
         </group>
       )}
 
@@ -1315,7 +1319,9 @@ function RootObjects({
    POST PROCESSING
    ============================================================ */
 
-function PeachPostFX() {
+function PeachPostFX({ disabled = false }) {
+  if (disabled) return null;
+
   return (
     <EffectComposer multisampling={0}>
       <Bloom
@@ -1385,7 +1391,7 @@ function PeachScene({
         reduceMotion={reduceMotion}
       />
 
-      <PeachPostFX />
+      <PeachPostFX disabled={isMobile} />
     </>
   );
 }
@@ -1441,7 +1447,7 @@ function Fish3D({
         }}
         dpr={
           isMobile
-            ? [1, 1.25]
+            ? [1, 1]
             : [1, 1.5]
         }
         gl={{
