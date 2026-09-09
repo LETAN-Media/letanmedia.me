@@ -28,6 +28,181 @@
 <link href="css/css" rel="stylesheet"/><link href="#" rel="stylesheet"/>
 <script>        window._pwInitialPath = "/v2";
 </script>
+
+<script id="lm-peach-debug">
+(function () {
+  const lines = [];
+
+  function stringify(v) {
+    try {
+      if (v instanceof Error) {
+        return v.stack || v.message || String(v);
+      }
+
+      if (typeof v === 'object') {
+        return JSON.stringify(v);
+      }
+
+      return String(v);
+    } catch (_) {
+      return String(v);
+    }
+  }
+
+  function log(type, ...args) {
+    const text =
+      '[' + type + '] ' +
+      args.map(stringify).join(' ');
+
+    lines.push(text);
+
+    if (lines.length > 35) {
+      lines.shift();
+    }
+
+    render();
+  }
+
+  function render() {
+    let box =
+      document.getElementById('lm-peach-debug-box');
+
+    if (!box) {
+      box = document.createElement('pre');
+      box.id = 'lm-peach-debug-box';
+
+      Object.assign(box.style, {
+        position: 'fixed',
+        left: '8px',
+        right: '8px',
+        bottom: '90px',
+        zIndex: '2147483647',
+        maxHeight: '46vh',
+        overflow: 'auto',
+        margin: '0',
+        padding: '10px',
+        borderRadius: '10px',
+        background: 'rgba(0,0,0,.92)',
+        color: '#00ff88',
+        font: '11px/1.35 monospace',
+        whiteSpace: 'pre-wrap',
+        wordBreak: 'break-word',
+        pointerEvents: 'auto'
+      });
+
+      document.documentElement.appendChild(box);
+    }
+
+    box.textContent = lines.join('\n\n');
+  }
+
+  window.addEventListener(
+    'error',
+    function (e) {
+      log(
+        'WINDOW ERROR',
+        e.message,
+        e.filename + ':' + e.lineno + ':' + e.colno,
+        e.error || ''
+      );
+    },
+    true
+  );
+
+  window.addEventListener(
+    'unhandledrejection',
+    function (e) {
+      log(
+        'PROMISE',
+        e.reason || 'unknown rejection'
+      );
+    }
+  );
+
+  const oldError = console.error;
+
+  console.error = function (...args) {
+    log('CONSOLE ERROR', ...args);
+    return oldError.apply(console, args);
+  };
+
+  document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+      log('PATH', location.pathname);
+      log('INITIAL', window._pwInitialPath);
+
+      try {
+        const canvas =
+          document.createElement('canvas');
+
+        const gl =
+          canvas.getContext('webgl2') ||
+          canvas.getContext('webgl');
+
+        log(
+          'WEBGL',
+          gl ? 'OK' : 'FAILED'
+        );
+
+        if (gl) {
+          const ext =
+            gl.getExtension('WEBGL_lose_context');
+
+          if (ext) {
+            ext.loseContext();
+          }
+        }
+      } catch (e) {
+        log('WEBGL TEST ERROR', e);
+      }
+
+      fetch(
+        '/v2/scene-state/7a38b385-c817-4e66-8d96-8cad23a6b0d9.json'
+      )
+        .then(async r => {
+          log(
+            'MOBILE SCENE',
+            r.status,
+            r.headers.get('content-type')
+          );
+
+          await r.json();
+
+          log(
+            'MOBILE SCENE JSON',
+            'OK'
+          );
+        })
+        .catch(e => {
+          log(
+            'MOBILE SCENE FAIL',
+            e
+          );
+        });
+
+      fetch('/v2/assets/clownfish.glb')
+        .then(r => {
+          log(
+            'FISH',
+            r.status,
+            r.headers.get('content-type'),
+            r.headers.get('content-length')
+          );
+        })
+        .catch(e => {
+          log(
+            'FISH FAIL',
+            e
+          );
+        });
+    }
+  );
+
+  log('DEBUG', 'listener installed');
+})();
+</script>
+
 <script defer="defer" fetchpriority="high" src="js/script.js"></script>
 <script>
 function initLazyVideoWrapper(wrapper) {
