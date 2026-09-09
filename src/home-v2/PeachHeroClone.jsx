@@ -7,12 +7,7 @@ import React, {
 } from 'react';
 
 import * as THREE from 'three';
-
-import {
-  Canvas,
-  useFrame,
-} from '@react-three/fiber';
-
+import { Canvas } from '@react-three/fiber';
 import {
   useAnimations,
   useGLTF,
@@ -23,7 +18,7 @@ import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 const FISH_URL = '/peach-v2/clownfish.glb';
 const FISH_CLIP = 'Fish|swim_B3';
 
-function ClownFish() {
+function Fish() {
   const gltf = useGLTF(FISH_URL);
 
   const model = useMemo(
@@ -31,110 +26,69 @@ function ClownFish() {
     [gltf.scene],
   );
 
-  const holderRef = useRef(null);
+  const holder = useRef();
 
-  const {
-    actions,
-  } = useAnimations(
+  const { actions } = useAnimations(
     gltf.animations,
     model,
   );
 
-  /*
-   * Auto-center + auto-scale.
-   * Không phụ thuộc kích thước thực của GLB.
-   * Mục tiêu phase này: chắc chắn cá phải xuất hiện.
-   */
   useLayoutEffect(() => {
-    const box =
-      new THREE.Box3().setFromObject(model);
+    const box = new THREE.Box3().setFromObject(model);
 
-    const size =
-      new THREE.Vector3();
-
-    const center =
-      new THREE.Vector3();
+    const size = new THREE.Vector3();
+    const center = new THREE.Vector3();
 
     box.getSize(size);
     box.getCenter(center);
 
-    model.position.set(
-      -center.x,
-      -center.y,
-      -center.z,
-    );
+    model.position.sub(center);
 
-    const maxDimension =
-      Math.max(
-        size.x,
-        size.y,
-        size.z,
-      ) || 1;
+    const maxSize = Math.max(
+      size.x,
+      size.y,
+      size.z,
+    ) || 1;
 
     /*
-     * Cá chiếm khoảng 46% chiều ngang scene.
+     * Cá lớn rõ ràng để trước tiên xác nhận model render được.
      */
-    const targetSize = 2.35;
-
-    const normalizedScale =
-      targetSize / maxDimension;
-
-    holderRef.current?.scale.setScalar(
-      normalizedScale,
+    holder.current?.scale.setScalar(
+      2.3 / maxSize,
     );
   }, [model]);
 
   useEffect(() => {
     const action =
       actions[FISH_CLIP]
-      ?? Object.values(actions).find(Boolean);
+      || Object.values(actions).find(Boolean);
 
     if (!action) {
+      console.warn(
+        'Fish clips:',
+        gltf.animations.map((clip) => clip.name),
+      );
       return;
     }
 
     action.reset();
-    action.enabled = true;
-    action.setEffectiveWeight(1);
-    action.setEffectiveTimeScale(1);
     action.setLoop(
       THREE.LoopRepeat,
       Infinity,
     );
     action.play();
 
-    return () => {
-      action.stop();
-    };
-  }, [actions]);
-
-  /*
-   * Chỉ có một chuyển động idle rất nhẹ của holder.
-   * Animation thân/vây vẫn là animation gốc trong GLB.
-   *
-   * Phase sau sẽ bỏ idle này và gắn fish-RIG timeline gốc.
-   */
-  useFrame(({ clock }) => {
-    if (!holderRef.current) {
-      return;
-    }
-
-    const t =
-      clock.getElapsedTime();
-
-    holderRef.current.position.y =
-      -0.05 + Math.sin(t * 0.55) * 0.025;
-  });
+    return () => action.stop();
+  }, [
+    actions,
+    gltf.animations,
+  ]);
 
   return (
     <group
-      ref={holderRef}
-      position={[0.35, -0.05, 0]}
-      rotation={[
-        0,
-        -0.10,
-        0,
-      ]}
+      ref={holder}
+      position={[0.35, -0.15, 0]}
+      rotation={[0, -0.1, 0]}
     >
       <primitive
         object={model}
@@ -144,76 +98,62 @@ function ClownFish() {
   );
 }
 
-function Scene() {
-  return (
-    <>
-      <ambientLight
-        intensity={2.1}
-        color="#ffffff"
-      />
-
-      <directionalLight
-        position={[3, 4, 5]}
-        intensity={3}
-        color="#ffffff"
-      />
-
-      <directionalLight
-        position={[-3, 1, 3]}
-        intensity={1.2}
-        color="#ffd6ec"
-      />
-
-      <Suspense fallback={null}>
-        <ClownFish />
-      </Suspense>
-    </>
-  );
-}
-
 export default function PeachHeroClone() {
   return (
-    <section className="lmv2-peach-clone">
+    <div className="lmv2-fish-layer">
+      <Canvas
+        dpr={1}
+        camera={{
+          position: [0, 0, 5],
+          fov: 42,
+          near: 0.1,
+          far: 100,
+        }}
+        gl={{
+          alpha: true,
+          antialias: true,
+          powerPreference: 'high-performance',
+        }}
+        onCreated={({ gl }) => {
+          /*
+           * QUAN TRỌNG:
+           * Canvas tuyệt đối trong suốt.
+           * Không được che ảnh Peach bằng màu đen.
+           */
+          gl.setClearColor(
+            new THREE.Color(0x000000),
+            0,
+          );
 
-      <div
-        className="lmv2-peach-clone__bg"
-        aria-hidden="true"
-      />
+          gl.outputColorSpace =
+            THREE.SRGBColorSpace;
 
-      <div
-        className="lmv2-peach-clone__canvas"
-        aria-hidden="true"
+          gl.toneMapping =
+            THREE.NoToneMapping;
+        }}
       >
-        <Canvas
-          dpr={[1, 1.25]}
-          camera={{
-            position: [0, 0, 5],
-            fov: 42,
-            near: 0.1,
-            far: 100,
-          }}
-          gl={{
-            antialias: true,
-            alpha: true,
-            powerPreference:
-              'high-performance',
-          }}
-          onCreated={({ gl }) => {
-            gl.outputColorSpace =
-              THREE.SRGBColorSpace;
+        <ambientLight
+          intensity={3}
+          color="#ffffff"
+        />
 
-            gl.toneMapping =
-              THREE.ACESFilmicToneMapping;
+        <directionalLight
+          position={[4, 5, 6]}
+          intensity={4}
+          color="#ffffff"
+        />
 
-            gl.toneMappingExposure =
-              1.15;
-          }}
-        >
-          <Scene />
-        </Canvas>
-      </div>
+        <directionalLight
+          position={[-4, 1, 5]}
+          intensity={2}
+          color="#ffc9e8"
+        />
 
-    </section>
+        <Suspense fallback={null}>
+          <Fish />
+        </Suspense>
+      </Canvas>
+    </div>
   );
 }
 
