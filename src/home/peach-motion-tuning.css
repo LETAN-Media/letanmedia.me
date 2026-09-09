@@ -1,0 +1,72 @@
+/*
+ * ============================================================
+ * LETAN x PEACH — SCROLL CHOREOGRAPHY TUNING
+ * ============================================================
+ *
+ * Do not put visual redesign rules here.
+ * This file controls only scroll runway / choreography timing.
+ */
+
+/*
+ * Desktop:
+ * old = 220svh
+ * new = 300svh
+ *
+ * More physical scroll distance means one finger flick no longer
+ * consumes most of the complete Peach scene timeline.
+ */
+.lm-film-hero {
+  height: 300svh;
+}
+
+/*
+ * Tablet landscape / smaller desktop.
+ */
+@media (max-width: 1024px) {
+  .lm-film-hero {
+    height: 280svh;
+  }
+}
+
+/*
+ * Mobile:
+ * old = 190svh.
+ *
+ * At 844px viewport that gave only ~760px of usable sticky travel.
+ * A single iPhone swipe could therefore jump through most keyframes.
+ *
+ * 320svh gives roughly 2.2 viewport-heights of scroll travel.
+ */
+@media (max-width: 720px) {
+  .lm-film-hero {
+    height: 320svh;
+  }
+}
+
+/*
+ * iPad portrait:
+ * old override = 178svh.
+ * That was even shorter than mobile and compressed the scene heavily.
+ */
+@media (
+  min-width: 721px
+) and (
+  max-width: 1100px
+) and (
+  orientation: portrait
+) {
+  .lm-film-hero {
+    height: 280svh;
+  }
+}
+
+/*
+ * This must come last because fable-hero.css contains tablet rules
+ * after its reduced-motion block.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .lm-film-hero {
+    height: 100svh !important;
+    min-height: 650px;
+  }
+}
