@@ -26,10 +26,6 @@ const { getPublishedInsights, getInsightBySlug } = insightsMod;
 
 /** SEO metadata for static routes */
 const STATIC_ROUTES = {
-  '/v2': {
-    title: 'LETAN Media V2',
-    description: 'Bản thử nghiệm giao diện mới của LETAN Media.',
-  },
   '/': {
     title: 'LETAN Media — AI, Marketing & Digital Growth',
     description: 'Giải pháp AI, truyền thông số và phát triển phần mềm dành cho cá nhân và doanh nghiệp. Premium AI-first digital agency.',
