@@ -36,6 +36,7 @@ const ServicePage = lazy(() => import('./home/ServicePage'));
 const ServicesIndex = lazy(() => import('./home/ServicesIndex'));
 const InsightsPage = lazy(() => import('./home/InsightsPage'));
 const InsightDetail = lazy(() => import('./home/InsightDetail'));
+const HomeV2 = lazy(() => import('./home-v2/HomeV2'));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -47,9 +48,23 @@ const ScrollToTop = () => {
 
 function App() {
   const location = useLocation();
-  const showHomeChatbot = !['/tiktok-report', '/youtube-report', '/geo-entity-manager'].some(p => location.pathname.startsWith(p));
-  const isGeoManager = location.pathname === '/geo-entity-manager';
-  const isHome = location.pathname === '/';
+  const isV2 = location.pathname === '/v2';
+
+  const showHomeChatbot =
+    !isV2
+    && ![
+      '/tiktok-report',
+      '/youtube-report',
+      '/geo-entity-manager',
+    ].some((p) =>
+      location.pathname.startsWith(p)
+    );
+
+  const isGeoManager =
+    location.pathname === '/geo-entity-manager';
+
+  const isHome =
+    location.pathname === '/';
 
   useEffect(() => {
     initAnalytics();
@@ -69,7 +84,7 @@ function App() {
           Bỏ qua điều hướng
         </a>
       )}
-      {!isGeoManager && <Header />}
+      {!isGeoManager && !isV2 && <Header />}
       <main id="main-content" tabIndex="-1">
         <Suspense fallback={
           <div className="lm-route-loader" role="status" aria-live="polite">
@@ -94,6 +109,8 @@ function App() {
               <FinalCTAV2 />
             </div>
           } />
+          <Route path="/v2" element={<HomeV2 />} />
+
           <Route path="/policy" element={
             <>
               <Seo title="Chính sách bảo mật | LETAN Media" description="Chính sách bảo mật và xử lý dữ liệu khách hàng của LETAN Media." path="/policy" />
@@ -183,7 +200,7 @@ function App() {
           </Routes>
         </Suspense>
       </main>
-      {!isGeoManager && <FooterV2 />}
+      {!isGeoManager && !isV2 && <FooterV2 />}
       {showHomeChatbot && <HomeChatWidget />}
     </div>
   );
