@@ -239,6 +239,11 @@ const Hero = () => {
    * - Fish3D = raw scroll progress
    *
    * That caused the fish/camera to jump ahead of the typography.
+   *
+   * With the blue scene removed, this smoothed progress feeds
+   * Fish3D 1:1 so the full Peach timeline (fish rig 0 -> 0.45,
+   * camera dive to ~0.81, underwater reveal to ~0.76) plays
+   * naturally across the whole hero.
    */
   const progress =
     usePeachSmoothProgress(
@@ -247,36 +252,19 @@ const Hero = () => {
     );
 
   /*
-   * Original Peach fish-RIG finishes its important hero movement
-   * around scene progress ~0.45.
-   *
-   * We deliberately stretch scene 0 -> 0.48 across the first 75%
-   * of the LETAN hero.
-   *
-   * Result:
-   * fish choreography completes around LETAN progress ~0.70,
-   * exactly when the blue transformation starts.
-   *
-   * The remaining Peach timeline finishes underneath the blue scene.
-   */
-  const sceneProgress = useTransform(
-    progress,
-    [0, 0.75, 1],
-    [0, 0.48, 1],
-  );
-
-  /*
-   * Keep the white/Peach world visible long enough for the fish.
+   * LETAN copy rides with the fish through the pastel act, then
+   * drifts up while the camera dives so the underwater world
+   * (jellyfish / rays / water) stays unobstructed.
    */
   const lightOpacity = useTransform(
     progress,
-    [0, 0.70, 0.92],
+    [0, 0.55, 0.8],
     [1, 1, 0],
   );
 
   const lightY = useTransform(
     progress,
-    [0.68, 0.92],
+    [0.55, 0.8],
     [0, -70],
   );
 
@@ -284,28 +272,6 @@ const Hero = () => {
     progress,
     [0, 0.72],
     ['0%', '-4%'],
-  );
-
-  /*
-   * Blue transformation now starts near the end of fish choreography,
-   * instead of starting almost immediately at 18%.
-   */
-  const blueY = useTransform(
-    progress,
-    [0.70, 0.92],
-    ['101%', '0%'],
-  );
-
-  const blueContentOpacity = useTransform(
-    progress,
-    [0.84, 0.96],
-    [0, 1],
-  );
-
-  const blueContentY = useTransform(
-    progress,
-    [0.82, 0.96],
-    [54, 0],
   );
 
   const scrollHintOpacity = useTransform(
@@ -405,79 +371,6 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        <motion.div
-          className="lm-film-hero__scene lm-film-hero__scene--blue"
-          style={{
-            y: blueY,
-          }}
-        >
-          <div className="lm-film-hero__blue-light lm-film-hero__blue-light--one" />
-
-          <div className="lm-film-hero__blue-light lm-film-hero__blue-light--two" />
-
-          <div className="lm-film-hero__noise" />
-
-          <motion.div
-            className="lm-film-hero__blue-content"
-            style={{
-              opacity: blueContentOpacity,
-              y: blueContentY,
-            }}
-          >
-            <h2 className="lm-film-hero__blue-title">
-              <span>
-                Biến công nghệ
-              </span>
-
-              <span className="lm-film-hero__blue-title-right">
-                thành năng lực tăng trưởng.
-              </span>
-            </h2>
-
-            <div className="lm-film-hero__blue-footer">
-              <div className="lm-film-hero__capabilities">
-                <span>
-                  Digital Growth
-                </span>
-
-                <span>
-                  AI Automation
-                </span>
-
-                <span>
-                  Web & Software
-                </span>
-
-                <span>
-                  Platform Protection
-                </span>
-              </div>
-
-              <div className="lm-film-hero__blue-description">
-                <p>
-                  Kết nối AI, truyền thông số, phần mềm tự động
-                  hóa và bảo vệ thương hiệu thành một hệ giải
-                  pháp phù hợp với bài toán thực tế.
-                </p>
-
-                <Link
-                  to="/contact"
-                  className="lm-film-hero__pill lm-film-hero__pill--light"
-                >
-                  <span>
-                    Bắt đầu dự án
-                  </span>
-
-                  <ArrowUpRight
-                    size={15}
-                    strokeWidth={1.6}
-                  />
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-
         <div
           className="lm-film-hero__artifact-slot"
           aria-hidden="true"
@@ -492,7 +385,7 @@ const Hero = () => {
                 >
                   <Suspense fallback={null}>
                     <Fish3D
-                      progress={sceneProgress}
+                      progress={progress}
                       reduceMotion={reduceMotion}
                     />
                   </Suspense>

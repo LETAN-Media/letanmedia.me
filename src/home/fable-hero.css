@@ -1,14 +1,14 @@
 /* ============================================================
    LETAN MEDIA — CINEMATIC EDITORIAL HERO
    Reference direction:
-   editorial white -> electric blue transformation
+   Peach pastel scene -> underwater journey (no blue scene)
    ============================================================ */
 
 .lm-film-hero {
   position: relative;
   width: 100%;
   height: 220svh;
-  background: #0647f5;
+  background: #f2f2ee;
   isolation: isolate;
 }
 
@@ -238,191 +238,6 @@
 
 
 /* ============================================================
-   BLUE TRANSFORMATION SCENE
-   ============================================================ */
-
-.lm-film-hero__scene--blue {
-  z-index: 2;
-  overflow: hidden;
-  color: #ffffff;
-  background:
-    radial-gradient(
-      circle at 50% 42%,
-      #1768ff 0%,
-      #0752fa 28%,
-      #073fe4 58%,
-      #042bad 100%
-    );
-  box-shadow:
-    0 -30px 80px rgba(0, 29, 255, 0.34);
-}
-
-.lm-film-hero__scene--blue::before {
-  content: '';
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  opacity: 0.36;
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.025) 0,
-      rgba(255, 255, 255, 0.025) 1px,
-      transparent 1px,
-      transparent 4px
-    );
-  mix-blend-mode: screen;
-}
-
-.lm-film-hero__blue-light {
-  position: absolute;
-  z-index: 0;
-  width: 46vw;
-  height: 46vw;
-  min-width: 440px;
-  min-height: 440px;
-  border-radius: 50%;
-  pointer-events: none;
-  filter: blur(70px);
-  opacity: 0.58;
-  background: rgba(77, 152, 255, 0.78);
-}
-
-.lm-film-hero__blue-light--one {
-  top: -15%;
-  left: -10%;
-}
-
-.lm-film-hero__blue-light--two {
-  right: -14%;
-  bottom: -22%;
-  opacity: 0.44;
-}
-
-.lm-film-hero__noise {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.18;
-  background-image:
-    radial-gradient(
-      circle at 30% 30%,
-      rgba(255, 255, 255, 0.25) 0 0.6px,
-      transparent 0.8px
-    );
-  background-size: 5px 5px;
-  mix-blend-mode: overlay;
-}
-
-.lm-film-hero__blue-content {
-  position: absolute;
-  z-index: 4;
-  inset: 0;
-  pointer-events: none;
-}
-
-.lm-film-hero__blue-title {
-  position: absolute;
-  top: clamp(100px, 12vh, 150px);
-  left: clamp(20px, 2.5vw, 48px);
-  right: clamp(20px, 2.5vw, 48px);
-  margin: 0;
-  display: grid;
-  grid-template-columns:
-    minmax(0, 0.86fr)
-    minmax(0, 1.14fr);
-  align-items: start;
-  column-gap: 8vw;
-  color: rgba(255, 255, 255, 0.95);
-  font-family:
-    'Iowan Old Style',
-    'Baskerville',
-    'Times New Roman',
-    serif;
-  font-size: clamp(4rem, 7.1vw, 8.5rem);
-  font-weight: 400;
-  line-height: 0.82;
-  letter-spacing: -0.065em;
-}
-
-.lm-film-hero__blue-title span {
-  display: block;
-}
-
-.lm-film-hero__blue-title-right {
-  text-align: right;
-}
-
-.lm-film-hero__blue-footer {
-  position: absolute;
-  left: clamp(22px, 3.5vw, 64px);
-  right: clamp(22px, 3.5vw, 64px);
-  bottom: clamp(
-    28px,
-    calc(5vh + env(safe-area-inset-bottom, 0px)),
-    68px
-  );
-  display: grid;
-  grid-template-columns:
-    minmax(240px, 0.8fr)
-    minmax(300px, 0.7fr);
-  align-items: end;
-  justify-content: space-between;
-  gap: 64px;
-}
-
-.lm-film-hero__capabilities {
-  display: grid;
-  grid-template-columns: repeat(2, max-content);
-  gap: 8px 28px;
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.66rem;
-  font-weight: 600;
-  line-height: 1.5;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.lm-film-hero__capabilities span::before {
-  content: '·';
-  margin-right: 7px;
-  color: rgba(255, 255, 255, 0.44);
-}
-
-.lm-film-hero__blue-description {
-  justify-self: end;
-  max-width: 390px;
-  pointer-events: auto;
-}
-
-.lm-film-hero__blue-description p {
-  margin: 0 0 18px;
-  color: rgba(255, 255, 255, 0.88);
-  font-family:
-    'Iowan Old Style',
-    'Baskerville',
-    'Times New Roman',
-    serif;
-  font-size: clamp(1rem, 1.35vw, 1.24rem);
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-}
-
-.lm-film-hero__pill--light {
-  color: #10266b;
-  border: 1px solid rgba(255, 255, 255, 0.84);
-  background: rgba(255, 255, 255, 0.94);
-}
-
-.lm-film-hero__pill--light:hover {
-  color: #052dc2;
-  background: #ffffff;
-}
-
-
-/* ============================================================
    PERSISTENT 3D SUBJECT
    ============================================================ */
 
@@ -470,93 +285,6 @@
 .lm-film-hero__artifact-canvas
 .lm-hero3d--context-lost canvas {
   opacity: 0;
-}
-
-.lm-film-hero__fallback {
-  position: absolute;
-  inset: 8%;
-  display: grid;
-  place-items: center;
-}
-
-.lm-film-hero__fallback img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.lm-film-hero__artifact-glow {
-  position: absolute;
-  z-index: 0;
-  top: 50%;
-  left: 50%;
-  width: 62%;
-  height: 62%;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  background:
-    radial-gradient(
-      circle,
-      rgba(0, 68, 255, 0.18),
-      rgba(0, 68, 255, 0.02) 45%,
-      transparent 72%
-    );
-  filter: blur(28px);
-}
-
-.lm-film-hero__digital-overlay {
-  position: absolute;
-  z-index: 5;
-  inset: 7%;
-  overflow: hidden;
-  border-radius: 50%;
-  mix-blend-mode: screen;
-}
-
-.lm-film-hero__scanlines {
-  position: absolute;
-  inset: 0;
-  opacity: 0.38;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0,
-      transparent 4px,
-      rgba(255, 255, 255, 0.22) 5px,
-      transparent 6px
-    );
-  mask-image:
-    radial-gradient(
-      circle,
-      #000 10%,
-      #000 48%,
-      transparent 73%
-    );
-}
-
-.lm-film-hero__digital-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 72%;
-  aspect-ratio: 1;
-  border: 1px solid rgba(226, 242, 255, 0.30);
-  border-radius: 50%;
-  transform:
-    translate(-50%, -50%)
-    rotateX(66deg)
-    rotateZ(-12deg);
-  box-shadow:
-    0 0 24px rgba(255, 255, 255, 0.12);
-}
-
-.lm-film-hero__digital-ring--two {
-  width: 86%;
-  transform:
-    translate(-50%, -50%)
-    rotateX(72deg)
-    rotateZ(52deg);
-  opacity: 0.58;
 }
 
 
@@ -683,15 +411,6 @@
     width: min(68vw, 640px);
     height: min(61vh, 640px);
   }
-
-  .lm-film-hero__blue-title {
-    grid-template-columns: 1fr 1fr;
-    font-size: clamp(3.7rem, 8.2vw, 6.7rem);
-  }
-
-  .lm-film-hero__blue-footer {
-    gap: 32px;
-  }
 }
 
 
@@ -782,49 +501,6 @@
     font-size: 0.69rem;
   }
 
-  .lm-film-hero__blue-title {
-    top: 14%;
-    left: 18px;
-    right: 18px;
-    display: block;
-    font-size: clamp(3.5rem, 15vw, 5.4rem);
-    line-height: 0.80;
-  }
-
-  .lm-film-hero__blue-title span {
-    max-width: 92%;
-  }
-
-  .lm-film-hero__blue-title-right {
-    margin-top: 5px;
-    margin-left: auto;
-    text-align: right;
-  }
-
-  .lm-film-hero__blue-footer {
-    left: 18px;
-    right: 18px;
-    bottom: calc(
-      25px + env(safe-area-inset-bottom, 0px)
-    );
-    display: block;
-  }
-
-  .lm-film-hero__capabilities {
-    grid-template-columns: 1fr 1fr;
-    gap: 6px 12px;
-    font-size: 0.53rem;
-  }
-
-  .lm-film-hero__blue-description {
-    max-width: 315px;
-    margin: 18px 0 0 auto;
-  }
-
-  .lm-film-hero__blue-description p {
-    font-size: 0.95rem;
-  }
-
   .lm-film-hero__scroll {
     display: none;
   }
@@ -857,14 +533,6 @@
   .lm-film-hero__text-link span {
     max-width: 84px;
   }
-
-  .lm-film-hero__blue-title {
-    font-size: 14.2vw;
-  }
-
-  .lm-film-hero__blue-description p {
-    font-size: 0.89rem;
-  }
 }
 
 
@@ -881,14 +549,6 @@
 
   .lm-film-hero__stage {
     position: relative;
-  }
-
-  .lm-film-hero__scene--blue {
-    display: none;
-  }
-
-  .lm-film-hero__digital-overlay {
-    display: none;
   }
 
   .lm-film-hero__scroll {
@@ -993,45 +653,6 @@
     bottom: 18px;
     font-size: 0.54rem;
   }
-
-  /* Blue scene on iPad portrait */
-  .lm-film-hero__blue-title {
-    top: 15%;
-    left: 28px;
-    right: 28px;
-    display: block;
-    font-size: 10.5vw;
-    line-height: 0.84;
-  }
-
-  .lm-film-hero__blue-title-right {
-    margin-top: 8px;
-    text-align: right;
-  }
-
-  .lm-film-hero__blue-footer {
-    left: 28px;
-    right: 28px;
-    bottom: calc(44px + env(safe-area-inset-bottom, 0px));
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .lm-film-hero__capabilities {
-    grid-template-columns: repeat(2, max-content);
-    gap: 8px 20px;
-    font-size: 0.58rem;
-  }
-
-  .lm-film-hero__blue-description {
-    max-width: 360px;
-    justify-self: end;
-  }
-
-  .lm-film-hero__blue-description p {
-    font-size: 1rem;
-    line-height: 1.3;
-  }
 }
 
 /* ============================================================
@@ -1133,10 +754,6 @@
 
 .lm-film-hero__scene--light::before {
   opacity: 0.07;
-}
-
-.lm-film-hero__scene--blue {
-  z-index: 2;
 }
 
 .lm-film-hero__light-meta,
