@@ -16,7 +16,6 @@ import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react';
 
 import '../home/fable-hero.css';
 
-const Hero3D = lazy(() => import('./Hero3D'));
 const Fish3D = lazy(() => import('./Fish3D'));
 
 class VisualErrorBoundary extends React.Component {
@@ -56,18 +55,6 @@ const canUseWebGL = () => {
   }
 };
 
-const HeroFallback = () => (
-  <picture className="lm-film-hero__fallback" aria-hidden="true">
-    <source srcSet="/images/hero-poster.webp" type="image/webp" />
-    <img
-      src="/images/hero-poster.webp"
-      alt=""
-      width="720"
-      height="720"
-      decoding="async"
-    />
-  </picture>
-);
 
 const Hero = () => {
   const sectionRef = useRef(null);
@@ -271,17 +258,11 @@ const Hero = () => {
             }}
           >
             <div className="lm-film-hero__artifact-canvas">
-              {!supportsWebGL ? (
-                <HeroFallback />
-              ) : (
+              {!supportsWebGL ? null : (
                 <VisualErrorBoundary
-                  fallback={(
-                    <Suspense fallback={<HeroFallback />}>
-                      <Hero3D />
-                    </Suspense>
-                  )}
+                  fallback={null}
                 >
-                  <Suspense fallback={<HeroFallback />}>
+                  <Suspense fallback={null}>
                     <Fish3D
                       progress={progress}
                       reduceMotion={reduceMotion}
