@@ -822,3 +822,29 @@
     position: relative;
   }
 }
+
+/* =========================================================
+   V2 HERO — SHORTER SCROLL RUNWAY
+   ========================================================= */
+
+.lmv2-hero {
+  height: 240svh;
+}
+
+@media (min-width: 721px) and (max-width: 1100px) {
+  .lmv2-hero {
+    height: 230svh;
+  }
+}
+
+@media (max-width: 720px) {
+  .lmv2-hero {
+    height: 220svh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lmv2-hero {
+    height: 100svh;
+  }
+}
