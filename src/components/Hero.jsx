@@ -21,7 +21,6 @@ import {
 
 import '../home/fable-hero.css';
 import '../home/peach-motion-tuning.css';
-import '../home/peach-motion-tuning.css';
 
 const Fish3D = lazy(() => import('./Fish3D'));
 
