@@ -17,6 +17,7 @@ import {
 import {
   useAnimations,
   useGLTF,
+  useTexture,
 } from '@react-three/drei';
 
 import {
@@ -27,8 +28,15 @@ import {
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
 const FISH_URL = '/peach-v2/clownfish.glb';
-const FISH_ID =
-  '480aae7d-371f-4934-9033-698109657d31';
+
+const MOBILE_BG =
+  '/images/peach/main-bg-mobile.webp';
+
+const DESKTOP_BG =
+  '/images/peach/main-bg-desktop.webp';
+
+const SEA_BG =
+  '/images/peach/sea-bg.webp';
 
 const FISH_RIG_ID =
   '70a64fb1-6bef-4fe7-8965-8ff389049050';
@@ -36,46 +44,164 @@ const FISH_RIG_ID =
 const CAMERA_ID =
   'ea94b165-c53b-4704-87a9-1633ae09cd51';
 
-const FISH_CLIP = 'Fish|swim_B3';
+const FISH_CLIP =
+  'Fish|swim_B3';
 
-function evaluateKeyframes(keys, progress) {
-  if (!keys?.length) return undefined;
+/*
+ * Exact ends of the original Peach tracks.
+ */
+const FISH_TRACK_END = 0.451;
+const CAMERA_TRACK_END =
+  0.8118318620544925;
 
-  if (progress <= keys[0].position) {
+/* =========================================================
+   SCENE STATE HELPERS
+   ========================================================= */
+
+function vector3(value, fallback = 0) {
+  return [
+    value?.x ?? fallback,
+    value?.y ?? fallback,
+    value?.z ?? fallback,
+  ];
+}
+
+function scale3(value) {
+  return [
+    value?.x ?? 1,
+    value?.y ?? 1,
+    value?.z ?? 1,
+  ];
+}
+
+function getObjects(state) {
+  return (
+    state?.engineState?.pwObjects
+    ?? {}
+  );
+}
+
+function getParents(state) {
+  return (
+    state?.engineState?.parents
+    ?? {}
+  );
+}
+
+function findByName(
+  state,
+  name,
+  parentId = null,
+) {
+  const objects =
+    getObjects(state);
+
+  const parents =
+    getParents(state);
+
+  for (
+    const [id, object]
+    of Object.entries(objects)
+  ) {
+    if (object?.name !== name) {
+      continue;
+    }
+
+    if (
+      parentId !== null
+      && parents[id] !== parentId
+    ) {
+      continue;
+    }
+
+    return {
+      id,
+      object,
+    };
+  }
+
+  return null;
+}
+
+function transformProps(object) {
+  return {
+    position:
+      vector3(object?.position),
+    rotation:
+      vector3(object?.rotation),
+    scale:
+      scale3(object?.scale),
+    visible:
+      object?.visible !== false,
+  };
+}
+
+/* =========================================================
+   TIMELINE
+   ========================================================= */
+
+function evaluateTrack(
+  keys,
+  progress,
+) {
+  if (!keys?.length) {
+    return undefined;
+  }
+
+  if (
+    progress
+    <= keys[0].position
+  ) {
     return keys[0].value;
   }
 
-  const last = keys[keys.length - 1];
+  const last =
+    keys[keys.length - 1];
 
-  if (progress >= last.position) {
+  if (
+    progress
+    >= last.position
+  ) {
     return last.value;
   }
 
   let low = 0;
-  let high = keys.length - 1;
+  let high =
+    keys.length - 1;
 
   while (low <= high) {
-    const mid = (low + high) >> 1;
+    const mid =
+      (low + high) >> 1;
 
-    if (keys[mid].position < progress) {
+    if (
+      keys[mid].position
+      < progress
+    ) {
       low = mid + 1;
     } else {
       high = mid - 1;
     }
   }
 
-  const right = keys[low];
-  const left = keys[low - 1];
+  const right =
+    keys[low];
+
+  const left =
+    keys[low - 1];
 
   const distance =
-    right.position - left.position;
+    right.position
+    - left.position;
 
   if (distance <= 0) {
     return right.value;
   }
 
   const t =
-    (progress - left.position)
+    (
+      progress
+      - left.position
+    )
     / distance;
 
   return THREE.MathUtils.lerp(
@@ -85,9 +211,13 @@ function evaluateKeyframes(keys, progress) {
   );
 }
 
-function compileObjectTracks(state, objectId) {
+function compileTracks(
+  state,
+  objectId,
+) {
   const sequence =
-    state?.animations
+    state
+      ?.animations
       ?.sheetsById
       ?.DEFAULT_ANIMATION_SHEET_NAME
       ?.sequence;
@@ -109,13 +239,16 @@ function compileObjectTracks(state, objectId) {
       trackId,
     ]
     of Object.entries(
-      objectTracks.trackIdByPropPath || {},
+      objectTracks
+        .trackIdByPropPath
+      || {},
     )
   ) {
     let path;
 
     try {
-      path = JSON.parse(rawPath);
+      path =
+        JSON.parse(rawPath);
     } catch {
       continue;
     }
@@ -146,16 +279,25 @@ function compileObjectTracks(state, objectId) {
         .values(byId)
         .filter(
           (item) =>
-            Number.isFinite(item.position)
-            && Number.isFinite(item.value),
+            Number.isFinite(
+              item.position,
+            )
+            && Number.isFinite(
+              item.value,
+            ),
         )
         .sort(
           (a, b) =>
-            a.position - b.position,
+            a.position
+            - b.position,
         )
         .map((item) => ({
-          position: item.position,
-          value: item.value,
+          position:
+            item.position,
+          value:
+            item.value,
+          handles:
+            item.handles,
         }));
 
     result[
@@ -171,59 +313,300 @@ function applyTransform(
   tracks,
   progress,
 ) {
-  if (!object || !tracks) return;
+  if (!object) {
+    return;
+  }
 
-  for (const axis of ['x', 'y', 'z']) {
+  for (
+    const axis
+    of ['x', 'y', 'z']
+  ) {
     const position =
-      evaluateKeyframes(
-        tracks[`position.${axis}`],
+      evaluateTrack(
+        tracks[
+          `position.${axis}`
+        ],
         progress,
       );
 
     const rotation =
-      evaluateKeyframes(
-        tracks[`rotation.${axis}`],
+      evaluateTrack(
+        tracks[
+          `rotation.${axis}`
+        ],
         progress,
       );
 
     const scale =
-      evaluateKeyframes(
-        tracks[`scale.${axis}`],
+      evaluateTrack(
+        tracks[
+          `scale.${axis}`
+        ],
         progress,
       );
 
-    if (position !== undefined) {
-      object.position[axis] = position;
+    if (
+      position !== undefined
+    ) {
+      object.position[axis] =
+        position;
     }
 
-    if (rotation !== undefined) {
-      object.rotation[axis] = rotation;
+    if (
+      rotation !== undefined
+    ) {
+      object.rotation[axis] =
+        rotation;
     }
 
-    if (scale !== undefined) {
-      object.scale[axis] = scale;
+    if (
+      scale !== undefined
+    ) {
+      object.scale[axis] =
+        scale;
     }
   }
 }
 
-function CameraTimeline({
-  tracks,
-  progressRef,
+/* =========================================================
+   PEACH BACKGROUND WORLD
+   ========================================================= */
+
+function PeachWorld({
   state,
+  mobile,
 }) {
-  const { camera } = useThree();
+  const heroBg =
+    useTexture(
+      mobile
+        ? MOBILE_BG
+        : DESKTOP_BG,
+    );
+
+  const seaBg =
+    useTexture(SEA_BG);
+
+  useEffect(() => {
+    heroBg.colorSpace =
+      THREE.SRGBColorSpace;
+
+    seaBg.colorSpace =
+      THREE.SRGBColorSpace;
+
+    heroBg.needsUpdate = true;
+    seaBg.needsUpdate = true;
+  }, [
+    heroBg,
+    seaBg,
+  ]);
+
+  const world =
+    useMemo(() => {
+      const hero =
+        findByName(
+          state,
+          'HERO',
+        );
+
+      const mainBg =
+        hero
+          ? findByName(
+              state,
+              'main BG',
+              hero.id,
+            )
+          : null;
+
+      const pinkBg =
+        hero
+          ? findByName(
+              state,
+              'PinkBG',
+              hero.id,
+            )
+          : null;
+
+      const underworld =
+        findByName(
+          state,
+          'UNDERWORLD',
+        );
+
+      const bgs =
+        underworld
+          ? findByName(
+              state,
+              'BGS',
+              underworld.id,
+            )
+          : null;
+
+      const inner =
+        bgs
+          ? findByName(
+              state,
+              'Group',
+              bgs.id,
+            )
+          : null;
+
+      const sea =
+        inner
+          ? findByName(
+              state,
+              'PlaneSeaBG',
+              inner.id,
+            )
+          : null;
+
+      return {
+        hero,
+        mainBg,
+        pinkBg,
+        underworld,
+        bgs,
+        inner,
+        sea,
+      };
+    }, [state]);
+
+  return (
+    <>
+      {/* =====================
+          HERO WORLD
+          ===================== */}
+
+      {world.hero && (
+        <group
+          {...transformProps(
+            world.hero.object,
+          )}
+        >
+          {world.pinkBg && (
+            <mesh
+              {...transformProps(
+                world.pinkBg.object,
+              )}
+            >
+              <planeGeometry
+                args={[1, 1]}
+              />
+
+              <meshBasicMaterial
+                color="#ffcfe9"
+                toneMapped={false}
+              />
+            </mesh>
+          )}
+
+          {world.mainBg && (
+            <mesh
+              {...transformProps(
+                world.mainBg.object,
+              )}
+            >
+              <planeGeometry
+                args={[1, 1]}
+              />
+
+              <meshBasicMaterial
+                map={heroBg}
+                color="#ffffff"
+                toneMapped={false}
+              />
+            </mesh>
+          )}
+        </group>
+      )}
+
+      {/* =====================
+          UNDERWATER WORLD
+          ===================== */}
+
+      {world.underworld
+        && world.bgs
+        && world.inner
+        && world.sea
+        && (
+          <group
+            {...transformProps(
+              world
+                .underworld
+                .object,
+            )}
+          >
+            <group
+              {...transformProps(
+                world.bgs.object,
+              )}
+            >
+              <group
+                {...transformProps(
+                  world
+                    .inner
+                    .object,
+                )}
+              >
+                <mesh
+                  {...transformProps(
+                    world
+                      .sea
+                      .object,
+                  )}
+                >
+                  <planeGeometry
+                    args={[1, 1]}
+                  />
+
+                  <meshBasicMaterial
+                    map={seaBg}
+                    color="#ffffff"
+                    toneMapped={
+                      false
+                    }
+                  />
+                </mesh>
+              </group>
+            </group>
+          </group>
+        )}
+    </>
+  );
+}
+
+/* =========================================================
+   CAMERA
+   ========================================================= */
+
+function CameraTimeline({
+  state,
+  progressRef,
+}) {
+  const { camera } =
+    useThree();
+
+  const tracks =
+    useMemo(
+      () =>
+        compileTracks(
+          state,
+          CAMERA_ID,
+        ),
+      [state],
+    );
 
   useEffect(() => {
     const settings =
-      state?.engineState
-        ?.pwObjects
-        ?.[CAMERA_ID];
+      getObjects(state)[
+        CAMERA_ID
+      ];
 
-    if (!settings) return;
-
-    if (settings.fov) {
-      camera.fov = settings.fov;
+    if (!settings) {
+      return;
     }
+
+    camera.fov =
+      settings.fov ?? 60;
 
     camera.near =
       settings.near ?? 0.1;
@@ -239,24 +622,28 @@ function CameraTimeline({
 
   useFrame((_, delta) => {
     /*
-     * 1200ms-style inertia:
-     * target scroll không giật trực tiếp vào scene.
+     * Smooth scroll inertia.
      */
     progressRef.current.smooth =
       THREE.MathUtils.damp(
         progressRef.current.smooth,
         progressRef.current.target,
-        5,
+        4.2,
         delta,
       );
 
-    const peachProgress =
-      progressRef.current.smooth * 0.451;
+    /*
+     * Camera original Peach:
+     * 0 -> 0.811831862...
+     */
+    const cameraProgress =
+      progressRef.current.smooth
+      * CAMERA_TRACK_END;
 
     applyTransform(
       camera,
       tracks,
-      peachProgress,
+      cameraProgress,
     );
 
     camera.updateMatrixWorld();
@@ -265,18 +652,36 @@ function CameraTimeline({
   return null;
 }
 
+/* =========================================================
+   FISH
+   ========================================================= */
+
 function Fish({
-  tracks,
+  state,
   progressRef,
 }) {
-  const gltf = useGLTF(FISH_URL);
+  const gltf =
+    useGLTF(FISH_URL);
 
-  const model = useMemo(
-    () => clone(gltf.scene),
-    [gltf.scene],
-  );
+  const model =
+    useMemo(
+      () =>
+        clone(gltf.scene),
+      [gltf.scene],
+    );
 
-  const rigRef = useRef();
+  const rigRef =
+    useRef();
+
+  const tracks =
+    useMemo(
+      () =>
+        compileTracks(
+          state,
+          FISH_RIG_ID,
+        ),
+      [state],
+    );
 
   const { actions } =
     useAnimations(
@@ -287,11 +692,16 @@ function Fish({
   useEffect(() => {
     const action =
       actions[FISH_CLIP]
-      ?? Object.values(actions).find(Boolean);
+      ?? Object
+        .values(actions)
+        .find(Boolean);
 
-    if (!action) return;
+    if (!action) {
+      return;
+    }
 
     action.reset();
+
     action.enabled = true;
 
     action.setLoop(
@@ -299,20 +709,38 @@ function Fish({
       Infinity,
     );
 
-    action.setEffectiveTimeScale(1);
+    action.setEffectiveTimeScale(
+      1,
+    );
+
     action.play();
 
-    return () => action.stop();
+    return () => {
+      action.stop();
+    };
   }, [actions]);
 
   useFrame(() => {
-    const peachProgress =
-      progressRef.current.smooth * 0.451;
+    /*
+     * fish-RIG original Peach:
+     * 0 -> 0.451
+     *
+     * Không cho fish track chạy sang
+     * phần không tồn tại.
+     */
+    const fishProgress =
+      Math.min(
+        progressRef
+          .current
+          .smooth
+          * FISH_TRACK_END,
+        FISH_TRACK_END,
+      );
 
     applyTransform(
       rigRef.current,
       tracks,
-      peachProgress,
+      fishProgress,
     );
   });
 
@@ -320,8 +748,16 @@ function Fish({
     <group ref={rigRef}>
       <primitive
         object={model}
-        position={[0, 0, 0]}
-        scale={[3.8, 3.8, 3.8]}
+        position={[
+          0,
+          0,
+          0,
+        ]}
+        scale={[
+          3.8,
+          3.8,
+          3.8,
+        ]}
         rotation={[
           Math.PI,
           -1.4675304587190388,
@@ -333,71 +769,103 @@ function Fish({
   );
 }
 
+/* =========================================================
+   COMPLETE SCENE
+   ========================================================= */
+
 function Scene({
   state,
   progressRef,
+  mobile,
 }) {
-  const fishTracks = useMemo(
-    () =>
-      compileObjectTracks(
-        state,
-        FISH_RIG_ID,
-      ),
-    [state],
-  );
-
-  const cameraTracks = useMemo(
-    () =>
-      compileObjectTracks(
-        state,
-        CAMERA_ID,
-      ),
-    [state],
-  );
-
   return (
     <>
+      <color
+        attach="background"
+        args={[
+          '#05002a',
+        ]}
+      />
+
+      <PeachWorld
+        state={state}
+        mobile={mobile}
+      />
+
       <ambientLight
-        color="#ffffff"
-        intensity={2.8}
-      />
-
-      <directionalLight
-        position={[3, 4, 5]}
-        intensity={3}
+        intensity={2.6}
         color="#ffffff"
       />
 
       <directionalLight
-        position={[-3, 1, 4]}
-        intensity={1.1}
+        position={[
+          3,
+          4,
+          5,
+        ]}
+        intensity={2.6}
+        color="#ffffff"
+      />
+
+      <directionalLight
+        position={[
+          -3,
+          1,
+          4,
+        ]}
+        intensity={0.9}
         color="#ffd1e7"
       />
 
       <CameraTimeline
-        tracks={cameraTracks}
-        progressRef={progressRef}
         state={state}
+        progressRef={
+          progressRef
+        }
       />
 
       <Fish
-        tracks={fishTracks}
-        progressRef={progressRef}
+        state={state}
+        progressRef={
+          progressRef
+        }
       />
     </>
   );
 }
 
-export default function PeachHeroClone() {
-  const sectionRef = useRef();
+/* =========================================================
+   HERO
+   ========================================================= */
 
-  const progressRef = useRef({
-    target: 0,
-    smooth: 0,
-  });
+export default function PeachHeroClone() {
+  const sectionRef =
+    useRef(null);
+
+  const progressRef =
+    useRef({
+      target: 0,
+      smooth: 0,
+    });
 
   const [state, setState] =
     useState(null);
+
+  const [mobile, setMobile] =
+    useState(() => {
+      if (
+        typeof window
+        === 'undefined'
+      ) {
+        return true;
+      }
+
+      return window
+        .matchMedia(
+          '(max-width: 768px)',
+        )
+        .matches;
+    });
 
   const {
     scrollYProgress,
@@ -413,7 +881,9 @@ export default function PeachHeroClone() {
     scrollYProgress,
     'change',
     (value) => {
-      progressRef.current.target =
+      progressRef
+        .current
+        .target =
         THREE.MathUtils.clamp(
           value,
           0,
@@ -423,12 +893,32 @@ export default function PeachHeroClone() {
   );
 
   useEffect(() => {
-    let cancelled = false;
-
-    const mobile =
+    const query =
       window.matchMedia(
         '(max-width: 768px)',
-      ).matches;
+      );
+
+    const update = () => {
+      setMobile(
+        query.matches,
+      );
+    };
+
+    query.addEventListener?.(
+      'change',
+      update,
+    );
+
+    return () => {
+      query.removeEventListener?.(
+        'change',
+        update,
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
 
     const url =
       mobile
@@ -439,7 +929,7 @@ export default function PeachHeroClone() {
       .then((response) => {
         if (!response.ok) {
           throw new Error(
-            `Scene state ${response.status}`,
+            `Scene state: ${response.status}`,
           );
         }
 
@@ -447,12 +937,20 @@ export default function PeachHeroClone() {
       })
       .then((data) => {
         if (!cancelled) {
+          progressRef
+            .current
+            .target = 0;
+
+          progressRef
+            .current
+            .smooth = 0;
+
           setState(data);
         }
       })
       .catch((error) => {
         console.error(
-          '[Peach V2 scene]',
+          '[Peach V2]',
           error,
         );
       });
@@ -460,7 +958,7 @@ export default function PeachHeroClone() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [mobile]);
 
   return (
     <section
@@ -469,45 +967,46 @@ export default function PeachHeroClone() {
     >
       <div className="lmv2-peach-clone__stage">
 
-        <img
-          className="lmv2-peach-clone__bg"
-          src="/peach-v2/bg1.webp"
-          alt=""
-          draggable="false"
+        {/* fallback chỉ hiện nếu WebGL chưa load */}
+        <div
+          className="lmv2-peach-clone__fallback"
+          aria-hidden="true"
         />
 
-        <div className="lmv2-fish-layer">
+        <div
+          className="lmv2-peach-clone__canvas"
+          aria-hidden="true"
+        >
           {state && (
             <Canvas
-              dpr={1}
+              dpr={
+                mobile
+                  ? 1
+                  : [1, 1.35]
+              }
               camera={{
                 position: [
-                  0.80858859108883,
-                  12.536,
-                  1.06617782601728,
+                  0.8085,
+                  12.537,
+                  1.066,
                 ],
                 fov:
-                  state
-                    ?.engineState
-                    ?.pwObjects
-                    ?.[CAMERA_ID]
-                    ?.fov
-                  ?? 60,
+                  mobile
+                    ? 60
+                    : 40,
                 near: 0.1,
                 far: 1000,
               }}
               gl={{
-                alpha: true,
-                antialias: true,
+                alpha: false,
+                antialias:
+                  !mobile,
                 powerPreference:
                   'high-performance',
               }}
-              onCreated={({ gl }) => {
-                gl.setClearColor(
-                  0x000000,
-                  0,
-                );
-
+              onCreated={({
+                gl,
+              }) => {
                 gl.outputColorSpace =
                   THREE.SRGBColorSpace;
 
@@ -518,10 +1017,15 @@ export default function PeachHeroClone() {
                   1;
               }}
             >
-              <Suspense fallback={null}>
+              <Suspense
+                fallback={null}
+              >
                 <Scene
                   state={state}
-                  progressRef={progressRef}
+                  progressRef={
+                    progressRef
+                  }
+                  mobile={mobile}
                 />
               </Suspense>
             </Canvas>
@@ -542,3 +1046,15 @@ export default function PeachHeroClone() {
 }
 
 useGLTF.preload(FISH_URL);
+
+useTexture.preload(
+  MOBILE_BG,
+);
+
+useTexture.preload(
+  DESKTOP_BG,
+);
+
+useTexture.preload(
+  SEA_BG,
+);
