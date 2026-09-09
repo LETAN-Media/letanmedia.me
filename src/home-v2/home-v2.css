@@ -6,19 +6,19 @@ body {
 .lmv2-clone-page {
   width: 100%;
   margin: 0;
-  background: #05002a;
+  background: #ffcfe9;
 }
 
 .lmv2-peach-clone {
   position: relative;
 
   /*
-   * Runway để camera thực sự đi
-   * từ HERO xuống UNDERWORLD.
+   * Có runway để scroll.
+   * Nhưng stage vẫn chỉ chiếm đúng một màn hình.
    */
-  height: 300svh;
+  height: 250svh;
 
-  background: #05002a;
+  background: #ffcfe9;
 }
 
 .lmv2-peach-clone__stage {
@@ -29,38 +29,41 @@ body {
   height: 100svh;
 
   overflow: hidden;
-
-  background: #05002a;
+  background: #ffcfe9;
 }
 
-.lmv2-peach-clone__fallback {
+.lmv2-peach-clone__bg {
   position: absolute;
   z-index: 0;
   inset: 0;
 
-  background:
-    #ffcfe9
-    url('/images/peach/main-bg-desktop.webp')
-    center center /
-    cover
-    no-repeat;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  pointer-events: none;
+  user-select: none;
 }
 
-.lmv2-peach-clone__canvas {
+.lmv2-fish-layer {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   inset: 0;
 
   width: 100%;
   height: 100%;
+
+  background: transparent;
 }
 
-.lmv2-peach-clone__canvas > div,
-.lmv2-peach-clone__canvas canvas {
+.lmv2-fish-layer > div,
+.lmv2-fish-layer canvas {
   width: 100% !important;
   height: 100% !important;
 
-  display: block;
+  background: transparent !important;
 }
 
 .lmv2-scroll-hint {
@@ -70,7 +73,7 @@ body {
   left: 50%;
   bottom:
     calc(
-      22px
+      24px
       + env(safe-area-inset-bottom)
     );
 
@@ -78,24 +81,13 @@ body {
   align-items: center;
   gap: 8px;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      0.58
-    );
-
-  mix-blend-mode:
-    difference;
+  color: rgba(25, 20, 25, 0.48);
 
   font-size: 10px;
   font-weight: 700;
-  letter-spacing:
-    0.16em;
+  letter-spacing: 0.16em;
 
   pointer-events: none;
 }
@@ -104,32 +96,22 @@ body {
   font-size: 14px;
 }
 
-@media (
-  max-width: 768px
-) {
+@media (max-width: 768px) {
   .lmv2-peach-clone {
-    height: 280svh;
+    height: 240svh;
   }
 
-  .lmv2-peach-clone__fallback {
-    background-image:
-      url('/images/peach/main-bg-mobile.webp');
+  .lmv2-peach-clone__stage {
+    height: 100svh;
   }
 }
 
-@media (
-  prefers-reduced-motion:
-  reduce
-) {
+@media (prefers-reduced-motion: reduce) {
   .lmv2-peach-clone {
     height: 100svh;
   }
 
   .lmv2-peach-clone__stage {
     position: relative;
-  }
-
-  .lmv2-scroll-hint {
-    display: none;
   }
 }
