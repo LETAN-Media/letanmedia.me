@@ -15,7 +15,6 @@ import {
 } from '@react-three/fiber';
 
 import {
-  Environment,
   useAnimations,
   useGLTF,
 } from '@react-three/drei';
@@ -28,8 +27,6 @@ import {
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
 const FISH_URL = '/peach-v2/clownfish.glb';
-const HDR_URL = '/peach-v2/kloofendal.hdr';
-
 const FISH_ID =
   '480aae7d-371f-4934-9033-698109657d31';
 
@@ -253,10 +250,13 @@ function CameraTimeline({
         delta,
       );
 
+    const peachProgress =
+      progressRef.current.smooth * 0.451;
+
     applyTransform(
       camera,
       tracks,
-      progressRef.current.smooth,
+      peachProgress,
     );
 
     camera.updateMatrixWorld();
@@ -306,10 +306,13 @@ function Fish({
   }, [actions]);
 
   useFrame(() => {
+    const peachProgress =
+      progressRef.current.smooth * 0.451;
+
     applyTransform(
       rigRef.current,
       tracks,
-      progressRef.current.smooth,
+      peachProgress,
     );
   });
 
@@ -356,13 +359,19 @@ function Scene({
     <>
       <ambientLight
         color="#ffffff"
-        intensity={2.3}
+        intensity={2.8}
       />
 
-      <Environment
-        files={HDR_URL}
-        background={false}
-        environmentIntensity={3}
+      <directionalLight
+        position={[3, 4, 5]}
+        intensity={3}
+        color="#ffffff"
+      />
+
+      <directionalLight
+        position={[-3, 1, 4]}
+        intensity={1.1}
+        color="#ffd1e7"
       />
 
       <CameraTimeline
@@ -503,7 +512,7 @@ export default function PeachHeroClone() {
                   THREE.SRGBColorSpace;
 
                 gl.toneMapping =
-                  THREE.ACESFilmicToneMapping;
+                  THREE.NoToneMapping;
 
                 gl.toneMappingExposure =
                   1;
