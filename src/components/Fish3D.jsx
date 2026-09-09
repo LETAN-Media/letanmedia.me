@@ -1,16 +1,20 @@
 import React, {
   Suspense,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from 'react';
 import * as THREE from 'three';
-import { Canvas, useFrame } from '@react-three/fiber';
+import {
+  Canvas,
+  useFrame,
+  useThree,
+} from '@react-three/fiber';
 import {
   Environment,
   MeshReflectorMaterial,
-  useAnimations,
   useGLTF,
   useTexture,
   useVideoTexture,
@@ -34,6 +38,28 @@ const PARTICLE_URL =
 
 const HDR_URL =
   '/models/peach/kloofendal.hdr';
+
+const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
+
+const DEFAULT_HANDLES = [1, 1, 0, 0];
+const DEFAULT_POSITION = { x: 0, y: 0, z: 0 };
+const DEFAULT_ROTATION = { x: 0, y: 0, z: 0 };
+const DEFAULT_SCALE = { x: 1, y: 1, z: 1 };
+
+const MOBILE_REFLECTION_BLUR = [48, 24];
+const DESKTOP_REFLECTION_BLUR = [180, 80];
+const ENVIRONMENT_ROTATION = [0, Math.PI * 2, 0];
+const DEFAULT_CAMERA_POSITION = [0, 12.5, 1.06];
+const DESKTOP_DPR = [1, 1.5];
+const CANVAS_RESIZE_OPTIONS = {
+  debounce: {
+    resize: 150,
+    scroll: 0,
+  },
+  scroll: false,
+};
+
+const preparedMaterials = new WeakSet();
 
 const IDS = {
   camera: 'ea94b165-c53b-4704-87a9-1633ae09cd51',
@@ -119,7 +145,7 @@ function usePeachSceneState() {
       return 'desktop';
     }
 
-    return window.innerWidth <= 768
+    return window.matchMedia(MOBILE_MEDIA_QUERY).matches
       ? 'mobile'
       : 'desktop';
   });
@@ -127,11 +153,13 @@ function usePeachSceneState() {
   const [sceneState, setSceneState] = useState(null);
 
   useEffect(() => {
-    const updateMode = () => {
-      const nextMode =
-        window.innerWidth <= 768
-          ? 'mobile'
-          : 'desktop';
+    const mediaQuery =
+      window.matchMedia(MOBILE_MEDIA_QUERY);
+
+    const updateMode = (event) => {
+      const nextMode = event.matches
+        ? 'mobile'
+        : 'desktop';
 
       setMode((current) =>
         current === nextMode
@@ -140,19 +168,26 @@ function usePeachSceneState() {
       );
     };
 
-    updateMode();
+    updateMode(mediaQuery);
 
-    window.addEventListener(
-      'resize',
-      updateMode,
-      { passive: true },
-    );
-
-    return () => {
-      window.removeEventListener(
-        'resize',
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener(
+        'change',
         updateMode,
       );
+    } else {
+      mediaQuery.addListener(updateMode);
+    }
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener(
+          'change',
+          updateMode,
+        );
+      } else {
+        mediaQuery.removeListener(updateMode);
+      }
     };
   }, []);
 
@@ -309,7 +344,7 @@ function compileTrack(
     return null;
   }
 
-  return Object.values(
+  const keyframes = Object.values(
     track
       ?.keyframes
       ?.byId
@@ -318,13 +353,20 @@ function compileTrack(
     (a, b) =>
       a.position - b.position,
   );
+
+  return {
+    keyframes,
+    segmentIndex: 0,
+  };
 }
 
 function evaluateTrack(
-  keyframes,
+  track,
   progress,
   fallback,
 ) {
+  const keyframes = track?.keyframes;
+
   if (!keyframes?.length) {
     return fallback;
   }
@@ -340,67 +382,79 @@ function evaluateTrack(
     return last.value;
   }
 
-  for (
-    let index = 0;
-    index < keyframes.length - 1;
-    index += 1
+  const finalSegmentIndex = keyframes.length - 2;
+  let index = track.segmentIndex;
+
+  if (
+    index < 0
+    || index > finalSegmentIndex
+    || progress < keyframes[index].position
+    || progress > keyframes[index + 1].position
   ) {
-    const current = keyframes[index];
-    const next = keyframes[index + 1];
+    let low = 0;
+    let high = keyframes.length - 1;
 
-    if (
-      progress < current.position
-      || progress > next.position
-    ) {
-      continue;
+    while (low <= high) {
+      const middle = (low + high) >> 1;
+
+      if (keyframes[middle].position <= progress) {
+        low = middle + 1;
+      } else {
+        high = middle - 1;
+      }
     }
 
-    const length =
-      next.position - current.position;
-
-    if (length <= 0.000001) {
-      return next.value;
-    }
-
-    const localProgress =
-      (progress - current.position)
-      / length;
-
-    if (current.connectedRight === false) {
-      return current.value;
-    }
-
-    const currentHandles =
-      current.handles ?? [1, 1, 0, 0];
-
-    const nextHandles =
-      next.handles ?? [1, 1, 0, 0];
-
-    const eased = cubicBezierEase(
-      localProgress,
-      currentHandles[2],
-      currentHandles[3],
-      nextHandles[0],
-      nextHandles[1],
+    index = Math.min(
+      Math.max(high, 0),
+      finalSegmentIndex,
     );
 
-    if (
-      typeof current.value === 'number'
-      && typeof next.value === 'number'
-    ) {
-      return THREE.MathUtils.lerp(
-        current.value,
-        next.value,
-        eased,
-      );
-    }
-
-    return eased < 0.5
-      ? current.value
-      : next.value;
+    track.segmentIndex = index;
   }
 
-  return fallback;
+  const current = keyframes[index];
+  const next = keyframes[index + 1];
+  const length = next.position - current.position;
+
+  if (length <= 0.000001) {
+    return next.value;
+  }
+
+  if (current.connectedRight === false) {
+    return current.value;
+  }
+
+  const localProgress =
+    (progress - current.position) / length;
+
+  const currentHandles =
+    current.handles ?? DEFAULT_HANDLES;
+
+  const nextHandles =
+    next.handles ?? DEFAULT_HANDLES;
+
+  const eased = cubicBezierEase(
+    localProgress,
+    currentHandles[2],
+    currentHandles[3],
+    nextHandles[0],
+    nextHandles[1],
+  );
+
+  if (
+    typeof current.value === 'number'
+    && typeof next.value === 'number'
+  ) {
+    return THREE.MathUtils.lerp(
+      current.value,
+      next.value,
+      eased,
+    );
+  }
+
+  return eased < 0.5
+    ? current.value
+    : next.value;
 }
 
 function compileTransformTimeline(
@@ -442,13 +496,13 @@ function applyTimelineTransform(
   if (!target || !base) return;
 
   const basePosition =
-    base.position ?? { x: 0, y: 0, z: 0 };
+    base.position ?? DEFAULT_POSITION;
 
   const baseRotation =
-    base.rotation ?? { x: 0, y: 0, z: 0 };
+    base.rotation ?? DEFAULT_ROTATION;
 
   const baseScale =
-    base.scale ?? { x: 1, y: 1, z: 1 };
+    base.scale ?? DEFAULT_SCALE;
 
   target.position.set(
     evaluateTrack(
@@ -605,14 +659,8 @@ function PeachCamera({
             : 0,
         );
 
-    const pseudoTarget = {
-      position: camera.position,
-      rotation: camera.rotation,
-      scale: camera.scale,
-    };
-
     applyTimelineTransform(
-      pseudoTarget,
+      camera,
       timeline,
       cameraConfig,
       currentProgress,
@@ -644,8 +692,14 @@ function ImportedModel({
   progress,
   reduceMotion,
   timelineObjectId,
+  active = true,
+  animationFps = 0,
+  cloneModel = false,
+  keepInFrustum = false,
 }) {
   const ref = useRef(null);
+  const actionRef = useRef(null);
+  const animationAccumulatorRef = useRef(0);
 
   const {
     scene,
@@ -653,9 +707,11 @@ function ImportedModel({
   } = useGLTF(url);
 
   const instance = useMemo(() => {
-    const cloned = clone(scene);
+    const model = cloneModel
+      ? clone(scene)
+      : scene;
 
-    cloned.traverse((object) => {
+    model.traverse((object) => {
       if (
         !object.isMesh
         && !object.isSkinnedMesh
@@ -663,7 +719,7 @@ function ImportedModel({
         return;
       }
 
-      object.frustumCulled = false;
+      object.frustumCulled = !keepInFrustum;
 
       const materials =
         Array.isArray(object.material)
@@ -671,24 +727,32 @@ function ImportedModel({
           : [object.material];
 
       materials.forEach((material) => {
-        if (!material) return;
+        if (
+          !material
+          || preparedMaterials.has(material)
+        ) {
+          return;
+        }
 
         if ('envMapIntensity' in material) {
           material.envMapIntensity = 3;
         }
 
         material.needsUpdate = true;
+        preparedMaterials.add(material);
       });
     });
 
-    return cloned;
-  }, [scene]);
+    return model;
+  }, [
+    cloneModel,
+    keepInFrustum,
+    scene,
+  ]);
 
-  const {
-    actions,
-  } = useAnimations(
-    animations,
-    ref,
+  const mixer = useMemo(
+    () => new THREE.AnimationMixer(instance),
+    [instance],
   );
 
   const timeline = useMemo(
@@ -703,13 +767,15 @@ function ImportedModel({
   );
 
   useEffect(() => {
-    if (!clipName) return undefined;
+    const clip =
+      animations.find(
+        (candidate) => candidate.name === clipName,
+      )
+      || animations[0];
 
-    const action =
-      actions?.[clipName]
-      || Object.values(actions ?? {})[0];
+    if (!clip) return undefined;
 
-    if (!action) return undefined;
+    const action = mixer.clipAction(clip);
 
     action.reset();
 
@@ -725,18 +791,53 @@ function ImportedModel({
     );
 
     action.play();
+    actionRef.current = action;
+    animationAccumulatorRef.current = 0;
 
     return () => {
-      action.stop();
+      actionRef.current = null;
+      mixer.stopAllAction();
+      mixer.uncacheRoot(instance);
     };
   }, [
-    actions,
+    animations,
     clipName,
+    instance,
     loop,
+    mixer,
     speed,
   ]);
 
-  useFrame(() => {
+  useFrame((_state, delta) => {
+    if (
+      active
+      && !reduceMotion
+      && config?.visible !== false
+      && actionRef.current
+    ) {
+      if (animationFps > 0) {
+        animationAccumulatorRef.current += delta;
+
+        const frameDuration = 1 / animationFps;
+
+        if (
+          animationAccumulatorRef.current
+          >= frameDuration
+        ) {
+          mixer.update(
+            Math.min(
+              animationAccumulatorRef.current,
+              0.1,
+            ),
+          );
+
+          animationAccumulatorRef.current = 0;
+        }
+      } else {
+        mixer.update(Math.min(delta, 0.1));
+      }
+    }
+
     if (
       !ref.current
       || !config
@@ -781,8 +882,25 @@ function ImportedModel({
    GLASS SPHERES
    ============================================================ */
 
-function GlassSphere({ config }) {
-  if (!config) return null;
+function GlassSphere({
+  config,
+  isMobile,
+}) {
+  if (!config || config.visible === false) return null;
+
+  const widthSegments = isMobile
+    ? Math.min(
+      config.geometry?.widthSegments ?? 32,
+      16,
+    )
+    : config.geometry?.widthSegments ?? 32;
+
+  const heightSegments = isMobile
+    ? Math.min(
+      config.geometry?.heightSegments ?? 20,
+      10,
+    )
+    : config.geometry?.heightSegments ?? 20;
 
   return (
     <mesh
@@ -791,25 +909,39 @@ function GlassSphere({ config }) {
       <sphereGeometry
         args={[
           config.geometry?.radius ?? 0.5,
-          config.geometry?.widthSegments ?? 32,
-          config.geometry?.heightSegments ?? 20,
+          widthSegments,
+          heightSegments,
         ]}
       />
 
-      <meshPhysicalMaterial
-        color="#ffffff"
-        transmission={1}
-        thickness={20}
-        roughness={0.221}
-        metalness={0.0902}
-        reflectivity={0.2458}
-        sheen={0.5763}
-        sheenColor="#ffffff"
-        sheenRoughness={0.19}
-        clearcoatRoughness={0.1912}
-        specularIntensity={1}
-        envMapIntensity={3}
-      />
+      {isMobile ? (
+        <meshPhysicalMaterial
+          color="#ffffff"
+          transparent
+          opacity={0.38}
+          depthWrite={false}
+          roughness={0.16}
+          metalness={0.12}
+          clearcoat={1}
+          clearcoatRoughness={0.18}
+          envMapIntensity={1.4}
+        />
+      ) : (
+        <meshPhysicalMaterial
+          color="#ffffff"
+          transmission={1}
+          thickness={20}
+          roughness={0.221}
+          metalness={0.0902}
+          reflectivity={0.2458}
+          sheen={0.5763}
+          sheenColor="#ffffff"
+          sheenRoughness={0.19}
+          clearcoatRoughness={0.1912}
+          specularIntensity={1}
+          envMapIntensity={3}
+        />
+      )}
     </mesh>
   );
 }
@@ -822,7 +954,7 @@ function PeachWater({
   config,
   isMobile,
 }) {
-  if (!config) return null;
+  if (!config || config.visible === false) return null;
 
   return (
     <mesh
@@ -833,13 +965,17 @@ function PeachWater({
       <MeshReflectorMaterial
         color={config.color ?? '#f2e5ff'}
         mirror={config.reflectivity ?? 0.62}
-        resolution={isMobile ? 256 : 512}
-        blur={[180, 80]}
+        resolution={isMobile ? 128 : 512}
+        blur={
+          isMobile
+            ? MOBILE_REFLECTION_BLUR
+            : DESKTOP_REFLECTION_BLUR
+        }
         mixBlur={1}
         mixStrength={1.8}
         roughness={0.22}
         metalness={0.04}
-        depthScale={0.4}
+        depthScale={isMobile ? 0.2 : 0.4}
         minDepthThreshold={0.25}
         maxDepthThreshold={1.4}
       />
@@ -856,6 +992,7 @@ function PeachHeroWorld({
   isMobile,
   progress,
   reduceMotion,
+  active,
 }) {
   const hero =
     objectById(
@@ -954,6 +1091,7 @@ function PeachHeroWorld({
         <GlassSphere
           key={sphere.uuid}
           config={sphere}
+          isMobile={isMobile}
         />
       ))}
 
@@ -970,7 +1108,7 @@ function PeachHeroWorld({
         </mesh>
       )}
 
-      {particle && (
+      {particle && particle.visible !== false && (
         <ImportedModel
           url={PARTICLE_URL}
           config={particle}
@@ -985,6 +1123,7 @@ function PeachHeroWorld({
           sceneState={sceneState}
           progress={progress}
           reduceMotion={reduceMotion}
+          active={active}
         />
       )}
     </group>
@@ -1000,17 +1139,51 @@ function VideoLayer({
   src,
   color,
   opacity,
+  active,
 }) {
   const texture = useVideoTexture(
     src,
     {
       muted: true,
       loop: true,
-      start: true,
+      start: false,
       playsInline: true,
       crossOrigin: 'anonymous',
     },
   );
+
+  const video = texture.source.data;
+
+  useEffect(() => {
+    texture.generateMipmaps = false;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.needsUpdate = true;
+  }, [texture]);
+
+  useEffect(() => {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+
+    if (!active) {
+      video.pause();
+      return undefined;
+    }
+
+    const playPromise = video.play();
+
+    if (playPromise?.catch) {
+      playPromise.catch(() => {});
+    }
+
+    return () => {
+      video.pause();
+    };
+  }, [active, video]);
 
   if (!config) return null;
 
@@ -1037,8 +1210,10 @@ function VideoLayer({
 
 function PeachUnderworld({
   sceneState,
+  isMobile,
   progress,
   reduceMotion,
+  active,
 }) {
   const underworld =
     objectById(
@@ -1115,19 +1290,25 @@ function PeachUnderworld({
 
           {!reduceMotion && (
             <Suspense fallback={null}>
-              <VideoLayer
-                config={waterLayer}
-                src="/peach/video/water2.mp4"
-                color="#1f9eff"
-                opacity={0.66}
-              />
+              {waterLayer && waterLayer.visible !== false && (
+                <VideoLayer
+                  config={waterLayer}
+                  src="/peach/video/water2.mp4"
+                  color="#1f9eff"
+                  opacity={0.66}
+                  active={active}
+                />
+              )}
 
-              <VideoLayer
-                config={raysLayer}
-                src="/peach/video/rays-2b.mp4"
-                color="#6abeff"
-                opacity={0.56}
-              />
+              {raysLayer && raysLayer.visible !== false && (
+                <VideoLayer
+                  config={raysLayer}
+                  src="/peach/video/rays-2b.mp4"
+                  color="#6abeff"
+                  opacity={0.56}
+                  active={active}
+                />
+              )}
             </Suspense>
           )}
         </group>
@@ -1150,6 +1331,9 @@ function PeachUnderworld({
           progress={progress}
           reduceMotion={reduceMotion}
           timelineObjectId={jelly.uuid}
+          active={active}
+          animationFps={isMobile ? 30 : 0}
+          cloneModel
         />
       ))}
 
@@ -1188,6 +1372,7 @@ function PeachFish({
   sceneState,
   progress,
   reduceMotion,
+  active,
 }) {
   const fishConfig =
     objectById(
@@ -1201,7 +1386,9 @@ function PeachFish({
       IDS.fishLight,
     );
 
-  if (!fishConfig) return null;
+  if (!fishConfig || fishConfig.visible === false) {
+    return null;
+  }
 
   return (
     <TimelineGroup
@@ -1225,6 +1412,8 @@ function PeachFish({
         progress={progress}
         reduceMotion={reduceMotion}
         timelineObjectId={IDS.fish}
+        active={active}
+        keepInFrustum
       />
 
       {fishLight && (
@@ -1252,8 +1441,10 @@ function PeachFish({
 
 function RootObjects({
   sceneState,
+  isMobile,
   progress,
   reduceMotion,
+  active,
 }) {
   const jelly =
     objectByName(
@@ -1275,7 +1466,7 @@ function RootObjects({
 
   return (
     <>
-      {jelly && (
+      {jelly && jelly.visible !== false && (
         <ImportedModel
           url={JELLY_URL}
           config={jelly}
@@ -1289,6 +1480,9 @@ function RootObjects({
           progress={progress}
           reduceMotion={reduceMotion}
           timelineObjectId={jelly.uuid}
+          active={active}
+          animationFps={isMobile ? 30 : 0}
+          cloneModel
         />
       )}
 
@@ -1350,6 +1544,7 @@ function PeachScene({
   isMobile,
   progress,
   reduceMotion,
+  active,
 }) {
   return (
     <>
@@ -1362,8 +1557,8 @@ function PeachScene({
       <Environment
         files={HDR_URL}
         background={false}
-        environmentIntensity={3}
-        environmentRotation={[0, Math.PI * 2, 0]}
+        environmentIntensity={1}
+        environmentRotation={ENVIRONMENT_ROTATION}
       />
 
       <PeachHeroWorld
@@ -1371,24 +1566,30 @@ function PeachScene({
         isMobile={isMobile}
         progress={progress}
         reduceMotion={reduceMotion}
+        active={active}
       />
 
       <PeachUnderworld
         sceneState={sceneState}
+        isMobile={isMobile}
         progress={progress}
         reduceMotion={reduceMotion}
+        active={active}
       />
 
       <PeachFish
         sceneState={sceneState}
         progress={progress}
         reduceMotion={reduceMotion}
+        active={active}
       />
 
       <RootObjects
         sceneState={sceneState}
+        isMobile={isMobile}
         progress={progress}
         reduceMotion={reduceMotion}
+        active={active}
       />
 
       <PeachPostFX disabled={isMobile} />
@@ -1400,80 +1601,241 @@ function PeachScene({
    PUBLIC COMPONENT
    ============================================================ */
 
+function useRenderActivity(targetRef) {
+  const [intersecting, setIntersecting] = useState(true);
+  const [documentVisible, setDocumentVisible] = useState(
+    () =>
+      typeof document === 'undefined'
+        ? true
+        : document.visibilityState !== 'hidden',
+  );
+
+  useEffect(() => {
+    const target = targetRef.current;
+
+    if (!target || !window.IntersectionObserver) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const nextValue = Boolean(
+          entry?.isIntersecting
+          && entry.intersectionRatio > 0,
+        );
+
+        setIntersecting((current) =>
+          current === nextValue
+            ? current
+            : nextValue
+        );
+      },
+      { threshold: 0 },
+    );
+
+    observer.observe(target);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [targetRef]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      const nextValue =
+        document.visibilityState !== 'hidden';
+
+      setDocumentVisible((current) =>
+        current === nextValue
+          ? current
+          : nextValue
+      );
+    };
+
+    document.addEventListener(
+      'visibilitychange',
+      handleVisibilityChange,
+    );
+
+    return () => {
+      document.removeEventListener(
+        'visibilitychange',
+        handleVisibilityChange,
+      );
+    };
+  }, []);
+
+  return intersecting && documentVisible;
+}
+
+function WebGLLifecycle({
+  containerRef,
+  onContextStatus,
+}) {
+  const { gl, invalidate } = useThree();
+
+  useEffect(() => {
+    const canvas = gl.domElement;
+    const container = containerRef.current;
+
+    const handleContextLost = (event) => {
+      event.preventDefault();
+      container?.classList.add(
+        'lm-hero3d--context-lost',
+      );
+      onContextStatus(false);
+    };
+
+    const handleContextRestored = () => {
+      container?.classList.remove(
+        'lm-hero3d--context-lost',
+      );
+      onContextStatus(true);
+      invalidate();
+    };
+
+    canvas.addEventListener(
+      'webglcontextlost',
+      handleContextLost,
+      false,
+    );
+    canvas.addEventListener(
+      'webglcontextrestored',
+      handleContextRestored,
+      false,
+    );
+
+    return () => {
+      canvas.removeEventListener(
+        'webglcontextlost',
+        handleContextLost,
+        false,
+      );
+      canvas.removeEventListener(
+        'webglcontextrestored',
+        handleContextRestored,
+        false,
+      );
+      container?.classList.remove(
+        'lm-hero3d--context-lost',
+      );
+    };
+  }, [
+    containerRef,
+    gl,
+    invalidate,
+    onContextStatus,
+  ]);
+
+  return null;
+}
+
 function Fish3D({
   progress,
   reduceMotion = false,
 }) {
+  const containerRef = useRef(null);
+  const [contextAvailable, setContextAvailable] =
+    useState(true);
+
   const {
     sceneState,
     isMobile,
   } = usePeachSceneState();
 
-  if (!sceneState) {
-    return (
-      <div
-        className="lm-hero3d"
-        aria-hidden="true"
-      />
-    );
-  }
+  const renderActivity =
+    useRenderActivity(containerRef);
 
-  const cameraConfig =
-    objectById(
-      sceneState,
-      IDS.camera,
-    );
+  const handleContextStatus = useCallback(
+    (available) => {
+      setContextAvailable((current) =>
+        current === available
+          ? current
+          : available
+      );
+    },
+    [],
+  );
+
+  const cameraConfig = useMemo(
+    () => objectById(sceneState, IDS.camera),
+    [sceneState],
+  );
+
+  const cameraOptions = useMemo(
+    () => ({
+      position: vectorArray(
+        cameraConfig?.position,
+        DEFAULT_CAMERA_POSITION,
+      ),
+      fov:
+        cameraConfig?.fov
+        ?? (isMobile ? 60 : 40),
+      near: cameraConfig?.near ?? 0.1,
+      far: cameraConfig?.far ?? 1000,
+    }),
+    [cameraConfig, isMobile],
+  );
+
+  const glOptions = useMemo(
+    () => ({
+      alpha: true,
+      antialias: !isMobile,
+      powerPreference: 'high-performance',
+      preserveDrawingBuffer: false,
+      stencil: false,
+    }),
+    [isMobile],
+  );
+
+  const configureRenderer = useCallback(({ gl }) => {
+    gl.outputColorSpace = THREE.SRGBColorSpace;
+    gl.toneMapping = THREE.ACESFilmicToneMapping;
+    gl.toneMappingExposure = 1;
+    gl.shadowMap.enabled = false;
+  }, []);
+
+  const active =
+    renderActivity && contextAvailable;
+
+  const frameloop = !active
+    ? 'never'
+    : reduceMotion
+      ? 'demand'
+      : 'always';
 
   return (
     <div
+      ref={containerRef}
       className="lm-hero3d"
       aria-hidden="true"
-      style={{
-        width: '100%',
-        height: '100%',
-      }}
     >
-      <Canvas
-        camera={{
-          position: vectorArray(
-            cameraConfig?.position,
-            [0, 12.5, 1.06],
-          ),
-          fov:
-            cameraConfig?.fov
-            ?? (isMobile ? 60 : 40),
-          near: cameraConfig?.near ?? 0.1,
-          far: cameraConfig?.far ?? 1000,
-        }}
-        dpr={
-          isMobile
-            ? [1, 1]
-            : [1, 1.5]
-        }
-        gl={{
-          alpha: true,
-          antialias: true,
-          powerPreference: 'high-performance',
-        }}
-        onCreated={({ gl }) => {
-          gl.outputColorSpace =
-            THREE.SRGBColorSpace;
-
-          gl.toneMapping =
-            THREE.ACESFilmicToneMapping;
-
-          gl.toneMappingExposure = 1;
-        }}
-      >
-        <Suspense fallback={null}>
-          <PeachScene
-            sceneState={sceneState}
-            isMobile={isMobile}
-            progress={progress}
-            reduceMotion={reduceMotion}
+      {sceneState && (
+        <Canvas
+          camera={cameraOptions}
+          dpr={isMobile ? 1 : DESKTOP_DPR}
+          frameloop={frameloop}
+          gl={glOptions}
+          resize={CANVAS_RESIZE_OPTIONS}
+          shadows={false}
+          onCreated={configureRenderer}
+        >
+          <WebGLLifecycle
+            containerRef={containerRef}
+            onContextStatus={handleContextStatus}
           />
-        </Suspense>
-      </Canvas>
+
+          <Suspense fallback={null}>
+            <PeachScene
+              sceneState={sceneState}
+              isMobile={isMobile}
+              progress={progress}
+              reduceMotion={reduceMotion}
+              active={active}
+            />
+          </Suspense>
+        </Canvas>
+      )}
     </div>
   );
 }

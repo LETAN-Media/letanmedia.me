@@ -44,12 +44,18 @@ const canUseWebGL = () => {
 
   try {
     const canvas = document.createElement('canvas');
-
-    return Boolean(
+    const context =
       canvas.getContext('webgl2')
       || canvas.getContext('webgl')
-      || canvas.getContext('experimental-webgl'),
-    );
+      || canvas.getContext('experimental-webgl');
+
+    const supported = Boolean(context);
+
+    context
+      ?.getExtension('WEBGL_lose_context')
+      ?.loseContext();
+
+    return supported;
   } catch {
     return false;
   }
@@ -235,19 +241,15 @@ const Hero = () => {
             className="lm-film-hero__artifact"
           >
             <div className="lm-film-hero__artifact-canvas">
-              {!supportsWebGL ? null : (
+              <div className="lm-peach-scene-fallback" />
+
+              {supportsWebGL && (
                 <VisualErrorBoundary
-                  fallback={
-                    <div className="lm-peach-scene-fallback" />
-                  }
+                  fallback={null}
                 >
-                  <Suspense
-                    fallback={
-                      <div className="lm-peach-scene-fallback" />
-                    }
-                  >
+                  <Suspense fallback={null}>
                     <Fish3D
-                      progress={progress}
+                      progress={scrollYProgress}
                       reduceMotion={reduceMotion}
                     />
                   </Suspense>
