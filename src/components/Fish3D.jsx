@@ -1332,7 +1332,7 @@ function PeachUnderworld({
           reduceMotion={reduceMotion}
           timelineObjectId={jelly.uuid}
           active={active}
-          animationFps={isMobile ? 30 : 0}
+          animationFps={0}
           cloneModel
         />
       ))}
@@ -1481,7 +1481,7 @@ function RootObjects({
           reduceMotion={reduceMotion}
           timelineObjectId={jelly.uuid}
           active={active}
-          animationFps={isMobile ? 30 : 0}
+          animationFps={0}
           cloneModel
         />
       )}

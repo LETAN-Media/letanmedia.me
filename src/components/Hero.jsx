@@ -25,16 +25,24 @@ import '../home/peach-motion-tuning.css';
 const Fish3D = lazy(() => import('./Fish3D'));
 
 /*
- * PeachWeb uses smooth scrolling before its scene timeline receives
- * progress. We keep native page scrolling, but smooth the visual
- * timeline with an exponential low-pass filter.
+ * Smooth progress matched to the Peach reference.
  *
- * No bounce.
- * No overshoot.
- * Roughly settles in ~0.8–1.0s after a hard flick.
+ * The reference ui-state.json declares scrollSettings:
+ *   { type: "smooth", speed: 100, easing: "default", duration: 1200 }
+ * i.e. every scroll input is eased toward its target over ~1.2s
+ * with the default easeOutExpo curve.
+ *
+ * We reproduce that behavior on top of native scrolling:
+ * - no spring, no overshoot, no bounce
+ * - retargets from the live value, so reversing direction stays
+ *   continuous (same as Lenis duration mode)
+ * - the RAF only runs while the value is catching up
  */
-const PEACH_SMOOTH_TAU = 0.18;
+const PEACH_SMOOTH_DURATION = 1.2;
 const PEACH_PROGRESS_EPSILON = 0.00004;
+
+const easeOutExpo = (x) =>
+  x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
 
 class VisualErrorBoundary extends React.Component {
   constructor(props) {
@@ -99,6 +107,9 @@ function usePeachSmoothProgress(
 
   const targetRef = useRef(source.get());
   const currentRef = useRef(source.get());
+  const startRef = useRef(source.get());
+  const deltaRef = useRef(0);
+  const elapsedRef = useRef(0);
   const frameRef = useRef(null);
   const previousTimeRef = useRef(null);
 
@@ -120,6 +131,9 @@ function usePeachSmoothProgress(
 
     targetRef.current = source.get();
     currentRef.current = source.get();
+    startRef.current = currentRef.current;
+    deltaRef.current = 0;
+    elapsedRef.current = 0;
     smoothed.set(currentRef.current);
 
     const cancelFrame = () => {
@@ -145,25 +159,26 @@ function usePeachSmoothProgress(
 
       previousTimeRef.current = timestamp;
 
-      const target = targetRef.current;
-      const current = currentRef.current;
+      elapsedRef.current += deltaSeconds;
 
-      const alpha =
-        1
-        - Math.exp(
-          -deltaSeconds / PEACH_SMOOTH_TAU,
-        );
+      const easedT = easeOutExpo(
+        Math.min(
+          elapsedRef.current / PEACH_SMOOTH_DURATION,
+          1,
+        ),
+      );
 
       const next =
-        current
-        + (target - current) * alpha;
+        startRef.current
+        + deltaRef.current * easedT;
 
       if (
-        Math.abs(target - next)
-        <= PEACH_PROGRESS_EPSILON
+        easedT >= 1
+        || Math.abs(targetRef.current - next)
+          <= PEACH_PROGRESS_EPSILON
       ) {
-        currentRef.current = target;
-        smoothed.set(target);
+        currentRef.current = targetRef.current;
+        smoothed.set(targetRef.current);
 
         frameRef.current = null;
         previousTimeRef.current = null;
@@ -193,6 +208,17 @@ function usePeachSmoothProgress(
       'change',
       (value) => {
         targetRef.current = value;
+
+        /*
+         * Retarget from the currently animated value,
+         * not the original start, so direction reversals
+         * stay continuous (Lenis duration-mode behavior).
+         */
+        startRef.current = currentRef.current;
+        deltaRef.current =
+          value - startRef.current;
+        elapsedRef.current = 0;
+
         startFrame();
       },
     );
