@@ -271,7 +271,7 @@ const Hero = () => {
             }}
           >
             <div className="lm-film-hero__artifact-canvas">
-              {reduceMotion || !supportsWebGL ? (
+              {!supportsWebGL ? (
                 <HeroFallback />
               ) : (
                 <VisualErrorBoundary
