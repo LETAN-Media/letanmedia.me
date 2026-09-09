@@ -15,7 +15,7 @@ import {
 
 const Fish3D = lazy(() => import('../components/Fish3D'));
 
-const SMOOTH_TAU = 0.18;
+const SMOOTH_TAU = 0.30;
 const EPSILON = 0.00004;
 
 function useSmoothProgress(source, disabled = false) {
@@ -148,8 +148,8 @@ export default function HeroV2() {
    */
   const sceneProgress = useTransform(
     progress,
-    [0, 1],
-    [0, 1],
+    [0, 0.18, 0.55, 1],
+    [0, 0.05, 0.24, 0.52],
   );
 
   const introOpacity = useTransform(
