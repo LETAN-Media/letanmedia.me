@@ -108,24 +108,6 @@ const Hero = () => {
     [54, 0],
   );
 
-  const artifactScale = useTransform(
-    progress,
-    [0, 0.30, 0.54, 1],
-    [0.84, 0.94, 0.70, 0.76],
-  );
-
-  const artifactY = useTransform(
-    progress,
-    [0, 0.32, 0.60, 1],
-    [18, -8, 10, -14],
-  );
-
-  const artifactRotate = useTransform(
-    progress,
-    [0, 0.48, 0.72, 1],
-    [0, -1.6, 2.8, 0.8],
-  );
-
   const scrollHintOpacity = useTransform(
     progress,
     [0, 0.10, 0.26],
@@ -249,13 +231,8 @@ const Hero = () => {
           className="lm-film-hero__artifact-slot"
           aria-hidden="true"
         >
-          <motion.div
+          <div
             className="lm-film-hero__artifact"
-            style={{
-              scale: artifactScale,
-              y: artifactY,
-              rotateZ: artifactRotate,
-            }}
           >
             <div className="lm-film-hero__artifact-canvas">
               {!supportsWebGL ? null : (
@@ -271,7 +248,7 @@ const Hero = () => {
                 </VisualErrorBoundary>
               )}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <motion.div
