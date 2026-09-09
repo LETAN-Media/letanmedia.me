@@ -11,7 +11,7 @@ export default function HomeV2() {
     <div className="lmv2-clone-page">
       <Seo
         title="LETAN Media V2"
-        description="LETAN Media V2 hero experiment."
+        description="LETAN Media V2."
         path="/v2"
         noindex
       />

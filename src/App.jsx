@@ -48,7 +48,7 @@ const ScrollToTop = () => {
 
 function App() {
   const location = useLocation();
-  const isV2 = location.pathname === '/v2';
+  const isV2 = location.pathname === '/v2' || location.pathname.startsWith('/v2/');
 
   const showHomeChatbot =
     !isV2
