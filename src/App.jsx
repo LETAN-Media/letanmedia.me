@@ -36,13 +36,28 @@ const ServicePage = lazy(() => import('./home/ServicePage'));
 const ServicesIndex = lazy(() => import('./home/ServicesIndex'));
 const InsightsPage = lazy(() => import('./home/InsightsPage'));
 const InsightDetail = lazy(() => import('./home/InsightDetail'));
-const HomeV2 = lazy(() => import('./home-v2/HomeV2'));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+  return null;
+};
+
+
+const V2StaticRedirect = () => {
+  useEffect(() => {
+    const target =
+      '/v2/index.html' +
+      (window.location.search || '') +
+      (window.location.hash || '');
+
+    if (window.location.pathname !== '/v2/index.html') {
+      window.location.replace(target);
+    }
+  }, []);
+
   return null;
 };
 
@@ -109,7 +124,7 @@ function App() {
               <FinalCTAV2 />
             </div>
           } />
-          <Route path="/v2" element={<HomeV2 />} />
+          <Route path="/v2/*" element={<V2StaticRedirect />} />
 
           <Route path="/policy" element={
             <>
