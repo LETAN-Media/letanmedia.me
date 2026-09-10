@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs",
+    "build": "node scripts/sync-peach-v2.mjs && vite build && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "peach:sync": "node scripts/sync-peach-v2.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
