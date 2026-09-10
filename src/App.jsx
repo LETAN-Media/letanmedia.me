@@ -11,13 +11,6 @@ import { initAnalytics } from './lib/analytics';
 import PlaceholderPage from './components/PlaceholderPage';
 import { REDIRECTS } from './lib/ia';
 import { Navigate } from 'react-router-dom';
-import Hero from './components/Hero';
-import ServiceEcosystem from './home/ServiceEcosystem';
-import FeaturedServicesV2 from './home/FeaturedServicesV2';
-import ProjectShowcaseV2 from './home/ProjectShowcaseV2';
-import WhyLetanV2 from './home/WhyLetanV2';
-import LetanAIV2 from './home/LetanAIV2';
-import FinalCTAV2 from './home/FinalCTAV2';
 import { captureUtm } from './lib/utm';
 
 import './home/redesign.css';
@@ -61,6 +54,15 @@ const V2StaticRedirect = () => {
   return null;
 };
 
+const StaticHomeRedirect = () => {
+  useEffect(() => {
+    // "/" is static V2 HTML, not a React route — needs a real document load.
+    window.location.replace('/');
+  }, []);
+
+  return null;
+};
+
 function App() {
   const location = useLocation();
   const isV2 = location.pathname === '/v2' || location.pathname.startsWith('/v2/');
@@ -78,9 +80,6 @@ function App() {
   const isGeoManager =
     location.pathname === '/geo-entity-manager';
 
-  const isHome =
-    location.pathname === '/';
-
   useEffect(() => {
     initAnalytics();
     captureUtm();
@@ -92,7 +91,7 @@ function App() {
   }, [location.pathname]);
 
   return (
-    <div className={`app-container${isHome ? ' lm-home-shell' : ''}`}>
+    <div className="app-container">
       <ScrollToTop />
       {!isGeoManager && (
         <a className="lm-skip-link" href="#main-content">
@@ -108,22 +107,8 @@ function App() {
           </div>
         }>
           <Routes>
-          <Route path="/" element={
-            <div className="lm-home">
-              <Seo
-                title="LETAN Media — AI, Marketing & Digital Growth"
-                description="Giải pháp AI, truyền thông số và phát triển phần mềm dành cho cá nhân và doanh nghiệp. Premium AI-first digital agency."
-                path="/"
-              />
-              <Hero />
-              <ServiceEcosystem />
-              <FeaturedServicesV2 />
-              <ProjectShowcaseV2 />
-              <WhyLetanV2 />
-              <LetanAIV2 />
-              <FinalCTAV2 />
-            </div>
-          } />
+          {/* "/" is served statically by the V2 Peach runtime (public/v2/index.html
+              promoted to dist/index.html at build time) — no React route here. */}
           <Route path="/v2/*" element={<V2StaticRedirect />} />
 
           <Route path="/policy" element={
@@ -210,8 +195,8 @@ function App() {
             <Route key={r.from} path={r.from} element={<Navigate to={r.to} replace />} />
           ))}
 
-          {/* Catch-all -> home (no broken links) */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* Catch-all -> static V2 homepage (full page load, not a React route) */}
+          <Route path="*" element={<StaticHomeRedirect />} />
           </Routes>
         </Suspense>
       </main>

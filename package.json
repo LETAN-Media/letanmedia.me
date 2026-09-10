@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/sync-peach-v2.mjs && vite build && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs",
+    "build": "node scripts/sync-peach-v2.mjs && vite build && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs && node scripts/promote-v2-home.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "peach:sync": "node scripts/sync-peach-v2.mjs"

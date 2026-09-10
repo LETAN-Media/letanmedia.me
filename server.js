@@ -3,6 +3,7 @@ import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { askMetaAI } from './aimeta/ai.js';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
 
@@ -237,17 +238,24 @@ app.use(express.static(path.join(__dirname, 'dist'), {
   }
 }));
 
-// SPA fallback: serve index.html for all routes, EXCEPT static assets
+// SPA fallback: serve the React shell for all routes, EXCEPT static assets.
+// NOTE: dist/index.html is the static V2 Peach homepage, not the React app,
+// so the fallback must use dist/app-shell.html (written by promote-v2-home.mjs).
+const APP_SHELL = path.join(__dirname, 'dist', 'app-shell.html');
+const SPA_FALLBACK = fs.existsSync(APP_SHELL)
+  ? APP_SHELL
+  : path.join(__dirname, 'dist', 'index.html');
+
 app.use((req, res, next) => {
-  // If the request is for a static asset (has a file extension), do not fall back to index.html
+  // If the request is for a static asset (has a file extension), do not fall back to the shell
   const ext = path.extname(req.path);
   if (ext && ext !== '.html') {
     return res.status(404).send('Not Found');
   }
 
-  // Set no-cache headers for the index.html fallback
+  // Set no-cache headers for the SPA shell fallback
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(SPA_FALLBACK);
 });
 
 app.listen(PORT, '127.0.0.1', () => {
