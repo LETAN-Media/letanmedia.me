@@ -1,0 +1,267 @@
+/* CaseStudyV2 — /work/:slug detail page.
+   Extends the tokens + shared card/button/CTA classes from WorkPageV2.css
+   (.wp2 root). Scoped under .csd2 for page-specific pieces. */
+
+.csd2-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--wp2-ink-muted);
+  transition: color 0.2s ease;
+}
+
+.csd2-back:hover {
+  color: var(--wp2-navy);
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+
+.csd2-hero {
+  padding: 40px 24px 0;
+}
+
+.csd2-hero__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.csd2-title {
+  margin: 8px 0 16px;
+  font-size: clamp(28px, 5.5vw, 52px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--wp2-ink);
+}
+
+.csd2-summary {
+  margin: 0;
+  font-size: clamp(16px, 2.2vw, 19px);
+  line-height: 1.7;
+  color: var(--wp2-ink-muted);
+  max-width: 680px;
+}
+
+.csd2-meta {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.csd2-meta__label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--wp2-ink-muted);
+}
+
+.csd2-hero__media {
+  margin-top: 40px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--wp2-border);
+  background: #ffffff;
+}
+
+.csd2-hero__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .csd2-hero {
+    padding: 64px 40px 0;
+  }
+  .csd2-hero__media {
+    border-radius: 32px;
+    margin-top: 56px;
+  }
+}
+
+/* ── Pills / tags ─────────────────────────────────────────────────── */
+
+.csd2-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.csd2-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--wp2-border);
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--wp2-ink-muted);
+}
+
+.csd2-tag--tech {
+  background: var(--wp2-purple-soft);
+  border-color: transparent;
+  color: var(--wp2-purple);
+}
+
+.csd2-tag--link {
+  color: var(--wp2-navy);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.csd2-tag--link:hover {
+  border-color: var(--wp2-purple);
+  color: var(--wp2-purple);
+}
+
+/* ── Numbered content sections ───────────────────────────────────── */
+
+.csd2-section {
+  padding: 48px 24px;
+}
+
+.csd2-section--alt {
+  background: #ffffff;
+  border-top: 1px solid var(--wp2-border);
+  border-bottom: 1px solid var(--wp2-border);
+}
+
+.csd2-section__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.csd2-section__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .csd2-section {
+    padding: 72px 40px;
+  }
+  .csd2-section__grid {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 56px;
+  }
+}
+
+.csd2-section__num {
+  display: block;
+  font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--wp2-purple);
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.csd2-section__title {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 800;
+  color: var(--wp2-navy);
+}
+
+.csd2-section__body {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--wp2-ink-muted);
+  max-width: 680px;
+}
+
+/* ── Gallery ──────────────────────────────────────────────────────── */
+
+.csd2-gallery {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .csd2-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+.csd2-gallery__item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+  border: 1px solid var(--wp2-border);
+}
+
+/* ── Results ──────────────────────────────────────────────────────── */
+
+.csd2-results {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .csd2-results {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.csd2-result {
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--wp2-cream);
+  border: 1px solid var(--wp2-border);
+  text-align: center;
+}
+
+.csd2-result__value {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--wp2-navy);
+}
+
+.csd2-result__label {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--wp2-ink-muted);
+}
+
+/* ── Related ──────────────────────────────────────────────────────── */
+
+.csd2-related__title {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--wp2-navy);
+}
+
+/* ── Next project ─────────────────────────────────────────────────── */
+
+.csd2-next {
+  padding: 48px 24px 24px;
+}
+
+@media (min-width: 768px) {
+  .csd2-next {
+    padding: 72px 40px 32px;
+  }
+}
+
+.csd2-next__card {
+  margin-top: 20px;
+  max-width: 1080px;
+}

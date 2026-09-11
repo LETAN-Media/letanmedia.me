@@ -2,10 +2,26 @@ import React, { useEffect } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
 import Seo from '../components/Seo';
+import V2PageHeader from '../components/V2PageHeader';
+import V2PageFooter from '../components/V2PageFooter';
 import Reveal from './Reveal';
 import { getCaseBySlug, getPublishedCases } from '../data/caseStudies';
 import { track, ANALYTICS_EVENTS } from '../lib/analytics';
-import './home.css';
+import './WorkPageV2.css';
+import './CaseStudyV2.css';
+
+/** Format route path to readable label. */
+function formatRouteLabel(route) {
+  const map = {
+    '/chatbot-ai': 'Chatbot AI',
+    '/tiktok-report': 'Bảo vệ TikTok',
+    '/youtube-report': 'Bảo vệ YouTube',
+    '/services/website-development': 'Website Development',
+    '/services/platform-protection': 'Platform Protection',
+    '/services/seo-geo': 'SEO & GEO',
+  };
+  return map[route] || route.split('/').filter(Boolean).join(' → ');
+}
 
 const CaseStudyDetail = () => {
   const { slug } = useParams();
@@ -24,9 +40,10 @@ const CaseStudyDetail = () => {
   const allCases = getPublishedCases();
   const currentIndex = allCases.findIndex((c) => c.slug === slug);
   const nextCase = allCases[(currentIndex + 1) % allCases.length];
+  const hasNext = nextCase && nextCase.slug !== cs.slug;
 
   return (
-    <>
+    <div className="wp2 csd2">
       <Seo
         title={`${cs.title} | LETAN Media`}
         description={cs.summary}
@@ -34,41 +51,54 @@ const CaseStudyDetail = () => {
         image={cs.images?.hero}
       />
 
-      {/* Breadcrumb */}
-      <nav className="hm-wrap" aria-label="Breadcrumb" style={{ paddingTop: '120px', paddingBottom: '0' }}>
-        <Reveal>
-          <div className="hm-breadcrumb">
-            <Link to="/work" className="hm-breadcrumb-link">
-              <ArrowLeft size={14} /> Dự án
-            </Link>
-            <span className="hm-breadcrumb-sep" aria-hidden="true">/</span>
-            <span className="hm-breadcrumb-current">{cs.title}</span>
-          </div>
-        </Reveal>
-      </nav>
+      <V2PageHeader />
 
       {/* Hero */}
-      <section className="hm-section hm-section--tight" style={{ paddingTop: '40px' }}>
-        <div className="hm-wrap">
+      <section className="csd2-hero">
+        <div className="csd2-hero__inner">
           <Reveal>
-            <span className="hm-eyebrow">{cs.category}</span>
-            <h1 className="hm-h2" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.6rem)', marginBottom: '24px' }}>
-              {cs.title}
-            </h1>
-            <p className="hm-lead" style={{ maxWidth: '720px' }}>{cs.summary}</p>
+            <Link to="/work" className="csd2-back">
+              <ArrowLeft size={15} /> Tất cả dự án
+            </Link>
+            <p className="wp2-section-eyebrow">{cs.category}</p>
+            <h1 className="csd2-title">{cs.title}</h1>
+            <p className="csd2-summary">{cs.summary}</p>
           </Reveal>
 
-          {/* Hero image */}
+          {(cs.services?.length > 0 || cs.technologies?.length > 0) && (
+            <Reveal delay={0.08} className="csd2-meta">
+              {cs.services?.length > 0 && (
+                <div className="csd2-meta__group">
+                  <span className="csd2-meta__label">Dịch vụ</span>
+                  <div className="csd2-tags">
+                    {cs.services.map((s) => (
+                      <span key={s} className="csd2-tag">{s}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {cs.technologies?.length > 0 && (
+                <div className="csd2-meta__group">
+                  <span className="csd2-meta__label">Công nghệ</span>
+                  <div className="csd2-tags">
+                    {cs.technologies.map((t) => (
+                      <span key={t} className="csd2-tag csd2-tag--tech">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </Reveal>
+          )}
+
           {cs.images?.hero && (
-            <Reveal delay={0.15} style={{ marginTop: '48px' }}>
-              <div className="hm-case-hero-img">
+            <Reveal delay={0.15}>
+              <div className="csd2-hero__media">
                 <img
                   src={cs.images.hero}
                   alt={cs.title}
                   loading="eager"
                   width="1200"
                   height="675"
-                  style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block' }}
                 />
               </div>
             </Reveal>
@@ -76,86 +106,57 @@ const CaseStudyDetail = () => {
         </div>
       </section>
 
-      {/* Overview — Services & Technologies */}
-      <section className="hm-section hm-section--tight">
-        <div className="hm-wrap">
-          <div className="hm-case-meta-grid">
-            {cs.services && cs.services.length > 0 && (
-              <Reveal className="hm-case-meta-block">
-                <h3 className="hm-case-meta-label">Dịch vụ</h3>
-                <div className="hm-case-tags">
-                  {cs.services.map((s) => (
-                    <span key={s} className="hm-case-tag">{s}</span>
-                  ))}
-                </div>
-              </Reveal>
-            )}
-            {cs.technologies && cs.technologies.length > 0 && (
-              <Reveal className="hm-case-meta-block" delay={0.08}>
-                <h3 className="hm-case-meta-label">Công nghệ</h3>
-                <div className="hm-case-tags">
-                  {cs.technologies.map((t) => (
-                    <span key={t} className="hm-case-tag hm-case-tag--tech">{t}</span>
-                  ))}
-                </div>
-              </Reveal>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Challenge */}
+      {/* 01 — Thách thức */}
       {cs.challenge && (
-        <section className="hm-section hm-section--tight" style={{ background: 'var(--color-surface-1)', borderTop: 'var(--border-subtle)', borderBottom: 'var(--border-subtle)' }}>
-          <div className="hm-wrap">
-            <div className="hm-case-content-grid">
+        <section className="csd2-section">
+          <div className="csd2-section__inner">
+            <div className="csd2-section__grid">
               <Reveal>
-                <span className="hm-case-section-num">01</span>
-                <h2 className="hm-h3">Thách thức</h2>
+                <span className="csd2-section__num">01</span>
+                <h2 className="csd2-section__title">Thách thức</h2>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="hm-case-body">{cs.challenge}</p>
+                <p className="csd2-section__body">{cs.challenge}</p>
               </Reveal>
             </div>
           </div>
         </section>
       )}
 
-      {/* Solution / Strategy */}
+      {/* 02 — Giải pháp */}
       {cs.solution && (
-        <section className="hm-section hm-section--tight">
-          <div className="hm-wrap">
-            <div className="hm-case-content-grid">
+        <section className="csd2-section csd2-section--alt">
+          <div className="csd2-section__inner">
+            <div className="csd2-section__grid">
               <Reveal>
-                <span className="hm-case-section-num">02</span>
-                <h2 className="hm-h3">Giải pháp</h2>
+                <span className="csd2-section__num">02</span>
+                <h2 className="csd2-section__title">Giải pháp</h2>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="hm-case-body">{cs.solution}</p>
+                <p className="csd2-section__body">{cs.solution}</p>
               </Reveal>
             </div>
           </div>
         </section>
       )}
 
-      {/* Visual Proof — Gallery */}
+      {/* 03 — Visual Proof */}
       {cs.images?.gallery && cs.images.gallery.length > 0 && (
-        <section className="hm-section hm-section--tight" aria-label="Hình ảnh dự án">
-          <div className="hm-wrap">
+        <section className="csd2-section" aria-label="Hình ảnh dự án">
+          <div className="csd2-section__inner">
             <Reveal>
-              <span className="hm-case-section-num">03</span>
-              <h2 className="hm-h3" style={{ marginBottom: '32px' }}>Visual Proof</h2>
+              <span className="csd2-section__num">03</span>
+              <h2 className="csd2-section__title">Visual Proof</h2>
             </Reveal>
-            <div className="hm-case-gallery">
+            <div className="csd2-gallery">
               {cs.images.gallery.map((img, i) => (
-                <Reveal key={i} delay={i * 0.08}>
+                <Reveal key={i} delay={i * 0.08} className="csd2-gallery__item">
                   <img
                     src={img}
                     alt={`${cs.title} — hình ${i + 1}`}
                     loading="lazy"
                     width="1200"
                     height="675"
-                    style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-md)', display: 'block' }}
                   />
                 </Reveal>
               ))}
@@ -164,19 +165,19 @@ const CaseStudyDetail = () => {
         </section>
       )}
 
-      {/* Results */}
+      {/* 04 — Kết quả */}
       {cs.results && cs.results.length > 0 && (
-        <section className="hm-section hm-section--tight" style={{ background: 'var(--color-surface-1)', borderTop: 'var(--border-subtle)' }}>
-          <div className="hm-wrap">
+        <section className="csd2-section csd2-section--alt">
+          <div className="csd2-section__inner">
             <Reveal>
-              <span className="hm-case-section-num">04</span>
-              <h2 className="hm-h3" style={{ marginBottom: '32px' }}>Kết quả</h2>
+              <span className="csd2-section__num">04</span>
+              <h2 className="csd2-section__title">Kết quả</h2>
             </Reveal>
-            <div className="hm-case-results-grid">
+            <div className="csd2-results">
               {cs.results.map((r, i) => (
-                <Reveal key={i} className="hm-case-result" delay={i * 0.08}>
-                  <div className="hm-metric__value">{r.value}</div>
-                  <div className="hm-metric__label">{r.label}</div>
+                <Reveal key={i} className="csd2-result" delay={i * 0.08}>
+                  <div className="csd2-result__value">{r.value}</div>
+                  <div className="csd2-result__label">{r.label}</div>
                 </Reveal>
               ))}
             </div>
@@ -184,88 +185,84 @@ const CaseStudyDetail = () => {
         </section>
       )}
 
-      {/* Related Services */}
+      {/* Related services */}
       {cs.relatedServices && cs.relatedServices.length > 0 && (
-        <section className="hm-section hm-section--tight">
-          <div className="hm-wrap">
+        <section className="csd2-section">
+          <div className="csd2-section__inner">
             <Reveal>
-              <h2 className="hm-h3" style={{ marginBottom: '28px' }}>Liên quan</h2>
-            </Reveal>
-            <div className="hm-case-related">
-              {cs.relatedServices.map((route) => (
-                <Reveal key={route}>
-                  <Link to={route} className="hm-case-related-link">
-                    {formatRouteLabel(route)} <ArrowUpRight size={14} />
+              <h2 className="csd2-related__title">Liên quan</h2>
+              <div className="csd2-tags">
+                {cs.relatedServices.map((route) => (
+                  <Link key={route} to={route} className="csd2-tag csd2-tag--link">
+                    {formatRouteLabel(route)} <ArrowUpRight size={13} />
                   </Link>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Next Project Nav */}
-      {nextCase && nextCase.slug !== cs.slug && (
-        <section className="hm-section hm-section--tight" style={{ borderTop: 'var(--border-subtle)' }} aria-label="Dự án tiếp theo">
-          <div className="hm-wrap" style={{ textAlign: 'center' }}>
-            <Reveal>
-              <span className="hm-eyebrow">Dự án tiếp theo</span>
-              <div style={{ marginTop: '12px' }}>
-                <Link to={`/work/${nextCase.slug}`} className="hm-case-next-link">
-                  {nextCase.title} <ArrowUpRight size={20} />
-                </Link>
+                ))}
               </div>
             </Reveal>
           </div>
         </section>
       )}
 
-      {/* Climax CTA */}
-      <section className="lm-final-cta" aria-label="Khởi đầu dự án">
-        <div className="hm-wrap">
-          <div className="lm-final-cta__panel">
-            <div className="lm-final-cta__content">
-              <div className="lm-final-cta__eyebrow">
-                <span className="lm-final-cta__eyebrow-dot" />
-                ĐỒNG HÀNH CHIẾN LƯỢC CÙNG LETAN
+      {/* Next project */}
+      {hasNext && (
+        <section className="csd2-next" aria-label="Dự án tiếp theo">
+          <div className="csd2-section__inner">
+            <Reveal>
+              <p className="wp2-section-eyebrow">Dự án tiếp theo</p>
+            </Reveal>
+            <Reveal delay={0.08} as={Link} to={`/work/${nextCase.slug}`} className="wp2-card wp2-card--lead csd2-next__card">
+              <div className="wp2-card__media">
+                {nextCase.images?.hero && (
+                  <img src={nextCase.images.hero} alt={nextCase.title} loading="lazy" />
+                )}
               </div>
-              <h2>
-                Bạn muốn đạt được kết quả tương tự
-                <br />
-                <span>cho thương hiệu của mình?</span>
-              </h2>
-              <p>
-                LETAN Media sẵn sàng đồng hành từ khâu phân tích bài toán, xây dựng kiến trúc cho đến triển khai kỹ thuật toàn diện.
-              </p>
-              <div className="lm-final-cta__actions">
-                <Link to="/contact" className="lm-btn lm-btn--primary">
-                  <span>Trao đổi về dự án</span>
-                  <ArrowRight size={17} strokeWidth={1.8} />
-                </Link>
-                <Link to="/work" className="lm-btn lm-btn--secondary">
-                  <span>Xem tất cả dự án</span>
-                  <ArrowUpRight size={17} strokeWidth={1.8} />
-                </Link>
+              <div className="wp2-card__body">
+                <span className="wp2-card__cat">{nextCase.category}</span>
+                <h3 className="wp2-card__title">{nextCase.title}</h3>
+                <p className="wp2-card__summary">{nextCase.summary}</p>
+                <span className="wp2-card__cta">
+                  Xem dự án
+                  <span className="wp2-arrow" aria-hidden="true"><ArrowUpRight size={16} strokeWidth={2} /></span>
+                </span>
               </div>
-            </div>
+            </Reveal>
           </div>
+        </section>
+      )}
+
+      {/* Final CTA */}
+      <section className="wp2-cta" aria-label="Khởi đầu dự án">
+        <div className="wp2-cta__panel">
+          <Reveal>
+            <p className="wp2-cta__eyebrow">
+              <span className="wp2-cta__dot" aria-hidden="true" />
+              ĐỒNG HÀNH CHIẾN LƯỢC CÙNG LETAN
+            </p>
+            <h2 className="wp2-cta__title">
+              Bạn muốn đạt được kết quả tương tự
+              <br />
+              cho thương hiệu của mình?
+            </h2>
+            <p className="wp2-cta__desc">
+              LETAN Media sẵn sàng đồng hành từ khâu phân tích bài toán, xây dựng kiến trúc cho đến triển khai kỹ thuật toàn diện.
+            </p>
+            <div className="wp2-cta__actions">
+              <Link to="/contact" className="wp2-btn wp2-btn--primary">
+                <span>Trao đổi về dự án</span>
+                <ArrowRight size={17} strokeWidth={1.8} />
+              </Link>
+              <Link to="/work" className="wp2-btn wp2-btn--secondary">
+                <span>Xem tất cả dự án</span>
+                <ArrowUpRight size={17} strokeWidth={1.8} />
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
-    </>
+
+      <V2PageFooter />
+    </div>
   );
 };
-
-/** Format route path to readable label. */
-function formatRouteLabel(route) {
-  const map = {
-    '/chatbot-ai': 'Chatbot AI',
-    '/tiktok-report': 'Bảo vệ TikTok',
-    '/youtube-report': 'Bảo vệ YouTube',
-    '/services/website-development': 'Website Development',
-    '/services/platform-protection': 'Platform Protection',
-    '/services/seo-geo': 'SEO & GEO',
-  };
-  return map[route] || route.split('/').filter(Boolean).join(' → ');
-}
 
 export default CaseStudyDetail;
