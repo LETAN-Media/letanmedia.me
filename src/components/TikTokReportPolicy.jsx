@@ -12,11 +12,14 @@ const TikTokReportPolicy = () => {
       ]
     },
     {
-      title: '2. Chính Sách Bảo Hành',
+      title: '2. Chính Sách Bảo Hành Report',
       items: [
-        'Bảo hành là việc LETAN Media tiếp tục kiểm tra và hỗ trợ xử lý lại trong phạm vi công việc đã thỏa thuận nếu phát sinh vấn đề thuộc điều kiện bảo hành.',
-        'Thời hạn bảo hành, số lần hỗ trợ lại và phạm vi cụ thể được xác nhận theo từng đơn hàng hoặc báo giá trước khi triển khai.',
-        '• Bảo hành chỉ áp dụng đối với đúng đối tượng và vụ việc đã tiếp nhận.',
+        'Khi report video hoặc kênh, tùy từng dạng report, LETAN Media sẽ thông báo cụ thể thời hạn bảo hành trước khi chốt dịch vụ.',
+        'Bảo hành được áp dụng theo đúng đường link đã xác nhận khi chốt đơn và trong đúng thời hạn bảo hành đã thỏa thuận.',
+        'Ví dụ: Với đường link https://www.tiktok.com/@username/video/123456, nếu dịch vụ được chốt với thời hạn bảo hành 1 tuần thì trong vòng 1 tuần đó, nếu chính đường link này mở lại, LETAN Media sẽ tiếp nhận bảo hành theo phạm vi đã thỏa thuận.',
+        '• Bảo hành chỉ áp dụng cho đúng link đã chốt.',
+        '• Trường hợp nội dung giống hoặc trùng nội dung nhưng được đăng ở một đường link khác sẽ nằm ngoài phạm vi bảo hành.',
+        '• Thời hạn bảo hành, số lần hỗ trợ lại và phạm vi cụ thể được xác nhận theo từng đơn hàng hoặc báo giá trước khi triển khai.',
         '• Không tự động phát sinh thời hạn bảo hành nếu đơn hàng không ghi nhận nội dung này.',
         '• Bảo hành không đồng nghĩa với việc LETAN Media có quyền quyết định kết quả cuối cùng của TikTok.'
       ]
@@ -25,7 +28,7 @@ const TikTokReportPolicy = () => {
       title: '3. Trường Hợp Được Bảo Hành',
       items: [
         'Trong thời hạn bảo hành đã xác nhận, LETAN Media sẽ kiểm tra và hỗ trợ lại phần công việc thuộc đúng phạm vi ban đầu khi:',
-        '• Nội dung hoặc tài khoản mục tiêu xuất hiện lại với cùng bản chất vi phạm.',
+        '• Đúng đường link đã chốt mở lại trong thời hạn bảo hành.',
         '• Kết quả bị thay đổi do TikTok rà soát lại nhưng hồ sơ vẫn còn đủ căn cứ để tiếp tục xử lý.',
         '• Cần bổ sung bằng chứng hoặc lập luận trong cùng vụ việc đã được hai bên thống nhất.',
         'Mỗi yêu cầu bảo hành sẽ được kiểm tra trước khi xác nhận thuộc phạm vi hỗ trợ miễn phí.'
@@ -36,6 +39,7 @@ const TikTokReportPolicy = () => {
       items: [
         'Bảo hành không áp dụng đối với các trường hợp ngoài phạm vi ban đầu, bao gồm:',
         '• Link, tài khoản, video, livestream hoặc shop mới.',
+        '• Nội dung trùng hoặc tương tự nội dung đã xử lý nhưng không phải đúng đường link đã chốt.',
         '• Nội dung đã được chỉnh sửa đáng kể hoặc đăng lại dưới hình thức khác.',
         '• TikTok thay đổi chính sách, thuật toán hoặc cơ chế kiểm duyệt.',
         '• Chủ tài khoản mục tiêu khiếu nại và được TikTok khôi phục theo quyết định riêng của nền tảng.',
@@ -81,7 +85,7 @@ const TikTokReportPolicy = () => {
     {
       title: '9. Tiếp Nhận Yêu Cầu Bảo Hành',
       items: [
-        'Khi cần bảo hành, khách hàng vui lòng gửi lại thông tin đơn hàng, link hiện tại và mô tả tình trạng phát sinh.',
+        'Khi cần bảo hành, khách hàng vui lòng gửi lại thông tin đơn hàng, đúng đường link đã chốt và mô tả tình trạng phát sinh.',
         'LETAN Media sẽ kiểm tra hồ sơ và xác nhận yêu cầu có thuộc phạm vi bảo hành hay không trước khi triển khai.',
         'Nếu yêu cầu nằm ngoài phạm vi bảo hành, LETAN Media sẽ thông báo rõ trước khi phát sinh bất kỳ chi phí bổ sung nào.'
       ]
