@@ -1,0 +1,336 @@
+/* TermsOfService — V2-homepage-aligned legal page.
+   Palette borrowed from public/v2/css/styles.css (navy #120644, purple
+   #5328ff) without pulling in any Peach/WebGL runtime. Mirrors
+   TikTokReportPolicy.css's structure, scoped under .tos-*. */
+
+.tos-page {
+  --tos-navy: #120644;
+  --tos-purple: #5328ff;
+  --tos-purple-soft: rgba(83, 40, 255, 0.1);
+  --tos-cream: #f3f3f0;
+  --tos-ink: #16122b;
+  --tos-ink-muted: rgba(22, 18, 43, 0.68);
+  --tos-border: rgba(18, 6, 68, 0.12);
+
+  background: var(--tos-cream);
+  color: var(--tos-ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+
+.tos-hero {
+  background: var(--tos-cream);
+  padding: 56px 24px 40px;
+}
+
+.tos-hero__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.tos-hero__eyebrow {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--tos-purple);
+}
+
+.tos-hero__title {
+  margin: 0 0 20px;
+  font-size: clamp(30px, 8vw, 56px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--tos-ink);
+}
+
+.tos-hero__subtitle {
+  margin: 0 0 12px;
+  font-size: clamp(16px, 2.6vw, 20px);
+  line-height: 1.6;
+  color: var(--tos-ink-muted);
+}
+
+.tos-hero__date {
+  margin: 0 0 28px;
+  font-size: 14px;
+  color: var(--tos-ink-muted);
+}
+
+.tos-hero__intro {
+  margin: 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--tos-border);
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--tos-ink-muted);
+  max-width: 760px;
+}
+
+@media (min-width: 768px) {
+  .tos-hero {
+    padding: 88px 40px 56px;
+  }
+}
+
+/* ── Body layout ──────────────────────────────────────────────────── */
+
+.tos-body {
+  background: var(--tos-cream);
+  padding: 0 24px 64px;
+}
+
+.tos-body__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .tos-body {
+    padding: 0 40px 96px;
+  }
+  .tos-body__inner {
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+  }
+}
+
+/* ── Desktop sticky TOC ───────────────────────────────────────────── */
+
+.tos-toc {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .tos-toc {
+    display: block;
+    position: sticky;
+    top: 96px;
+    padding-right: 16px;
+    border-right: 1px solid var(--tos-border);
+  }
+}
+
+.tos-toc__title {
+  margin: 0 0 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tos-ink);
+}
+
+.tos-toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tos-toc__link {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+  text-align: left;
+  padding: 0 0 0 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--tos-ink-muted);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.tos-toc__link:hover,
+.tos-toc__link.is-active {
+  color: var(--tos-navy);
+  border-left-color: var(--tos-purple);
+  font-weight: 600;
+}
+
+/* ── Mobile accordion TOC ────────────────────────────────────────── */
+
+.tos-toc-mobile {
+  background: #ffffff;
+  border: 1px solid var(--tos-border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 24px;
+}
+
+@media (min-width: 1024px) {
+  .tos-toc-mobile {
+    display: none;
+  }
+}
+
+.tos-toc-mobile__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tos-ink);
+  cursor: pointer;
+  list-style: none;
+}
+
+.tos-toc-mobile__trigger::-webkit-details-marker {
+  display: none;
+}
+
+.tos-toc-mobile__list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--tos-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.tos-toc-mobile__list button {
+  background: none;
+  border: none;
+  padding: 4px 0;
+  text-align: left;
+  font-size: 14px;
+  color: var(--tos-ink-muted);
+  cursor: pointer;
+  width: 100%;
+}
+
+.tos-toc-mobile__list button:hover {
+  color: var(--tos-purple);
+}
+
+/* ── Content cards ────────────────────────────────────────────────── */
+
+.tos-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .tos-content {
+    gap: 32px;
+  }
+}
+
+.tos-card {
+  background: #ffffff;
+  border: 1px solid var(--tos-border);
+  border-radius: 20px;
+  padding: 24px;
+  scroll-margin-top: 96px;
+}
+
+@media (min-width: 768px) {
+  .tos-card {
+    padding: 32px 36px;
+    border-radius: 24px;
+  }
+}
+
+.tos-card__header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--tos-border);
+}
+
+.tos-card__number {
+  font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--tos-purple);
+  opacity: 0.55;
+}
+
+.tos-card__title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--tos-navy);
+}
+
+@media (min-width: 768px) {
+  .tos-card__title {
+    font-size: 21px;
+  }
+}
+
+.tos-paragraph {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--tos-ink-muted);
+  word-break: break-word;
+}
+
+.tos-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .tos-paragraph {
+    font-size: 16px;
+  }
+}
+
+.tos-list {
+  list-style: none;
+  margin: 8px 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tos-list:last-child {
+  margin-bottom: 0;
+}
+
+.tos-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--tos-ink-muted);
+}
+
+@media (min-width: 768px) {
+  .tos-list__item {
+    font-size: 16px;
+  }
+}
+
+.tos-list__icon {
+  flex-shrink: 0;
+  margin-top: 3px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--tos-purple-soft);
+  color: var(--tos-purple);
+}
