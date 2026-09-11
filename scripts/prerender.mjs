@@ -66,6 +66,10 @@ const STATIC_ROUTES = {
     title: 'Dịch vụ Report & Bảo vệ kênh TikTok | LETAN Media',
     description: 'Bảo vệ và xử lý khủng hoảng kênh TikTok: report vi phạm, gỡ video, DMCA, tích xanh.',
   },
+  '/tiktok-report-policy': {
+    title: 'Chính sách bảo hành Report TikTok & Bảo mật | LETAN Media',
+    description: 'Chính sách bảo hành dịch vụ Report TikTok và cam kết bảo mật thông tin khách hàng của LETAN Media.',
+  },
   '/youtube-report': {
     title: 'Dịch Vụ Report YouTube Uy Tín, Gỡ Video Vi Phạm — LETAN Media',
     description: 'Dịch vụ report kênh YouTube vi phạm, gỡ video reup bản quyền DMCA, video bôi nhọ danh dự và khôi phục kênh YouTube nhanh chóng. Hỗ trợ 24/7.',

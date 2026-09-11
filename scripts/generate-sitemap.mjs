@@ -32,6 +32,7 @@ const staticRoutes = [
   { path: '/about', priority: '0.6', changefreq: 'monthly' },
   { path: '/chatbot-ai', priority: '0.7', changefreq: 'monthly' },
   { path: '/tiktok-report', priority: '0.7', changefreq: 'monthly' },
+  { path: '/tiktok-report-policy', priority: '0.4', changefreq: 'yearly' },
   { path: '/youtube-report', priority: '0.7', changefreq: 'monthly' },
   { path: '/policy', priority: '0.3', changefreq: 'yearly' },
   { path: '/terms', priority: '0.3', changefreq: 'yearly' },
