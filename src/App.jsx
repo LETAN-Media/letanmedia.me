@@ -4,6 +4,7 @@ import Header from './components/Header';
 import FooterV2 from './components/FooterV2';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
+import TikTokReportPolicy from './components/TikTokReportPolicy';
 import DataDeletion from './components/DataDeletion';
 import HomeChatWidget from './components/HomeChatWidget';
 import Seo from './components/Seo';
@@ -139,6 +140,16 @@ function App() {
             <>
               <Seo title="Dịch vụ Report & Bảo vệ kênh TikTok | LETAN Media" description="Bảo vệ và xử lý khủng hoảng kênh TikTok: report vi phạm, gỡ video, DMCA, tích xanh." path="/tiktok-report" />
               <TikTokReportPage />
+            </>
+          } />
+          <Route path="/tiktok-report-policy" element={
+            <>
+              <Seo
+                title="Chính sách bảo hành Report TikTok & Bảo mật | LETAN Media"
+                description="Chính sách bảo hành dịch vụ Report TikTok và cam kết bảo mật thông tin khách hàng của LETAN Media."
+                path="/tiktok-report-policy"
+              />
+              <TikTokReportPolicy />
             </>
           } />
           <Route path="/youtube-report" element={

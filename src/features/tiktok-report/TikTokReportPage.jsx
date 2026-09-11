@@ -412,6 +412,14 @@ export default function TikTokReportPage() {
                 >
                   Nhận Báo Giá Chi Tiết
                 </motion.a>
+                <div className="mt-5">
+                  <a
+                    href="/tiktok-report-policy"
+                    className="text-sm text-white/60 hover:text-white underline underline-offset-4 transition-colors"
+                  >
+                    Chính sách bảo hành &amp; cam kết bảo mật
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
