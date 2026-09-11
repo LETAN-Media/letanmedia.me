@@ -68,6 +68,15 @@ function App() {
   const location = useLocation();
   const isV2 = location.pathname === '/v2' || location.pathname.startsWith('/v2/');
 
+  // This route renders its own V2-branded header/footer (V2PageHeader /
+  // V2PageFooter) inside TikTokReportPolicy — skip the old dark Header /
+  // FooterV2 here to avoid a duplicate header/footer. The static prerendered
+  // route is served with a trailing slash (Cloudflare Pages clean-URL
+  // redirect), so match both forms.
+  const isV2BrandedPage =
+    location.pathname === '/tiktok-report-policy' ||
+    location.pathname === '/tiktok-report-policy/';
+
   const showHomeChatbot =
     !isV2
     && ![
@@ -99,7 +108,7 @@ function App() {
           Bỏ qua điều hướng
         </a>
       )}
-      {!isGeoManager && !isV2 && <Header />}
+      {!isGeoManager && !isV2 && !isV2BrandedPage && <Header />}
       <main id="main-content" tabIndex="-1">
         <Suspense fallback={
           <div className="lm-route-loader" role="status" aria-live="polite">
@@ -211,7 +220,7 @@ function App() {
           </Routes>
         </Suspense>
       </main>
-      {!isGeoManager && !isV2 && <FooterV2 />}
+      {!isGeoManager && !isV2 && !isV2BrandedPage && <FooterV2 />}
       {showHomeChatbot && <HomeChatWidget />}
     </div>
   );

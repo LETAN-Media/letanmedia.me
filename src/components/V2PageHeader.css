@@ -1,0 +1,146 @@
+/* V2PageHeader — visual language borrowed from the V2 (Peach) homepage:
+   deep navy bar, pill hamburger, generous side padding. No WebGL/runtime. */
+
+.v2p-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: #120644;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.v2p-header__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 72px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.v2p-header__logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.v2p-header__logo-img {
+  height: 30px;
+  width: auto;
+  display: block;
+}
+
+.v2p-header__nav {
+  display: none;
+  align-items: center;
+  gap: 32px;
+}
+
+.v2p-header__nav a {
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+
+.v2p-header__nav a:hover,
+.v2p-header__nav a:focus-visible {
+  color: #ffffff;
+}
+
+.v2p-header__burger {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #20174e;
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0;
+}
+
+.v2p-header__burger:hover {
+  background: #2a1f66;
+}
+
+@media (min-width: 900px) {
+  .v2p-header__nav {
+    display: flex;
+  }
+  .v2p-header__burger {
+    display: none;
+  }
+}
+
+/* Mobile fullscreen overlay menu */
+.v2p-header__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  background: #120644;
+  animation: v2pFadeIn 0.18s ease;
+}
+
+@keyframes v2pFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.v2p-header__overlay-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 24px 32px;
+  overflow-y: auto;
+}
+
+.v2p-header__overlay-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+}
+
+.v2p-header__close {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #20174e;
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.v2p-header__overlay-nav {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.v2p-header__overlay-nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  padding: 14px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.v2p-header__overlay-nav a:hover,
+.v2p-header__overlay-nav a:focus-visible {
+  color: #a78bfa;
+}

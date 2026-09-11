@@ -1,0 +1,335 @@
+/* TikTokReportPolicy — V2-homepage-aligned legal page.
+   Palette borrowed from public/v2/css/styles.css (navy #120644, purple
+   #5328ff) without pulling in any Peach/WebGL runtime. */
+
+.ttp-page {
+  --ttp-navy: #120644;
+  --ttp-purple: #5328ff;
+  --ttp-purple-soft: rgba(83, 40, 255, 0.1);
+  --ttp-cream: #f3f3f0;
+  --ttp-ink: #16122b;
+  --ttp-ink-muted: rgba(22, 18, 43, 0.68);
+  --ttp-border: rgba(18, 6, 68, 0.12);
+
+  background: var(--ttp-cream);
+  color: var(--ttp-ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+
+.ttp-hero {
+  background: var(--ttp-cream);
+  padding: 56px 24px 40px;
+}
+
+.ttp-hero__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ttp-hero__eyebrow {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--ttp-purple);
+}
+
+.ttp-hero__title {
+  margin: 0 0 20px;
+  font-size: clamp(30px, 8vw, 56px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ttp-ink);
+}
+
+.ttp-hero__subtitle {
+  margin: 0 0 12px;
+  font-size: clamp(16px, 2.6vw, 20px);
+  line-height: 1.6;
+  color: var(--ttp-ink-muted);
+}
+
+.ttp-hero__date {
+  margin: 0 0 28px;
+  font-size: 14px;
+  color: var(--ttp-ink-muted);
+}
+
+.ttp-hero__intro {
+  margin: 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--ttp-border);
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--ttp-ink-muted);
+  max-width: 760px;
+}
+
+@media (min-width: 768px) {
+  .ttp-hero {
+    padding: 88px 40px 56px;
+  }
+}
+
+/* ── Body layout ──────────────────────────────────────────────────── */
+
+.ttp-body {
+  background: var(--ttp-cream);
+  padding: 0 24px 64px;
+}
+
+.ttp-body__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .ttp-body {
+    padding: 0 40px 96px;
+  }
+  .ttp-body__inner {
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+  }
+}
+
+/* ── Desktop sticky TOC ───────────────────────────────────────────── */
+
+.ttp-toc {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ttp-toc {
+    display: block;
+    position: sticky;
+    top: 96px;
+    padding-right: 16px;
+    border-right: 1px solid var(--ttp-border);
+  }
+}
+
+.ttp-toc__title {
+  margin: 0 0 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ttp-ink);
+}
+
+.ttp-toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ttp-toc__link {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+  text-align: left;
+  padding: 0 0 0 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ttp-ink-muted);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.ttp-toc__link:hover,
+.ttp-toc__link.is-active {
+  color: var(--ttp-navy);
+  border-left-color: var(--ttp-purple);
+  font-weight: 600;
+}
+
+/* ── Mobile accordion TOC ────────────────────────────────────────── */
+
+.ttp-toc-mobile {
+  background: #ffffff;
+  border: 1px solid var(--ttp-border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 24px;
+}
+
+@media (min-width: 1024px) {
+  .ttp-toc-mobile {
+    display: none;
+  }
+}
+
+.ttp-toc-mobile__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ttp-ink);
+  cursor: pointer;
+  list-style: none;
+}
+
+.ttp-toc-mobile__trigger::-webkit-details-marker {
+  display: none;
+}
+
+.ttp-toc-mobile__list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--ttp-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.ttp-toc-mobile__list button {
+  background: none;
+  border: none;
+  padding: 4px 0;
+  text-align: left;
+  font-size: 14px;
+  color: var(--ttp-ink-muted);
+  cursor: pointer;
+  width: 100%;
+}
+
+.ttp-toc-mobile__list button:hover {
+  color: var(--ttp-purple);
+}
+
+/* ── Content cards ────────────────────────────────────────────────── */
+
+.ttp-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .ttp-content {
+    gap: 32px;
+  }
+}
+
+.ttp-card {
+  background: #ffffff;
+  border: 1px solid var(--ttp-border);
+  border-radius: 20px;
+  padding: 24px;
+  scroll-margin-top: 96px;
+}
+
+@media (min-width: 768px) {
+  .ttp-card {
+    padding: 32px 36px;
+    border-radius: 24px;
+  }
+}
+
+.ttp-card__header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--ttp-border);
+}
+
+.ttp-card__number {
+  font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ttp-purple);
+  opacity: 0.55;
+}
+
+.ttp-card__title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--ttp-navy);
+}
+
+@media (min-width: 768px) {
+  .ttp-card__title {
+    font-size: 21px;
+  }
+}
+
+.ttp-paragraph {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ttp-ink-muted);
+  word-break: break-word;
+}
+
+.ttp-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .ttp-paragraph {
+    font-size: 16px;
+  }
+}
+
+.ttp-list {
+  list-style: none;
+  margin: 8px 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ttp-list:last-child {
+  margin-bottom: 0;
+}
+
+.ttp-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ttp-ink-muted);
+}
+
+@media (min-width: 768px) {
+  .ttp-list__item {
+    font-size: 16px;
+  }
+}
+
+.ttp-list__icon {
+  flex-shrink: 0;
+  margin-top: 3px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--ttp-purple-soft);
+  color: var(--ttp-purple);
+}
