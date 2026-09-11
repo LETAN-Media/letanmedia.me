@@ -74,9 +74,14 @@ function App() {
   // trailing slash (Cloudflare Pages clean-URL redirect), so match both
   // forms, and /work/* covers every case-study detail route.
   const isV2BrandedPage =
-    ['/tiktok-report-policy', '/terms'].some(
-      (p) => location.pathname === p || location.pathname === `${p}/`
-    ) ||
+    [
+      '/tiktok-report-policy',
+      '/terms',
+      '/services',
+      '/contact',
+      '/about',
+      '/insights',
+    ].some((p) => location.pathname === p || location.pathname === `${p}/`) ||
     location.pathname === '/work' ||
     location.pathname === '/work/' ||
     location.pathname.startsWith('/work/');

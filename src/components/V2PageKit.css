@@ -1,0 +1,367 @@
+/* V2PageKit — shared visual primitives for pages aligned with the V2
+   (Peach) homepage: cream background, navy #120644 + purple #5328ff
+   palette, large-radius white cards. Used by ServicesIndex, Insights,
+   About and Contact (each still has its own small page CSS for
+   page-specific layout). Scoped under .v2k so it never leaks. */
+
+.v2k {
+  --v2k-navy: #120644;
+  --v2k-purple: #5328ff;
+  --v2k-purple-soft: rgba(83, 40, 255, 0.08);
+  --v2k-cream: #f3f3f0;
+  --v2k-ink: #16122b;
+  --v2k-ink-muted: rgba(22, 18, 43, 0.68);
+  --v2k-border: rgba(18, 6, 68, 0.12);
+
+  background: var(--v2k-cream);
+  color: var(--v2k-ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+.v2k a {
+  text-decoration: none;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+
+.v2k-hero {
+  padding: 56px 24px 40px;
+}
+
+.v2k-hero__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.v2k-hero__eyebrow {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--v2k-purple);
+}
+
+.v2k-hero__title {
+  margin: 0 0 16px;
+  font-size: clamp(32px, 8vw, 60px);
+  line-height: 1.06;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--v2k-ink);
+}
+
+.v2k-hero__subtitle {
+  margin: 0;
+  font-size: clamp(16px, 2.4vw, 19px);
+  line-height: 1.7;
+  color: var(--v2k-ink-muted);
+  max-width: 680px;
+}
+
+@media (min-width: 768px) {
+  .v2k-hero {
+    padding: 96px 40px 56px;
+  }
+}
+
+/* ── Shared section shell ─────────────────────────────────────────── */
+
+.v2k-section__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 1024px) {
+  .v2k-section__inner {
+    padding: 0 40px;
+  }
+}
+
+.v2k-section-eyebrow {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--v2k-purple);
+}
+
+.v2k-section-title {
+  margin: 0;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--v2k-navy);
+}
+
+/* ── Generic card ─────────────────────────────────────────────────── */
+
+.v2k-card {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px;
+  border-radius: 24px;
+  border: 1px solid var(--v2k-border);
+  background: #ffffff;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.v2k-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--v2k-purple);
+}
+
+.v2k-card__eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--v2k-purple);
+}
+
+.v2k-card__title {
+  margin: 0 0 8px;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--v2k-navy);
+}
+
+.v2k-card__desc {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--v2k-ink-muted);
+}
+
+.v2k-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--v2k-navy);
+}
+
+.v2k-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--v2k-purple-soft);
+  color: var(--v2k-purple);
+  transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.v2k-card:hover .v2k-arrow {
+  background: var(--v2k-purple);
+  color: #ffffff;
+  transform: translate(2px, -2px);
+}
+
+/* Card with a media block on top (image ratio 16:10) */
+.v2k-card__media {
+  margin: -28px -24px 20px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+  border-bottom: 1px solid var(--v2k-border);
+  background: var(--v2k-cream);
+}
+
+.v2k-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.v2k-card:hover .v2k-card__media img {
+  transform: scale(1.04);
+}
+
+/* Numbered card (capabilities / pillars / methodology / metrics) */
+.v2k-num {
+  display: block;
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--v2k-navy);
+  opacity: 0.15;
+  margin-bottom: 8px;
+}
+
+/* ── Filters ──────────────────────────────────────────────────────── */
+
+.v2k-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.v2k-filter-btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--v2k-border);
+  background: #ffffff;
+  color: var(--v2k-ink-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.v2k-filter-btn:hover {
+  border-color: var(--v2k-purple);
+  color: var(--v2k-navy);
+}
+
+.v2k-filter-btn.is-active {
+  background: var(--v2k-navy);
+  border-color: var(--v2k-navy);
+  color: #ffffff;
+}
+
+/* ── Pills / tags ─────────────────────────────────────────────────── */
+
+.v2k-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--v2k-border);
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--v2k-ink-muted);
+}
+
+/* ── Final CTA panel ──────────────────────────────────────────────── */
+
+.v2k-cta {
+  padding: 32px 24px 88px;
+}
+
+@media (min-width: 1024px) {
+  .v2k-cta {
+    padding: 40px 40px 120px;
+  }
+}
+
+.v2k-cta__panel {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 28px;
+  border-radius: 32px;
+  background: linear-gradient(135deg, var(--v2k-navy) 0%, #1d0e63 100%);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .v2k-cta__panel {
+    padding: 72px 64px;
+  }
+}
+
+.v2k-cta__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #c9b8ff;
+}
+
+.v2k-cta__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #c9b8ff;
+}
+
+.v2k-cta__title {
+  margin: 0 0 20px;
+  font-size: clamp(24px, 4vw, 38px);
+  line-height: 1.25;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.v2k-cta__desc {
+  margin: 0 auto 32px;
+  max-width: 620px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.v2k-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.v2k-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.v2k-btn--primary {
+  background: #ffffff;
+  color: var(--v2k-navy);
+}
+
+.v2k-btn--primary:hover {
+  background: #e8e2ff;
+}
+
+.v2k-btn--secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.v2k-btn--secondary:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Solid-panel variant of the buttons, for use on white/cream backgrounds */
+.v2k-btn--solid-primary {
+  background: var(--v2k-navy);
+  color: #ffffff;
+}
+
+.v2k-btn--solid-primary:hover {
+  background: var(--v2k-purple);
+}
+
+.v2k-btn--solid-secondary {
+  background: #ffffff;
+  color: var(--v2k-navy);
+  border: 1px solid var(--v2k-border);
+}
+
+.v2k-btn--solid-secondary:hover {
+  border-color: var(--v2k-purple);
+  color: var(--v2k-purple);
+}

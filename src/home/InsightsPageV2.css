@@ -1,0 +1,80 @@
+/* InsightsPageV2 — page-specific layout for /insights.
+   Shared tokens/components come from V2PageKit.css (.v2k). */
+
+.ins2-featured {
+  padding: 24px 0 56px;
+}
+
+.ins2-featured__grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 900px) {
+  .ins2-featured__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  .ins2-card--lead {
+    grid-column: 1 / -1;
+  }
+  .ins2-card--lead .v2k-card__media {
+    aspect-ratio: 21 / 9;
+  }
+}
+
+.ins2-all {
+  padding: 32px 0 64px;
+  border-top: 1px solid var(--v2k-border);
+}
+
+.ins2-all__head {
+  margin-bottom: 24px;
+}
+
+.ins2-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+
+@media (min-width: 640px) {
+  .ins2-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ins2-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ins2-card__meta {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ins2-card__meta > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--v2k-ink-muted);
+}
+
+.ins2-card__meta .v2k-card__cta {
+  margin-top: 0;
+}
+
+.ins2-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 64px 0;
+  color: var(--v2k-ink-muted);
+}

@@ -1,11 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ArrowLeft, ArrowRight, Clock } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Clock } from 'lucide-react';
 import Seo from '../components/Seo';
+import V2PageHeader from '../components/V2PageHeader';
+import V2PageFooter from '../components/V2PageFooter';
 import Reveal from './Reveal';
 import { getPublishedInsights, getFeaturedInsights, getInsightsByCategory, TOPIC_CATEGORIES } from '../data/insights';
 import { track, ANALYTICS_EVENTS } from '../lib/analytics';
-import './home.css';
+import '../components/V2PageKit.css';
+import './InsightsPageV2.css';
+
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+const ArticleCard = ({ insight, lead = false, delay = 0 }) => (
+  <Reveal as={Link} to={`/insights/${insight.slug}`} className={`v2k-card ins2-card${lead ? ' ins2-card--lead' : ''}`} delay={delay}>
+    {insight.heroImage && (
+      <div className="v2k-card__media">
+        <img src={insight.heroImage} alt={insight.title} loading="lazy" />
+      </div>
+    )}
+    <span className="v2k-card__eyebrow">{insight.category}</span>
+    <h3 className="v2k-card__title">{insight.title}</h3>
+    <p className="v2k-card__desc">{insight.description}</p>
+    <div className="ins2-card__meta">
+      <span><Clock size={13} /> {formatDate(insight.publishedAt)}</span>
+      <span className="v2k-card__cta">
+        Đọc tiếp
+        <span className="v2k-arrow" aria-hidden="true"><ArrowUpRight size={16} strokeWidth={2} /></span>
+      </span>
+    </div>
+  </Reveal>
+);
 
 const InsightsPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -18,35 +45,26 @@ const InsightsPage = () => {
   }, []);
 
   return (
-    <>
+    <div className="v2k ins2">
       <Seo
         title="Kiến thức — AI, Digital Growth & Platform Protection | LETAN Media"
         description="Blog & insight về AI, truyền thông số, SEO/GEO, platform protection và web development từ LETAN Media."
         path="/insights"
       />
 
-      {/* Breadcrumb */}
-      <nav className="hm-wrap" aria-label="Breadcrumb" style={{ paddingTop: '120px', paddingBottom: '0' }}>
-        <Reveal>
-          <div className="hm-breadcrumb">
-            <Link to="/" className="hm-breadcrumb-link">
-              <ArrowLeft size={14} /> Trang chủ
-            </Link>
-            <span className="hm-breadcrumb-sep" aria-hidden="true">/</span>
-            <span className="hm-breadcrumb-current">Kiến thức</span>
-          </div>
-        </Reveal>
-      </nav>
+      <V2PageHeader />
 
       {/* Hero */}
-      <section className="hm-section hm-section--tight" style={{ paddingTop: '40px', paddingBottom: '60px' }}>
-        <div className="hm-wrap">
+      <section className="v2k-hero">
+        <div className="v2k-hero__inner">
           <Reveal>
-            <span className="hm-eyebrow">Kiến thức</span>
-            <h1 className="hm-h2" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
-              Insights & kiến thức chuyên sâu
+            <p className="v2k-hero__eyebrow">INSIGHTS · LETAN MEDIA</p>
+            <h1 className="v2k-hero__title">
+              KIẾN THỨC
+              <br />
+              CHUYÊN SÂU
             </h1>
-            <p className="hm-lead" style={{ marginTop: '18px', maxWidth: '680px' }}>
+            <p className="v2k-hero__subtitle">
               {allCount > 0
                 ? `${allCount} bài viết thực tế từ kinh nghiệm vận hành — không phải nội dung AI-generated tràn lan.`
                 : 'Nội dung đang được chuẩn bị. Mỗi bài viết đi kèm kinh nghiệm thực tế — không viết để SEO.'}
@@ -57,26 +75,14 @@ const InsightsPage = () => {
 
       {/* Featured */}
       {featured.length > 0 && (
-        <section className="hm-section hm-section--tight" aria-label="Bài nổi bật">
-          <div className="hm-wrap">
+        <section className="ins2-featured" aria-label="Bài nổi bật">
+          <div className="v2k-section__inner">
             <Reveal>
-              <span className="hm-eyebrow">Nổi bật</span>
+              <p className="v2k-section-eyebrow">Nổi bật</p>
             </Reveal>
-            <div className="hm-work__grid" style={{ marginTop: '24px' }}>
+            <div className="ins2-featured__grid">
               {featured.map((insight, i) => (
-                <Reveal
-                  as={Link}
-                  to={`/insights/${insight.slug}`}
-                  key={insight.slug}
-                  className="hm-work__card is-wide"
-                  delay={i * 0.06}
-                  style={{ '--c1': getCategoryGradient(insight.category).c1, '--c2': getCategoryGradient(insight.category).c2 }}
-                >
-                  <span className="hm-work__arrow" aria-hidden="true"><ArrowUpRight size={18} /></span>
-                  <span className="hm-work__cat">{insight.category}</span>
-                  <h2 className="hm-work__title">{insight.title}</h2>
-                  <p className="hm-work__desc">{insight.description}</p>
-                </Reveal>
+                <ArticleCard insight={insight} lead={i === 0} delay={i * 0.06} key={insight.slug} />
               ))}
             </div>
           </div>
@@ -84,24 +90,21 @@ const InsightsPage = () => {
       )}
 
       {/* Topic Filter + Article Grid */}
-      <section className="hm-section hm-section--tight" aria-label="Tất cả bài viết">
-        <div className="hm-wrap">
-          <Reveal className="hm-work__head">
-            <div>
-              <span className="hm-eyebrow">Tất cả</span>
-              <h2 className="hm-h3">Bài viết</h2>
-            </div>
+      <section className="ins2-all" aria-label="Tất cả bài viết">
+        <div className="v2k-section__inner">
+          <Reveal className="ins2-all__head">
+            <p className="v2k-section-eyebrow">Tất cả</p>
+            <h2 className="v2k-section-title">Bài viết</h2>
           </Reveal>
 
-          {/* Topic Navigation */}
-          <Reveal style={{ marginBottom: '36px' }}>
-            <div className="hm-filters" role="tablist" aria-label="Lọc theo chủ đề">
+          <Reveal>
+            <div className="v2k-filters" role="tablist" aria-label="Lọc theo chủ đề">
               {TOPIC_CATEGORIES.map((cat) => (
                 <button
                   key={cat.key}
                   role="tab"
                   aria-selected={activeCategory === cat.key}
-                  className={`hm-filter-btn ${activeCategory === cat.key ? 'active' : ''}`}
+                  className={`v2k-filter-btn${activeCategory === cat.key ? ' is-active' : ''}`}
                   onClick={() => setActiveCategory(cat.key)}
                 >
                   {cat.label}
@@ -110,78 +113,53 @@ const InsightsPage = () => {
             </div>
           </Reveal>
 
-          {/* Article Grid */}
-          <div className="hm-insights-grid">
+          <div className="ins2-grid">
             {filtered.length === 0 ? (
-              <Reveal style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '80px 0' }}>
-                <p className="hm-muted" style={{ fontSize: '1.1rem' }}>Chưa có bài viết trong danh mục này.</p>
+              <Reveal className="ins2-empty">
+                <p>Chưa có bài viết trong danh mục này.</p>
               </Reveal>
             ) : (
               filtered.map((insight, i) => (
-                <Reveal key={insight.slug} delay={i * 0.05}>
-                  <Link to={`/insights/${insight.slug}`} className="hm-insight-card">
-                    <div className="hm-insight-card__category">{insight.category}</div>
-                    <h3 className="hm-insight-card__title">{insight.title}</h3>
-                    <p className="hm-insight-card__desc">{insight.description}</p>
-                    <div className="hm-insight-card__meta">
-                      <span><Clock size={14} /> {formatDate(insight.publishedAt)}</span>
-                      <span className="hm-link-arrow" style={{ fontSize: '0.9rem' }}>Đọc tiếp <ArrowUpRight size={14} /></span>
-                    </div>
-                  </Link>
-                </Reveal>
+                <ArticleCard insight={insight} delay={i * 0.05} key={insight.slug} />
               ))
             )}
           </div>
         </div>
       </section>
 
-      {/* Climax CTA */}
-      <section className="lm-final-cta" aria-label="Liên hệ LETAN">
-        <div className="hm-wrap">
-          <div className="lm-final-cta__panel">
-            <div className="lm-final-cta__content">
-              <div className="lm-final-cta__eyebrow">
-                <span className="lm-final-cta__eyebrow-dot" />
-                ĐỒNG HÀNH & PHÁT TRIỂN
-              </div>
-              <h2>
-                Bạn cần tư vấn giải pháp
-                <br />
-                <span>dành riêng cho doanh nghiệp?</span>
-              </h2>
-              <p>
-                Đội ngũ chuyên gia LETAN Media sẵn sàng trao đổi chi tiết về kiến trúc AI, chiến lược tăng trưởng và bảo vệ thương hiệu số.
-              </p>
-              <div className="lm-final-cta__actions">
-                <Link to="/contact" className="lm-btn lm-btn--primary">
-                  <span>Trao đổi với LETAN</span>
-                  <ArrowRight size={17} strokeWidth={1.8} />
-                </Link>
-                <Link to="/services" className="lm-btn lm-btn--secondary">
-                  <span>Khám phá dịch vụ</span>
-                  <ArrowUpRight size={17} strokeWidth={1.8} />
-                </Link>
-              </div>
+      {/* Final CTA */}
+      <section className="v2k-cta">
+        <div className="v2k-cta__panel">
+          <Reveal>
+            <p className="v2k-cta__eyebrow">
+              <span className="v2k-cta__dot" aria-hidden="true" />
+              ĐỒNG HÀNH &amp; PHÁT TRIỂN
+            </p>
+            <h2 className="v2k-cta__title">
+              Bạn cần tư vấn giải pháp
+              <br />
+              dành riêng cho doanh nghiệp?
+            </h2>
+            <p className="v2k-cta__desc">
+              Đội ngũ chuyên gia LETAN Media sẵn sàng trao đổi chi tiết về kiến trúc AI, chiến lược tăng trưởng và bảo vệ thương hiệu số.
+            </p>
+            <div className="v2k-cta__actions">
+              <Link to="/contact" className="v2k-btn v2k-btn--primary">
+                <span>Trao đổi với LETAN</span>
+                <ArrowRight size={17} strokeWidth={1.8} />
+              </Link>
+              <Link to="/services" className="v2k-btn v2k-btn--secondary">
+                <span>Khám phá dịch vụ</span>
+                <ArrowUpRight size={17} strokeWidth={1.8} />
+              </Link>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
-    </>
+
+      <V2PageFooter />
+    </div>
   );
 };
-
-function formatDate(dateStr) {
-  return new Date(dateStr).toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' });
-}
-
-function getCategoryGradient(category) {
-  const map = {
-    'AI & Automation': { c1: 'rgba(47,212,167,0.9)', c2: 'rgba(13,18,32,0.7)' },
-    'Platform Protection': { c1: 'rgba(79,124,255,0.9)', c2: 'rgba(19,25,39,0.7)' },
-    'Web & Technology': { c1: 'rgba(38,217,242,0.85)', c2: 'rgba(13,18,32,0.7)' },
-    'Digital Growth': { c1: 'rgba(79,124,255,0.85)', c2: 'rgba(19,25,39,0.7)' },
-  };
-  return map[category] || { c1: 'rgba(79,124,255,0.85)', c2: 'rgba(19,25,39,0.7)' };
-}
 
 export default InsightsPage;

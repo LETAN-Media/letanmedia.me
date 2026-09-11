@@ -1,0 +1,38 @@
+/* ServicesIndexV2 — page-specific layout for /services.
+   Shared tokens/components come from V2PageKit.css (.v2k). */
+
+.svc2-grid-section {
+  padding: 24px 0 64px;
+}
+
+.svc2-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 640px) {
+  .svc2-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .svc2-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.svc2-card {
+  height: 100%;
+}
+
+.svc2-card__outcome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--v2k-purple);
+}

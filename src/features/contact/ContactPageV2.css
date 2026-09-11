@@ -1,0 +1,374 @@
+/* ContactPageV2 — page-specific layout for /contact.
+   Shared tokens/components come from V2PageKit.css (.v2k). */
+
+.cta2-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Layout ───────────────────────────────────────────────────────── */
+
+.cta2-form-section {
+  padding: 24px 0 64px;
+}
+
+.cta2-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 960px) {
+  .cta2-grid {
+    grid-template-columns: 1.5fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+}
+
+/* ── Form ─────────────────────────────────────────────────────────── */
+
+.cta2-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px 24px;
+  border-radius: 28px;
+  background: #ffffff;
+  border: 1px solid var(--v2k-border);
+}
+
+@media (min-width: 768px) {
+  .cta2-form {
+    padding: 40px;
+  }
+}
+
+.cta2-form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 560px) {
+  .cta2-form__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cta2-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cta2-field__label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--v2k-ink);
+}
+
+.cta2-field__required {
+  color: var(--v2k-purple);
+}
+
+.cta2-field__input,
+.cta2-field__select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--v2k-border);
+  background: var(--v2k-cream);
+  color: var(--v2k-ink);
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.cta2-field__input::placeholder {
+  color: rgba(22, 18, 43, 0.4);
+}
+
+.cta2-field__input:focus,
+.cta2-field__select:focus {
+  outline: none;
+  border-color: var(--v2k-purple);
+  background: #ffffff;
+}
+
+.cta2-field__input.is-error {
+  border-color: #e0435a;
+}
+
+.cta2-field__error {
+  font-size: 12.5px;
+  color: #e0435a;
+}
+
+textarea.cta2-field__input {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.cta2-prefs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cta2-pref {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--v2k-border);
+  background: var(--v2k-cream);
+  color: var(--v2k-ink-muted);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cta2-pref.is-active {
+  background: var(--v2k-navy);
+  border-color: var(--v2k-navy);
+  color: #ffffff;
+}
+
+.cta2-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--v2k-ink-muted);
+  cursor: pointer;
+}
+
+.cta2-consent a {
+  color: var(--v2k-purple);
+  text-decoration: underline;
+}
+
+.cta2-consent__check {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border-radius: 5px;
+  border: 1px solid var(--v2k-border);
+  background: #ffffff;
+}
+
+.cta2-consent input:checked ~ .cta2-consent__check {
+  background: var(--v2k-purple);
+  border-color: var(--v2k-purple);
+}
+
+.cta2-form-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(224, 67, 90, 0.08);
+  color: #e0435a;
+  font-size: 14px;
+}
+
+.cta2-submit {
+  width: 100%;
+  justify-content: center;
+  padding: 15px 26px;
+  font-size: 15.5px;
+}
+
+.cta2-spin {
+  animation: cta2-spin 0.8s linear infinite;
+}
+
+@keyframes cta2-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Success state ────────────────────────────────────────────────── */
+
+.cta2-success {
+  padding: 48px 32px;
+  border-radius: 28px;
+  background: #ffffff;
+  border: 1px solid var(--v2k-border);
+  text-align: center;
+}
+
+.cta2-success__icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--v2k-purple-soft);
+  color: var(--v2k-purple);
+}
+
+.cta2-success__text {
+  margin: 12px 0 24px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--v2k-ink-muted);
+}
+
+/* ── Contact channels ─────────────────────────────────────────────── */
+
+.cta2-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cta2-channels__title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--v2k-navy);
+}
+
+.cta2-channel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--v2k-border);
+  background: #ffffff;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.cta2-channel:hover {
+  border-color: var(--v2k-purple);
+  transform: translateY(-2px);
+}
+
+.cta2-channel__icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--v2k-purple-soft);
+  color: var(--v2k-purple);
+}
+
+.cta2-channel__label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--v2k-ink-muted);
+}
+
+.cta2-channel__value {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--v2k-navy);
+}
+
+/* ── Process ──────────────────────────────────────────────────────── */
+
+.cta2-process {
+  padding: 48px 0;
+  background: #ffffff;
+  border-top: 1px solid var(--v2k-border);
+  border-bottom: 1px solid var(--v2k-border);
+}
+
+.cta2-process__grid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .cta2-process__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cta2-process__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .cta2-process {
+    padding: 72px 0;
+  }
+}
+
+/* ── FAQ ──────────────────────────────────────────────────────────── */
+
+.cta2-faq-section {
+  padding: 48px 0 88px;
+}
+
+.cta2-faq {
+  margin-top: 28px;
+  max-width: 780px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cta2-faq-item {
+  border-radius: 18px;
+  border: 1px solid var(--v2k-border);
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.cta2-faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--v2k-navy);
+  cursor: pointer;
+}
+
+.cta2-faq-icon {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  color: var(--v2k-purple);
+}
+
+.cta2-faq-icon.is-open {
+  transform: rotate(180deg);
+}
+
+.cta2-faq-panel {
+  padding: 0 20px 18px;
+}
+
+.cta2-faq-panel p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--v2k-ink-muted);
+}

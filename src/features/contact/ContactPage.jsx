@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Phone, MessageCircle, Mail, Check, AlertCircle, Loader2 } from 'lucide-react';
+import { Phone, MessageCircle, Mail, Check, AlertCircle, Loader2, ChevronDown } from 'lucide-react';
 import Seo from '../../components/Seo';
+import V2PageHeader from '../../components/V2PageHeader';
+import V2PageFooter from '../../components/V2PageFooter';
 import Reveal from '../../home/Reveal';
 import { track, ANALYTICS_EVENTS } from '../../lib/analytics';
 import { captureUtm, buildUtmPayload } from '../../lib/utm';
 import { getAllServices } from '../../data/services';
-import '../../home/home.css';
+import '../../components/V2PageKit.css';
+import './ContactPageV2.css';
 
 const CONTACT_CHANNELS = [
   { type: 'phone', label: 'Hotline', value: '0765 178 999', href: 'tel:0765178999', icon: Phone, trackEvent: ANALYTICS_EVENTS.CLICK_PHONE },
@@ -198,35 +201,26 @@ const ContactPage = () => {
   const serviceOptions = getServiceOptions();
 
   return (
-    <>
+    <div className="v2k cta2">
       <Seo
         title="Liên hệ | LETAN Media — Tư vấn AI & Digital Growth"
         description="Kết nối với LETAN Media để nhận tư vấn giải pháp AI, truyền thông số và phát triển phần mềm."
         path="/contact"
       />
 
-      {/* Breadcrumb */}
-      <nav className="hm-wrap" aria-label="Breadcrumb" style={{ paddingTop: '120px', paddingBottom: '0' }}>
-        <Reveal>
-          <div className="hm-breadcrumb">
-            <Link to="/" className="hm-breadcrumb-link">
-              <ArrowLeft size={14} /> Trang chủ
-            </Link>
-            <span className="hm-breadcrumb-sep" aria-hidden="true">/</span>
-            <span className="hm-breadcrumb-current">Liên hệ</span>
-          </div>
-        </Reveal>
-      </nav>
+      <V2PageHeader />
 
       {/* Hero */}
-      <section className="hm-section hm-section--tight" style={{ paddingTop: '40px' }}>
-        <div className="hm-wrap">
+      <section className="v2k-hero">
+        <div className="v2k-hero__inner">
           <Reveal>
-            <span className="hm-eyebrow">Liên hệ</span>
-            <h1 className="hm-h2" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.6rem)', marginBottom: '18px' }}>
-              Trao đổi với LETAN
+            <p className="v2k-hero__eyebrow">CONTACT · LETAN MEDIA</p>
+            <h1 className="v2k-hero__title">
+              TRAO ĐỔI
+              <br />
+              VỚI LETAN
             </h1>
-            <p className="hm-lead" style={{ maxWidth: '640px' }}>
+            <p className="v2k-hero__subtitle">
               Digital Growth, AI Automation, Website/Software hoặc Platform Protection — cho chúng tôi biết bạn cần gì, chúng tôi sẽ phản hồi trong 24h.
             </p>
           </Reveal>
@@ -234,23 +228,22 @@ const ContactPage = () => {
       </section>
 
       {/* Form + Channels */}
-      <section className="hm-section hm-section--tight">
-        <div className="hm-wrap">
-          <div className="hm-contact-grid">
+      <section className="cta2-form-section">
+        <div className="v2k-section__inner">
+          <div className="cta2-grid">
             {/* Form */}
             <Reveal>
               {status === 'success' ? (
-                <div className="hm-contact-success" role="status" aria-live="polite">
-                  <div className="hm-contact-success__icon">
+                <div className="cta2-success" role="status" aria-live="polite">
+                  <div className="cta2-success__icon">
                     <Check size={32} />
                   </div>
-                  <h2 className="hm-h3">Đã nhận thông tin!</h2>
-                  <p className="hm-lead" style={{ marginTop: '12px' }}>
+                  <h2 className="v2k-section-title">Đã nhận thông tin!</h2>
+                  <p className="cta2-success__text">
                     Cảm ơn bạn. LETAN sẽ liên hệ trong vòng 24h qua kênh bạn chọn.
                   </p>
                   <button
-                    className="ui-btn ui-btn--secondary"
-                    style={{ marginTop: '24px' }}
+                    className="v2k-btn v2k-btn--solid-secondary"
                     onClick={() => {
                       setStatus('idle');
                       setFields({ name: '', company: '', contact: '', service: preselectService, website: '', budget: '', message: '', preferredContact: 'zalo' });
@@ -263,7 +256,7 @@ const ContactPage = () => {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={onSubmit} noValidate className="hm-contact-form">
+                <form onSubmit={onSubmit} noValidate className="cta2-form">
                   {/* Honeypot — hidden from real users */}
                   <div style={{ position: 'absolute', left: '-9999px', opacity: 0 }} aria-hidden="true">
                     <label htmlFor="website_hp">Website</label>
@@ -278,7 +271,7 @@ const ContactPage = () => {
                     />
                   </div>
 
-                  <div className="hm-form-row">
+                  <div className="cta2-form__row">
                     <FormField
                       label="Họ tên"
                       name="name"
@@ -301,7 +294,7 @@ const ContactPage = () => {
                     />
                   </div>
 
-                  <div className="hm-form-row">
+                  <div className="cta2-form__row">
                     <FormField
                       label="Email hoặc Số điện thoại"
                       name="contact"
@@ -313,14 +306,14 @@ const ContactPage = () => {
                       autoComplete="email"
                       placeholder="you@email.com hoặc 0765178999"
                     />
-                    <div className="hm-form-field">
-                      <label className="hm-form-label" htmlFor="service">Dịch vụ quan tâm</label>
+                    <div className="cta2-field">
+                      <label className="cta2-field__label" htmlFor="service">Dịch vụ quan tâm</label>
                       <select
                         id="service"
                         name="service"
                         value={fields.service}
                         onChange={onChange}
-                        className="hm-form-select"
+                        className="cta2-field__select"
                       >
                         <option value="">Chọn dịch vụ...</option>
                         {serviceOptions.map((opt) => (
@@ -330,7 +323,7 @@ const ContactPage = () => {
                     </div>
                   </div>
 
-                  <div className="hm-form-row">
+                  <div className="cta2-form__row">
                     <FormField
                       label="Website / Social URL"
                       name="website"
@@ -342,14 +335,14 @@ const ContactPage = () => {
                       placeholder="https://..."
                       type="url"
                     />
-                    <div className="hm-form-field">
-                      <label className="hm-form-label" htmlFor="budget">Ngân sách dự kiến</label>
+                    <div className="cta2-field">
+                      <label className="cta2-field__label" htmlFor="budget">Ngân sách dự kiến</label>
                       <select
                         id="budget"
                         name="budget"
                         value={fields.budget}
                         onChange={onChange}
-                        className="hm-form-select"
+                        className="cta2-field__select"
                       >
                         <option value="">Chọn khoảng...</option>
                         {BUDGET_OPTIONS.map((opt) => (
@@ -372,18 +365,18 @@ const ContactPage = () => {
                   />
 
                   {/* Preferred contact */}
-                  <div className="hm-form-field">
-                    <label className="hm-form-label">Liên hệ qua</label>
-                    <div className="hm-contact-prefs">
+                  <div className="cta2-field">
+                    <label className="cta2-field__label">Liên hệ qua</label>
+                    <div className="cta2-prefs">
                       {CONTACT_PREFERENCES.map((pref) => (
-                        <label key={pref.value} className={`hm-contact-pref ${fields.preferredContact === pref.value ? 'active' : ''}`}>
+                        <label key={pref.value} className={`cta2-pref${fields.preferredContact === pref.value ? ' is-active' : ''}`}>
                           <input
                             type="radio"
                             name="preferredContact"
                             value={pref.value}
                             checked={fields.preferredContact === pref.value}
                             onChange={onChange}
-                            className="hm-sr-only"
+                            className="cta2-sr-only"
                           />
                           {pref.label}
                         </label>
@@ -392,14 +385,14 @@ const ContactPage = () => {
                   </div>
 
                   {/* Consent */}
-                  <label className="hm-form-consent">
-                    <input type="checkbox" required className="hm-sr-only" />
-                    <span className="hm-form-consent__check" aria-hidden="true" />
+                  <label className="cta2-consent">
+                    <input type="checkbox" required className="cta2-sr-only" />
+                    <span className="cta2-consent__check" aria-hidden="true" />
                     <span>Tôi đồng ý để LETAN Media sử dụng thông tin trên để liên hệ về yêu cầu này. Xem <Link to="/policy">Chính sách bảo mật</Link>.</span>
                   </label>
 
                   {status === 'error' && (
-                    <div className="hm-form-error" role="alert" aria-live="assertive">
+                    <div className="cta2-form-error" role="alert" aria-live="assertive">
                       <AlertCircle size={18} />
                       <span>{errorMsg}</span>
                     </div>
@@ -407,12 +400,11 @@ const ContactPage = () => {
 
                   <button
                     type="submit"
-                    className="ui-btn ui-btn--primary ui-btn--lg"
+                    className="v2k-btn v2k-btn--solid-primary cta2-submit"
                     disabled={status === 'loading'}
-                    style={{ width: '100%', justifyContent: 'center' }}
                   >
                     {status === 'loading' ? (
-                      <><Loader2 size={18} className="hm-spin" /> Đang gửi...</>
+                      <><Loader2 size={18} className="cta2-spin" /> Đang gửi...</>
                     ) : (
                       'Gửi yêu cầu tư vấn'
                     )}
@@ -423,25 +415,25 @@ const ContactPage = () => {
 
             {/* Contact Channels */}
             <Reveal delay={0.1}>
-              <div className="hm-contact-channels">
-                <h3 className="hm-h3" style={{ marginBottom: '24px' }}>Hoặc liên hệ trực tiếp</h3>
+              <div className="cta2-channels">
+                <h3 className="cta2-channels__title">Hoặc liên hệ trực tiếp</h3>
                 {CONTACT_CHANNELS.map((ch) => {
                   const Icon = ch.icon;
                   return (
                     <a
                       key={ch.type}
                       href={ch.href}
-                      className="hm-contact-channel"
+                      className="cta2-channel"
                       target={ch.external ? '_blank' : undefined}
                       rel={ch.external ? 'noopener noreferrer' : undefined}
                       onClick={() => track(ch.trackEvent, { source_page: '/contact' })}
                     >
-                      <div className="hm-contact-channel__icon">
+                      <div className="cta2-channel__icon">
                         <Icon size={20} />
                       </div>
                       <div>
-                        <div className="hm-contact-channel__label">{ch.label}</div>
-                        <div className="hm-contact-channel__value">{ch.value}</div>
+                        <div className="cta2-channel__label">{ch.label}</div>
+                        <div className="cta2-channel__value">{ch.value}</div>
                       </div>
                     </a>
                   );
@@ -453,23 +445,23 @@ const ContactPage = () => {
       </section>
 
       {/* What Happens Next */}
-      <section className="hm-section hm-section--tight" style={{ background: 'var(--color-surface-1)', borderTop: 'var(--border-subtle)', borderBottom: 'var(--border-subtle)' }}>
-        <div className="hm-wrap">
+      <section className="cta2-process">
+        <div className="v2k-section__inner">
           <Reveal>
-            <span className="hm-eyebrow">Quy trình</span>
-            <h2 className="hm-h3" style={{ marginBottom: '36px' }}>Sau khi bạn gửi thông tin</h2>
+            <p className="v2k-section-eyebrow">Quy trình</p>
+            <h2 className="v2k-section-title">Sau khi bạn gửi thông tin</h2>
           </Reveal>
-          <div className="hm-service-process">
+          <div className="cta2-process__grid">
             {[
               { step: 'Nhận thông tin', desc: 'LETAN nhận yêu cầu và phân tích trong 24h.' },
               { step: 'Tư vấn', desc: 'Liên hệ qua kênh bạn chọn để trao đổi chi tiết.' },
               { step: 'Đề xuất', desc: 'Gửi đề xuất giải pháp và báo giá phù hợp.' },
               { step: 'Triển khai', desc: 'Ký hợp đồng và bắt đầu triển khai theo plan.' },
             ].map((p, i) => (
-              <Reveal key={i} className="hm-service-step" delay={i * 0.08}>
-                <div className="hm-service-step__num">{String(i + 1).padStart(2, '0')}</div>
-                <h3 className="hm-service-step__title">{p.step}</h3>
-                <p className="hm-service-step__desc">{p.desc}</p>
+              <Reveal key={i} className="v2k-card" delay={i * 0.08}>
+                <span className="v2k-num">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="v2k-card__title">{p.step}</h3>
+                <p className="v2k-card__desc">{p.desc}</p>
               </Reveal>
             ))}
           </div>
@@ -477,13 +469,13 @@ const ContactPage = () => {
       </section>
 
       {/* Short FAQ */}
-      <section className="hm-section hm-section--tight">
-        <div className="hm-wrap">
+      <section className="cta2-faq-section">
+        <div className="v2k-section__inner">
           <Reveal>
-            <span className="hm-eyebrow">FAQ</span>
-            <h2 className="hm-h3" style={{ marginBottom: '36px' }}>Câu hỏi nhanh</h2>
+            <p className="v2k-section-eyebrow">FAQ</p>
+            <h2 className="v2k-section-title">Câu hỏi nhanh</h2>
           </Reveal>
-          <div className="hm-service-faq" role="list" style={{ maxWidth: '780px' }}>
+          <div className="cta2-faq" role="list">
             {[
               { q: 'Phản hồi trong bao lâu?', a: 'Thông thường trong 24h. Trường hợp gấp có thể liên hệ hotline hoặc Zalo để được hỗ trợ ngay.' },
               { q: 'Có cần đặt cọc không?', a: 'Không đặt cọc khi tư vấn. Chỉ thanh toán khi đã thống nhất scope và ký hợp đồng.' },
@@ -494,7 +486,9 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
-    </>
+
+      <V2PageFooter />
+    </div>
   );
 };
 
@@ -502,9 +496,9 @@ const ContactPage = () => {
 function FormField({ label, name, value, onChange, onBlur, error, required, as, autoComplete, placeholder, type = 'text' }) {
   const Tag = as === 'textarea' ? 'textarea' : 'input';
   return (
-    <div className="hm-form-field">
-      <label className="hm-form-label" htmlFor={name}>
-        {label} {required && <span className="hm-form-required" aria-label="bắt buộc">*</span>}
+    <div className="cta2-field">
+      <label className="cta2-field__label" htmlFor={name}>
+        {label} {required && <span className="cta2-field__required" aria-label="bắt buộc">*</span>}
       </label>
       <Tag
         id={name}
@@ -515,13 +509,13 @@ function FormField({ label, name, value, onChange, onBlur, error, required, as, 
         autoComplete={autoComplete}
         placeholder={placeholder}
         type={as !== 'textarea' ? type : undefined}
-        className={`hm-form-input ${error ? 'hm-form-input--error' : ''}`}
+        className={`cta2-field__input${error ? ' is-error' : ''}`}
         aria-invalid={!!error}
         aria-describedby={error ? `${name}-error` : undefined}
         rows={as === 'textarea' ? 5 : undefined}
       />
       {error && (
-        <span id={`${name}-error`} className="hm-form-error-text" role="alert">
+        <span id={`${name}-error`} className="cta2-field__error" role="alert">
           {error}
         </span>
       )}
@@ -536,19 +530,19 @@ function FaqItem({ question, answer, index }) {
   const triggerId = `contact-faq-trigger-${index}`;
 
   return (
-    <div className="hm-faq-item" role="listitem">
+    <div className="cta2-faq-item" role="listitem">
       <button
         id={triggerId}
-        className="hm-faq-trigger"
+        className="cta2-faq-trigger"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen(!open)}
       >
         <span>{question}</span>
-        <span className={`hm-faq-icon ${open ? 'open' : ''}`} aria-hidden="true">+</span>
+        <ChevronDown size={18} className={`cta2-faq-icon${open ? ' is-open' : ''}`} aria-hidden="true" />
       </button>
       {open && (
-        <div id={panelId} role="region" aria-labelledby={triggerId} className="hm-faq-panel">
+        <div id={panelId} role="region" aria-labelledby={triggerId} className="cta2-faq-panel">
           <p>{answer}</p>
         </div>
       )}
