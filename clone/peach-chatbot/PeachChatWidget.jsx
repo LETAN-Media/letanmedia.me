@@ -240,9 +240,9 @@ const FAQS_DATA = [
 const GREETING_TEXT = `Xin chào! Chào mừng bạn đến với LÊ TẤN MEDIA 👋\n\nMình là Trợ lý AI, sẵn sàng hỗ trợ bạn về thiết kế Web 3D, bản quyền mạng xã hội, tích xanh và các dịch vụ truyền thông số.`;
 
 const TABS = [
-  { key: "chat", label: "Tư vấn" },
-  { key: "faqs", label: "Câu hỏi thường gặp" },
-  { key: "contact", label: "Liên hệ" },
+  { key: "chat", label: "Chat" },
+  { key: "faqs", label: "FAQs" },
+  { key: "contact", label: "Contact" },
 ];
 
 let idCounter = 0;
