@@ -355,9 +355,8 @@ export default function PeachChatWidget({
   initialOpen = false,
   agentName = "Trợ lý LETAN Media",
   email = "contact@letanmedia.me",
-  phone = "0765 178 999",
-  zaloUrl = "https://zalo.me/0765178999",
-  telegramUrl = "https://t.me/Tanlemedia",
+  calendlyUrl = "https://calendly.com/peachweb/30min",
+  supportLink = "calendly.com/letanmedia",
 }) {
   const [isOpen, setIsOpen] = useState(initialOpen);
   const [activeTab, setActiveTab] = useState("chat");
@@ -928,100 +927,52 @@ export default function PeachChatWidget({
                       <motion.p
                         variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
                         transition={{ duration: 0.7, ease: EASE_OUT }}
-                        className="text-white text-[18px] font-semibold tracking-tight mb-2"
+                        className="text-white text-[18px] font-semibold tracking-tight mb-3"
                       >
-                        Liên hệ LETAN Media
+                        Get in touch
                       </motion.p>
                       <motion.p
                         variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
                         transition={{ duration: 0.7, ease: EASE_OUT }}
-                        className="text-[13.5px] font-normal leading-relaxed text-white/70 mb-5"
+                        className="text-[14px] font-normal leading-relaxed text-white/75 mb-5"
                       >
-                        Đội ngũ chuyên viên sẵn sàng tư vấn giải pháp 24/7 và báo giá chi tiết cho dự án của bạn.
+                        Email us and the team will get back to you shortly.
                       </motion.p>
-
-                      <div className="flex flex-col gap-3">
-                        <motion.a
-                          variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
-                          transition={{ duration: 0.7, ease: EASE_OUT }}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          href={zaloUrl}
+                      <motion.a
+                        variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
+                        transition={{ duration: 0.7, ease: EASE_OUT }}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        href={`mailto:${email}`}
+                        className="inline-block rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-black hover:bg-white/90 transition-colors"
+                      >
+                        {email}
+                      </motion.a>
+                      <motion.p
+                        variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
+                        transition={{ duration: 0.7, ease: EASE_OUT }}
+                        className="mt-6 text-[13px] font-normal text-white/55"
+                      >
+                        Prefer a call? Book a 30-min slot at{" "}
+                        <a
+                          href={calendlyUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center justify-between rounded-xl bg-blue-600/20 border border-blue-500/30 p-3.5 hover:bg-blue-600/30 transition-all"
+                          className="font-medium text-white/85 underline underline-offset-2 decoration-white/30 hover:decoration-white"
                         >
-                          <div className="flex items-center gap-3">
-                            <span className="text-xl">💬</span>
-                            <div>
-                              <div className="text-[14px] font-semibold text-white">Chat Zalo CSKH</div>
-                              <div className="text-[12px] text-blue-300">0765 178 999 (Phản hồi tức thì)</div>
-                            </div>
-                          </div>
-                          <span className="text-white/60 text-sm">→</span>
-                        </motion.a>
-
-                        <motion.a
-                          variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
-                          transition={{ duration: 0.7, ease: EASE_OUT }}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          href={telegramUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="flex items-center justify-between rounded-xl bg-sky-600/20 border border-sky-500/30 p-3.5 hover:bg-sky-600/30 transition-all"
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className="text-xl">✈️</span>
-                            <div>
-                              <div className="text-[14px] font-semibold text-white">Telegram Hỗ Trợ</div>
-                              <div className="text-[12px] text-sky-300">@Tanlemedia (Tư vấn trực tiếp)</div>
-                            </div>
-                          </div>
-                          <span className="text-white/60 text-sm">→</span>
-                        </motion.a>
-
-                        <motion.a
-                          variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
-                          transition={{ duration: 0.7, ease: EASE_OUT }}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          href={`tel:${phone.replace(/\s/g, "")}`}
-                          className="flex items-center justify-between rounded-xl bg-emerald-600/20 border border-emerald-500/30 p-3.5 hover:bg-emerald-600/30 transition-all"
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className="text-xl">📞</span>
-                            <div>
-                              <div className="text-[14px] font-semibold text-white">Hotline Trực Tiếp</div>
-                              <div className="text-[12px] text-emerald-300">{phone}</div>
-                            </div>
-                          </div>
-                          <span className="text-white/60 text-sm">→</span>
-                        </motion.a>
-
-                        <motion.a
-                          variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
-                          transition={{ duration: 0.7, ease: EASE_OUT }}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          href={`mailto:${email}`}
-                          className="flex items-center justify-between rounded-xl bg-white/[0.06] border border-white/10 p-3.5 hover:bg-white/[0.1] transition-all"
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className="text-xl">✉️</span>
-                            <div>
-                              <div className="text-[14px] font-semibold text-white">Email Doanh Nghiệp</div>
-                              <div className="text-[12px] text-white/50">{email}</div>
-                            </div>
-                          </div>
-                          <span className="text-white/60 text-sm">→</span>
-                        </motion.a>
-                      </div>
-
-                      <div className="mt-6 text-center text-[12px] text-white/40">
-                        LETAN Media © 2026 — AI, Marketing & Digital Growth
-                      </div>
+                          {supportLink}
+                        </a>
+                        .
+                      </motion.p>
                     </motion.div>
+
+                    <div className="mt-5 h-[420px] w-full overflow-hidden rounded-xl bg-white">
+                      <iframe
+                        src={`${calendlyUrl}?hide_gdpr_banner=1&background_color=ffffff&text_color=0b0b0b&primary_color=e8714a`}
+                        title="Book a call with LETAN Media"
+                        className="h-full w-full border-0"
+                      />
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
