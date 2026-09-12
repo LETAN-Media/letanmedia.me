@@ -4,7 +4,7 @@ compatibility_date = "2026-07-06"
 
 [vars]
 AI_PROVIDER = "toolnet"
-TOOLNET_MODEL = "groq/qwen/qwen3.6-27b"
+TOOLNET_MODEL = "alims-intl.llm"
 GEMINI_MODEL = "gemini-2.5-flash"
 HF_MODEL = "HauhauCS/Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-MTP"
 

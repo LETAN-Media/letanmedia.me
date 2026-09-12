@@ -97,7 +97,7 @@ function normalizeMessages(messages) {
  */
 async function streamToolNet(messages, env) {
   const apiKey = env.TOOLNET_API_KEY;
-  const model = env.TOOLNET_MODEL || "groq/qwen/qwen3.6-27b";
+  const model = env.TOOLNET_MODEL || "alims-intl.llm";
 
   const response = await fetch("https://api.toolnet.tech/v1/chat/completions", {
     method: "POST",
@@ -195,7 +195,7 @@ function createSseStream(upstreamBody) {
  */
 async function callToolNetNonStream(messages, env) {
   const apiKey = env.TOOLNET_API_KEY;
-  const model = env.TOOLNET_MODEL || "groq/qwen/qwen3.6-27b";
+  const model = env.TOOLNET_MODEL || "alims-intl.llm";
 
   const res = await fetch("https://api.toolnet.tech/v1/chat/completions", {
     method: "POST",
