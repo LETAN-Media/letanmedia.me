@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 
@@ -193,89 +195,54 @@ export function ParticleOrb({
 
 // Quick suggestions when chat is active
 const CHAT_SUGGESTIONS = [
-  { icon: "💳", title: "What does it cost?" },
-  { icon: "🧭", title: "How does PeachWeb work?" },
-  { icon: "🧩", title: "Do I need to be a developer or 3D designer?" },
-  { icon: "🔀", title: "How does it compare to Wix, Framer or Squarespace?" },
-  { icon: "📱", title: "Does it perform across all devices?" },
+  { icon: "🌐", title: "Thiết kế website 3D WebGL thế nào?" },
+  { icon: "🛡️", title: "Dịch vụ xử lý bản quyền TikTok & YouTube" },
+  { icon: "✅", title: "Quy trình lên tích xanh Facebook / TikTok" },
+  { icon: "🔓", title: "Mở khóa tài khoản bị hack hoặc vô hiệu hóa" },
+  { icon: "📞", title: "Tư vấn & báo giá nhanh qua Zalo 0765 178 999" },
 ];
 
 // Initial starter chips below greeting
 const STARTER_CHIPS = [
-  { label: "How much does it cost?", message: "How much does PeachWeb cost?" },
-  { label: "How does it work?", message: "How does PeachWeb work?" },
-  { label: "Vs Wix or Framer?", message: "How does PeachWeb compare to Wix or Framer?" },
-  { label: "Can I work with a Pro?", message: "Can I work with a Pro?" },
-  { label: "How does it perform?", message: "How does PeachWeb perform across devices?" },
-  { label: "Do I need to code?", message: "Do I need to code or know 3D design?" },
+  { label: "Báo giá Web 3D", message: "Chi phí thiết kế website 3D WebGL tại LETAN Media thế nào?" },
+  { label: "Gỡ vi phạm bản quyền", message: "Tôi muốn gỡ nội dung vi phạm bản quyền trên TikTok hoặc YouTube" },
+  { label: "Lên tích xanh MXH", message: "Điều kiện và quy trình xét duyệt tích xanh mạng xã hội?" },
+  { label: "Khôi phục tài khoản", message: "Tôi cần hỗ trợ lấy lại tài khoản Facebook/TikTok bị hack" },
+  { label: "Booking báo chí PR", message: "Các đầu báo chí truyền thông mà LETAN Media hỗ trợ booking?" },
+  { label: "Liên hệ Hotline/Zalo", message: "Cho tôi thông tin liên hệ trực tiếp với chuyên viên tư vấn" },
 ];
 
-// 14 FAQs from PeachWeb
+// FAQs for LETAN Media
 const FAQS_DATA = [
   {
-    q: "Can I work with an expert?",
-    a: "Yes — three ways, depending on how hands-off you want to be. Launch with a Pro ($999, same week) is the fastest: you chat with our onboarding agent for around 10 minutes, then a PeachWeb expert applies your copy, content, images and 3D scene colours to a template and publishes it live. Customise with a Pro ($4,999, 2–3 weeks) adds custom 3D models and scenes built specifically for your brand, with 2 rounds of revisions. Build a Custom Website (from $9,999, 4–8 weeks) is fully bespoke — storyboarding, custom models, full scene composition, the works. You keep full builder access after every Pro build, so you can iterate freely yourself afterwards.",
+    q: "LÊ TẤN MEDIA cung cấp những dịch vụ gì?",
+    a: "LÊ TẤN MEDIA chuyên cung cấp các giải pháp công nghệ & truyền thông số: Thiết kế website 3D WebGL tương tác cao cấp, xử lý & bảo vệ bản quyền đa nền tảng (TikTok, YouTube), làm hồ sơ tích xanh chính chủ, khôi phục tài khoản MXH bị khóa/hack, chiến dịch Marketing đa kênh, và booking 50+ đầu báo chí uy tín.",
   },
   {
-    q: "What is a 3D Website Builder and who is it for?",
-    a: "PeachWeb is the first 3D website builder built for both developers and non-technical founders who want a stunning 3D website without the complicated setup. Whether you need an animation studio website, a product demo, a portfolio, or a brand site, PeachWeb helps you craft immersive visuals and interactive 3D elements quickly, without writing WebGL or JavaScript. Under the hood it runs on Three.js, the same WebGL rendering engine used by Nike, Apple, and BMW.",
+    q: "Chi phí thiết kế website 3D tương tác tính như thế nào?",
+    a: "Chi phí phụ thuộc vào độ phức tạp của mô hình 3D, hiệu ứng shader và số lượng trang. LETAN Media tư vấn và xây dựng giải pháp tối ưu ngân sách cho từng thương hiệu. Vui lòng liên hệ Zalo 0765 178 999 để nhận báo giá chi tiết.",
   },
   {
-    q: "How does PeachWeb work?",
-    a: "You start by going through PeachMagic onboarding, describe your business, pick a 3D template, and the AI populates it with your copy automatically. From there you have two editors: the UI editor (works like Framer, blocks, text, images, scroll animations) and the 3D editor (point-and-click materials, lighting, HDRI environments, post-processing effects, keyframe animation). When you are ready, connect your custom domain and publish.",
+    q: "Thời gian xử lý vi phạm bản quyền TikTok và YouTube mất bao lâu?",
+    a: "Thông thường thời gian xử lý và gỡ nội dung vi phạm kéo dài từ 24h - 72h tùy vào nền tảng và tính chất hồ sơ bản quyền được cung cấp.",
   },
   {
-    q: "Do I get a custom domain?",
-    a: "Yes, on all paid hosting plans (Individual and above, from $29/mo). You connect it through your domain registrar, verify it in the builder settings, and it goes live at publish. The Free plan uses a Peach subdomain.",
+    q: "Điều kiện để lên tích xanh Facebook, TikTok là gì?",
+    a: "Tài khoản cần có độ nhận diện công chúng (báo chí, truyền thông), hồ sơ định danh rõ ràng, không vi phạm tiêu chuẩn cộng đồng. LETAN Media sẽ thẩm định hồ sơ và hỗ trợ hoàn thiện tài liệu xác thực chính chủ.",
   },
   {
-    q: "Can I embed PeachWeb into my existing website?",
-    a: "Yes, you can embed a PeachWeb scene or full page into any existing site via iframe. This is useful if you want to add an immersive 3D hero or product visualisation to a site already built on Webflow, WordPress, or any other platform.",
-  },
-  {
-    q: "What does it cost?",
-    a: "Building is free. Hosting is per website: Free ($0, Peach domain), Individual ($29/mo, custom domain, 3 pages), Basic ($69/mo, 20 pages), Pro ($179/mo, unlimited pages). Templates are $0–$29 one-time. Additional pages are $499 each.",
-  },
-  {
-    q: "What payment methods do you accept?",
-    a: "All major credit cards. For Pro service packages we also support bank transfer. Reach us at lucas@peachweb.io for enterprise or custom billing.",
-  },
-  {
-    q: "What is your refund policy?",
-    a: "Hosting can be cancelled anytime, access continues until the end of your billing period. For themes and Pro services, contact lucas@peachweb.io within 7 days if there is an issue and we will work it out.",
-  },
-  {
-    q: "Do you offer website maintenance?",
-    a: "Optional, $199/month, ad hoc, no contract. Each month includes up to 8 UI content updates, 1 3D scene fix, and copy and content changes. Only pay when you need it.",
-  },
-  {
-    q: "Does it perform across all devices?",
-    a: "Yes, desktop, tablet, and mobile. Every template is tested across device classes. Auto resolution reduction runs by default on mobile. Sites typically score 85+ on PageSpeed mobile. Target load time per scene is 2-3 seconds.",
-  },
-  {
-    q: "How does it handle SEO?",
-    a: "Sites are server-rendered HTML, not an iframe embed. Alt text on images is supported, HTML tags are configurable from the inspector, and fast load times directly improve Core Web Vitals scores.",
-  },
-  {
-    q: "Do I need to be a developer or 3D designer?",
-    a: "Not at all. The 3D editor is built for non-technical users, you are working with ready-made materials, backdrops, colour palettes, and shader effects. No modelling skills, no coding, no WebGL knowledge required.",
-  },
-  {
-    q: "Can I edit the site myself after it is built?",
-    a: "Yes, you keep full builder access after any Pro build. No locked codebase. Update copy, swap images, change colours, or adjust the 3D scene yourself anytime.",
-  },
-  {
-    q: "How does it compare to Wix, Framer, or Squarespace?",
-    a: "Wix, Framer, and Squarespace are solid tools for standard websites. PeachWeb does what none of them can, full interactive 3D scenes, scroll-driven camera animation, AI-generated shaders, immersive post-processing effects, all inside a familiar no-code editor.",
+    q: "Làm thế nào để liên hệ trực tiếp với chuyên viên?",
+    a: "Bạn có thể liên hệ ngay qua Hotline/Zalo: 0765 178 999 (zalo.me/0765178999) hoặc Telegram: @Tanlemedia để được tư vấn và hỗ trợ 24/7.",
   },
 ];
 
-const GREETING_TEXT = `Hey, welcome to LETAN Media 👋\n\nI'm here to answer anything you'd like !`;
+// LETAN Media greeting text
+const GREETING_TEXT = `Xin chào! Chào mừng bạn đến với LÊ TẤN MEDIA 👋\n\nMình là Trợ lý AI, sẵn sàng hỗ trợ bạn về thiết kế Web 3D, bản quyền mạng xã hội, tích xanh và các dịch vụ truyền thông số.`;
 
 const TABS = [
-  { key: "chat", label: "Chat" },
-  { key: "faqs", label: "FAQs" },
-  { key: "contact", label: "Contact" },
+  { key: "chat", label: "Tư vấn" },
+  { key: "faqs", label: "Câu hỏi thường gặp" },
+  { key: "contact", label: "Liên hệ" },
 ];
 
 let idCounter = 0;
@@ -384,12 +351,13 @@ function formatAssistantMessage(content) {
 }
 
 export default function PeachChatWidget({
-  apiEndpoint = (typeof import.meta !== "undefined" && import.meta.env?.VITE_CHATBOT_API_URL) || "https://letan-chatbot-worker.thienbinhmedia-tv.workers.dev",
+  apiEndpoint = (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_CHATBOT_API_URL) || "https://letan-chatbot-worker.thienbinhmedia-tv.workers.dev/api/chat",
   initialOpen = false,
   agentName = "Trợ lý LETAN Media",
-  email = "info@letanmedia.me",
-  calendlyUrl = "https://calendly.com/peachweb/30min",
-  supportLink = "zalo.me/0765178999",
+  email = "contact@letanmedia.me",
+  phone = "0765 178 999",
+  zaloUrl = "https://zalo.me/0765178999",
+  telegramUrl = "https://t.me/Tanlemedia",
 }) {
   const [isOpen, setIsOpen] = useState(initialOpen);
   const [activeTab, setActiveTab] = useState("chat");
@@ -434,40 +402,79 @@ export default function PeachChatWidget({
 
         if (!response.ok) throw new Error("API error");
 
+        const contentType = response.headers.get("content-type") || "";
+
+        // Nếu server trả JSON (non-streaming hoặc legacy)
+        if (contentType.includes("application/json")) {
+          const data = await response.json();
+          const replyText = data.message || data.text || data.reply || "";
+          setIsLoading(false);
+          if (replyText) {
+            setMessages((prev) => [
+              ...prev,
+              { id: generateId(), role: "assistant", content: replyText },
+            ]);
+            return;
+          }
+        }
+
         const reader = response.body?.getReader();
         if (!reader) throw new Error("No reader available");
 
         const decoder = new TextDecoder();
         const assistantMsgId = generateId();
         let streamedText = "";
-
-        setMessages((prev) => [...prev, { id: assistantMsgId, role: "assistant", content: "" }]);
-        setIsLoading(false);
+        let hasCreatedBubble = false;
 
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
 
-          const chunk = decoder.decode(value);
+          const chunk = decoder.decode(value, { stream: true });
           const lines = chunk.split("\n");
 
           for (const line of lines) {
-            if (!line.startsWith("data: ")) continue;
-            const dataStr = line.slice(6);
+            const trimmed = line.trim();
+            if (!trimmed.startsWith("data: ")) continue;
+            const dataStr = trimmed.slice(6);
             if (dataStr === "[DONE]") break;
 
             try {
               const parsed = JSON.parse(dataStr);
               if (parsed.text) {
                 streamedText += parsed.text;
-                setMessages((prev) =>
-                  prev.map((msg) => (msg.id === assistantMsgId ? { ...msg, content: streamedText } : msg))
-                );
+
+                if (!hasCreatedBubble) {
+                  hasCreatedBubble = true;
+                  setIsLoading(false);
+                  setMessages((prev) => [
+                    ...prev,
+                    { id: assistantMsgId, role: "assistant", content: streamedText },
+                  ]);
+                } else {
+                  setMessages((prev) =>
+                    prev.map((msg) =>
+                      msg.id === assistantMsgId ? { ...msg, content: streamedText } : msg
+                    )
+                  );
+                }
               }
             } catch {
               // ignore non-json ping
             }
           }
+        }
+
+        setIsLoading(false);
+        // Đảm bảo luôn hiển thị tin nhắn nếu stream không có token nào
+        if (!hasCreatedBubble) {
+          const fallback =
+            streamedText ||
+            "Chào bạn! Mình là Trợ lý AI của LÊ TẤN MEDIA. Bạn đang cần tư vấn về dịch vụ nào? Bạn cũng có thể liên hệ trực tiếp qua Hotline/Zalo: 0765 178 999 để được hỗ trợ nhanh nhất nhé!";
+          setMessages((prev) => [
+            ...prev,
+            { id: assistantMsgId, role: "assistant", content: fallback },
+          ]);
         }
       } catch {
         setIsLoading(false);
@@ -476,12 +483,12 @@ export default function PeachChatWidget({
           {
             id: generateId(),
             role: "assistant",
-            content: `I'm having trouble connecting. You can email ${email} and the team will help you directly.`,
+            content: `Chào bạn, kết nối hiện đang gián đoạn. Bạn vui lòng nhắn tin trực tiếp qua Hotline/Zalo: 0765 178 999 hoặc Telegram @Tanlemedia để được chuyên viên tư vấn ngay nhé!`,
           },
         ]);
       }
     },
-    [apiEndpoint, email]
+    [apiEndpoint]
   );
 
   const handleUserSend = useCallback(
@@ -921,52 +928,100 @@ export default function PeachChatWidget({
                       <motion.p
                         variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
                         transition={{ duration: 0.7, ease: EASE_OUT }}
-                        className="text-white text-[18px] font-semibold tracking-tight mb-3"
+                        className="text-white text-[18px] font-semibold tracking-tight mb-2"
                       >
-                        Get in touch
+                        Liên hệ LETAN Media
                       </motion.p>
                       <motion.p
                         variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
                         transition={{ duration: 0.7, ease: EASE_OUT }}
-                        className="text-[14px] font-normal leading-relaxed text-white/75 mb-5"
+                        className="text-[13.5px] font-normal leading-relaxed text-white/70 mb-5"
                       >
-                        Email us and the team will get back to you shortly.
+                        Đội ngũ chuyên viên sẵn sàng tư vấn giải pháp 24/7 và báo giá chi tiết cho dự án của bạn.
                       </motion.p>
-                      <motion.a
-                        variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
-                        transition={{ duration: 0.7, ease: EASE_OUT }}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                        href={`mailto:${email}`}
-                        className="inline-block rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-black hover:bg-white/90 transition-colors"
-                      >
-                        {email}
-                      </motion.a>
-                      <motion.p
-                        variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
-                        transition={{ duration: 0.7, ease: EASE_OUT }}
-                        className="mt-6 text-[13px] font-normal text-white/55"
-                      >
-                        Prefer a call? Book a 30-min slot at{" "}
-                        <a
-                          href={calendlyUrl}
+
+                      <div className="flex flex-col gap-3">
+                        <motion.a
+                          variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
+                          transition={{ duration: 0.7, ease: EASE_OUT }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          href={zaloUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="font-medium text-white/85 underline underline-offset-2 decoration-white/30 hover:decoration-white"
+                          className="flex items-center justify-between rounded-xl bg-blue-600/20 border border-blue-500/30 p-3.5 hover:bg-blue-600/30 transition-all"
                         >
-                          {supportLink}
-                        </a>
-                        .
-                      </motion.p>
-                    </motion.div>
+                          <div className="flex items-center gap-3">
+                            <span className="text-xl">💬</span>
+                            <div>
+                              <div className="text-[14px] font-semibold text-white">Chat Zalo CSKH</div>
+                              <div className="text-[12px] text-blue-300">0765 178 999 (Phản hồi tức thì)</div>
+                            </div>
+                          </div>
+                          <span className="text-white/60 text-sm">→</span>
+                        </motion.a>
 
-                    <div className="mt-5 h-[420px] w-full overflow-hidden rounded-xl bg-white">
-                      <iframe
-                        src={`${calendlyUrl}?hide_gdpr_banner=1&background_color=ffffff&text_color=0b0b0b&primary_color=e8714a`}
-                        title="Book a call with Peachweb"
-                        className="h-full w-full border-0"
-                      />
-                    </div>
+                        <motion.a
+                          variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
+                          transition={{ duration: 0.7, ease: EASE_OUT }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          href={telegramUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center justify-between rounded-xl bg-sky-600/20 border border-sky-500/30 p-3.5 hover:bg-sky-600/30 transition-all"
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="text-xl">✈️</span>
+                            <div>
+                              <div className="text-[14px] font-semibold text-white">Telegram Hỗ Trợ</div>
+                              <div className="text-[12px] text-sky-300">@Tanlemedia (Tư vấn trực tiếp)</div>
+                            </div>
+                          </div>
+                          <span className="text-white/60 text-sm">→</span>
+                        </motion.a>
+
+                        <motion.a
+                          variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
+                          transition={{ duration: 0.7, ease: EASE_OUT }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          href={`tel:${phone.replace(/\s/g, "")}`}
+                          className="flex items-center justify-between rounded-xl bg-emerald-600/20 border border-emerald-500/30 p-3.5 hover:bg-emerald-600/30 transition-all"
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="text-xl">📞</span>
+                            <div>
+                              <div className="text-[14px] font-semibold text-white">Hotline Trực Tiếp</div>
+                              <div className="text-[12px] text-emerald-300">{phone}</div>
+                            </div>
+                          </div>
+                          <span className="text-white/60 text-sm">→</span>
+                        </motion.a>
+
+                        <motion.a
+                          variants={{ hidden: { opacity: 0, y: 8, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)" } }}
+                          transition={{ duration: 0.7, ease: EASE_OUT }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          href={`mailto:${email}`}
+                          className="flex items-center justify-between rounded-xl bg-white/[0.06] border border-white/10 p-3.5 hover:bg-white/[0.1] transition-all"
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="text-xl">✉️</span>
+                            <div>
+                              <div className="text-[14px] font-semibold text-white">Email Doanh Nghiệp</div>
+                              <div className="text-[12px] text-white/50">{email}</div>
+                            </div>
+                          </div>
+                          <span className="text-white/60 text-sm">→</span>
+                        </motion.a>
+                      </div>
+
+                      <div className="mt-6 text-center text-[12px] text-white/40">
+                        LETAN Media © 2026 — AI, Marketing & Digital Growth
+                      </div>
+                    </motion.div>
                   </motion.div>
                 )}
               </AnimatePresence>
