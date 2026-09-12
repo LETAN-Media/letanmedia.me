@@ -3,7 +3,7 @@
 /* LETAN partner heading mobile */
 @media (max-width: 768px) {
   #i2omk-2-2-3-3-7-3-2 {
-    font-size: clamp(32px, 8.6vw, 36px) !important;
+    font-size: clamp(18px, 4.5vw, 20px) !important;
     white-space: nowrap !important;
   }
 }
