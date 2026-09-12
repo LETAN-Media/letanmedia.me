@@ -108,7 +108,7 @@ app.use('/api/geo', geoRoutes);
 
 // Proxy API calls to the original server
 app.use(
-  ['/api/report-tiktok/chat', '/api/report-youtube/chat', '/api/home-chat/chat'],
+  ['/api/report-tiktok/chat', '/api/report-youtube/chat'],
   createProxyMiddleware({
     target: 'https://letanmedia.me',
     changeOrigin: true,
