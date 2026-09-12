@@ -230,7 +230,7 @@ function App() {
         </Suspense>
       </main>
       {!isGeoManager && !isV2 && !isV2BrandedPage && <FooterV2 />}
-      {showHomeChatbot && <HomeChatWidget />}
+      {/* Replaced by global 3D Chatbot Widget from Vercel (https://letan-chatbot-widget.vercel.app/widget.js) */}
     </div>
   );
 }
