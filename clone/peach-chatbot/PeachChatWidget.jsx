@@ -270,7 +270,7 @@ const FAQS_DATA = [
   },
 ];
 
-const GREETING_TEXT = `Hey, welcome to Peachweb 👋\n\nI'm here to answer anything you'd like, whether that's how it works, what it costs, or what a Pro can do for you.`;
+const GREETING_TEXT = `Hey, welcome to LETAN Media 👋\n\nI'm here to answer anything you'd like !`;
 
 const TABS = [
   { key: "chat", label: "Chat" },
