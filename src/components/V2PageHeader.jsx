@@ -75,7 +75,7 @@ export default function V2PageHeader() {
           onClick={() => setMenuOpen(false)}
         >
           <img
-            src="/v2/images/logo1.svg?v=letan1"
+            src="https://image.letanmedia.me/homepage/brand/logo1-v2.svg"
             alt="LETAN Media"
             className="v2p-header__logo-img"
           />
@@ -106,7 +106,7 @@ export default function V2PageHeader() {
           <div className="v2p-header__overlay-inner" ref={panelRef}>
             <div className="v2p-header__overlay-top">
               <img
-                src="/v2/images/logo1.svg?v=letan1"
+                src="https://image.letanmedia.me/homepage/brand/logo1-v2.svg"
                 alt="LETAN Media"
                 className="v2p-header__logo-img"
               />
