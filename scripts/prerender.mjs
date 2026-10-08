@@ -42,6 +42,10 @@ const STATIC_ROUTES = {
     title: 'Website Gallery | LETAN Media',
     description: 'Website Gallery giới thiệu các website được LETAN Media trực tiếp thiết kế và phát triển.',
   },
+  '/appgallery': {
+    title: 'App Gallery | LETAN Media',
+    description: 'App Gallery giới thiệu các ứng dụng và phần mềm được LETAN Media trực tiếp thiết kế và phát triển.',
+  },
   '/insights': {
     title: 'Kiến thức — AI, Digital Growth & Platform Protection | LETAN Media',
     description: 'Blog & insight về AI, truyền thông số, SEO/GEO, platform protection và web development từ LETAN Media.',
@@ -213,6 +217,19 @@ ${service.faq?.length ? `<section><h2>Câu hỏi thường gặp</h2>${service.f
 ${websiteCases.length > 0
   ? `<ul>${websiteCases.map(c => `<li><a href="/work/${c.slug}">${esc(c.title)}</a> — ${esc(c.category)}</li>`).join('')}</ul>`
   : '<p>Danh mục website đang được cập nhật từ dữ liệu dự án đã xác minh.</p>'}`;
+  }
+
+  if (routePath === '/appgallery') {
+    const appCaseSlugs = new Set(['chatbot-ai-multichannel']);
+    const appCases = getPublishedCases().filter(c => appCaseSlugs.has(c.slug));
+    return `
+<nav aria-label="Breadcrumb"><a href="/">LETAN Media</a> / <span>App Gallery</span></nav>
+<h1>App Gallery</h1>
+<p>Apps We&#039;ve Built</p>
+<p>${esc(meta.description)}</p>
+${appCases.length > 0
+  ? `<ul>${appCases.map(c => `<li><a href="/work/${c.slug}">${esc(c.title)}</a> — ${esc(c.category)}</li>`).join('')}</ul>`
+  : '<p>Danh mục ứng dụng đang được cập nhật từ dữ liệu dự án đã xác minh.</p>'}`;
   }
 
   if (routePath.startsWith('/work/')) {
