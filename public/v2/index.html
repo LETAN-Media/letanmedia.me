@@ -133,12 +133,16 @@
         </style>
         <script>
           window.addEventListener('click', (event) => {
-            const appCard = event.target.closest?.('#imob0j-3-2-3-3');
-            if (!appCard) return;
+            const galleryCard = event.target.closest?.('#imob0j-3-2-3, #imob0j-3-2-3-3');
+            if (!galleryCard) return;
+
+            const destination = galleryCard.id === 'imob0j-3-2-3'
+              ? '/websitegallery'
+              : '/appgallery';
 
             event.preventDefault();
             event.stopImmediatePropagation();
-            window.location.assign('/appgallery');
+            window.location.assign(destination);
           }, true);
 
         </script>
