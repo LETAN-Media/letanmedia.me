@@ -30,6 +30,7 @@ const ServicePage = lazy(() => import('./home/ServicePage'));
 const ServicesIndex = lazy(() => import('./home/ServicesIndex'));
 const InsightsPage = lazy(() => import('./home/InsightsPage'));
 const InsightDetail = lazy(() => import('./home/InsightDetail'));
+const WebsiteGalleryPage = lazy(() => import('./home/WebsiteGalleryPage'));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -81,6 +82,7 @@ function App() {
       '/contact',
       '/about',
       '/insights',
+      '/websitegallery',
     ].some((p) => location.pathname === p || location.pathname === `${p}/`) ||
     location.pathname === '/work' ||
     location.pathname === '/work/' ||
@@ -202,6 +204,7 @@ function App() {
           } />
 
           {/* Work & Case Studies */}
+          <Route path="/websitegallery" element={<WebsiteGalleryPage />} />
           <Route path="/work" element={<WorkPage />} />
           <Route path="/work/:slug" element={<CaseStudyDetail />} />
 

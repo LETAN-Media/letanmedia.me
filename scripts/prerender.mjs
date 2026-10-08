@@ -38,6 +38,10 @@ const STATIC_ROUTES = {
     title: 'Dự án — Selected Work | LETAN Media',
     description: 'Những hệ thống, chiến dịch và sản phẩm số được LETAN xây dựng để giải quyết bài toán tăng trưởng thực tế.',
   },
+  '/websitegallery': {
+    title: 'Website Gallery | LETAN Media',
+    description: 'Website Gallery giới thiệu các website được LETAN Media trực tiếp thiết kế và phát triển.',
+  },
   '/insights': {
     title: 'Kiến thức — AI, Digital Growth & Platform Protection | LETAN Media',
     description: 'Blog & insight về AI, truyền thông số, SEO/GEO, platform protection và web development từ LETAN Media.',
@@ -198,6 +202,17 @@ ${service.faq?.length ? `<section><h2>Câu hỏi thường gặp</h2>${service.f
 <h1>${esc(meta.title.split('—')[0].trim())}</h1>
 <p>${esc(meta.description)}</p>
 <ul>${cases.map(c => `<li><a href="/work/${c.slug}">${esc(c.title)}</a> — ${esc(c.category)}</li>`).join('')}</ul>`;
+  }
+
+  if (routePath === '/websitegallery') {
+    const websiteCases = getPublishedCases().filter(c => c.tags?.includes('web'));
+    return `
+<nav aria-label="Breadcrumb"><a href="/">LETAN Media</a> / <span>Website Gallery</span></nav>
+<h1>Website Gallery</h1>
+<p>${esc(meta.description)}</p>
+${websiteCases.length > 0
+  ? `<ul>${websiteCases.map(c => `<li><a href="/work/${c.slug}">${esc(c.title)}</a> — ${esc(c.category)}</li>`).join('')}</ul>`
+  : '<p>Danh mục website đang được cập nhật từ dữ liệu dự án đã xác minh.</p>'}`;
   }
 
   if (routePath.startsWith('/work/')) {
