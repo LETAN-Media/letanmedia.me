@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
 import Seo from '../components/Seo';
+import V2PageHeader from '../components/V2PageHeader';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import './WebsiteGalleryPage.css';
 
@@ -44,80 +44,6 @@ const showcaseItems = [
   { poster: `${POSTER_ROOT}/sodium-1.png`, video: `${ASSET_ROOT}/7ed736bf-304c-48ae-87e3-a7cc0e91071f/anima-360b.mp4` },
   { poster: `${POSTER_ROOT}/cyberland.webp`, video: `${ASSET_ROOT}/8e8ddbbb-8d91-4567-acea-b7c2b52a9a19/cyberland-360c.mp4` },
 ];
-
-const navItems = [
-  { label: 'Services', to: '/services' },
-  { label: 'Work', to: '/work' },
-  { label: 'Resources', to: '/insights' },
-  { label: 'About', to: '/about' },
-];
-
-function GalleryHeader() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const closeButtonRef = useRef(null);
-
-  useEffect(() => {
-    if (!menuOpen) return undefined;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    closeButtonRef.current?.focus();
-
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') setMenuOpen(false);
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [menuOpen]);
-
-  return (
-    <header className="wgp-header">
-      <Link className="wgp-header__logo" to="/" aria-label="LETAN Media — Trang chủ">
-        <img src="https://image.letanmedia.me/homepage/brand/logo1-v2.svg" alt="LETAN Media" />
-      </Link>
-
-      <nav className="wgp-header__nav" aria-label="Điều hướng chính">
-        {navItems.map((item) => <Link key={item.label} to={item.to}>{item.label}</Link>)}
-      </nav>
-
-      <div className="wgp-header__actions">
-        <Link className="wgp-header__text-link" to="/contact">Liên hệ</Link>
-        <Link className="wgp-button wgp-button--outline" to="/contact">Đặt lịch hẹn</Link>
-        <Link className="wgp-button wgp-button--light" to="/contact">Bắt đầu dự án</Link>
-      </div>
-
-      <button
-        className="wgp-header__menu"
-        type="button"
-        aria-label="Mở menu"
-        aria-expanded={menuOpen}
-        onClick={() => setMenuOpen(true)}
-      >
-        <Menu size={20} aria-hidden="true" />
-      </button>
-
-      {menuOpen && (
-        <div className="wgp-menu" role="dialog" aria-modal="true" aria-label="Menu điều hướng">
-          <div className="wgp-menu__top">
-            <img src="https://image.letanmedia.me/homepage/brand/logo1-v2.svg" alt="LETAN Media" />
-            <button ref={closeButtonRef} type="button" aria-label="Đóng menu" onClick={() => setMenuOpen(false)}>
-              <X size={22} aria-hidden="true" />
-            </button>
-          </div>
-          <nav aria-label="Điều hướng mobile">
-            {navItems.map((item) => (
-              <Link key={item.label} to={item.to} onClick={() => setMenuOpen(false)}>{item.label}</Link>
-            ))}
-            <Link to="/contact" onClick={() => setMenuOpen(false)}>Liên hệ</Link>
-          </nav>
-        </div>
-      )}
-    </header>
-  );
-}
 
 function GalleryCard({ item, index }) {
   const cardRef = useRef(null);
@@ -203,7 +129,7 @@ export default function WebsiteGalleryPage() {
         path="/websitegallery"
       />
 
-      <GalleryHeader />
+      <V2PageHeader />
 
       <main>
         <section className="wgp-hero">
