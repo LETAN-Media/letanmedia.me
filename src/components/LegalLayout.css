@@ -267,15 +267,10 @@
   color: #A1A1AA;
 }
 
-.legal-list-icon {
+.legal-list-item::before {
+  content: '—';
   flex-shrink: 0;
-  margin-top: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  color: #22D3EE;
+  color: var(--legal-violet);
 }
 
 /* Legal Page Footer */
@@ -511,10 +506,13 @@
   line-height: 1.75;
 }
 
-.legal-v2-shell .legal-list-icon {
-  color: var(--legal-violet);
+.legal-toc-mobile-state {
+  color: var(--legal-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
-
 .legal-v2-shell :is(a, button):focus-visible {
   outline: 2px solid #8b72ff;
   outline-offset: 3px;

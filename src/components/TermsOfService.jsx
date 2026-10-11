@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Check, ChevronDown } from 'lucide-react';
 import V2PageHeader from './V2PageHeader';
 import V2PageFooter from './V2PageFooter';
 import './TermsOfService.css';
@@ -179,7 +178,6 @@ const renderSectionBody = (items) => {
         <ul key={`list-${index}`} className="tos-list">
           {currentList.map((text, i) => (
             <li key={i} className="tos-list__item">
-              <span className="tos-list__icon"><Check size={14} strokeWidth={2.5} /></span>
               <span>{text}</span>
             </li>
           ))}
@@ -195,7 +193,6 @@ const renderSectionBody = (items) => {
       <ul key="list-end" className="tos-list">
         {currentList.map((text, i) => (
           <li key={i} className="tos-list__item">
-            <span className="tos-list__icon"><Check size={14} strokeWidth={2.5} /></span>
             <span>{text}</span>
           </li>
         ))}
@@ -284,7 +281,7 @@ const TermsOfService = () => {
             <details className="tos-toc-mobile">
               <summary className="tos-toc-mobile__trigger">
                 <span>Mục lục văn bản</span>
-                <ChevronDown size={18} aria-hidden="true" />
+                <span className="tos-toc-mobile__state" aria-hidden="true">Mở</span>
               </summary>
               <ul className="tos-toc-mobile__list">
                 {SECTIONS.map((section, index) => {

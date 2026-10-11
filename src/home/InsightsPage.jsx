@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ArrowRight, Clock } from 'lucide-react';
 import Seo from '../components/Seo';
 import V2PageHeader from '../components/V2PageHeader';
 import V2PageFooter from '../components/V2PageFooter';
@@ -25,10 +24,9 @@ const ArticleCard = ({ insight, lead = false, delay = 0 }) => (
     <h3 className="v2k-card__title">{insight.title}</h3>
     <p className="v2k-card__desc">{insight.description}</p>
     <div className="ins2-card__meta">
-      <span><Clock size={13} /> {formatDate(insight.publishedAt)}</span>
+      <span>{formatDate(insight.publishedAt)}</span>
       <span className="v2k-card__cta">
         Đọc tiếp
-        <span className="v2k-arrow" aria-hidden="true"><ArrowUpRight size={16} strokeWidth={2} /></span>
       </span>
     </div>
   </Reveal>
@@ -138,11 +136,9 @@ const InsightsPage = () => {
             <div className="v2k-cta__actions">
               <Link to="/contact" className="v2k-btn v2k-btn--primary">
                 <span>Trao đổi với LETAN</span>
-                <ArrowRight size={17} strokeWidth={1.8} />
               </Link>
               <Link to="/services" className="v2k-btn v2k-btn--secondary">
                 <span>Khám phá dịch vụ</span>
-                <ArrowUpRight size={17} strokeWidth={1.8} />
               </Link>
             </div>
           </Reveal>

@@ -1,18 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
-import {
-  ArrowRight,
-  Bot,
-  CheckCircle2,
-  Clock,
-  Code2,
-  Cpu,
-  Lock,
-  MessageSquare,
-  ShieldCheck,
-  TrendingUp,
-} from 'lucide-react';
 import Seo from '../../components/Seo';
 import V2PageHeader from '../../components/V2PageHeader';
 import V2PageFooter from '../../components/V2PageFooter';
@@ -24,28 +12,24 @@ const PILLARS = [
     id: '01',
     title: 'AI-First Engineering',
     desc: 'Tích hợp các mô hình ngôn ngữ lớn (LLM), AI Chatbot và workflow tự động hóa sâu vào hoạt động thực tế, giúp doanh nghiệp vận hành 24/7 và giải phóng nguồn lực.',
-    icon: Bot,
     tag: 'Trí tuệ nhân tạo',
   },
   {
     id: '02',
     title: 'Omni-Channel Digital Growth',
     desc: 'Chiến lược tăng trưởng đa kênh trên TikTok, Facebook, YouTube và SEO/GEO dựa trên dữ liệu định lượng, tối ưu hóa tỷ lệ chuyển đổi và vị thế thương hiệu.',
-    icon: TrendingUp,
     tag: 'Tăng trưởng số',
   },
   {
     id: '03',
     title: 'Platform Protection & Trust',
     desc: 'Bảo vệ tài sản số, gỡ bỏ vi phạm bản quyền DMCA, xử lý khủng hoảng truyền thông và hỗ trợ xác minh tích xanh chính chủ theo đúng chính sách các nền tảng.',
-    icon: ShieldCheck,
     tag: 'Bảo vệ thương hiệu',
   },
   {
     id: '04',
     title: 'Production-Grade Software',
     desc: 'Phát triển website chuẩn studio cao cấp, web application và hệ thống quản trị chuyên biệt với tốc độ tải trang vượt trội, chuẩn SEO và bảo mật tối đa.',
-    icon: Code2,
     tag: 'Kỹ thuật phần mềm',
   },
 ];
@@ -78,25 +62,21 @@ const METRICS = [
     value: '100%',
     label: 'Chuẩn chính sách nền tảng',
     detail: 'Meta, TikTok, YouTube & Google',
-    icon: CheckCircle2,
   },
   {
     value: '< 24h',
     label: 'SLA phản hồi khẩn cấp',
     detail: 'Tiếp nhận & kích hoạt quy trình',
-    icon: Clock,
   },
   {
     value: '99.9%',
     label: 'Độ sẵn sàng hệ thống',
     detail: 'Chatbot & automation workflows',
-    icon: Cpu,
   },
   {
     value: 'Zero-Trust',
     label: 'Bảo mật quyền riêng tư',
     detail: 'Cam kết mã hóa và an toàn dữ liệu',
-    icon: Lock,
   },
 ];
 
@@ -199,9 +179,7 @@ const AboutPage = () => {
           </motion.div>
 
           <div className="abt2-pillars">
-            {PILLARS.map((pillar, index) => {
-              const Icon = pillar.icon;
-              return (
+            {PILLARS.map((pillar, index) => (
                 <motion.div
                   key={pillar.id}
                   className="v2k-card abt2-pillar"
@@ -214,12 +192,10 @@ const AboutPage = () => {
                     <span className="v2k-num">{pillar.id}</span>
                     <span className="v2k-tag">{pillar.tag}</span>
                   </div>
-                  <div className="abt2-pillar__icon"><Icon size={22} /></div>
                   <h3 className="v2k-card__title">{pillar.title}</h3>
                   <p className="v2k-card__desc">{pillar.desc}</p>
                 </motion.div>
-              );
-            })}
+            ))}
           </div>
         </div>
       </section>
@@ -275,9 +251,7 @@ const AboutPage = () => {
           </motion.div>
 
           <div className="abt2-metrics">
-            {METRICS.map((metric, index) => {
-              const Icon = metric.icon;
-              return (
+            {METRICS.map((metric, index) => (
                 <motion.div
                   key={metric.label}
                   className="abt2-metric"
@@ -286,13 +260,11 @@ const AboutPage = () => {
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.45, delay: reduceMotion ? 0 : index * 0.06 }}
                 >
-                  <div className="abt2-metric__icon"><Icon size={20} strokeWidth={1.75} /></div>
                   <strong>{metric.value}</strong>
                   <span>{metric.label}</span>
                   <small>{metric.detail}</small>
                 </motion.div>
-              );
-            })}
+            ))}
           </div>
         </div>
       </section>
@@ -317,10 +289,8 @@ const AboutPage = () => {
             <div className="v2k-cta__actions">
               <Link to="/contact" className="v2k-btn v2k-btn--primary">
                 <span>Gửi yêu cầu tư vấn</span>
-                <ArrowRight size={17} strokeWidth={1.8} />
               </Link>
               <button type="button" className="v2k-btn v2k-btn--secondary" onClick={openAssistant}>
-                <MessageSquare size={17} strokeWidth={1.7} />
                 <span>Trao đổi với LETAN AI</span>
               </button>
             </div>

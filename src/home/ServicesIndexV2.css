@@ -30,7 +30,6 @@
 .svc2-card__outcome {
   display: flex;
   align-items: center;
-  gap: 8px;
   margin-top: 10px;
   font-size: 13px;
   font-weight: 600;
@@ -100,10 +99,6 @@
   max-width: 42ch;
   color: var(--v2k-ink-muted);
   font-weight: 500;
-}
-
-.svc2-card__outcome svg {
-  color: var(--v2k-violet);
 }
 
 .svc2-card .v2k-card__cta {

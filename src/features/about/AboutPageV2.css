@@ -125,19 +125,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4px;
-}
-
-.abt2-pillar__icon {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  background: var(--v2k-purple-soft);
-  color: var(--v2k-purple);
-  margin-bottom: 14px;
+  margin-bottom: auto;
 }
 
 /* ── Methodology ──────────────────────────────────────────────────── */
@@ -186,19 +174,6 @@
   border: 1px solid var(--v2k-border);
   background: var(--v2k-cream);
   text-align: center;
-}
-
-.abt2-metric__icon {
-  width: 44px;
-  height: 44px;
-  margin: 0 auto 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 1px solid var(--v2k-border);
-  color: var(--v2k-purple);
 }
 
 .abt2-metric strong {
@@ -269,11 +244,6 @@
 .abt2-method,
 .abt2-metrics {
   gap: 16px;
-}
-
-.abt2-pillar__icon,
-.abt2-metric__icon {
-  border-radius: 14px;
 }
 
 .abt2-metric {
@@ -359,14 +329,6 @@
   border-right: 1px solid var(--v2k-line);
 }
 
-.abt2-pillar__icon {
-  width: 40px;
-  height: 40px;
-  margin: auto 0 18px;
-  border: 1px solid var(--v2k-line);
-  background: transparent;
-}
-
 .abt2-method {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
@@ -401,12 +363,6 @@
 
 .abt2-metric:last-child {
   border-right: 0;
-}
-
-.abt2-metric__icon {
-  margin: 0 0 28px;
-  border-color: rgba(255, 255, 255, 0.18);
-  background: transparent;
 }
 
 .abt2-metric strong,

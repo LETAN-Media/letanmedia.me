@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Check, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import './LegalLayout.css';
 
 const renderSectionContent = (items) => {
@@ -19,9 +18,6 @@ const renderSectionContent = (items) => {
           <ul key={`list-${index}`} className="legal-list">
             {currentList.map((liText, liIdx) => (
               <li key={liIdx} className="legal-list-item">
-                <span className="legal-list-icon">
-                  <Check size={16} />
-                </span>
                 <span>{liText}</span>
               </li>
             ))}
@@ -42,9 +38,6 @@ const renderSectionContent = (items) => {
       <ul key="list-end" className="legal-list">
         {currentList.map((liText, liIdx) => (
           <li key={liIdx} className="legal-list-item">
-            <span className="legal-list-icon">
-              <Check size={16} />
-            </span>
             <span>{liText}</span>
           </li>
         ))}
@@ -112,7 +105,7 @@ export default function LegalLayout({
         {/* Hero Header */}
         <header className="legal-header">
           <Link to="/" className="legal-back-link">
-            <ArrowLeft size={16} /> Quay lại Trang chủ
+            Quay lại Trang chủ
           </Link>
           
           <motion.h1 
@@ -170,9 +163,10 @@ export default function LegalLayout({
           <button 
             className="legal-toc-mobile-trigger"
             onClick={() => setMobileTocOpen(!mobileTocOpen)}
+            aria-expanded={mobileTocOpen}
           >
             <span>Mục lục văn bản</span>
-            {mobileTocOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+            <span className="legal-toc-mobile-state" aria-hidden="true">{mobileTocOpen ? 'Đóng' : 'Mở'}</span>
           </button>
           
           <AnimatePresence>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import Seo from '../components/Seo';
 import V2PageHeader from '../components/V2PageHeader';
 import V2PageFooter from '../components/V2PageFooter';
@@ -31,7 +30,6 @@ const ProjectCard = ({ cs, lead = false, delay = 0 }) => (
       <p className="wp2-card__summary">{cs.summary}</p>
       <span className="wp2-card__cta">
         Xem dự án
-        <span className="wp2-arrow" aria-hidden="true"><ArrowUpRight size={16} strokeWidth={2} /></span>
       </span>
     </div>
   </Reveal>
@@ -158,11 +156,9 @@ const WorkPage = () => {
             <div className="wp2-cta__actions">
               <Link to="/contact" className="wp2-btn wp2-btn--primary">
                 <span>Trao đổi về dự án</span>
-                <ArrowRight size={17} strokeWidth={1.8} />
               </Link>
               <Link to="/services" className="wp2-btn wp2-btn--secondary">
                 <span>Khám phá dịch vụ</span>
-                <ArrowUpRight size={17} strokeWidth={1.8} />
               </Link>
             </div>
           </Reveal>

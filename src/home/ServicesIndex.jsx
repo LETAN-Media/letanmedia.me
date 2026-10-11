@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import Seo from '../components/Seo';
 import V2PageHeader from '../components/V2PageHeader';
 import V2PageFooter from '../components/V2PageFooter';
@@ -52,13 +51,11 @@ const ServicesIndex = () => {
                 <p className="v2k-card__desc">{s.description.split('.')[0]}.</p>
                 {s.outcomes?.length > 0 && (
                   <div className="svc2-card__outcome">
-                    <CheckCircle2 size={14} />
                     <span>{s.outcomes[0]}</span>
                   </div>
                 )}
                 <span className="v2k-card__cta">
                   Chi tiết giải pháp
-                  <span className="v2k-arrow" aria-hidden="true"><ArrowUpRight size={16} strokeWidth={2} /></span>
                 </span>
               </Reveal>
             ))}
@@ -81,11 +78,9 @@ const ServicesIndex = () => {
             <div className="v2k-cta__actions">
               <Link to="/contact" className="v2k-btn v2k-btn--primary">
                 <span>Trao đổi với chúng tôi</span>
-                <ArrowRight size={17} strokeWidth={1.8} />
               </Link>
               <Link to="/work" className="v2k-btn v2k-btn--secondary">
                 <span>Xem dự án thực tế</span>
-                <ArrowUpRight size={17} strokeWidth={1.8} />
               </Link>
             </div>
           </Reveal>

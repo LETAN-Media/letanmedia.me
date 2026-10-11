@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Phone, MessageCircle, Mail, Check, AlertCircle, Loader2, ChevronDown } from 'lucide-react';
 import Seo from '../../components/Seo';
 import V2PageHeader from '../../components/V2PageHeader';
 import V2PageFooter from '../../components/V2PageFooter';
@@ -12,10 +11,10 @@ import '../../components/V2PageKit.css';
 import './ContactPageV2.css';
 
 const CONTACT_CHANNELS = [
-  { type: 'phone', label: 'Hotline', value: '0765 178 999', href: 'tel:0765178999', icon: Phone, trackEvent: ANALYTICS_EVENTS.CLICK_PHONE },
-  { type: 'zalo', label: 'Zalo', value: 'Nhắn Zalo', href: 'https://zalo.me/0765178999', icon: MessageCircle, trackEvent: ANALYTICS_EVENTS.CLICK_ZALO, external: true },
-  { type: 'telegram', label: 'Telegram', value: '@Tanlemedia', href: 'https://t.me/Tanlemedia', icon: MessageCircle, trackEvent: ANALYTICS_EVENTS.CLICK_TELEGRAM, external: true },
-  { type: 'email', label: 'Email', value: 'infor@letanmedia.me', href: 'mailto:infor@letanmedia.me', icon: Mail, trackEvent: ANALYTICS_EVENTS.CLICK_EMAIL },
+  { type: 'phone', label: 'Hotline', value: '0765 178 999', href: 'tel:0765178999', trackEvent: ANALYTICS_EVENTS.CLICK_PHONE },
+  { type: 'zalo', label: 'Zalo', value: 'Nhắn Zalo', href: 'https://zalo.me/0765178999', trackEvent: ANALYTICS_EVENTS.CLICK_ZALO, external: true },
+  { type: 'telegram', label: 'Telegram', value: '@Tanlemedia', href: 'https://t.me/Tanlemedia', trackEvent: ANALYTICS_EVENTS.CLICK_TELEGRAM, external: true },
+  { type: 'email', label: 'Email', value: 'infor@letanmedia.me', href: 'mailto:infor@letanmedia.me', trackEvent: ANALYTICS_EVENTS.CLICK_EMAIL },
 ];
 
 const BUDGET_OPTIONS = [
@@ -231,9 +230,6 @@ const ContactPage = () => {
             <Reveal>
               {status === 'success' ? (
                 <div className="cta2-success" role="status" aria-live="polite">
-                  <div className="cta2-success__icon">
-                    <Check size={32} />
-                  </div>
                   <h2 className="v2k-section-title">Đã nhận thông tin!</h2>
                   <p className="cta2-success__text">
                     Cảm ơn bạn. LETAN sẽ liên hệ trong vòng 24h qua kênh bạn chọn.
@@ -389,7 +385,6 @@ const ContactPage = () => {
 
                   {status === 'error' && (
                     <div className="cta2-form-error" role="alert" aria-live="assertive">
-                      <AlertCircle size={18} />
                       <span>{errorMsg}</span>
                     </div>
                   )}
@@ -400,7 +395,7 @@ const ContactPage = () => {
                     disabled={status === 'loading'}
                   >
                     {status === 'loading' ? (
-                      <><Loader2 size={18} className="cta2-spin" /> Đang gửi...</>
+                      'Đang gửi...'
                     ) : (
                       'Gửi yêu cầu tư vấn'
                     )}
@@ -413,9 +408,7 @@ const ContactPage = () => {
             <Reveal delay={0.1}>
               <div className="cta2-channels">
                 <h3 className="cta2-channels__title">Hoặc liên hệ trực tiếp</h3>
-                {CONTACT_CHANNELS.map((ch) => {
-                  const Icon = ch.icon;
-                  return (
+                {CONTACT_CHANNELS.map((ch) => (
                     <a
                       key={ch.type}
                       href={ch.href}
@@ -424,16 +417,12 @@ const ContactPage = () => {
                       rel={ch.external ? 'noopener noreferrer' : undefined}
                       onClick={() => track(ch.trackEvent, { source_page: '/contact' })}
                     >
-                      <div className="cta2-channel__icon">
-                        <Icon size={20} />
-                      </div>
                       <div>
                         <div className="cta2-channel__label">{ch.label}</div>
                         <div className="cta2-channel__value">{ch.value}</div>
                       </div>
                     </a>
-                  );
-                })}
+                ))}
               </div>
             </Reveal>
           </div>
@@ -535,7 +524,7 @@ function FaqItem({ question, answer, index }) {
         onClick={() => setOpen(!open)}
       >
         <span>{question}</span>
-        <ChevronDown size={18} className={`cta2-faq-icon${open ? ' is-open' : ''}`} aria-hidden="true" />
+        <span className="cta2-faq-state" aria-hidden="true">{open ? 'Đóng' : 'Mở'}</span>
       </button>
       {open && (
         <div id={panelId} role="region" aria-labelledby={triggerId} className="cta2-faq-panel">
