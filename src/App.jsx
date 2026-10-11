@@ -89,7 +89,8 @@ function App() {
     ].some((p) => location.pathname === p || location.pathname === `${p}/`) ||
     location.pathname === '/work' ||
     location.pathname === '/work/' ||
-    location.pathname.startsWith('/work/');
+    location.pathname.startsWith('/work/') ||
+    location.pathname.startsWith('/insights/');
 
   const showHomeChatbot =
     !isV2
