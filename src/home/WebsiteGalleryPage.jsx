@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
 import V2PageHeader from '../components/V2PageHeader';
+import V2PageFooter from '../components/V2PageFooter';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import './WebsiteGalleryPage.css';
 
@@ -96,30 +97,6 @@ function GalleryCard({ item, index }) {
   );
 }
 
-function GalleryFooter() {
-  return (
-    <>
-      <section className="wgp-final" aria-labelledby="wgp-final-title">
-        <p id="wgp-final-title">Start building <em>magic</em> today.</p>
-        <div className="wgp-final__actions">
-          <Link className="wgp-button wgp-button--outline" to="/contact">Đặt lịch hẹn</Link>
-          <Link className="wgp-button wgp-button--light" to="/contact">Bắt đầu dự án</Link>
-        </div>
-      </section>
-
-      <footer className="wgp-footer">
-        <div className="wgp-footer__links">
-          <div><span>PRODUCT</span><Link to="/">Trang chủ</Link><Link to="/services">Dịch vụ</Link></div>
-          <div><span>RESOURCES</span><Link to="/work">Dự án</Link><Link to="/insights">Insights</Link><Link to="/contact">Liên hệ</Link></div>
-          <div><span>COMPANY</span><Link to="/about">Giới thiệu</Link><Link to="/policy">Chính sách</Link></div>
-          <div><span>CONTACT</span><a href="mailto:infor@letanmedia.me">Email</a><a href="tel:0765178999">0765 178 999</a></div>
-        </div>
-        <p className="wgp-footer__copyright">LETAN Media © {new Date().getFullYear()}</p>
-      </footer>
-    </>
-  );
-}
-
 export default function WebsiteGalleryPage() {
   return (
     <div className="wgp">
@@ -151,7 +128,7 @@ export default function WebsiteGalleryPage() {
         </section>
       </main>
 
-      <GalleryFooter />
+      <V2PageFooter />
     </div>
   );
 }

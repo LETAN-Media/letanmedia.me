@@ -2,67 +2,125 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './V2PageFooter.css';
 
-const MENU_LINKS = [
-  { label: 'Services', to: '/services' },
-  { label: 'Work', to: '/work' },
-  { label: 'News', to: '/insights' },
-  { label: 'Blog', to: '/insights' },
-  { label: 'About', to: '/about' },
-  { label: 'Contact', to: '/contact' },
+const FOOTER_COLUMNS = [
+  {
+    title: 'PRODUCT',
+    links: [
+      { label: 'Trang chủ', to: '/' },
+      { label: 'Dịch vụ', to: '/services' },
+    ],
+  },
+  {
+    title: 'RESOURCES',
+    links: [
+      { label: 'Dự án', to: '/work' },
+      { label: 'Website Gallery', to: '/websitegallery/' },
+      { label: 'App Gallery', to: '/appgallery/' },
+      { label: 'Insights', to: '/insights' },
+      { label: 'Liên hệ', to: '/contact' },
+    ],
+  },
+  {
+    title: 'COMPANY',
+    links: [
+      { label: 'Giới thiệu', to: '/about' },
+      { label: 'Chính sách', to: '/policy' },
+      { label: 'Điều khoản', to: '/terms' },
+    ],
+  },
+  {
+    title: 'CONTACT',
+    links: [
+      { label: 'Email', href: 'mailto:infor@letanmedia.me' },
+      { label: '0765 178 999', href: 'tel:0765178999' },
+      { label: 'Telegram', href: 'https://t.me/Tanlemedia', external: true },
+    ],
+  },
 ];
 
-const LEGAL_LINKS = [
-  { label: 'Privacy', to: '/policy' },
-  { label: 'Terms', to: '/terms' },
+const SOCIAL_ICONS = [
+  ['Discord', '/v2/images/ico-discord.svg'],
+  ['YouTube', '/v2/images/ico-yt.svg'],
+  ['X', '/v2/images/ico-x.svg'],
+  ['LinkedIn', '/v2/images/ico-linked.svg'],
+  ['Instagram', '/v2/images/ico-insta.svg'],
 ];
+
+function FooterLink({ item }) {
+  if (item.href) {
+    return (
+      <a
+        href={item.href}
+        target={item.external ? '_blank' : undefined}
+        rel={item.external ? 'noopener noreferrer' : undefined}
+      >
+        {item.label}
+      </a>
+    );
+  }
+
+  return <Link to={item.to}>{item.label}</Link>;
+}
 
 /**
- * Footer used by pages that need the V2 homepage's visual identity.
- * Static/React-only — no Peach runtime, no WebGL.
+ * Shared footer for inner pages. Its structure and proportions mirror the
+ * static V2 homepage footer without importing or modifying the Peach runtime.
  */
 export default function V2PageFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="v2p-footer">
-      <div className="v2p-footer__inner">
-        <div className="v2p-footer__brand">
-          <Link to="/" className="v2p-footer__logo">LETAN Media</Link>
-          <p className="v2p-footer__tagline">
-            Giải pháp AI, truyền thông số và phát triển phần mềm cho cá nhân &amp; doanh nghiệp.
-          </p>
-          <ul className="v2p-footer__contact">
-            <li><a href="tel:0765178999">Hotline/Zalo: 0765 178 999</a></li>
-            <li><a href="mailto:infor@letanmedia.me">infor@letanmedia.me</a></li>
-            <li><a href="https://t.me/Tanlemedia" target="_blank" rel="noopener noreferrer">Telegram: @Tanlemedia</a></li>
-          </ul>
-        </div>
+    <footer className="v2p-footer" aria-labelledby="v2p-footer-title">
+      <div className="v2p-footer__cta">
+        <Link className="v2p-footer__logo" to="/" aria-label="LETAN Media — Trang chủ">
+          <img
+            src="https://image.letanmedia.me/homepage/brand/logo1-v2.svg"
+            alt="LETAN Media"
+          />
+        </Link>
 
-        <div className="v2p-footer__col">
-          <h3>Menu</h3>
-          <ul>
-            {MENU_LINKS.map((item) => (
-              <li key={item.label}>
-                <Link to={item.to}>{item.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <p id="v2p-footer-title">
+          Start building <em>magic</em> today.
+        </p>
 
-        <div className="v2p-footer__col">
-          <h3>Legal</h3>
-          <ul>
-            {LEGAL_LINKS.map((item) => (
-              <li key={item.label}>
-                <Link to={item.to}>{item.label}</Link>
-              </li>
-            ))}
-          </ul>
+        <div className="v2p-footer__actions">
+          <Link className="v2p-footer__button v2p-footer__button--outline" to="/contact">
+            Book a Call
+          </Link>
+          <Link className="v2p-footer__button v2p-footer__button--light" to="/contact">
+            Get Started
+          </Link>
         </div>
       </div>
 
-      <div className="v2p-footer__bottom">
-        <span>© {year} LETAN Media. All rights reserved.</span>
+      <div className="v2p-footer__lower">
+        <nav className="v2p-footer__links" aria-label="Điều hướng chân trang">
+          {FOOTER_COLUMNS.map((column) => (
+            <div className="v2p-footer__column" key={column.title}>
+              <h2>{column.title}</h2>
+              {column.links.map((item) => (
+                <FooterLink item={item} key={`${column.title}-${item.label}`} />
+              ))}
+            </div>
+          ))}
+        </nav>
+
+        <div className="v2p-footer__socials" aria-label="Các kênh mạng xã hội">
+          {SOCIAL_ICONS.map(([label, src]) => (
+            <span className="v2p-footer__social" title={label} key={label}>
+              <img src={src} alt="" aria-hidden="true" loading="lazy" />
+            </span>
+          ))}
+        </div>
+
+        <p className="v2p-footer__copyright">LETAN Media © {year}</p>
+        <img
+          className="v2p-footer__gradient"
+          src="/v2/images/gradient.png"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        />
       </div>
     </footer>
   );
