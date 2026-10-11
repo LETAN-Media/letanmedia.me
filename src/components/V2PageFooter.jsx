@@ -6,26 +6,26 @@ const FOOTER_COLUMNS = [
   {
     title: 'PRODUCT',
     links: [
-      { label: 'Trang chủ', to: '/' },
-      { label: 'Dịch vụ', to: '/services' },
+      { label: 'Home', to: '/' },
+      { label: 'Services', to: '/services' },
     ],
   },
   {
     title: 'RESOURCES',
     links: [
-      { label: 'Dự án', to: '/work' },
+      { label: 'Work', to: '/work' },
       { label: 'Website Gallery', to: '/websitegallery/' },
       { label: 'App Gallery', to: '/appgallery/' },
       { label: 'Insights', to: '/insights' },
-      { label: 'Liên hệ', to: '/contact' },
+      { label: 'Contact', to: '/contact' },
     ],
   },
   {
     title: 'COMPANY',
     links: [
-      { label: 'Giới thiệu', to: '/about' },
-      { label: 'Chính sách', to: '/policy' },
-      { label: 'Điều khoản', to: '/terms' },
+      { label: 'About', to: '/about' },
+      { label: 'Privacy Policy', to: '/policy' },
+      { label: 'Terms', to: '/terms' },
     ],
   },
   {
@@ -72,7 +72,7 @@ export default function V2PageFooter() {
   return (
     <footer className="v2p-footer" aria-labelledby="v2p-footer-title">
       <div className="v2p-footer__cta">
-        <Link className="v2p-footer__logo" to="/" aria-label="LETAN Media — Trang chủ">
+        <Link className="v2p-footer__logo" to="/" aria-label="LETAN Media — Home">
           <img
             src="https://image.letanmedia.me/homepage/brand/logo1-v2.svg"
             alt="LETAN Media"
@@ -94,7 +94,7 @@ export default function V2PageFooter() {
       </div>
 
       <div className="v2p-footer__lower">
-        <nav className="v2p-footer__links" aria-label="Điều hướng chân trang">
+        <nav className="v2p-footer__links" aria-label="Footer navigation">
           {FOOTER_COLUMNS.map((column) => (
             <div className="v2p-footer__column" key={column.title}>
               <h2>{column.title}</h2>
@@ -105,7 +105,7 @@ export default function V2PageFooter() {
           ))}
         </nav>
 
-        <div className="v2p-footer__socials" aria-label="Các kênh mạng xã hội">
+        <div className="v2p-footer__socials" aria-label="Social media channels">
           {SOCIAL_ICONS.map(([label, src]) => (
             <span className="v2p-footer__social" title={label} key={label}>
               <img src={src} alt="" aria-hidden="true" loading="lazy" />

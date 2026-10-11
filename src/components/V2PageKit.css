@@ -365,3 +365,301 @@
   border-color: var(--v2k-purple);
   color: var(--v2k-purple);
 }
+
+/* ── LETAN 2026 inner-page art direction ───────────────────────────
+   The homepage remains an isolated Peach document. These overrides bring
+   React-owned pages into the same midnight / cream / violet visual language
+   without importing or mutating the homepage runtime. */
+
+.v2k {
+  --v2k-navy: #000019;
+  --v2k-purple: #6f5aff;
+  --v2k-purple-soft: rgba(111, 90, 255, 0.1);
+  --v2k-cream: #f3f3f0;
+  --v2k-ink: #17132e;
+  --v2k-ink-muted: rgba(23, 19, 46, 0.66);
+  --v2k-border: rgba(18, 6, 68, 0.12);
+  font-family: "Letan Haas", Arial, sans-serif;
+}
+
+.v2k-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(500px, 68vh, 700px);
+  padding: 160px clamp(24px, 6vw, 96px) 80px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  color: #ffffff;
+  background: linear-gradient(120deg, rgba(13, 9, 58, 0.54), transparent 46%), #000019;
+}
+
+.v2k-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: clamp(-160px, -8vw, -80px);
+  bottom: clamp(-260px, -14vw, -120px);
+  width: clamp(420px, 52vw, 840px);
+  aspect-ratio: 1;
+  border-radius: 46% 54% 63% 37% / 42% 44% 56% 58%;
+  background:
+    radial-gradient(circle at 35% 32%, rgba(255, 178, 224, 0.74), transparent 18%),
+    radial-gradient(circle at 54% 46%, rgba(111, 90, 255, 0.72), transparent 42%),
+    radial-gradient(circle at 66% 64%, rgba(54, 221, 255, 0.44), transparent 34%);
+  filter: blur(12px);
+  opacity: 0.78;
+  transform: rotate(-12deg);
+  animation: v2k-signature-drift 12s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  pointer-events: none;
+}
+
+.v2k-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 4vw;
+  bottom: -22vw;
+  width: min(58vw, 820px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+@keyframes v2k-signature-drift {
+  from { transform: translate3d(0, 0, 0) rotate(-12deg) scale(0.98); }
+  to { transform: translate3d(-2.5%, -2%, 0) rotate(-7deg) scale(1.03); }
+}
+
+.v2k-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.v2k-hero__eyebrow {
+  margin-bottom: 24px;
+  color: #b9adff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+.v2k-hero__title {
+  max-width: 960px;
+  margin-bottom: 28px;
+  color: #ffffff;
+  font-size: clamp(56px, 8vw, 118px);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+}
+
+.v2k-hero__subtitle {
+  max-width: 720px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(17px, 1.5vw, 22px);
+  line-height: 1.55;
+}
+
+.v2k-section__inner {
+  max-width: 1280px;
+  padding-inline: clamp(24px, 5vw, 72px);
+}
+
+.v2k-section-eyebrow {
+  margin-bottom: 14px;
+  color: var(--v2k-purple);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+.v2k-section-title {
+  color: var(--v2k-ink);
+  font-size: clamp(36px, 4.6vw, 68px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.v2k-card {
+  padding: 32px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 18px 60px rgba(18, 6, 68, 0.04);
+  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), border-color 250ms ease, box-shadow 250ms ease;
+}
+
+.v2k-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(111, 90, 255, 0.42);
+  box-shadow: 0 26px 80px rgba(18, 6, 68, 0.1);
+}
+
+.v2k-card__eyebrow {
+  color: var(--v2k-purple);
+  font-weight: 500;
+  letter-spacing: 0.13em;
+}
+
+.v2k-card__title {
+  color: var(--v2k-ink);
+  font-size: clamp(23px, 2vw, 31px);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+
+.v2k-card__desc {
+  color: var(--v2k-ink-muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.v2k-card__media {
+  margin: -32px -32px 24px;
+  border-radius: 18px 18px 0 0;
+}
+
+.v2k-card__media img {
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.v2k-num {
+  font-size: 42px;
+  font-weight: 400;
+  opacity: 0.18;
+}
+
+.v2k-tag,
+.v2k-filter-btn {
+  border-radius: 14px;
+}
+
+.v2k-filter-btn {
+  transition: transform 220ms ease, color 220ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+
+.v2k-filter-btn:hover {
+  transform: translateY(-2px);
+}
+
+.v2k-arrow {
+  width: 34px;
+  height: 34px;
+}
+
+.v2k-cta {
+  padding: 64px clamp(24px, 5vw, 72px) 96px;
+}
+
+.v2k-cta__panel {
+  position: relative;
+  max-width: 1280px;
+  padding: clamp(64px, 8vw, 120px) 32px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background: radial-gradient(circle at 84% 18%, rgba(111, 90, 255, 0.36), transparent 30%), #000019;
+}
+
+.v2k-cta__title {
+  font-size: clamp(38px, 5vw, 72px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.v2k-cta__desc {
+  max-width: 680px;
+  font-size: 17px;
+}
+
+.v2k-btn {
+  min-height: 50px;
+  padding: 0 22px;
+  border-radius: 16px;
+  font-weight: 400;
+  transition: transform 220ms ease, background-color 220ms ease, border-color 220ms ease;
+}
+
+.v2k-btn:hover {
+  transform: translateY(-2px);
+}
+
+.v2k :is(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid #8b72ff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .v2k-hero {
+    min-height: 540px;
+    padding: 128px 20px 56px;
+  }
+
+  .v2k-hero::before {
+    right: -240px;
+    bottom: -140px;
+    width: 540px;
+    opacity: 0.64;
+  }
+
+  .v2k-hero::after {
+    right: -48vw;
+    bottom: -30vw;
+    width: 112vw;
+  }
+
+  .v2k-hero__title {
+    font-size: clamp(50px, 15vw, 72px);
+    line-height: 0.9;
+  }
+
+  .v2k-hero__subtitle {
+    font-size: 17px;
+  }
+
+  .v2k-card {
+    padding: 24px;
+  }
+
+  .v2k-card__media {
+    margin: -24px -24px 20px;
+  }
+
+  .v2k-cta {
+    padding: 40px 20px 72px;
+  }
+
+  .v2k-cta__panel {
+    padding: 64px 22px;
+    border-radius: 18px;
+  }
+
+  .v2k-cta__actions {
+    display: grid;
+  }
+
+  .v2k-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2k-hero::before {
+    animation: none;
+  }
+
+  .v2k-card,
+  .v2k-card__media img,
+  .v2k-filter-btn,
+  .v2k-btn {
+    transition: none;
+  }
+}

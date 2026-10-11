@@ -1,5 +1,7 @@
 import React from 'react';
 import LegalLayout from './LegalLayout';
+import V2PageHeader from './V2PageHeader';
+import V2PageFooter from './V2PageFooter';
 
 const PrivacyPolicy = () => {
   const sections = [
@@ -69,13 +71,17 @@ const PrivacyPolicy = () => {
   ];
 
   return (
-    <LegalLayout
-      titlePrefix="Chính Sách"
-      titleHighlight="Quyền Riêng Tư"
-      updateDate="Cập nhật lần cuối: Tháng 07/2026"
-      intro="LETAN Media (&quot;chúng tôi&quot;) cam kết tôn trọng và bảo vệ quyền riêng tư của khách hàng, đối tác và người dùng (&quot;bạn&quot;). Chính sách này quy định cách chúng tôi thu thập, sử dụng, lưu trữ, bảo vệ và xử lý thông tin cá nhân khi bạn truy cập website, liên hệ tư vấn hoặc sử dụng dịch vụ của LETAN Media. Việc bạn tiếp tục sử dụng website hoặc dịch vụ đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý với chính sách này."
-      sections={sections}
-    />
+    <div className="legal-v2-shell">
+      <V2PageHeader />
+      <LegalLayout
+        titlePrefix="Chính Sách"
+        titleHighlight="Quyền Riêng Tư"
+        updateDate="Cập nhật lần cuối: Tháng 07/2026"
+        intro="LETAN Media (&quot;chúng tôi&quot;) cam kết tôn trọng và bảo vệ quyền riêng tư của khách hàng, đối tác và người dùng (&quot;bạn&quot;). Chính sách này quy định cách chúng tôi thu thập, sử dụng, lưu trữ, bảo vệ và xử lý thông tin cá nhân khi bạn truy cập website, liên hệ tư vấn hoặc sử dụng dịch vụ của LETAN Media. Việc bạn tiếp tục sử dụng website hoặc dịch vụ đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý với chính sách này."
+        sections={sections}
+      />
+      <V2PageFooter />
+    </div>
   );
 };
 

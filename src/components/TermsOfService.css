@@ -334,3 +334,204 @@
   background: var(--tos-purple-soft);
   color: var(--tos-purple);
 }
+
+/* Homepage-aligned legal presentation. */
+.tos-page {
+  --tos-navy: #000019;
+  --tos-purple: #6f5aff;
+  --tos-purple-soft: rgba(111, 90, 255, 0.1);
+  --tos-cream: #f3f3f0;
+  --tos-ink: #17132e;
+  --tos-ink-muted: rgba(23, 19, 46, 0.66);
+  font-family: "Letan Haas", Arial, sans-serif;
+}
+
+.tos-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(520px, 68vh, 700px);
+  padding: 160px clamp(24px, 6vw, 96px) 80px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  color: #ffffff;
+  background: linear-gradient(120deg, rgba(13, 9, 58, 0.54), transparent 46%), #000019;
+}
+
+.tos-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: clamp(-160px, -8vw, -80px);
+  bottom: clamp(-260px, -14vw, -120px);
+  width: clamp(420px, 52vw, 840px);
+  aspect-ratio: 1;
+  border-radius: 46% 54% 63% 37% / 42% 44% 56% 58%;
+  background:
+    radial-gradient(circle at 35% 32%, rgba(255, 178, 224, 0.74), transparent 18%),
+    radial-gradient(circle at 54% 46%, rgba(111, 90, 255, 0.72), transparent 42%),
+    radial-gradient(circle at 66% 64%, rgba(54, 221, 255, 0.44), transparent 34%);
+  filter: blur(12px);
+  opacity: 0.78;
+  animation: tos-signature-drift 12s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  pointer-events: none;
+}
+
+.tos-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 4vw;
+  bottom: -22vw;
+  width: min(58vw, 820px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+@keyframes tos-signature-drift {
+  from { transform: translate3d(0, 0, 0) rotate(-12deg) scale(0.98); }
+  to { transform: translate3d(-2.5%, -2%, 0) rotate(-7deg) scale(1.03); }
+}
+
+.tos-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1280px;
+}
+
+.tos-hero__eyebrow {
+  color: #b9adff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+.tos-hero__title {
+  max-width: 960px;
+  color: #ffffff;
+  font-size: clamp(56px, 8vw, 112px);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+}
+
+.tos-hero__subtitle {
+  max-width: 720px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(17px, 1.5vw, 22px);
+}
+
+.tos-hero__date {
+  color: #b9adff;
+}
+
+.tos-hero__intro {
+  max-width: 900px;
+  border-color: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.64);
+}
+
+.tos-body {
+  padding-top: clamp(56px, 7vw, 96px);
+}
+
+.tos-body__inner {
+  max-width: 1280px;
+}
+
+.tos-toc {
+  top: 112px;
+  padding: 24px;
+  border: 1px solid var(--tos-border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(18px);
+}
+
+.tos-toc__link {
+  padding-block: 3px;
+}
+
+.tos-card {
+  padding: clamp(28px, 4vw, 48px);
+  border-radius: 18px;
+  box-shadow: 0 18px 60px rgba(18, 6, 68, 0.04);
+  transition: border-color 250ms ease, transform 450ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 250ms ease;
+}
+
+.tos-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(111, 90, 255, 0.34);
+  box-shadow: 0 24px 70px rgba(18, 6, 68, 0.08);
+}
+
+.tos-card__number {
+  color: var(--tos-purple);
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.tos-card__title {
+  color: var(--tos-ink);
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+.tos-paragraph,
+.tos-list__item {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.tos-page :is(a, button):focus-visible {
+  outline: 2px solid #8b72ff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .tos-hero {
+    min-height: 620px;
+    padding: 128px 20px 56px;
+  }
+
+  .tos-hero::before {
+    right: -240px;
+    bottom: -140px;
+    width: 540px;
+    opacity: 0.64;
+  }
+
+  .tos-hero::after {
+    right: -48vw;
+    bottom: -30vw;
+    width: 112vw;
+  }
+
+  .tos-hero__title {
+    font-size: clamp(50px, 15vw, 72px);
+    line-height: 0.9;
+  }
+
+  .tos-body {
+    padding: 40px 20px 72px;
+  }
+
+  .tos-card {
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tos-hero::before {
+    animation: none;
+  }
+
+  .tos-card {
+    transition: none;
+  }
+}

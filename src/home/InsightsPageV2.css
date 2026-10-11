@@ -78,3 +78,27 @@
   padding: 64px 0;
   color: var(--v2k-ink-muted);
 }
+
+/* Homepage-aligned refinement. */
+.ins2-featured,
+.ins2-all {
+  padding-block: clamp(72px, 8vw, 112px);
+}
+
+.ins2-featured__grid,
+.ins2-grid {
+  gap: 24px;
+}
+
+.ins2-featured__grid {
+  margin-top: 32px;
+}
+
+.ins2-all__head {
+  margin-bottom: 36px;
+}
+
+.ins2-card__meta {
+  margin-top: auto;
+  padding-top: 24px;
+}

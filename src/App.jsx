@@ -79,6 +79,7 @@ function App() {
     [
       '/tiktok-report-policy',
       '/terms',
+      '/policy',
       '/services',
       '/contact',
       '/about',

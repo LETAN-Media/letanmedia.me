@@ -222,3 +222,73 @@
   font-size: 12.5px;
   color: var(--v2k-ink-muted);
 }
+
+/* Homepage-aligned refinement. */
+.abt2-philosophy,
+.abt2-section {
+  padding-block: clamp(72px, 8vw, 112px);
+}
+
+.abt2-philosophy__grid {
+  gap: clamp(40px, 7vw, 88px);
+}
+
+.abt2-philosophy__title {
+  font-size: clamp(34px, 4.4vw, 62px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.abt2-philosophy__text,
+.abt2-section__lead {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.abt2-quote {
+  padding: clamp(32px, 4vw, 52px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  background: radial-gradient(circle at 82% 20%, rgba(111, 90, 255, 0.4), transparent 36%), #000019;
+}
+
+.abt2-quote blockquote {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(24px, 2.4vw, 38px);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.abt2-section__head {
+  max-width: 820px;
+  margin-bottom: 48px;
+}
+
+.abt2-pillars,
+.abt2-method,
+.abt2-metrics {
+  gap: 16px;
+}
+
+.abt2-pillar__icon,
+.abt2-metric__icon {
+  border-radius: 14px;
+}
+
+.abt2-metric {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.abt2-metric strong {
+  font-size: 34px;
+  font-weight: 400;
+}
+
+@media (max-width: 767px) {
+  .abt2-philosophy,
+  .abt2-section {
+    padding-block: 64px;
+  }
+}

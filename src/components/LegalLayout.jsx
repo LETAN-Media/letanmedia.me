@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Check, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import './LegalLayout.css';
@@ -64,6 +64,7 @@ export default function LegalLayout({
 }) {
   const [activeSection, setActiveSection] = useState(0);
   const [mobileTocOpen, setMobileTocOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -116,7 +117,7 @@ export default function LegalLayout({
           
           <motion.h1 
             className="legal-title"
-            initial={{ opacity: 0, y: 30 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
@@ -125,7 +126,7 @@ export default function LegalLayout({
           
           <motion.p 
             className="legal-meta"
-            initial={{ opacity: 0 }}
+            initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
@@ -134,7 +135,7 @@ export default function LegalLayout({
           
           <motion.div 
             className="legal-intro"
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
@@ -202,7 +203,7 @@ export default function LegalLayout({
         </div>
 
         {/* Content Body */}
-        <main className="legal-content">
+        <div className="legal-content">
           {sections.map((section, index) => {
             const cleanTitle = section.title.replace(/^\d+\.\s*/, '');
             return (
@@ -210,8 +211,8 @@ export default function LegalLayout({
                 key={index}
                 id={`section-${index}`}
                 className="legal-section"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
               >
@@ -228,7 +229,7 @@ export default function LegalLayout({
           })}
 
 
-        </main>
+        </div>
 
       </div>
     </div>

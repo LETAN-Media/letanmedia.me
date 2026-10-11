@@ -36,3 +36,32 @@
   font-weight: 600;
   color: var(--v2k-purple);
 }
+
+/* Homepage-aligned refinement. */
+.svc2-grid-section {
+  padding-block: clamp(72px, 8vw, 112px);
+}
+
+.svc2-grid {
+  gap: 16px;
+}
+
+.svc2-card {
+  min-height: 360px;
+}
+
+.svc2-card__outcome {
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
+.svc2-card .v2k-card__cta {
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+@media (max-width: 767px) {
+  .svc2-card {
+    min-height: 0;
+  }
+}
