@@ -27,11 +27,7 @@ const ServicesIndex = () => {
         <div className="v2k-hero__inner">
           <Reveal>
             <p className="v2k-hero__eyebrow">SERVICES · LETAN MEDIA</p>
-            <h1 className="v2k-hero__title">
-              GIẢI PHÁP
-              <br />
-              SỐ HÓA
-            </h1>
+            <h1 className="v2k-hero__title">GIẢI PHÁP SỐ HÓA</h1>
             <p className="v2k-hero__subtitle">
               Mỗi dịch vụ tại LETAN Media được xây dựng từ bài toán thực tế của cá nhân và doanh nghiệp — kết hợp công nghệ AI, năng lực kỹ thuật và thực thi đa kênh chuẩn mực.
             </p>
@@ -78,11 +74,7 @@ const ServicesIndex = () => {
               <span className="v2k-cta__dot" aria-hidden="true" />
               TƯ VẤN GIẢI PHÁP
             </p>
-            <h2 className="v2k-cta__title">
-              Bạn đang tìm kiếm giải pháp nào
-              <br />
-              cho doanh nghiệp của mình?
-            </h2>
+            <h2 className="v2k-cta__title">Bạn đang tìm kiếm giải pháp nào cho doanh nghiệp của mình?</h2>
             <p className="v2k-cta__desc">
               Đội ngũ kỹ thuật và chuyên gia của LETAN Media sẽ phản hồi, rà soát hiện trạng và đề xuất phương án tối ưu trong vòng 24 giờ.
             </p>

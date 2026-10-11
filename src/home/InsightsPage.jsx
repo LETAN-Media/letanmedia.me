@@ -59,11 +59,7 @@ const InsightsPage = () => {
         <div className="v2k-hero__inner">
           <Reveal>
             <p className="v2k-hero__eyebrow">INSIGHTS · LETAN MEDIA</p>
-            <h1 className="v2k-hero__title">
-              KIẾN THỨC
-              <br />
-              CHUYÊN SÂU
-            </h1>
+            <h1 className="v2k-hero__title">KIẾN THỨC CHUYÊN SÂU</h1>
             <p className="v2k-hero__subtitle">
               {allCount > 0
                 ? `${allCount} bài viết thực tế từ kinh nghiệm vận hành — không phải nội dung AI-generated tràn lan.`
@@ -135,11 +131,7 @@ const InsightsPage = () => {
               <span className="v2k-cta__dot" aria-hidden="true" />
               ĐỒNG HÀNH &amp; PHÁT TRIỂN
             </p>
-            <h2 className="v2k-cta__title">
-              Bạn cần tư vấn giải pháp
-              <br />
-              dành riêng cho doanh nghiệp?
-            </h2>
+            <h2 className="v2k-cta__title">Bạn cần tư vấn giải pháp dành riêng cho doanh nghiệp?</h2>
             <p className="v2k-cta__desc">
               Đội ngũ chuyên gia LETAN Media sẵn sàng trao đổi chi tiết về kiến trúc AI, chiến lược tăng trưởng và bảo vệ thương hiệu số.
             </p>

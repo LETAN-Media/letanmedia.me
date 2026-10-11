@@ -215,11 +215,7 @@ const ContactPage = () => {
         <div className="v2k-hero__inner">
           <Reveal>
             <p className="v2k-hero__eyebrow">CONTACT · LETAN MEDIA</p>
-            <h1 className="v2k-hero__title">
-              TRAO ĐỔI
-              <br />
-              VỚI LETAN
-            </h1>
+            <h1 className="v2k-hero__title">TRAO ĐỔI VỚI LETAN</h1>
             <p className="v2k-hero__subtitle">
               Digital Growth, AI Automation, Website/Software hoặc Platform Protection — cho chúng tôi biết bạn cần gì, chúng tôi sẽ phản hồi trong 24h.
             </p>

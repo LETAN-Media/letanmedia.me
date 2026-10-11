@@ -292,3 +292,158 @@
     padding-block: 64px;
   }
 }
+
+/* UI/UX Pro Max: manifesto-led agency narrative. */
+.abt2-philosophy,
+.abt2-section {
+  padding-block: clamp(72px, 9vw, 120px);
+}
+
+.abt2-philosophy__grid {
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.75fr);
+  gap: clamp(48px, 9vw, 120px);
+}
+
+.abt2-philosophy__title {
+  max-width: 14ch;
+  font-size: clamp(44px, 5.5vw, 76px);
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.abt2-philosophy__text {
+  max-width: 66ch;
+}
+
+.abt2-quote {
+  position: sticky;
+  top: 120px;
+  padding: clamp(36px, 4vw, 52px);
+  border-radius: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    #000019;
+  background-size: 100% 64px, auto;
+}
+
+.abt2-quote blockquote {
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.15;
+}
+
+.abt2-section--alt {
+  background: #e8e8e2;
+}
+
+.abt2-section__head {
+  max-width: 900px;
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+
+.abt2-section__lead {
+  max-width: 58ch;
+}
+
+.abt2-pillars {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-bottom: 1px solid var(--v2k-line);
+}
+
+.abt2-pillar {
+  min-height: 310px;
+  padding: 36px;
+}
+
+.abt2-pillar:nth-child(odd) {
+  border-right: 1px solid var(--v2k-line);
+}
+
+.abt2-pillar__icon {
+  width: 40px;
+  height: 40px;
+  margin: auto 0 18px;
+  border: 1px solid var(--v2k-line);
+  background: transparent;
+}
+
+.abt2-method {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-bottom: 1px solid var(--v2k-line);
+}
+
+.abt2-method .v2k-card {
+  min-height: 260px;
+  padding: 30px 28px;
+  border-right: 1px solid var(--v2k-line);
+}
+
+.abt2-method .v2k-card:last-child {
+  border-right: 0;
+}
+
+.abt2-metrics {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  padding: clamp(28px, 4vw, 48px);
+  background: #000019;
+}
+
+.abt2-metric {
+  padding: 28px;
+  border: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.abt2-metric:last-child {
+  border-right: 0;
+}
+
+.abt2-metric__icon {
+  margin: 0 0 28px;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: transparent;
+}
+
+.abt2-metric strong,
+.abt2-metric span {
+  color: #ffffff;
+}
+
+.abt2-metric small {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+@media (max-width: 767px) {
+  .abt2-philosophy__grid,
+  .abt2-pillars,
+  .abt2-method,
+  .abt2-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .abt2-quote {
+    position: static;
+  }
+
+  .abt2-pillar,
+  .abt2-method .v2k-card {
+    min-height: 0;
+    padding: 30px 0;
+    border-right: 0;
+  }
+
+  .abt2-metric,
+  .abt2-metric:last-child {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .abt2-metric:last-child {
+    border-bottom: 0;
+  }
+}

@@ -132,11 +132,7 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
           >
             <p className="v2k-hero__eyebrow">VỀ CHÚNG TÔI · AGENCY MANIFESTO</p>
-            <h1 className="v2k-hero__title">
-              KIẾN TẠO VỊ THẾ SỐ
-              <br />
-              BẰNG CÔNG NGHỆ AI
-            </h1>
+            <h1 className="v2k-hero__title">KIẾN TẠO VỊ THẾ SỐ BẰNG CÔNG NGHỆ AI</h1>
             <p className="v2k-hero__subtitle">
               LETAN Media là agency AI-first kết hợp trí tuệ nhân tạo, truyền thông số và kỹ thuật phần mềm để giúp cá nhân và doanh nghiệp xây dựng năng lực tăng trưởng vượt trội trong kỷ nguyên số.
             </p>
@@ -314,11 +310,7 @@ const AboutPage = () => {
               <span className="v2k-cta__dot" aria-hidden="true" />
               HỢP TÁC CÙNG LETAN
             </p>
-            <h2 className="v2k-cta__title">
-              Sẵn sàng nâng cấp năng lực số
-              <br />
-              cho doanh nghiệp của bạn?
-            </h2>
+            <h2 className="v2k-cta__title">Sẵn sàng nâng cấp năng lực số cho doanh nghiệp của bạn?</h2>
             <p className="v2k-cta__desc">
               Từ chiến lược tăng trưởng, ứng dụng AI đến bảo vệ kênh và xây dựng phần mềm — đội ngũ kỹ thuật của chúng tôi luôn sẵn sàng hỗ trợ bạn.
             </p>

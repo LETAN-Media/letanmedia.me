@@ -61,11 +61,7 @@ const WorkPage = () => {
         <div className="wp2-hero__inner">
           <Reveal>
             <p className="wp2-hero__eyebrow">SELECTED WORK · LETAN MEDIA</p>
-            <h1 className="wp2-hero__title">
-              DỰ ÁN
-              <br />
-              THỰC CHIẾN
-            </h1>
+            <h1 className="wp2-hero__title">DỰ ÁN THỰC CHIẾN</h1>
             <p className="wp2-hero__kicker">Selected projects &amp; digital systems</p>
             <p className="wp2-hero__subtitle">
               Những sản phẩm số, hệ thống AI và giải pháp bảo vệ nền tảng được LETAN Media trực tiếp xây dựng và triển khai.
@@ -155,11 +151,7 @@ const WorkPage = () => {
               <span className="wp2-cta__dot" aria-hidden="true" />
               KHỞI ĐỘNG DỰ ÁN
             </p>
-            <h2 className="wp2-cta__title">
-              Bạn có bài toán kinh doanh
-              <br />
-              cần hiện thực hóa bằng công nghệ?
-            </h2>
+            <h2 className="wp2-cta__title">Bạn có bài toán kinh doanh cần hiện thực hóa bằng công nghệ?</h2>
             <p className="wp2-cta__desc">
               Từ việc xây dựng hệ thống web, tích hợp AI tự động hóa đến bảo vệ kênh thương hiệu — chúng tôi sẵn sàng đồng hành cùng bạn.
             </p>

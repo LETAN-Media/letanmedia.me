@@ -438,3 +438,153 @@ textarea.cta2-field__input {
     transition: none;
   }
 }
+
+/* UI/UX Pro Max: direct, low-friction contact experience. */
+.cta2-form-section,
+.cta2-process,
+.cta2-faq-section {
+  padding-block: clamp(64px, 8vw, 104px);
+}
+
+.cta2-grid {
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+  gap: clamp(48px, 8vw, 112px);
+}
+
+.cta2-form,
+.cta2-success {
+  padding: clamp(28px, 4vw, 48px);
+  border: 1px solid var(--v2k-line);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: none;
+}
+
+.cta2-field__input,
+.cta2-field__select {
+  min-height: 52px;
+  border: 0;
+  border-bottom: 1px solid var(--v2k-line);
+  border-radius: 0;
+  background: transparent;
+}
+
+.cta2-field__input:focus,
+.cta2-field__select:focus {
+  border-color: var(--v2k-violet);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.cta2-channels {
+  position: sticky;
+  top: 120px;
+  gap: 0;
+  border-bottom: 1px solid var(--v2k-line);
+}
+
+.cta2-channels__title {
+  margin-bottom: 24px;
+  font-size: 28px;
+}
+
+.cta2-channel {
+  padding: 20px 0;
+  border: 0;
+  border-top: 1px solid var(--v2k-line);
+  border-radius: 0;
+  background: transparent;
+}
+
+.cta2-channel:hover {
+  padding-left: 10px;
+  transform: none;
+  border-color: var(--v2k-violet);
+  box-shadow: none;
+}
+
+.cta2-channel__icon {
+  border: 1px solid var(--v2k-line);
+  border-radius: 50%;
+  background: transparent;
+}
+
+.cta2-process {
+  color: #ffffff;
+  background: #000019;
+  border: 0;
+}
+
+.cta2-process .v2k-section-eyebrow {
+  color: #bdb4ff;
+}
+
+.cta2-process .v2k-section-title {
+  color: #ffffff;
+}
+
+.cta2-process__grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.cta2-process .v2k-card {
+  min-height: 260px;
+  padding: 30px 26px;
+  border-color: rgba(255, 255, 255, 0.16);
+  border-right: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.cta2-process .v2k-card:last-child {
+  border-right: 0;
+}
+
+.cta2-process .v2k-num,
+.cta2-process .v2k-card__title {
+  color: #ffffff;
+}
+
+.cta2-process .v2k-card__desc {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.cta2-faq {
+  max-width: 100%;
+  gap: 0;
+  border-bottom: 1px solid var(--v2k-line);
+}
+
+.cta2-faq-item {
+  border: 0;
+  border-top: 1px solid var(--v2k-line);
+  border-radius: 0;
+  background: transparent;
+}
+
+.cta2-faq-trigger {
+  min-height: 72px;
+  padding-inline: 0;
+  font-size: 18px;
+}
+
+.cta2-faq-panel {
+  max-width: 70ch;
+  padding: 0 0 24px;
+}
+
+@media (max-width: 767px) {
+  .cta2-grid,
+  .cta2-process__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta2-channels {
+    position: static;
+  }
+
+  .cta2-process .v2k-card {
+    min-height: 0;
+    padding-inline: 0;
+    border-right: 0;
+  }
+}
