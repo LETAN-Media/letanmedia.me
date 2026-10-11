@@ -20,7 +20,7 @@ const ServicesIndex = () => {
         path="/services"
       />
 
-      <V2PageHeader />
+      <V2PageHeader overlay inverse />
 
       {/* Hero */}
       <section className="v2k-hero">

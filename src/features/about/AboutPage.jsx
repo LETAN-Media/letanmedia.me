@@ -121,7 +121,7 @@ const AboutPage = () => {
         path="/about"
       />
 
-      <V2PageHeader />
+      <V2PageHeader overlay inverse />
 
       {/* Hero */}
       <section className="v2k-hero">

@@ -54,7 +54,7 @@ const WorkPage = () => {
         path="/work"
       />
 
-      <V2PageHeader />
+      <V2PageHeader overlay inverse />
 
       {/* Hero */}
       <section className="wp2-hero">

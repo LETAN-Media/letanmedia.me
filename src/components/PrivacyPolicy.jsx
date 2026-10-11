@@ -72,7 +72,7 @@ const PrivacyPolicy = () => {
 
   return (
     <div className="legal-v2-shell">
-      <V2PageHeader />
+      <V2PageHeader overlay inverse />
       <LegalLayout
         titlePrefix="Chính Sách"
         titleHighlight="Quyền Riêng Tư"

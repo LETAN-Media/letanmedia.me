@@ -234,7 +234,7 @@ const TermsOfService = () => {
 
   return (
     <div className="tos-page">
-      <V2PageHeader />
+      <V2PageHeader overlay inverse />
 
       {/* App.jsx already wraps routed content in <main id="main-content">;
           avoid a nested/duplicate <main> landmark here. */}

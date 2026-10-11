@@ -208,7 +208,7 @@ const ContactPage = () => {
         path="/contact"
       />
 
-      <V2PageHeader />
+      <V2PageHeader overlay inverse />
 
       {/* Hero */}
       <section className="v2k-hero">
