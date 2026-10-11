@@ -129,7 +129,7 @@ export default function WebsiteGalleryPage() {
         path="/websitegallery"
       />
 
-      <V2PageHeader />
+      <V2PageHeader overlay inverse />
 
       <main>
         <section className="wgp-hero">

@@ -72,7 +72,7 @@ function CloseIcon() {
   );
 }
 
-export default function V2PageHeader() {
+export default function V2PageHeader({ overlay = false, inverse = false }) {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef(null);
@@ -129,12 +129,20 @@ export default function V2PageHeader() {
     };
   }, [menuOpen]);
 
+  const headerClassName = [
+    'v2p-header',
+    overlay ? 'v2p-header--overlay' : '',
+    inverse ? 'v2p-header--inverse' : '',
+  ].filter(Boolean).join(' ');
+
   return (
-    <header className="v2p-header">
+    <header className={headerClassName}>
       <div className="v2p-header__bar">
         <Link className="v2p-header__brand" to="/" aria-label="LETAN Media — Trang chủ">
           <img
-            src="https://image.letanmedia.me/homepage/brand/logo-hero-v1.svg"
+            src={inverse
+              ? 'https://image.letanmedia.me/homepage/brand/logo1-v2.svg'
+              : 'https://image.letanmedia.me/homepage/brand/logo-hero-v1.svg'}
             alt="LETAN Media"
           />
         </Link>
