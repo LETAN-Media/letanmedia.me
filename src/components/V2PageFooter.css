@@ -232,16 +232,16 @@
 
 @media (max-width: 768px) {
   .v2p-footer {
-    min-height: 1124px;
+    min-height: 0;
   }
 
   .v2p-footer__cta {
-    min-height: 751px;
-    padding: 180px 24px 80px;
+    min-height: 0;
+    padding: 0 24px 80px;
   }
 
   .v2p-footer__cta > * {
-    transform: translateY(48px);
+    transform: none;
   }
 
   .v2p-footer__logo img {
