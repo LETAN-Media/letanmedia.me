@@ -46,6 +46,10 @@ const STATIC_ROUTES = {
     title: 'App Gallery | LETAN Media',
     description: 'App Gallery giới thiệu các ứng dụng và phần mềm được LETAN Media trực tiếp thiết kế và phát triển.',
   },
+  '/toolnetworks': {
+    title: 'ToolNetWorks — Software, AI & API',
+    description: 'ToolNetWorks phát triển phần mềm, AI và API. Tìm hiểu AI TikTok Manager, chính sách quyền riêng tư, điều khoản và quy trình xóa dữ liệu.',
+  },
   '/insights': {
     title: 'Kiến thức — AI, Digital Growth & Platform Protection | LETAN Media',
     description: 'Blog & insight về AI, truyền thông số, SEO/GEO, platform protection và web development từ LETAN Media.',
@@ -230,6 +234,19 @@ ${websiteCases.length > 0
 ${appCases.length > 0
   ? `<ul>${appCases.map(c => `<li><a href="/work/${c.slug}">${esc(c.title)}</a> — ${esc(c.category)}</li>`).join('')}</ul>`
   : '<p>Danh mục ứng dụng đang được cập nhật từ dữ liệu dự án đã xác minh.</p>'}`;
+  }
+
+  if (routePath === '/toolnetworks') {
+    return `
+<nav aria-label="Breadcrumb"><a href="/">LETAN Media</a> / <span>ToolNetWorks</span></nav>
+<h1>ToolNetWorks — Software, AI &amp; API</h1>
+<p>${esc(meta.description)}</p>
+<section id="ai-tiktok-manager"><h2>AI TikTok Manager</h2><p>Hệ thống quản lý nhiều tài khoản TikTok, mỗi tài khoản có Pipeline, System Prompt và AI riêng.</p></section>
+<section id="features"><h2>Các tính năng</h2><ul><li>Unified Inbox</li><li>AI Auto Reply</li><li>System Prompt</li><li>Lịch sử hội thoại</li><li>Quản lý tài khoản</li></ul></section>
+<section id="privacy"><h2>Privacy Policy</h2><p>Chính sách mô tả dữ liệu tài khoản, hội thoại, cấu hình pipeline và AI được xử lý khi khách hàng chủ động kết nối tài khoản.</p></section>
+<section id="terms"><h2>Terms of Service</h2><p>Điều khoản về quyền quản lý tài khoản, trách nhiệm với AI và sử dụng API đúng chính sách.</p></section>
+<section id="data-deletion"><h2>Data Deletion</h2><p>Ngắt kết nối tài khoản và gửi yêu cầu xóa dữ liệu đến infor@letanmedia.me.</p></section>
+<section id="contact"><h2>Contact</h2><a href="mailto:infor@letanmedia.me">infor@letanmedia.me</a></section>`;
   }
 
   if (routePath.startsWith('/work/')) {

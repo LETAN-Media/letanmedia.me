@@ -32,6 +32,7 @@ const InsightsPage = lazy(() => import('./home/InsightsPage'));
 const InsightDetail = lazy(() => import('./home/InsightDetail'));
 const WebsiteGalleryPage = lazy(() => import('./home/WebsiteGalleryPage'));
 const AppGalleryPage = lazy(() => import('./home/AppGalleryPage'));
+const ToolNetworksPage = lazy(() => import('./home/ToolNetworksPage'));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -86,6 +87,7 @@ function App() {
       '/insights',
       '/websitegallery',
       '/appgallery',
+      '/toolnetworks',
     ].some((p) => location.pathname === p || location.pathname === `${p}/`) ||
     location.pathname === '/work' ||
     location.pathname === '/work/' ||
@@ -210,6 +212,7 @@ function App() {
           {/* Work & Case Studies */}
           <Route path="/websitegallery" element={<WebsiteGalleryPage />} />
           <Route path="/appgallery" element={<AppGalleryPage />} />
+          <Route path="/toolnetworks" element={<ToolNetworksPage />} />
           <Route path="/work" element={<WorkPage />} />
           <Route path="/work/:slug" element={<CaseStudyDetail />} />
 
