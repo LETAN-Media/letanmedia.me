@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Seo from '../components/Seo';
 import V2PageHeader from '../components/V2PageHeader';
 import V2PageFooter from '../components/V2PageFooter';
+import Reveal from './Reveal';
+import '../components/V2PageKit.css';
 import './ToolNetworksPage.css';
 
 const FEATURES = [
@@ -30,6 +32,13 @@ const FEATURES = [
     title: 'History & Account Management',
     description: 'Theo dõi lịch sử hội thoại, trạng thái kết nối, cấu hình tài khoản và các sự kiện vận hành cần thiết.',
   },
+];
+
+const FLOW = [
+  ['01', 'Tài khoản được ủy quyền', 'Khách hàng chủ động kết nối và cấp quyền.'],
+  ['02', 'Inbox tiếp nhận', 'Sự kiện được định tuyến vào đúng workspace.'],
+  ['03', 'Pipeline riêng', 'Áp dụng rule, System Prompt và ngữ cảnh của tài khoản.'],
+  ['04', 'Phản hồi & lịch sử', 'Phản hồi theo cấu hình và lưu dấu vết hội thoại.'],
 ];
 
 const DATA_ROWS = [
@@ -113,20 +122,73 @@ const TERMS_SECTIONS = [
   },
 ];
 
+const DELETION_STEPS = [
+  {
+    number: '01',
+    title: 'Ngắt kết nối',
+    content: 'Ngắt tài khoản trong khu vực quản lý AI TikTok Manager và/hoặc thu hồi quyền của ứng dụng trong phần cài đặt tài khoản TikTok. Hệ thống sẽ dừng nhận dữ liệu mới từ kết nối đó.',
+  },
+  {
+    number: '02',
+    title: 'Gửi yêu cầu',
+    content: (
+      <>Email đến <a href="mailto:infor@letanmedia.me?subject=ToolNetWorks%20Data%20Deletion%20Request">infor@letanmedia.me</a> với tiêu đề “ToolNetWorks Data Deletion Request”. Cung cấp email workspace, tên doanh nghiệp và tài khoản TikTok cần xóa; không gửi mật khẩu hoặc access token.</>
+    ),
+  },
+  {
+    number: '03',
+    title: 'Xác minh phạm vi',
+    content: 'ToolNetWorks phản hồi qua email để xác minh thẩm quyền và xác nhận phạm vi: token kết nối, metadata tài khoản, lịch sử hội thoại, System Prompt, cấu hình pipeline và phản hồi đã lưu.',
+  },
+  {
+    number: '04',
+    title: 'Xử lý và xác nhận',
+    content: 'Sau khi xác minh, dữ liệu trong phạm vi sẽ được xóa hoặc ẩn danh khỏi hệ thống hoạt động. ToolNetWorks gửi xác nhận hoàn tất và thông báo rõ nếu có bản ghi bắt buộc phải giữ vì nghĩa vụ pháp lý, chống gian lận hoặc sự cố bảo mật.',
+  },
+];
+
+function SectionHeading({ index, eyebrow, title, description }) {
+  return (
+    <div className="tnw2-heading">
+      <p className="tnw2-heading__index">{index}</p>
+      <div>
+        <p className="v2k-section-eyebrow">{eyebrow}</p>
+        <h2 className="v2k-section-title">{title}</h2>
+        {description ? <p className="tnw2-heading__description">{description}</p> : null}
+      </div>
+    </div>
+  );
+}
+
 function ToolNetworksPage() {
+  const [headerSolid, setHeaderSolid] = useState(false);
+
   useEffect(() => {
     const id = window.location.hash.slice(1);
     if (!id) return undefined;
-
     const frame = window.requestAnimationFrame(() => {
       document.getElementById(id)?.scrollIntoView({ block: 'start' });
     });
-
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
+  useEffect(() => {
+    const updateHeader = () => {
+      const hero = document.querySelector('.tnw2-hero');
+      setHeaderSolid(Boolean(hero && hero.getBoundingClientRect().bottom <= 92));
+    };
+
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    window.addEventListener('resize', updateHeader);
+    return () => {
+      window.removeEventListener('scroll', updateHeader);
+      window.removeEventListener('resize', updateHeader);
+    };
+  }, []);
+
   return (
-    <div className="tnw-page">
+    <div className={`v2k tnw2${headerSolid ? ' tnw2--header-solid' : ''}`}>
       <Seo
         title="ToolNetWorks — Software, AI & API"
         description="ToolNetWorks phát triển phần mềm, AI và API. Tìm hiểu AI TikTok Manager, chính sách quyền riêng tư, điều khoản và quy trình xóa dữ liệu."
@@ -135,51 +197,20 @@ function ToolNetworksPage() {
 
       <V2PageHeader overlay inverse />
 
-      <section className="tnw-hero" aria-labelledby="tnw-title">
-        <div className="tnw-hero__glow" aria-hidden="true" />
-        <div className="tnw-shell tnw-hero__grid">
-          <div className="tnw-hero__copy">
-            <p className="tnw-eyebrow">SOFTWARE · AI · API</p>
-            <h1 id="tnw-title">ToolNet<span>Works</span></h1>
-            <p className="tnw-hero__lead">
+      <section className="v2k-hero tnw2-hero" aria-labelledby="tnw-title">
+        <div className="v2k-hero__inner">
+          <Reveal>
+            <p className="v2k-hero__eyebrow">TOOLNETWORKS · SOFTWARE · AI · API</p>
+            <h1 className="v2k-hero__title" id="tnw-title">TOOL<span className="tnw2-hero__word">NETWORKS</span></h1>
+            <p className="v2k-hero__subtitle">
               Thương hiệu phát triển phần mềm, hệ thống AI và API cho những quy trình vận hành cần độ chính xác, khả năng kiểm soát và khả năng mở rộng.
             </p>
-            <div className="tnw-hero__actions">
-              <a className="tnw-button tnw-button--primary" href="#ai-tiktok-manager">Khám phá AI TikTok Manager</a>
-              <a className="tnw-button tnw-button--ghost" href="#privacy">Xem chính sách dữ liệu</a>
-            </div>
-          </div>
-
-          <div className="tnw-system-map" aria-label="Mô hình mỗi tài khoản có pipeline và AI riêng">
-            <div className="tnw-system-map__topline">
-              <span>LIVE SYSTEM MAP</span>
-              <span className="tnw-system-map__status">CONTROLLED</span>
-            </div>
-            <div className="tnw-system-map__account">
-              <span className="tnw-system-map__index">ACCOUNT 01</span>
-              <span className="tnw-system-map__node">PIPELINE 01</span>
-              <span className="tnw-system-map__node tnw-system-map__node--accent">AI 01</span>
-              <span className="tnw-system-map__node">INBOX 01</span>
-            </div>
-            <div className="tnw-system-map__account">
-              <span className="tnw-system-map__index">ACCOUNT 02</span>
-              <span className="tnw-system-map__node">PIPELINE 02</span>
-              <span className="tnw-system-map__node tnw-system-map__node--accent">AI 02</span>
-              <span className="tnw-system-map__node">INBOX 02</span>
-            </div>
-            <div className="tnw-system-map__account">
-              <span className="tnw-system-map__index">ACCOUNT N</span>
-              <span className="tnw-system-map__node">PIPELINE N</span>
-              <span className="tnw-system-map__node tnw-system-map__node--accent">AI N</span>
-              <span className="tnw-system-map__node">INBOX N</span>
-            </div>
-            <p>Mỗi tài khoản · Một cấu hình · Một luồng kiểm soát riêng</p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      <nav className="tnw-local-nav" aria-label="Điều hướng ToolNetWorks">
-        <div className="tnw-shell">
+      <nav className="tnw2-index" aria-label="Điều hướng ToolNetWorks">
+        <div className="tnw2-index__inner">
           <a href="#ai-tiktok-manager">Product</a>
           <a href="#features">Features</a>
           <a href="#privacy">Privacy</a>
@@ -189,155 +220,185 @@ function ToolNetworksPage() {
         </div>
       </nav>
 
-      <div className="tnw-main">
-        <section className="tnw-section tnw-product" id="ai-tiktok-manager">
-          <div className="tnw-shell">
-            <div className="tnw-section-head">
-              <p className="tnw-eyebrow">01 / FLAGSHIP SYSTEM</p>
-              <h2>AI TikTok Manager</h2>
-              <p>Hệ thống quản lý nhiều tài khoản TikTok, trong đó mỗi tài khoản có Pipeline, System Prompt và AI riêng.</p>
-            </div>
+      <div className="tnw2-main">
+        <section className="tnw2-section tnw2-product" id="ai-tiktok-manager">
+          <div className="v2k-section__inner">
+            <Reveal>
+              <SectionHeading
+                index="01"
+                eyebrow="Flagship system"
+                title="AI TikTok Manager"
+                description="Hệ thống quản lý nhiều tài khoản TikTok, trong đó mỗi tài khoản có Pipeline, System Prompt và AI riêng."
+              />
+            </Reveal>
 
-            <div className="tnw-product__layout">
-              <div className="tnw-product__statement">
-                <p className="tnw-product__lead">Một inbox tập trung.<br />Nhiều luồng vận hành độc lập.</p>
-                <p>
+            <div className="tnw2-product__body">
+              <Reveal className="tnw2-product__statement">
+                <p>Một inbox tập trung.<br />Nhiều luồng vận hành độc lập.</p>
+                <span>
                   Hệ thống tiếp nhận sự kiện và hội thoại trong phạm vi quyền TikTok được cấp, đưa chúng vào đúng workspace, áp dụng pipeline của tài khoản đó, rồi tạo hoặc gửi phản hồi theo chế độ khách hàng đã cấu hình.
-                </p>
-              </div>
-              <ol className="tnw-flow" aria-label="Luồng xử lý AI TikTok Manager">
-                <li><span>01</span><strong>Authorized account</strong><small>Khách hàng chủ động kết nối và cấp quyền.</small></li>
-                <li><span>02</span><strong>Inbound message</strong><small>Sự kiện được định tuyến vào đúng inbox.</small></li>
-                <li><span>03</span><strong>Account pipeline</strong><small>Áp dụng rule, System Prompt và ngữ cảnh riêng.</small></li>
-                <li><span>04</span><strong>Reply & history</strong><small>Phản hồi theo chế độ cấu hình và lưu dấu vết hội thoại.</small></li>
+                </span>
+              </Reveal>
+
+              <ol className="tnw2-flow" aria-label="Luồng xử lý AI TikTok Manager">
+                {FLOW.map(([number, title, description], index) => (
+                  <Reveal as="li" delay={index * 0.05} key={number}>
+                    <span>{number}</span>
+                    <strong>{title}</strong>
+                    <p>{description}</p>
+                  </Reveal>
+                ))}
               </ol>
             </div>
           </div>
         </section>
 
-        <section className="tnw-section tnw-features" id="features">
-          <div className="tnw-shell">
-            <div className="tnw-section-head tnw-section-head--compact">
-              <p className="tnw-eyebrow">02 / CAPABILITIES</p>
-              <h2>Các tính năng cốt lõi</h2>
-            </div>
-            <div className="tnw-feature-list">
-              {FEATURES.map((feature) => (
-                <article className="tnw-feature" key={feature.number}>
+        <section className="tnw2-section tnw2-section--strong" id="features">
+          <div className="v2k-section__inner">
+            <Reveal>
+              <SectionHeading index="02" eyebrow="Capabilities" title="Các tính năng cốt lõi" />
+            </Reveal>
+            <div className="tnw2-features">
+              {FEATURES.map((feature, index) => (
+                <Reveal as="article" className="tnw2-feature" delay={index * 0.04} key={feature.number}>
                   <span>{feature.number}</span>
                   <h3>{feature.title}</h3>
                   <p>{feature.description}</p>
-                </article>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="tnw-section tnw-policy" id="privacy">
-          <div className="tnw-shell tnw-policy__grid">
-            <aside className="tnw-policy__aside">
-              <p className="tnw-eyebrow">03 / PRIVACY POLICY</p>
-              <h2>Chính sách quyền riêng tư</h2>
-              <p>Cập nhật lần cuối: 13/10/2026</p>
-            </aside>
-            <div className="tnw-policy__content">
-              <p className="tnw-policy__intro">
+        <section className="tnw2-section tnw2-legal" id="privacy">
+          <div className="v2k-section__inner">
+            <Reveal>
+              <SectionHeading
+                index="03"
+                eyebrow="Privacy policy"
+                title="Chính sách quyền riêng tư"
+                description="Cập nhật lần cuối: 13/10/2026"
+              />
+            </Reveal>
+
+            <div className="tnw2-legal__layout">
+              <p className="tnw2-legal__lead">
                 Phần này mô tả dữ liệu AI TikTok Manager cần để vận hành, dữ liệu đi qua chức năng nào và khách hàng kiểm soát dữ liệu ra sao.
               </p>
 
-              <div className="tnw-data-table" role="table" aria-label="Dữ liệu ToolNetWorks xử lý">
-                <div className="tnw-data-table__head" role="row">
-                  <span role="columnheader">Chức năng</span>
-                  <span role="columnheader">Dữ liệu liên quan</span>
-                  <span role="columnheader">Mục đích</span>
+              <div className="tnw2-legal__content">
+                <div className="tnw2-data" role="table" aria-label="Dữ liệu ToolNetWorks xử lý">
+                  <div className="tnw2-data__head" role="row">
+                    <span role="columnheader">Chức năng</span>
+                    <span role="columnheader">Dữ liệu liên quan</span>
+                    <span role="columnheader">Mục đích</span>
+                  </div>
+                  {DATA_ROWS.map((row) => (
+                    <div className="tnw2-data__row" role="row" key={row.source}>
+                      <div role="cell"><small>Chức năng</small><strong>{row.source}</strong></div>
+                      <div role="cell"><small>Dữ liệu liên quan</small><span>{row.data}</span></div>
+                      <div role="cell"><small>Mục đích</small><span>{row.purpose}</span></div>
+                    </div>
+                  ))}
                 </div>
-                {DATA_ROWS.map((row) => (
-                  <div className="tnw-data-table__row" role="row" key={row.source}>
-                    <strong role="cell">{row.source}</strong>
-                    <span role="cell">{row.data}</span>
-                    <span role="cell">{row.purpose}</span>
-                  </div>
-                ))}
-              </div>
 
-              {PRIVACY_SECTIONS.map((section, index) => (
-                <article className="tnw-legal-block" key={section.title}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <div>
-                    <h3>{section.title}</h3>
-                    {section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                  </div>
-                </article>
-              ))}
+                <div className="tnw2-legal-list">
+                  {PRIVACY_SECTIONS.map((section, index) => (
+                    <article key={section.title}>
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      <div>
+                        <h3>{section.title}</h3>
+                        {section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="tnw-section tnw-policy" id="terms">
-          <div className="tnw-shell tnw-policy__grid">
-            <aside className="tnw-policy__aside">
-              <p className="tnw-eyebrow">04 / TERMS OF SERVICE</p>
-              <h2>Điều khoản sử dụng</h2>
-              <p>Áp dụng cho AI TikTok Manager và dịch vụ ToolNetWorks.</p>
-            </aside>
-            <div className="tnw-policy__content">
-              <p className="tnw-policy__intro">
+        <section className="tnw2-section tnw2-section--strong tnw2-legal" id="terms">
+          <div className="v2k-section__inner">
+            <Reveal>
+              <SectionHeading
+                index="04"
+                eyebrow="Terms of service"
+                title="Điều khoản sử dụng"
+                description="Áp dụng cho AI TikTok Manager và dịch vụ ToolNetWorks."
+              />
+            </Reveal>
+
+            <div className="tnw2-legal__layout">
+              <p className="tnw2-legal__lead">
                 Việc sử dụng dịch vụ đồng nghĩa với việc khách hàng hiểu phạm vi tự động hóa, quyền hạn tài khoản và trách nhiệm khi vận hành phản hồi bằng AI.
               </p>
-              {TERMS_SECTIONS.map((section, index) => (
-                <article className="tnw-legal-block" key={section.title}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <div>
-                    <h3>{section.title}</h3>
-                    <p>{section.body}</p>
-                  </div>
-                </article>
-              ))}
+              <div className="tnw2-legal__content tnw2-legal-list">
+                {TERMS_SECTIONS.map((section, index) => (
+                  <article key={section.title}>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <div>
+                      <h3>{section.title}</h3>
+                      <p>{section.body}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="tnw-section tnw-deletion" id="data-deletion">
-          <div className="tnw-shell">
-            <div className="tnw-section-head">
-              <p className="tnw-eyebrow">05 / DATA DELETION</p>
-              <h2>Ngắt kết nối và yêu cầu xóa dữ liệu</h2>
-              <p>Quy trình công khai dành cho chủ tài khoản hoặc người được ủy quyền hợp lệ.</p>
-            </div>
+        <section className="tnw2-section tnw2-deletion" id="data-deletion">
+          <div className="v2k-section__inner">
+            <Reveal>
+              <SectionHeading
+                index="05"
+                eyebrow="Data deletion"
+                title="Ngắt kết nối và yêu cầu xóa dữ liệu"
+                description="Quy trình công khai dành cho chủ tài khoản hoặc người được ủy quyền hợp lệ."
+              />
+            </Reveal>
 
-            <ol className="tnw-deletion__steps">
-              <li><span>01</span><div><h3>Ngắt kết nối</h3><p>Ngắt tài khoản trong khu vực quản lý AI TikTok Manager và/hoặc thu hồi quyền của ứng dụng trong phần cài đặt tài khoản TikTok. Hệ thống sẽ dừng nhận dữ liệu mới từ kết nối đó.</p></div></li>
-              <li><span>02</span><div><h3>Gửi yêu cầu</h3><p>Email đến <a href="mailto:infor@letanmedia.me?subject=ToolNetWorks%20Data%20Deletion%20Request">infor@letanmedia.me</a> với tiêu đề “ToolNetWorks Data Deletion Request”. Cung cấp email workspace, tên doanh nghiệp và tài khoản TikTok cần xóa; không gửi mật khẩu hoặc access token.</p></div></li>
-              <li><span>03</span><div><h3>Xác minh phạm vi</h3><p>ToolNetWorks phản hồi qua email để xác minh thẩm quyền và xác nhận phạm vi: token kết nối, metadata tài khoản, lịch sử hội thoại, System Prompt, cấu hình pipeline và phản hồi đã lưu.</p></div></li>
-              <li><span>04</span><div><h3>Xử lý và xác nhận</h3><p>Sau khi xác minh, dữ liệu trong phạm vi sẽ được xóa hoặc ẩn danh khỏi hệ thống hoạt động. ToolNetWorks gửi xác nhận hoàn tất và thông báo rõ nếu có bản ghi bắt buộc phải giữ vì nghĩa vụ pháp lý, chống gian lận hoặc sự cố bảo mật.</p></div></li>
+            <ol className="tnw2-deletion__steps">
+              {DELETION_STEPS.map((step, index) => (
+                <Reveal as="li" delay={index * 0.04} key={step.number}>
+                  <span>{step.number}</span>
+                  <div>
+                    <h3>{step.title}</h3>
+                    <p>{step.content}</p>
+                  </div>
+                </Reveal>
+              ))}
             </ol>
 
-            <div className="tnw-deletion__note">
+            <div className="tnw2-deletion__note">
               <strong>Phạm vi không mặc định bao gồm</strong>
               <p>Dữ liệu thống kê đã ẩn danh không thể liên kết ngược với tài khoản; chứng từ giao dịch; hoặc bằng chứng sự cố phải lưu theo pháp luật. Thời gian xử lý và ngoại lệ hợp pháp, nếu có, sẽ được thông báo trong quá trình xác minh.</p>
             </div>
           </div>
         </section>
 
-        <section className="tnw-section tnw-review-note" aria-labelledby="tnw-review-title">
-          <div className="tnw-shell tnw-review-note__inner">
-            <p className="tnw-eyebrow">IMPORTANT</p>
-            <h2 id="tnw-review-title">Minh bạch không đồng nghĩa với được phê duyệt.</h2>
-            <p>
-              Website, Privacy Policy, Terms và Data Deletion đầy đủ giúp hồ sơ nhất quán hơn nhưng không bảo đảm TikTok phê duyệt Business Messaging API. ToolNetWorks không phải TikTok, không đại diện hoặc ngụ ý được TikTok bảo trợ. Khi đăng ký dưới tên doanh nghiệp, tên pháp nhân, địa chỉ, mã số và người đại diện trong hồ sơ phải khớp chính xác với giấy tờ hợp lệ.
-            </p>
-            <a href="https://developers.tiktok.com/docs/en/our-guidelines-developer-guidelines" target="_blank" rel="noopener noreferrer">Xem TikTok Developer Guidelines</a>
+        <section className="tnw2-review" aria-labelledby="tnw-review-title">
+          <div className="v2k-section__inner tnw2-review__inner">
+            <p className="tnw2-review__label">IMPORTANT</p>
+            <div>
+              <h2 id="tnw-review-title">Minh bạch không đồng nghĩa với được phê duyệt.</h2>
+              <p>
+                Website, Privacy Policy, Terms và Data Deletion đầy đủ giúp hồ sơ nhất quán hơn nhưng không bảo đảm TikTok phê duyệt Business Messaging API. ToolNetWorks không phải TikTok, không đại diện hoặc ngụ ý được TikTok bảo trợ. Khi đăng ký dưới tên doanh nghiệp, tên pháp nhân, địa chỉ, mã số và người đại diện trong hồ sơ phải khớp chính xác với giấy tờ hợp lệ.
+              </p>
+              <a href="https://developers.tiktok.com/docs/en/our-guidelines-developer-guidelines" target="_blank" rel="noopener noreferrer">Xem TikTok Developer Guidelines</a>
+            </div>
           </div>
         </section>
 
-        <section className="tnw-section tnw-contact" id="contact">
-          <div className="tnw-shell tnw-contact__inner">
+        <section className="tnw2-contact" id="contact">
+          <div className="v2k-section__inner tnw2-contact__inner">
             <div>
-              <p className="tnw-eyebrow">06 / CONTACT</p>
+              <p className="v2k-section-eyebrow">06 · Contact</p>
               <h2>Liên hệ ToolNetWorks</h2>
             </div>
-            <div className="tnw-contact__details">
-              <p>Hỗ trợ sản phẩm, quyền riêng tư và yêu cầu xóa dữ liệu</p>
+            <div>
+              <p>Hỗ trợ sản phẩm, quyền riêng tư và yêu cầu xóa dữ liệu.</p>
               <a href="mailto:infor@letanmedia.me">infor@letanmedia.me</a>
               <small>Website operator: LETAN Media · letanmedia.me</small>
             </div>
