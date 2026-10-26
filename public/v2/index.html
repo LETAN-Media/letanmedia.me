@@ -1108,6 +1108,8 @@ document.addEventListener("DOMContentLoaded", () => {
       
 <script id="letan-design-ui-cta-links">
 (function () {
+  const BOOK_A_CALL_URL = "https://letanmediawebbot.vercel.app";
+
   const bindCTA = (id, url) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1124,8 +1126,22 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const initCTA = () => {
+    // Book a Call links across mobile menu, desktop navigation, sections, and footer
+    [
+      "ioqrg-2-2-2-2-2-2-2-2-9-4-2",
+      "ioqrg-2-2-2-2-2-2",
+      "ibefj6z",
+      "ioqrg-2-2-2-2-2-3-3-4",
+      "ioqrg-2-2-2-2-2-3-3",
+      "i48vgbe",
+      "i48vgbe-4",
+      "ioqrg-2-2-2-2-2-3-3-2",
+      "i48vgbe-5",
+      "ioqrg-2-2-2-2-2-3-3-2-2",
+      "ioqrg-2-2-2-2-2-3-4"
+    ].forEach((id) => bindCTA(id, BOOK_A_CALL_URL));
+
     // Existing CTA links
-    bindCTA("i48vgbe", "/contact");
     bindCTA("i48vgbe-3", "/design-ui");
 
     // Mobile menu navigation
