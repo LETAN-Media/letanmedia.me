@@ -66,7 +66,7 @@ function FooterLink({ item }) {
  * Shared footer for inner pages. Its structure and proportions mirror the
  * static V2 homepage footer without importing or modifying the Peach runtime.
  */
-export default function V2PageFooter() {
+export default function V2PageFooter({ bookCallHref = '/contact' }) {
   const year = new Date().getFullYear();
 
   return (
@@ -84,9 +84,9 @@ export default function V2PageFooter() {
         </p>
 
         <div className="v2p-footer__actions">
-          <Link className="v2p-footer__button v2p-footer__button--outline" to="/contact">
+          <a className="v2p-footer__button v2p-footer__button--outline" href={bookCallHref}>
             Book a Call
-          </Link>
+          </a>
           <Link className="v2p-footer__button v2p-footer__button--light" to="/contact">
             Get Started
           </Link>

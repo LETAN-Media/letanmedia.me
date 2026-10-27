@@ -72,7 +72,11 @@ function CloseIcon() {
   );
 }
 
-export default function V2PageHeader({ overlay = false, inverse = false }) {
+export default function V2PageHeader({
+  overlay = false,
+  inverse = false,
+  bookCallHref = 'https://calendly.com/peachweb/30min',
+}) {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef(null);
@@ -176,7 +180,7 @@ export default function V2PageHeader({ overlay = false, inverse = false }) {
             <a
               key={label}
               className={`v2p-header__action ${index === 1 ? 'v2p-header__action--outline' : ''} ${index === 2 ? 'v2p-header__action--primary' : ''}`}
-              href={href}
+              href={label === 'Book a Call' ? bookCallHref : href}
               target="_blank"
               rel="noreferrer"
             >
@@ -240,7 +244,7 @@ export default function V2PageHeader({ overlay = false, inverse = false }) {
               <a
                 key={label}
                 className={`v2p-header__action ${index === 0 ? 'v2p-header__action--outline' : 'v2p-header__action--primary'}`}
-                href={href}
+                href={label === 'Book a Call' ? bookCallHref : href}
                 target="_blank"
                 rel="noreferrer"
               >

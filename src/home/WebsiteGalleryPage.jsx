@@ -8,6 +8,7 @@ import './WebsiteGalleryPage.css';
 
 const ASSET_ROOT = 'https://files.peachworlds.com/website';
 const POSTER_ROOT = '/images/website-gallery';
+const BOOK_CALL_URL = 'https://letanmediawebbot.vercel.app';
 
 const showcaseItems = [
   { poster: `${POSTER_ROOT}/atom.webp`, video: `${ASSET_ROOT}/4f9c3e3c-ca81-4abc-ad28-e5b006e4f815/atom-360.mp4` },
@@ -106,7 +107,7 @@ export default function WebsiteGalleryPage() {
         path="/websitegallery"
       />
 
-      <V2PageHeader overlay inverse />
+      <V2PageHeader overlay inverse bookCallHref={BOOK_CALL_URL} />
 
       <main>
         <section className="wgp-hero">
@@ -128,7 +129,7 @@ export default function WebsiteGalleryPage() {
         </section>
       </main>
 
-      <V2PageFooter />
+      <V2PageFooter bookCallHref={BOOK_CALL_URL} />
     </div>
   );
 }
